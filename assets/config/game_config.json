@@ -1,0 +1,8 @@
+{
+  "version": "0.1.0",
+  "maxOfflineHours": 8,
+  "autoSaveIntervalSeconds": 30,
+  "maxGeneratorLevel": 1000,
+  "maxUpgradeLevel": 100,
+  "tickRateMs": 100
+}
