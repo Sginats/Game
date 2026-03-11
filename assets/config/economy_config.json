@@ -1,0 +1,125 @@
+{
+  "baseTapValue": "1",
+  "baseTapMultiplier": "1",
+  "generators": [
+    {
+      "id": "gen_basic_processor",
+      "name": "Basic Processor",
+      "description": "A simple processing unit that generates coins automatically.",
+      "eraId": "era_1",
+      "baseCost": "10",
+      "costGrowthRate": "1.15",
+      "baseProduction": "1",
+      "unlockRequirement": null
+    },
+    {
+      "id": "gen_memory_bank",
+      "name": "Memory Bank",
+      "description": "Stores and processes data to earn coins.",
+      "eraId": "era_1",
+      "baseCost": "100",
+      "costGrowthRate": "1.15",
+      "baseProduction": "5",
+      "unlockRequirement": "gen_basic_processor:5"
+    },
+    {
+      "id": "gen_neural_link",
+      "name": "Neural Link",
+      "description": "An early neural network that accelerates coin production.",
+      "eraId": "era_1",
+      "baseCost": "1000",
+      "costGrowthRate": "1.15",
+      "baseProduction": "25",
+      "unlockRequirement": "gen_memory_bank:5"
+    },
+    {
+      "id": "gen_data_miner",
+      "name": "Data Miner",
+      "description": "Mines valuable data streams for coins.",
+      "eraId": "era_1",
+      "baseCost": "10000",
+      "costGrowthRate": "1.15",
+      "baseProduction": "100",
+      "unlockRequirement": "gen_neural_link:5"
+    },
+    {
+      "id": "gen_quantum_core",
+      "name": "Quantum Core",
+      "description": "Harnesses quantum computing for massive coin generation.",
+      "eraId": "era_2",
+      "baseCost": "100000",
+      "costGrowthRate": "1.18",
+      "baseProduction": "500",
+      "unlockRequirement": "gen_data_miner:10"
+    },
+    {
+      "id": "gen_deep_learner",
+      "name": "Deep Learner",
+      "description": "A deep learning system that optimizes production.",
+      "eraId": "era_2",
+      "baseCost": "1000000",
+      "costGrowthRate": "1.18",
+      "baseProduction": "2500",
+      "unlockRequirement": "gen_quantum_core:5"
+    }
+  ],
+  "upgrades": [
+    {
+      "id": "upg_tap_power_1",
+      "name": "Enhanced Tapping",
+      "description": "Doubles your tap value.",
+      "type": "tapMultiplier",
+      "eraId": "era_1",
+      "baseCost": "50",
+      "costGrowthRate": "1.5",
+      "maxLevel": 10,
+      "effectPerLevel": "2"
+    },
+    {
+      "id": "upg_global_prod_1",
+      "name": "Efficiency Boost",
+      "description": "Increases all production by 50%.",
+      "type": "productionMultiplier",
+      "eraId": "era_1",
+      "baseCost": "500",
+      "costGrowthRate": "2.0",
+      "maxLevel": 5,
+      "effectPerLevel": "1.5"
+    },
+    {
+      "id": "upg_processor_boost",
+      "name": "Processor Overclock",
+      "description": "Doubles Basic Processor production.",
+      "type": "generatorMultiplier",
+      "eraId": "era_1",
+      "baseCost": "200",
+      "costGrowthRate": "1.8",
+      "maxLevel": 5,
+      "effectPerLevel": "2",
+      "targetGeneratorId": "gen_basic_processor"
+    }
+  ],
+  "eras": [
+    {
+      "id": "era_1",
+      "name": "Dawn of Computing",
+      "description": "The earliest stage of artificial intelligence.",
+      "order": 1,
+      "unlockRequirement": null
+    },
+    {
+      "id": "era_2",
+      "name": "Machine Learning",
+      "description": "The age of learning algorithms.",
+      "order": 2,
+      "unlockRequirement": "era_1_complete"
+    },
+    {
+      "id": "era_3",
+      "name": "Singularity",
+      "description": "The dawn of superintelligent AI.",
+      "order": 3,
+      "unlockRequirement": "era_2_complete"
+    }
+  ]
+}
