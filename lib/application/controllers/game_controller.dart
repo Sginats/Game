@@ -32,6 +32,7 @@ class GameController {
 
   /// Purchase a generator. Returns true if successful.
   bool purchaseGenerator(String generatorId, {int quantity = 1}) {
+    if (quantity <= 0) return false;
     final definition = _config.generators[generatorId];
     if (definition == null) return false;
 
