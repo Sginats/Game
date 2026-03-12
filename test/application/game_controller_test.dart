@@ -75,15 +75,18 @@ void main() {
     (controller.state.coins.toDouble() - 1).abs() < 0.01,
     'tap adds 1 coin',
   );
+  expectTrue(controller.state.totalTaps == 1, 'totalTaps incremented');
 
-  // Multiple taps to get coins for purchases
+  // Multiple taps to get coins for purchases (combo builds up)
   for (int i = 0; i < 99; i++) {
     controller.tap();
   }
+  // With combo system, 100 rapid taps earn significantly more than 100
   expectTrue(
-    (controller.state.coins.toDouble() - 100).abs() < 0.1,
-    '100 taps = 100 coins',
+    controller.state.coins.toDouble() > 100,
+    '100 rapid taps earn > 100 coins (combo bonus)',
   );
+  expectTrue(controller.state.totalTaps == 100, '100 total taps');
 
   // --- Purchase generator ---
   final bought = controller.purchaseGenerator('gen_1');
@@ -104,8 +107,8 @@ void main() {
   expectTrue(coinsAfterTick > 85, 'tick produces coins');
 
   // --- Purchase upgrade ---
-  // Tap more to afford
-  for (int i = 0; i < 100; i++) {
+  // With combo earnings we should have enough; tap more to be safe
+  for (int i = 0; i < 10; i++) {
     controller.tap();
   }
   final upgBought = controller.purchaseUpgrade('upg_tap');
@@ -118,6 +121,9 @@ void main() {
   // --- Invalid purchase ---
   final invalid = controller.purchaseGenerator('nonexistent');
   expectTrue(!invalid, 'nonexistent generator fails');
+
+  // --- Prestige ---
+  expectTrue(!controller.canPrestige, 'cannot prestige yet (not enough coins)');
 
   print('\n$passed passed, $failed failed');
   if (failed > 0) throw Exception('Tests failed');
