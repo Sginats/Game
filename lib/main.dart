@@ -11,6 +11,7 @@ import 'application/services/config_service.dart';
 import 'data/save/shared_prefs_save_manager.dart';
 import 'data/repositories/game_repository.dart';
 import 'domain/models/achievement.dart';
+import 'domain/models/game_state.dart';
 import 'domain/models/generator.dart';
 import 'domain/models/upgrade.dart';
 import 'domain/models/era.dart';
@@ -315,7 +316,8 @@ class StartScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Evolve an artificial intelligence from the dawn\nof computing to the singularity and beyond.',
+                  'Evolve an artificial intelligence from the dawn '
+                  'of computing to the singularity and beyond.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
@@ -1489,7 +1491,7 @@ class _PrestigePanel extends StatelessWidget {
     );
   }
 
-  double _progressToPrestige(state) {
+  double _progressToPrestige(GameState state) {
     if (state.totalCoinsEarned.isZero) return 0;
     final threshold = PrestigeSystem.prestigeThreshold.toDouble();
     final current = state.totalCoinsEarned.toDouble();

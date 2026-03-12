@@ -16,12 +16,14 @@ class PrestigeSystem {
   /// Formula: 1 + 0.1 × floor(log10(totalCoinsEarned) - 5)
   /// So earning 1M = 1.1×, 10M = 1.2×, 100M = 1.3×, etc.
   static GameNumber calculatePrestigeMultiplier(GameNumber totalCoinsEarned) {
-    if (totalCoinsEarned < prestigeThreshold) {
+    if (totalCoinsEarned < prestigeThreshold || totalCoinsEarned.isZero) {
       return GameNumber.fromDouble(1);
     }
     // log10 of a GameNumber is approximately exponent + log10(mantissa)
+    final absMantissa = totalCoinsEarned.mantissa.abs();
+    if (absMantissa <= 0) return GameNumber.fromDouble(1);
     final log10 = totalCoinsEarned.exponent +
-        (math.log(totalCoinsEarned.mantissa.abs()) / math.ln10);
+        (math.log(absMantissa) / math.ln10);
     final bonus = (log10 - 5).clamp(0, 100).toDouble();
     return GameNumber.fromDouble(1.0 + bonus * 0.1);
   }

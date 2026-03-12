@@ -103,6 +103,8 @@ class GameState {
         'prestigeMultiplier': prestigeMultiplier.toJson(),
         'unlockedAchievements': unlockedAchievements.toList(),
         'tutorialComplete': tutorialComplete,
+        'tapCombo': tapCombo,
+        'lastTapTime': lastTapTime?.toIso8601String(),
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -134,6 +136,10 @@ class GameState {
               .toSet()
           : const {},
       tutorialComplete: json['tutorialComplete'] as bool? ?? false,
+      tapCombo: json['tapCombo'] as int? ?? 0,
+      lastTapTime: json['lastTapTime'] != null
+          ? DateTime.parse(json['lastTapTime'] as String)
+          : null,
     );
   }
 }
