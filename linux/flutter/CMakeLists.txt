@@ -49,13 +49,7 @@ function(apply_standard_settings TARGET)
 endfunction()
 
 set(FLUTTER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-add_subdirectory(${FLUTTER_MANAGED_DIR}/generated_plugins.cmake EXCLUDE_FROM_ALL)
-
-function(add_custom_command_aot)
-endfunction()
+include(${EPHEMERAL_DIR}/generated_plugins.cmake OPTIONAL)
 
 file(GLOB_RECURSE FLUTTER_EFFECT_SOURCES "${EPHEMERAL_DIR}/.plugin_symlinks/*/linux/**")
-function(flutter_assemble)
-  add_custom_target(flutter_assemble DEPENDS "${FLUTTER_EFFECT_SOURCES}")
-endfunction()
-flutter_assemble()
+add_custom_target(flutter_assemble DEPENDS "${FLUTTER_EFFECT_SOURCES}")
