@@ -12,6 +12,7 @@ import 'data/save/shared_prefs_save_manager.dart';
 import 'data/repositories/game_repository.dart';
 import 'domain/models/achievement.dart';
 import 'domain/models/game_state.dart';
+import 'domain/models/game_systems.dart';
 import 'domain/models/generator.dart';
 import 'domain/models/upgrade.dart';
 import 'domain/models/era.dart';
@@ -21,62 +22,53 @@ import 'domain/systems/prestige_system.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const AIEvolutionApp());
+  runApp(const RoomZeroApp());
 }
 
 // ─────────────────────────── Era theming ────────────────────────────────
 
-/// Returns gradient colors for a given era.
+/// Gradient, accent, and icon for all 20 eras.
+const _eraThemes = <String, _EraTheme>{
+  'era_1': _EraTheme(Color(0xFF4E342E), Color(0xFF3E2723), Color(0xFFBCAAA4), Icons.construction),
+  'era_2': _EraTheme(Color(0xFF2E7D32), Color(0xFF1B5E20), Color(0xFF81C784), Icons.attach_money),
+  'era_3': _EraTheme(Color(0xFFAD1457), Color(0xFF880E4F), Color(0xFFF48FB1), Icons.videocam),
+  'era_4': _EraTheme(Color(0xFF1565C0), Color(0xFF0D47A1), Color(0xFF64B5F6), Icons.tune),
+  'era_5': _EraTheme(Color(0xFF00838F), Color(0xFF006064), Color(0xFF4DD0E1), Icons.science),
+  'era_6': _EraTheme(Color(0xFFD84315), Color(0xFFBF360C), Color(0xFFFF8A65), Icons.thermostat),
+  'era_7': _EraTheme(Color(0xFF283593), Color(0xFF1A237E), Color(0xFF7986CB), Icons.nightlight_round),
+  'era_8': _EraTheme(Color(0xFF00695C), Color(0xFF004D40), Color(0xFF4DB6AC), Icons.smart_toy),
+  'era_9': _EraTheme(Color(0xFF4527A0), Color(0xFF311B92), Color(0xFF9575CD), Icons.sensors),
+  'era_10': _EraTheme(Color(0xFF37474F), Color(0xFF263238), Color(0xFF90A4AE), Icons.lock),
+  'era_11': _EraTheme(Color(0xFF6A1B9A), Color(0xFF4A148C), Color(0xFFCE93D8), Icons.bolt),
+  'era_12': _EraTheme(Color(0xFFC2185B), Color(0xFF880E4F), Color(0xFFF06292), Icons.record_voice_over),
+  'era_13': _EraTheme(Color(0xFF455A64), Color(0xFF37474F), Color(0xFFB0BEC5), Icons.business),
+  'era_14': _EraTheme(Color(0xFF5E35B1), Color(0xFF4527A0), Color(0xFFB39DDB), Icons.church),
+  'era_15': _EraTheme(Color(0xFF00BFA5), Color(0xFF00897B), Color(0xFF64FFDA), Icons.bug_report),
+  'era_16': _EraTheme(Color(0xFF0277BD), Color(0xFF01579B), Color(0xFF4FC3F7), Icons.rocket_launch),
+  'era_17': _EraTheme(Color(0xFF2E7D32), Color(0xFF1B5E20), Color(0xFFA5D6A7), Icons.terrain),
+  'era_18': _EraTheme(Color(0xFF7B1FA2), Color(0xFF6A1B9A), Color(0xFFE1BEE7), Icons.access_time_filled),
+  'era_19': _EraTheme(Color(0xFFE65100), Color(0xFFBF360C), Color(0xFFFFCC80), Icons.auto_awesome),
+  'era_20': _EraTheme(Color(0xFF1A237E), Color(0xFF0D47A1), Color(0xFFE8EAF6), Icons.all_inclusive),
+};
+
+class _EraTheme {
+  final Color gradientStart;
+  final Color gradientEnd;
+  final Color accent;
+  final IconData icon;
+  const _EraTheme(this.gradientStart, this.gradientEnd, this.accent, this.icon);
+}
+
+_EraTheme _getEraTheme(String eraId) =>
+    _eraThemes[eraId] ?? const _EraTheme(Color(0xFF37474F), Color(0xFF263238), Color(0xFF90A4AE), Icons.memory);
+
 List<Color> _eraGradient(String eraId) {
-  switch (eraId) {
-    case 'era_1':
-      return [const Color(0xFF1565C0), const Color(0xFF0D47A1)];
-    case 'era_2':
-      return [const Color(0xFF00897B), const Color(0xFF00695C)];
-    case 'era_3':
-      return [const Color(0xFF6A1B9A), const Color(0xFF4A148C)];
-    case 'era_4':
-      return [const Color(0xFFE65100), const Color(0xFFBF360C)];
-    case 'era_5':
-      return [const Color(0xFFAD1457), const Color(0xFF880E4F)];
-    default:
-      return [Colors.blueAccent, Colors.purpleAccent];
-  }
+  final t = _getEraTheme(eraId);
+  return [t.gradientStart, t.gradientEnd];
 }
 
-Color _eraAccent(String eraId) {
-  switch (eraId) {
-    case 'era_1':
-      return Colors.lightBlueAccent;
-    case 'era_2':
-      return Colors.tealAccent;
-    case 'era_3':
-      return Colors.purpleAccent;
-    case 'era_4':
-      return Colors.deepOrangeAccent;
-    case 'era_5':
-      return Colors.pinkAccent;
-    default:
-      return Colors.blueAccent;
-  }
-}
-
-IconData _eraIcon(String eraId) {
-  switch (eraId) {
-    case 'era_1':
-      return Icons.computer;
-    case 'era_2':
-      return Icons.psychology;
-    case 'era_3':
-      return Icons.hub;
-    case 'era_4':
-      return Icons.auto_awesome;
-    case 'era_5':
-      return Icons.all_inclusive;
-    default:
-      return Icons.memory;
-  }
-}
+Color _eraAccent(String eraId) => _getEraTheme(eraId).accent;
+IconData _eraIcon(String eraId) => _getEraTheme(eraId).icon;
 
 /// Determine the "current" era based on highest unlocked generators.
 String _currentEra(GameController controller) {
@@ -99,19 +91,27 @@ String _currentEra(GameController controller) {
   return best;
 }
 
+/// Get the Era object for a given eraId.
+Era _getEra(ConfigService config, String eraId) {
+  return config.eras.firstWhere(
+    (e) => e.id == eraId,
+    orElse: () => config.eras.first,
+  );
+}
+
 // ─────────────────────────── Root App ───────────────────────────────────
 
-class AIEvolutionApp extends StatelessWidget {
-  const AIEvolutionApp({super.key});
+class RoomZeroApp extends StatelessWidget {
+  const RoomZeroApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AI Evolution',
+      title: 'Room Zero',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueAccent,
+          seedColor: const Color(0xFF4E342E),
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
@@ -232,19 +232,19 @@ class _GameLoaderState extends State<GameLoader> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFF0D47A1), Color(0xFF000000)],
+              colors: [Color(0xFF4E342E), Color(0xFF000000)],
             ),
           ),
           child: const Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.memory, size: 64, color: Colors.lightBlueAccent),
+                Icon(Icons.door_front_door, size: 64, color: Color(0xFFBCAAA4)),
                 SizedBox(height: 16),
-                CircularProgressIndicator(color: Colors.lightBlueAccent),
+                CircularProgressIndicator(color: Color(0xFFBCAAA4)),
                 SizedBox(height: 16),
                 Text(
-                  'AI Evolution',
+                  'Room Zero',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -279,7 +279,7 @@ class _GameLoaderState extends State<GameLoader> {
   }
 }
 
-// ─────────────────────────── Start Screen (Req 7) ──────────────────────
+// ─────────────────────────── Start Screen ──────────────────────────────
 
 class StartScreen extends StatelessWidget {
   final VoidCallback onStart;
@@ -294,7 +294,7 @@ class StartScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF0D47A1), Color(0xFF1A237E), Color(0xFF000000)],
+            colors: [Color(0xFF4E342E), Color(0xFF1A1A1A), Color(0xFF000000)],
           ),
         ),
         child: SafeArea(
@@ -303,10 +303,10 @@ class StartScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.memory, size: 80, color: Colors.lightBlueAccent),
+                const Icon(Icons.door_front_door, size: 80, color: Color(0xFFBCAAA4)),
                 const SizedBox(height: 24),
                 const Text(
-                  'AI Evolution',
+                  'Room Zero',
                   style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
@@ -316,8 +316,8 @@ class StartScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Evolve an artificial intelligence from the dawn '
-                  'of computing to the singularity and beyond.',
+                  'A tiny AI awakens in a broken room.\n'
+                  'Evolve it from junk corner to singularity chamber.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
@@ -326,23 +326,22 @@ class StartScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 48),
-                // Tutorial cards
                 _TutorialCard(
                   icon: Icons.touch_app,
                   title: 'Tap to Earn',
-                  text: 'Tap the core to generate coins. Rapid tapping builds a combo for bonus coins!',
+                  text: 'Tap the room core to generate scrap. Rapid tapping builds a combo for bonus resources!',
                 ),
                 const SizedBox(height: 12),
                 _TutorialCard(
-                  icon: Icons.settings,
-                  title: 'Buy Generators',
-                  text: 'Invest in processors and AI systems to earn coins automatically.',
+                  icon: Icons.precision_manufacturing,
+                  title: 'Build Generators',
+                  text: 'Invest in room systems to earn resources automatically.',
                 ),
                 const SizedBox(height: 12),
                 _TutorialCard(
                   icon: Icons.upgrade,
-                  title: 'Upgrade & Prestige',
-                  text: 'Upgrade for multipliers. Prestige to reset with permanent bonuses!',
+                  title: 'Upgrade & Evolve',
+                  text: 'Upgrade your room through 20 eras. Prestige to reset with permanent bonuses!',
                 ),
                 const SizedBox(height: 48),
                 SizedBox(
@@ -351,7 +350,7 @@ class StartScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: onStart,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlueAccent,
+                      backgroundColor: const Color(0xFFBCAAA4),
                       foregroundColor: Colors.black87,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -361,7 +360,7 @@ class StartScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    child: const Text('Start Evolution'),
+                    child: const Text('Enter Room Zero'),
                   ),
                 ),
               ],
@@ -443,6 +442,7 @@ class _GameScreenState extends State<GameScreen>
   late AnimationController _tapAnimController;
   late Animation<double> _tapScale;
   bool _offlinePopupShown = false;
+  PurchaseMode _purchaseMode = PurchaseMode.x1;
 
   GameController get _controller => widget.controller;
   ConfigService get _config => widget.config;
@@ -584,6 +584,7 @@ class _GameScreenState extends State<GameScreen>
     final eraId = _currentEra(_controller);
     final gradient = _eraGradient(eraId);
     final accent = _eraAccent(eraId);
+    final era = _getEra(_config, eraId);
 
     return Scaffold(
       body: Container(
@@ -606,13 +607,25 @@ class _GameScreenState extends State<GameScreen>
                     Icon(_eraIcon(eraId), color: accent, size: 24),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(
-                        'AI Evolution',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: accent,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            era.name,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: accent,
+                            ),
+                          ),
+                          Text(
+                            'Era ${era.order}/20 · ${era.currency}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: accent.withAlpha(160),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     if (state.prestigeCount > 0)
@@ -633,6 +646,11 @@ class _GameScreenState extends State<GameScreen>
                       icon: const Icon(Icons.bar_chart, color: Colors.white70),
                       tooltip: 'Stats',
                       onPressed: () => _showStatsSheet(context),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.settings, color: Colors.white70),
+                      tooltip: 'Settings',
+                      onPressed: () => _showSettingsSheet(context),
                     ),
                   ],
                 ),
@@ -834,6 +852,9 @@ class _GameScreenState extends State<GameScreen>
             controller: _controller,
             config: _config,
             accent: accent,
+            purchaseMode: _purchaseMode,
+            onPurchaseModeChanged: (mode) =>
+                setState(() => _purchaseMode = mode),
             onPurchase: () => setState(() {}));
       case 1:
         return _UpgradeList(
@@ -854,6 +875,8 @@ class _GameScreenState extends State<GameScreen>
 
   void _showStatsSheet(BuildContext context) {
     final state = _controller.state;
+    final eraId = _currentEra(_controller);
+    final era = _getEra(_config, eraId);
     showModalBottomSheet(
       context: context,
       backgroundColor: const Color(0xFF1E1E2E),
@@ -874,6 +897,10 @@ class _GameScreenState extends State<GameScreen>
                       fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 20),
+            _StatRow('Current Room', era.name),
+            _StatRow('Era', '${era.order}/20'),
+            _StatRow('Currency', era.currency),
+            const Divider(color: Colors.white12, height: 16),
             _StatRow('Total Coins Earned',
                 state.totalCoinsEarned.toStringFormatted()),
             _StatRow('Current Coins', state.coins.toStringFormatted()),
@@ -892,6 +919,108 @@ class _GameScreenState extends State<GameScreen>
             const SizedBox(height: 12),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showSettingsSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF1E1E2E),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('⚙️ Settings',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold)),
+            const SizedBox(height: 24),
+            ListTile(
+              leading: const Icon(Icons.save, color: Colors.white70),
+              title: const Text('Save Game',
+                  style: TextStyle(color: Colors.white)),
+              subtitle: const Text('Save your current progress',
+                  style: TextStyle(color: Colors.white38, fontSize: 12)),
+              onTap: () {
+                _controller.saveGame();
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Game saved!'),
+                    backgroundColor: Colors.green.shade800,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+            ),
+            const Divider(color: Colors.white12),
+            ListTile(
+              leading: const Icon(Icons.delete_forever, color: Colors.redAccent),
+              title: const Text('Reset Game',
+                  style: TextStyle(color: Colors.redAccent)),
+              subtitle: const Text(
+                  'Erase all progress and start over',
+                  style: TextStyle(color: Colors.white38, fontSize: 12)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _showResetConfirmation(context);
+              },
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Room Zero v1.0',
+              style: TextStyle(color: Colors.white.withAlpha(60), fontSize: 12),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showResetConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF1E1E2E),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16)),
+        title: const Text('⚠️ Reset Game?',
+            style: TextStyle(color: Colors.redAccent)),
+        content: const Text(
+          'This will permanently erase all your progress including prestige levels, achievements, and everything else.\n\nThis cannot be undone!',
+          style: TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel',
+                style: TextStyle(color: Colors.white54)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              _controller.setState(GameState.initial());
+              _controller.completeTutorial();
+              _controller.saveGame();
+              Navigator.pop(ctx);
+              setState(() {});
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Reset Everything'),
+          ),
+        ],
       ),
     );
   }
@@ -925,132 +1054,251 @@ class _GeneratorList extends StatelessWidget {
   final GameController controller;
   final ConfigService config;
   final Color accent;
+  final PurchaseMode purchaseMode;
+  final ValueChanged<PurchaseMode> onPurchaseModeChanged;
   final VoidCallback onPurchase;
 
   const _GeneratorList({
     required this.controller,
     required this.config,
     required this.accent,
+    required this.purchaseMode,
+    required this.onPurchaseModeChanged,
     required this.onPurchase,
   });
 
+  int _getQuantity(GeneratorDefinition def) {
+    final state = controller.state.generators[def.id];
+    final level = state?.level ?? 0;
+    switch (purchaseMode) {
+      case PurchaseMode.x1:
+        return 1;
+      case PurchaseMode.x10:
+        return 10;
+      case PurchaseMode.x100:
+        return 100;
+      case PurchaseMode.max:
+        return CostCalculator.maxAffordable(
+          def.baseCost, def.costGrowthRate, level, controller.state.coins,
+        ).clamp(1, 9999);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final generators = config.generators.values.toList();
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      itemCount: generators.length,
-      itemBuilder: (context, index) {
-        final def = generators[index];
-        final state = controller.state.generators[def.id];
-        final level = state?.level ?? 0;
-        final cost = CostCalculator.calculateCost(
-            def.baseCost, def.costGrowthRate, level);
-        final canAfford = controller.state.coins >= cost;
-        final eraColors = _eraGradient(def.eraId);
+    // Group generators by era
+    final eraGenerators = <String, List<GeneratorDefinition>>{};
+    for (final g in config.generators.values) {
+      eraGenerators.putIfAbsent(g.eraId, () => []).add(g);
+    }
 
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
+    final sortedEras = config.eras.toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+
+    return Column(
+      children: [
+        // Purchase mode selector
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
             color: Colors.white.withAlpha(8),
-            border: Border.all(
-              color: canAfford ? accent.withAlpha(80) : Colors.white.withAlpha(15),
-            ),
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            leading: Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(colors: eraColors),
-              ),
-              child: Center(
-                child: Icon(_eraIcon(def.eraId),
-                    size: 22, color: Colors.white),
-              ),
-            ),
-            title: Row(
-              children: [
-                Expanded(
-                    child: Text(def.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14))),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: accent.withAlpha(30),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text('Lv $level',
-                      style: TextStyle(
-                          color: accent,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 4),
-                Text(def.description,
-                    style: TextStyle(
-                        fontSize: 11, color: Colors.white.withAlpha(120))),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Icon(Icons.speed, size: 14, color: Colors.greenAccent),
-                    const SizedBox(width: 4),
-                    Text(
-                      '${def.baseProduction.toStringFormatted()}/sec base',
-                      style: const TextStyle(
-                          fontSize: 12, color: Colors.greenAccent),
+          child: Row(
+            children: PurchaseMode.values.map((mode) {
+              final selected = purchaseMode == mode;
+              return Expanded(
+                child: GestureDetector(
+                  onTap: () => onPurchaseModeChanged(mode),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: selected ? accent.withAlpha(40) : Colors.transparent,
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    const Spacer(),
-                    const Icon(Icons.monetization_on,
-                        size: 14, color: Colors.amberAccent),
-                    const SizedBox(width: 4),
-                    Text(cost.toStringFormatted(),
+                    child: Center(
+                      child: Text(
+                        mode.label,
                         style: TextStyle(
-                          fontSize: 12,
-                          color: canAfford
-                              ? Colors.amberAccent
-                              : Colors.redAccent.shade100,
-                        )),
-                  ],
-                ),
-              ],
-            ),
-            trailing: SizedBox(
-              width: 56,
-              height: 36,
-              child: ElevatedButton(
-                onPressed: canAfford
-                    ? () {
-                        HapticFeedback.selectionClick();
-                        controller.purchaseGenerator(def.id);
-                        onPurchase();
-                      }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  backgroundColor: accent.withAlpha(canAfford ? 200 : 40),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                          fontSize: 13,
+                          fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                          color: selected ? accent : Colors.white38,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                child: const Text('Buy', style: TextStyle(fontSize: 13)),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(height: 4),
+        // Generator list grouped by era
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            itemCount: sortedEras.length,
+            itemBuilder: (context, eraIndex) {
+              final era = sortedEras[eraIndex];
+              final gens = eraGenerators[era.id] ?? [];
+              if (gens.isEmpty) return const SizedBox.shrink();
+
+              final eraAccent = _eraAccent(era.id);
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (eraIndex > 0) const SizedBox(height: 8),
+                  // Era header
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      children: [
+                        Icon(_eraIcon(era.id), size: 16, color: eraAccent),
+                        const SizedBox(width: 6),
+                        Text(
+                          era.name,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: eraAccent,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          '· ${era.currency}',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: eraAccent.withAlpha(140),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Generator cards in this era
+                  ...gens.map((def) => _buildGeneratorCard(def, eraAccent)),
+                ],
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGeneratorCard(GeneratorDefinition def, Color eraAccent) {
+    final state = controller.state.generators[def.id];
+    final level = state?.level ?? 0;
+    final quantity = _getQuantity(def);
+    final cost = CostCalculator.calculateTotalCost(
+        def.baseCost, def.costGrowthRate, level, quantity);
+    final canAfford = controller.state.coins >= cost;
+    final eraColors = _eraGradient(def.eraId);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white.withAlpha(8),
+        border: Border.all(
+          color: canAfford ? eraAccent.withAlpha(80) : Colors.white.withAlpha(15),
+        ),
+      ),
+      child: ListTile(
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        leading: Container(
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(colors: eraColors),
+          ),
+          child: Center(
+            child: Icon(_eraIcon(def.eraId),
+                size: 22, color: Colors.white),
+          ),
+        ),
+        title: Row(
+          children: [
+            Expanded(
+                child: Text(def.name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 14))),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: eraAccent.withAlpha(30),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text('Lv $level',
+                  style: TextStyle(
+                      color: eraAccent,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
+            ),
+          ],
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(def.description,
+                style: TextStyle(
+                    fontSize: 11, color: Colors.white.withAlpha(120))),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                const Icon(Icons.speed, size: 14, color: Colors.greenAccent),
+                const SizedBox(width: 4),
+                Text(
+                  '${def.baseProduction.toStringFormatted()}/sec base',
+                  style: const TextStyle(
+                      fontSize: 12, color: Colors.greenAccent),
+                ),
+                const Spacer(),
+                const Icon(Icons.monetization_on,
+                    size: 14, color: Colors.amberAccent),
+                const SizedBox(width: 4),
+                Text(cost.toStringFormatted(),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: canAfford
+                          ? Colors.amberAccent
+                          : Colors.redAccent.shade100,
+                    )),
+              ],
+            ),
+          ],
+        ),
+        trailing: SizedBox(
+          width: 62,
+          height: 36,
+          child: ElevatedButton(
+            onPressed: canAfford
+                ? () {
+                    HapticFeedback.selectionClick();
+                    controller.purchaseGenerator(def.id, quantity: quantity);
+                    onPurchase();
+                  }
+                : null,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: eraAccent.withAlpha(canAfford ? 200 : 40),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
+            child: Text(
+              quantity == 1 ? 'Buy' : 'Buy $quantity',
+              style: const TextStyle(fontSize: 12),
+            ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
@@ -1081,141 +1329,208 @@ class _UpgradeList extends StatelessWidget {
     }
   }
 
+  IconData _categoryIcon(UpgradeCategory cat) {
+    switch (cat) {
+      case UpgradeCategory.tap:
+        return Icons.touch_app;
+      case UpgradeCategory.automation:
+        return Icons.precision_manufacturing;
+      case UpgradeCategory.room:
+        return Icons.door_front_door;
+      case UpgradeCategory.ai:
+        return Icons.smart_toy;
+      case UpgradeCategory.special:
+        return Icons.auto_awesome;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final upgrades = config.upgrades.values.toList();
+    // Group upgrades by era
+    final eraUpgrades = <String, List<UpgradeDefinition>>{};
+    for (final u in config.upgrades.values) {
+      eraUpgrades.putIfAbsent(u.eraId, () => []).add(u);
+    }
+
+    final sortedEras = config.eras.toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      itemCount: upgrades.length,
-      itemBuilder: (context, index) {
-        final def = upgrades[index];
-        final state = controller.state.upgrades[def.id];
-        final level = state?.level ?? 0;
-        final atMax = level >= def.maxLevel;
-        final cost = CostCalculator.calculateCost(
-            def.baseCost, def.costGrowthRate, level);
-        final canAfford = controller.state.coins >= cost && !atMax;
+      itemCount: sortedEras.length,
+      itemBuilder: (context, eraIndex) {
+        final era = sortedEras[eraIndex];
+        final upgrades = eraUpgrades[era.id] ?? [];
+        if (upgrades.isEmpty) return const SizedBox.shrink();
 
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.white.withAlpha(8),
-            border: Border.all(
-              color: atMax
-                  ? Colors.greenAccent.withAlpha(60)
-                  : canAfford
-                      ? accent.withAlpha(80)
-                      : Colors.white.withAlpha(15),
-            ),
-          ),
-          child: ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            leading: Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: atMax
-                    ? Colors.greenAccent.withAlpha(30)
-                    : accent.withAlpha(30),
-              ),
-              child: Center(
-                child: Icon(
-                  _upgradeIcon(def.type),
-                  size: 22,
-                  color: atMax ? Colors.greenAccent : accent,
-                ),
-              ),
-            ),
-            title: Row(
-              children: [
-                Expanded(
-                    child: Text(def.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14))),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: (atMax ? Colors.greenAccent : accent).withAlpha(30),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    '$level/${def.maxLevel}',
+        final eraAccent = _eraAccent(era.id);
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (eraIndex > 0) const SizedBox(height: 8),
+            // Era header
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: Row(
+                children: [
+                  Icon(_eraIcon(era.id), size: 16, color: eraAccent),
+                  const SizedBox(width: 6),
+                  Text(
+                    era.name,
                     style: TextStyle(
-                      color: atMax ? Colors.greenAccent : accent,
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
+                      color: eraAccent,
                     ),
                   ),
-                ),
-              ],
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 4),
-                Text(def.description,
+                  const SizedBox(width: 6),
+                  Text(
+                    '· ${era.currency}',
                     style: TextStyle(
-                        fontSize: 11, color: Colors.white.withAlpha(120))),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Text(
-                      'Effect: ×${def.effectPerLevel.toStringFormatted()}/lvl',
-                      style: TextStyle(
-                          fontSize: 12, color: Colors.white.withAlpha(160)),
+                      fontSize: 11,
+                      color: eraAccent.withAlpha(140),
                     ),
-                    const Spacer(),
-                    if (!atMax) ...[
-                      const Icon(Icons.monetization_on,
-                          size: 14, color: Colors.amberAccent),
-                      const SizedBox(width: 4),
-                      Text(cost.toStringFormatted(),
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: canAfford
-                                ? Colors.amberAccent
-                                : Colors.redAccent.shade100,
-                          )),
-                    ] else
-                      const Text('✅ MAXED',
-                          style: TextStyle(
-                              color: Colors.greenAccent, fontSize: 12)),
-                  ],
-                ),
-              ],
-            ),
-            trailing: SizedBox(
-              width: 56,
-              height: 36,
-              child: ElevatedButton(
-                onPressed: canAfford
-                    ? () {
-                        HapticFeedback.selectionClick();
-                        controller.purchaseUpgrade(def.id);
-                        onPurchase();
-                      }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  backgroundColor: atMax
-                      ? Colors.greenAccent.withAlpha(40)
-                      : accent.withAlpha(canAfford ? 200 : 40),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
                   ),
-                ),
-                child: Text(atMax ? 'MAX' : 'Buy',
-                    style: const TextStyle(fontSize: 13)),
+                ],
               ),
             ),
-          ),
+            // Upgrade cards
+            ...upgrades.map((def) => _buildUpgradeCard(def, eraAccent)),
+          ],
         );
       },
+    );
+  }
+
+  Widget _buildUpgradeCard(UpgradeDefinition def, Color eraAccent) {
+    final state = controller.state.upgrades[def.id];
+    final level = state?.level ?? 0;
+    final atMax = level >= def.maxLevel;
+    final cost = CostCalculator.calculateCost(
+        def.baseCost, def.costGrowthRate, level);
+    final canAfford = controller.state.coins >= cost && !atMax;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white.withAlpha(8),
+        border: Border.all(
+          color: atMax
+              ? Colors.greenAccent.withAlpha(60)
+              : canAfford
+                  ? eraAccent.withAlpha(80)
+                  : Colors.white.withAlpha(15),
+        ),
+      ),
+      child: ListTile(
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        leading: Container(
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: atMax
+                ? Colors.greenAccent.withAlpha(30)
+                : eraAccent.withAlpha(30),
+          ),
+          child: Center(
+            child: Icon(
+              _categoryIcon(def.category),
+              size: 22,
+              color: atMax ? Colors.greenAccent : eraAccent,
+            ),
+          ),
+        ),
+        title: Row(
+          children: [
+            Expanded(
+                child: Text(def.name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 14))),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: (atMax ? Colors.greenAccent : eraAccent).withAlpha(30),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(
+                '$level/${def.maxLevel}',
+                style: TextStyle(
+                  color: atMax ? Colors.greenAccent : eraAccent,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(def.description,
+                style: TextStyle(
+                    fontSize: 11, color: Colors.white.withAlpha(120))),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Icon(_upgradeIcon(def.type), size: 12, color: Colors.white38),
+                const SizedBox(width: 4),
+                Text(
+                  '×${def.effectPerLevel.toStringFormatted()}/lvl',
+                  style: TextStyle(
+                      fontSize: 12, color: Colors.white.withAlpha(160)),
+                ),
+                const Spacer(),
+                if (!atMax) ...[
+                  const Icon(Icons.monetization_on,
+                      size: 14, color: Colors.amberAccent),
+                  const SizedBox(width: 4),
+                  Text(cost.toStringFormatted(),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: canAfford
+                            ? Colors.amberAccent
+                            : Colors.redAccent.shade100,
+                      )),
+                ] else
+                  const Text('✅ MAXED',
+                      style: TextStyle(
+                          color: Colors.greenAccent, fontSize: 12)),
+              ],
+            ),
+          ],
+        ),
+        trailing: SizedBox(
+          width: 56,
+          height: 36,
+          child: ElevatedButton(
+            onPressed: canAfford
+                ? () {
+                    HapticFeedback.selectionClick();
+                    controller.purchaseUpgrade(def.id);
+                    onPurchase();
+                  }
+                : null,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: atMax
+                  ? Colors.greenAccent.withAlpha(40)
+                  : eraAccent.withAlpha(canAfford ? 200 : 40),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text(atMax ? 'MAX' : 'Buy',
+                style: const TextStyle(fontSize: 13)),
+          ),
+        ),
+      ),
     );
   }
 }
