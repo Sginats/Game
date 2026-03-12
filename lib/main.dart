@@ -619,7 +619,7 @@ class _GameScreenState extends State<GameScreen>
                             ),
                           ),
                           Text(
-                            'Era ${era.order}/20 · ${era.currency}',
+                            'Era ${era.order}/${_config.eras.length} · ${era.currency}',
                             style: TextStyle(
                               fontSize: 11,
                               color: accent.withAlpha(160),
@@ -977,7 +977,7 @@ class _GameScreenState extends State<GameScreen>
             ),
             const SizedBox(height: 12),
             Text(
-              'Room Zero v1.0',
+              'Room Zero v1.0.0+1',
               style: TextStyle(color: Colors.white.withAlpha(60), fontSize: 12),
             ),
             const SizedBox(height: 8),
@@ -1274,7 +1274,7 @@ class _GeneratorList extends StatelessWidget {
           ],
         ),
         trailing: SizedBox(
-          width: 62,
+          width: 56,
           height: 36,
           child: ElevatedButton(
             onPressed: canAfford
