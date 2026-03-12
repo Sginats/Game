@@ -42,8 +42,10 @@ static void my_application_activate(GApplication* application) {
   gtk_window_set_default_size(window, 400, 800);
   gtk_widget_show(GTK_WIDGET(window));
 
-  g_autoptr(FlView) view = fl_view_new(FL_ENGINE(fl_engine_new_headless(
-      fl_dart_project_new())));
+  g_autoptr(FlDartProject) project = fl_dart_project_new();
+  fl_dart_project_set_dart_entrypoint_arguments(project, self->dart_entrypoint_arguments);
+
+  g_autoptr(FlView) view = fl_view_new(project);
   gtk_widget_show(GTK_WIDGET(view));
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
 
