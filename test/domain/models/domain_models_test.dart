@@ -1,5 +1,6 @@
 import '../../../lib/core/math/game_number.dart';
 import '../../../lib/domain/models/game_state.dart';
+import '../../../lib/domain/models/game_systems.dart';
 import '../../../lib/domain/models/generator.dart';
 import '../../../lib/domain/models/upgrade.dart';
 import '../../../lib/domain/models/era.dart';
@@ -29,13 +30,33 @@ void main() {
   // --- Era ---
   final era = Era.fromJson({
     'id': 'era_1',
-    'name': 'Dawn',
+    'name': 'Junk Corner',
     'description': 'First era',
     'order': 1,
     'unlockRequirement': null,
+    'currency': 'Scrap',
+    'rule': 'Taps stronger than automation',
   });
   expect(era.id, 'era_1', 'Era.fromJson id');
   expect(era.order, 1, 'Era.fromJson order');
+  expect(era.currency, 'Scrap', 'Era.fromJson currency');
+  expect(era.rule, 'Taps stronger than automation', 'Era.fromJson rule');
+
+  // Era JSON round-trip
+  final eraJson = era.toJson();
+  final eraFromJson = Era.fromJson(eraJson);
+  expect(eraFromJson.currency, 'Scrap', 'Era JSON round-trip currency');
+  expect(eraFromJson.rule, 'Taps stronger than automation', 'Era JSON round-trip rule');
+
+  // Era with defaults (backward compat)
+  final eraLegacy = Era.fromJson({
+    'id': 'era_old',
+    'name': 'Old Era',
+    'description': 'Legacy',
+    'order': 99,
+  });
+  expect(eraLegacy.currency, 'Scrap', 'Era default currency');
+  expect(eraLegacy.rule, '', 'Era default rule');
 
   // --- GeneratorDefinition ---
   final genDef = GeneratorDefinition.fromJson({
@@ -134,6 +155,69 @@ void main() {
   expect(pFromJson.prestigeCount, 2, 'JSON round-trip prestigeCount');
   expect(pFromJson.tutorialComplete, true, 'JSON round-trip tutorialComplete');
   expect(pFromJson.unlockedAchievements.length, 2, 'JSON round-trip achievements');
+
+  // --- PurchaseMode ---
+  expect(PurchaseMode.x1.label, '1x', 'PurchaseMode.x1 label');
+  expect(PurchaseMode.x10.label, '10x', 'PurchaseMode.x10 label');
+  expect(PurchaseMode.x100.label, '100x', 'PurchaseMode.x100 label');
+  expect(PurchaseMode.max.label, 'MAX', 'PurchaseMode.max label');
+  expect(PurchaseMode.values.length, 4, 'PurchaseMode has 4 values');
+
+  // --- AITrait ---
+  expect(AITrait.helpful.label, 'Helpful', 'AITrait.helpful label');
+  expect(AITrait.obsessive.label, 'Obsessive', 'AITrait.obsessive label');
+  expect(AITrait.chaotic.label, 'Chaotic', 'AITrait.chaotic label');
+  expect(AITrait.transcendent.label, 'Transcendent', 'AITrait.transcendent label');
+  expect(AITrait.values.length, 4, 'AITrait has 4 values');
+
+  // --- Ending ---
+  final ending = Ending.fromJson({
+    'id': 'ending_mercy',
+    'name': 'Mercy',
+    'description': 'The AI chooses compassion.',
+  });
+  expect(ending.id, 'ending_mercy', 'Ending.fromJson id');
+  expect(ending.name, 'Mercy', 'Ending.fromJson name');
+  final endingJson = ending.toJson();
+  final endingFromJson = Ending.fromJson(endingJson);
+  expect(endingFromJson.name, 'Mercy', 'Ending JSON round-trip name');
+
+  // --- UpgradeCategory ---
+  expect(UpgradeCategory.values.length, 5, 'UpgradeCategory has 5 values');
+  expect(UpgradeCategory.tap.name, 'tap', 'UpgradeCategory.tap');
+  expect(UpgradeCategory.automation.name, 'automation', 'UpgradeCategory.automation');
+  expect(UpgradeCategory.room.name, 'room', 'UpgradeCategory.room');
+  expect(UpgradeCategory.ai.name, 'ai', 'UpgradeCategory.ai');
+  expect(UpgradeCategory.special.name, 'special', 'UpgradeCategory.special');
+
+  // --- UpgradeDefinition with category ---
+  final catUpg = UpgradeDefinition.fromJson({
+    'id': 'upg_cat',
+    'name': 'Categorized',
+    'description': 'Test',
+    'type': 'tapMultiplier',
+    'category': 'ai',
+    'eraId': 'era_1',
+    'baseCost': '50',
+    'costGrowthRate': '1.5',
+    'maxLevel': 5,
+    'effectPerLevel': '2',
+  });
+  expect(catUpg.category, UpgradeCategory.ai, 'UpgradeDefinition.fromJson category');
+
+  // UpgradeDefinition with default category
+  final defCatUpg = UpgradeDefinition.fromJson({
+    'id': 'upg_defcat',
+    'name': 'DefaultCat',
+    'description': 'Test',
+    'type': 'tapMultiplier',
+    'eraId': 'era_1',
+    'baseCost': '50',
+    'costGrowthRate': '1.5',
+    'maxLevel': 5,
+    'effectPerLevel': '2',
+  });
+  expect(defCatUpg.category, UpgradeCategory.room, 'UpgradeDefinition default category');
 
   print('\n$passed passed, $failed failed');
   if (failed > 0) throw Exception('Tests failed');

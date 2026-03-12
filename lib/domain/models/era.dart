@@ -1,10 +1,12 @@
-/// Era model — a technology era in the game.
+/// Era model — a room evolution era in the game.
 class Era {
   final String id;
   final String name;
   final String description;
   final int order;
   final String? unlockRequirement;
+  final String currency;
+  final String rule;
 
   const Era({
     required this.id,
@@ -12,6 +14,8 @@ class Era {
     required this.description,
     required this.order,
     this.unlockRequirement,
+    this.currency = 'Scrap',
+    this.rule = '',
   });
 
   factory Era.fromJson(Map<String, dynamic> json) {
@@ -21,6 +25,8 @@ class Era {
       description: json['description'] as String,
       order: json['order'] as int,
       unlockRequirement: json['unlockRequirement'] as String?,
+      currency: json['currency'] as String? ?? 'Scrap',
+      rule: json['rule'] as String? ?? '',
     );
   }
 
@@ -30,5 +36,7 @@ class Era {
         'description': description,
         'order': order,
         'unlockRequirement': unlockRequirement,
+        'currency': currency,
+        'rule': rule,
       };
 }

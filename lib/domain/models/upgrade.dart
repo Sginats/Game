@@ -15,12 +15,22 @@ enum UpgradeType {
   generatorMultiplier,
 }
 
+/// The gameplay category an upgrade belongs to.
+enum UpgradeCategory {
+  tap,
+  automation,
+  room,
+  ai,
+  special,
+}
+
 /// Definition of an upgrade loaded from configuration.
 class UpgradeDefinition {
   final String id;
   final String name;
   final String description;
   final UpgradeType type;
+  final UpgradeCategory category;
   final String eraId;
   final GameNumber baseCost;
   final double costGrowthRate;
@@ -33,6 +43,7 @@ class UpgradeDefinition {
     required this.name,
     required this.description,
     required this.type,
+    this.category = UpgradeCategory.room,
     required this.eraId,
     required this.baseCost,
     required this.costGrowthRate,
@@ -49,6 +60,12 @@ class UpgradeDefinition {
       type: UpgradeType.values.firstWhere(
         (t) => t.name == json['type'] as String,
       ),
+      category: json['category'] != null
+          ? UpgradeCategory.values.firstWhere(
+              (c) => c.name == json['category'] as String,
+              orElse: () => UpgradeCategory.room,
+            )
+          : UpgradeCategory.room,
       eraId: json['eraId'] as String,
       baseCost: _parseGameNumber(json['baseCost']),
       costGrowthRate: double.parse(json['costGrowthRate'].toString()),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../../domain/models/era.dart';
+import '../../domain/models/game_systems.dart';
 import '../../domain/models/generator.dart';
 import '../../domain/models/upgrade.dart';
 
@@ -58,6 +59,13 @@ class ConfigRepository {
     final eras = economyConfig['eras'] as List<dynamic>;
     return eras
         .map((e) => Era.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  List<Ending> getEndings() {
+    final endings = economyConfig['endings'] as List<dynamic>? ?? [];
+    return endings
+        .map((e) => Ending.fromJson(e as Map<String, dynamic>))
         .toList();
   }
 }
