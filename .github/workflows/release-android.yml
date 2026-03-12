@@ -1,0 +1,101 @@
+name: Release Android
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag override (e.g. v1.0.0). Defaults to version in pubspec.yaml.'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+      - name: Run Dart tests
+        run: dart test
+
+  build-release-apk:
+    name: Build Android Release APK
+    runs-on: ubuntu-latest
+    needs: [test]
+    outputs:
+      tag: ${{ steps.get_tag.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine release tag
+        id: get_tag
+        run: |
+          if [[ "${{ github.event_name }}" = "workflow_dispatch" ]] && [[ -n "${{ github.event.inputs.tag }}" ]]; then
+            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          elif [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //' | sed 's/+.*//')
+            echo "tag=v${VERSION}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - run: flutter pub get
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Rename APK with version
+        run: |
+          TAG=${{ steps.get_tag.outputs.tag }}
+          cp build/app/outputs/flutter-apk/app-release.apk \
+             build/app/outputs/flutter-apk/ai-evolution-${TAG}.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-release-apk
+          path: build/app/outputs/flutter-apk/ai-evolution-*.apk
+
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [build-release-apk]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: android-release-apk
+          path: ./release-artifacts
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.build-release-apk.outputs.tag }}
+          name: AI Evolution ${{ needs.build-release-apk.outputs.tag }}
+          body: |
+            ## AI Evolution Android Release ${{ needs.build-release-apk.outputs.tag }}
+
+            ### Installation
+            1. Download the APK file below.
+            2. Enable "Install from unknown sources" in your Android settings.
+            3. Open the downloaded APK to install.
+          files: ./release-artifacts/ai-evolution-*.apk
+          draft: false
+          prerelease: false
