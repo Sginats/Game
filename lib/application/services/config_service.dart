@@ -1,4 +1,5 @@
 import '../../core/math/game_number.dart';
+import '../../domain/models/achievement.dart';
 import '../../domain/models/era.dart';
 import '../../domain/models/generator.dart';
 import '../../domain/models/upgrade.dart';
@@ -11,6 +12,7 @@ class ConfigService {
   final Map<String, GeneratorDefinition> generators;
   final Map<String, UpgradeDefinition> upgrades;
   final List<Era> eras;
+  final List<AchievementDefinition> achievements;
   final int maxOfflineHours;
   final int autoSaveIntervalSeconds;
   final int tickRateMs;
@@ -21,8 +23,10 @@ class ConfigService {
     required this.generators,
     required this.upgrades,
     required this.eras,
+    this.achievements = const [],
     required this.maxOfflineHours,
     required this.autoSaveIntervalSeconds,
     required this.tickRateMs,
   });
 }
+

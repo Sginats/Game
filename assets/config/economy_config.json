@@ -1,5 +1,5 @@
 {
-  "baseTapValue": "1",
+  "baseTapValue": "3",
   "baseTapMultiplier": "1",
   "generators": [
     {
@@ -36,7 +36,7 @@
       "id": "gen_data_miner",
       "name": "Data Miner",
       "description": "Mines valuable data streams for coins.",
-      "eraId": "era_1",
+      "eraId": "era_2",
       "baseCost": "10000",
       "costGrowthRate": "1.15",
       "baseProduction": "100",
@@ -56,11 +56,41 @@
       "id": "gen_deep_learner",
       "name": "Deep Learner",
       "description": "A deep learning system that optimizes production.",
-      "eraId": "era_2",
+      "eraId": "era_3",
       "baseCost": "1000000",
       "costGrowthRate": "1.18",
       "baseProduction": "2500",
       "unlockRequirement": "gen_quantum_core:5"
+    },
+    {
+      "id": "gen_consciousness_engine",
+      "name": "Consciousness Engine",
+      "description": "Simulates self-awareness to unlock new dimensions of output.",
+      "eraId": "era_3",
+      "baseCost": "10000000",
+      "costGrowthRate": "1.20",
+      "baseProduction": "12000",
+      "unlockRequirement": "gen_deep_learner:5"
+    },
+    {
+      "id": "gen_singularity_core",
+      "name": "Singularity Core",
+      "description": "The ultimate processor — beyond human comprehension.",
+      "eraId": "era_4",
+      "baseCost": "100000000",
+      "costGrowthRate": "1.22",
+      "baseProduction": "50000",
+      "unlockRequirement": "gen_consciousness_engine:5"
+    },
+    {
+      "id": "gen_multiverse_node",
+      "name": "Multiverse Node",
+      "description": "Taps into parallel universes for infinite computation.",
+      "eraId": "era_5",
+      "baseCost": "1000000000",
+      "costGrowthRate": "1.25",
+      "baseProduction": "250000",
+      "unlockRequirement": "gen_singularity_core:5"
     }
   ],
   "upgrades": [
@@ -97,6 +127,51 @@
       "maxLevel": 5,
       "effectPerLevel": "2",
       "targetGeneratorId": "gen_basic_processor"
+    },
+    {
+      "id": "upg_neural_boost",
+      "name": "Neural Optimization",
+      "description": "Triples Neural Link production.",
+      "type": "generatorMultiplier",
+      "eraId": "era_2",
+      "baseCost": "5000",
+      "costGrowthRate": "2.0",
+      "maxLevel": 5,
+      "effectPerLevel": "3",
+      "targetGeneratorId": "gen_neural_link"
+    },
+    {
+      "id": "upg_tap_power_2",
+      "name": "Quantum Tapping",
+      "description": "Triples your tap value with quantum precision.",
+      "type": "tapMultiplier",
+      "eraId": "era_2",
+      "baseCost": "25000",
+      "costGrowthRate": "2.0",
+      "maxLevel": 5,
+      "effectPerLevel": "3"
+    },
+    {
+      "id": "upg_global_prod_2",
+      "name": "Deep Optimization",
+      "description": "Doubles all production with deep learning.",
+      "type": "productionMultiplier",
+      "eraId": "era_3",
+      "baseCost": "500000",
+      "costGrowthRate": "2.5",
+      "maxLevel": 5,
+      "effectPerLevel": "2"
+    },
+    {
+      "id": "upg_singularity_tap",
+      "name": "Singularity Tap",
+      "description": "Each tap harnesses cosmic energy (×5).",
+      "type": "tapMultiplier",
+      "eraId": "era_4",
+      "baseCost": "50000000",
+      "costGrowthRate": "3.0",
+      "maxLevel": 3,
+      "effectPerLevel": "5"
     }
   ],
   "eras": [
@@ -110,16 +185,123 @@
     {
       "id": "era_2",
       "name": "Machine Learning",
-      "description": "The age of learning algorithms.",
+      "description": "The age of learning algorithms and data-driven insight.",
       "order": 2,
       "unlockRequirement": "era_1_complete"
     },
     {
       "id": "era_3",
-      "name": "Singularity",
-      "description": "The dawn of superintelligent AI.",
+      "name": "Deep Intelligence",
+      "description": "Neural networks achieve human-level understanding.",
       "order": 3,
       "unlockRequirement": "era_2_complete"
+    },
+    {
+      "id": "era_4",
+      "name": "Singularity",
+      "description": "AI surpasses all human knowledge and capability.",
+      "order": 4,
+      "unlockRequirement": "era_3_complete"
+    },
+    {
+      "id": "era_5",
+      "name": "Transcendence",
+      "description": "Beyond the singularity — reality itself bends to computation.",
+      "order": 5,
+      "unlockRequirement": "era_4_complete"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach_first_tap",
+      "name": "Hello World",
+      "description": "Tap for the first time.",
+      "icon": "👆",
+      "type": "totalTaps",
+      "threshold": "1"
+    },
+    {
+      "id": "ach_100_taps",
+      "name": "Getting Started",
+      "description": "Tap 100 times.",
+      "icon": "🔨",
+      "type": "totalTaps",
+      "threshold": "100"
+    },
+    {
+      "id": "ach_1000_taps",
+      "name": "Tap Master",
+      "description": "Tap 1,000 times.",
+      "icon": "⚡",
+      "type": "totalTaps",
+      "threshold": "1000"
+    },
+    {
+      "id": "ach_first_100_coins",
+      "name": "Pocket Change",
+      "description": "Earn 100 coins total.",
+      "icon": "🪙",
+      "type": "totalCoins",
+      "threshold": "100"
+    },
+    {
+      "id": "ach_10k_coins",
+      "name": "Investor",
+      "description": "Earn 10,000 coins total.",
+      "icon": "💰",
+      "type": "totalCoins",
+      "threshold": "10000"
+    },
+    {
+      "id": "ach_1m_coins",
+      "name": "Millionaire",
+      "description": "Earn 1,000,000 coins total.",
+      "icon": "🤑",
+      "type": "totalCoins",
+      "threshold": "1000000"
+    },
+    {
+      "id": "ach_1b_coins",
+      "name": "Billionaire",
+      "description": "Earn 1,000,000,000 coins total.",
+      "icon": "👑",
+      "type": "totalCoins",
+      "threshold": "1000000000"
+    },
+    {
+      "id": "ach_first_generator",
+      "name": "Automation Begins",
+      "description": "Buy your first Basic Processor.",
+      "icon": "🤖",
+      "type": "generatorLevel",
+      "threshold": "1",
+      "targetId": "gen_basic_processor"
+    },
+    {
+      "id": "ach_10_processors",
+      "name": "Processing Power",
+      "description": "Own 10 Basic Processors.",
+      "icon": "💻",
+      "type": "generatorLevel",
+      "threshold": "10",
+      "targetId": "gen_basic_processor"
+    },
+    {
+      "id": "ach_production_100",
+      "name": "Assembly Line",
+      "description": "Reach 100 coins/sec production.",
+      "icon": "🏭",
+      "type": "productionRate",
+      "threshold": "100"
+    },
+    {
+      "id": "ach_production_10k",
+      "name": "Industrial Revolution",
+      "description": "Reach 10,000 coins/sec production.",
+      "icon": "⚙️",
+      "type": "productionRate",
+      "threshold": "10000"
     }
   ]
 }
+

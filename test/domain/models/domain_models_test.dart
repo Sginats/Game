@@ -105,6 +105,36 @@ void main() {
     'GameState JSON round-trip coins',
   );
 
+  // New fields
+  expect(state.totalTaps, 0, 'Initial totalTaps = 0');
+  expect(state.prestigeCount, 0, 'Initial prestigeCount = 0');
+  expect(state.tutorialComplete, false, 'Initial tutorial not complete');
+  expectTrue(state.unlockedAchievements.isEmpty, 'Initial no achievements');
+
+  final prestigeState = state.copyWith(
+    totalTaps: 50,
+    prestigeCount: 2,
+    prestigeMultiplier: GameNumber.fromDouble(1.5),
+    unlockedAchievements: {'ach_1', 'ach_2'},
+    tutorialComplete: true,
+  );
+  expect(prestigeState.totalTaps, 50, 'copyWith totalTaps');
+  expect(prestigeState.prestigeCount, 2, 'copyWith prestigeCount');
+  expectTrue(
+    (prestigeState.prestigeMultiplier.toDouble() - 1.5).abs() < 0.01,
+    'copyWith prestigeMultiplier',
+  );
+  expect(prestigeState.tutorialComplete, true, 'copyWith tutorialComplete');
+  expect(prestigeState.unlockedAchievements.length, 2, 'copyWith achievements');
+
+  // New fields JSON round-trip
+  final pJson = prestigeState.toJson();
+  final pFromJson = GameState.fromJson(pJson);
+  expect(pFromJson.totalTaps, 50, 'JSON round-trip totalTaps');
+  expect(pFromJson.prestigeCount, 2, 'JSON round-trip prestigeCount');
+  expect(pFromJson.tutorialComplete, true, 'JSON round-trip tutorialComplete');
+  expect(pFromJson.unlockedAchievements.length, 2, 'JSON round-trip achievements');
+
   print('\n$passed passed, $failed failed');
   if (failed > 0) throw Exception('Tests failed');
 }
