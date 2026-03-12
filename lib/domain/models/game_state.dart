@@ -12,6 +12,13 @@ class GameState {
   final Map<String, UpgradeState> upgrades;
   final Set<String> unlockedEras;
   final DateTime lastSaveTime;
+  final int totalTaps;
+  final int prestigeCount;
+  final GameNumber prestigeMultiplier;
+  final Set<String> unlockedAchievements;
+  final bool tutorialComplete;
+  final int tapCombo;
+  final DateTime? lastTapTime;
 
   GameState({
     required this.coins,
@@ -22,7 +29,15 @@ class GameState {
     required this.upgrades,
     required this.unlockedEras,
     required this.lastSaveTime,
-  });
+    this.totalTaps = 0,
+    this.prestigeCount = 0,
+    GameNumber? prestigeMultiplier,
+    this.unlockedAchievements = const {},
+    this.tutorialComplete = false,
+    this.tapCombo = 0,
+    this.lastTapTime,
+  }) : prestigeMultiplier =
+            prestigeMultiplier ?? GameNumber.fromDouble(1);
 
   /// Factory for a fresh new-game state.
   factory GameState.initial() {
@@ -47,6 +62,13 @@ class GameState {
     Map<String, UpgradeState>? upgrades,
     Set<String>? unlockedEras,
     DateTime? lastSaveTime,
+    int? totalTaps,
+    int? prestigeCount,
+    GameNumber? prestigeMultiplier,
+    Set<String>? unlockedAchievements,
+    bool? tutorialComplete,
+    int? tapCombo,
+    DateTime? lastTapTime,
   }) {
     return GameState(
       coins: coins ?? this.coins,
@@ -57,6 +79,13 @@ class GameState {
       upgrades: upgrades ?? this.upgrades,
       unlockedEras: unlockedEras ?? this.unlockedEras,
       lastSaveTime: lastSaveTime ?? this.lastSaveTime,
+      totalTaps: totalTaps ?? this.totalTaps,
+      prestigeCount: prestigeCount ?? this.prestigeCount,
+      prestigeMultiplier: prestigeMultiplier ?? this.prestigeMultiplier,
+      unlockedAchievements: unlockedAchievements ?? this.unlockedAchievements,
+      tutorialComplete: tutorialComplete ?? this.tutorialComplete,
+      tapCombo: tapCombo ?? this.tapCombo,
+      lastTapTime: lastTapTime ?? this.lastTapTime,
     );
   }
 
@@ -69,6 +98,11 @@ class GameState {
         'upgrades': upgrades.map((k, v) => MapEntry(k, v.toJson())),
         'unlockedEras': unlockedEras.toList(),
         'lastSaveTime': lastSaveTime.toIso8601String(),
+        'totalTaps': totalTaps,
+        'prestigeCount': prestigeCount,
+        'prestigeMultiplier': prestigeMultiplier.toJson(),
+        'unlockedAchievements': unlockedAchievements.toList(),
+        'tutorialComplete': tutorialComplete,
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -89,6 +123,17 @@ class GameState {
       unlockedEras:
           (json['unlockedEras'] as List<dynamic>).map((e) => e as String).toSet(),
       lastSaveTime: DateTime.parse(json['lastSaveTime'] as String),
+      totalTaps: json['totalTaps'] as int? ?? 0,
+      prestigeCount: json['prestigeCount'] as int? ?? 0,
+      prestigeMultiplier: json['prestigeMultiplier'] != null
+          ? GameNumber.fromJson(json['prestigeMultiplier'] as Map<String, dynamic>)
+          : null,
+      unlockedAchievements: json['unlockedAchievements'] != null
+          ? (json['unlockedAchievements'] as List<dynamic>)
+              .map((e) => e as String)
+              .toSet()
+          : const {},
+      tutorialComplete: json['tutorialComplete'] as bool? ?? false,
     );
   }
 }
