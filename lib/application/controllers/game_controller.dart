@@ -924,9 +924,9 @@ class GameController {
   }
 
   void _maybeSpawnEvent() {
-    if (_state.activeEvent != null || _eventAccumulator < 12) return;
-    // Cap accumulator to prevent unbounded growth
+    // Cap accumulator to prevent unbounded growth even during active events
     if (_eventAccumulator > 60) _eventAccumulator = 60;
+    if (_state.activeEvent != null || _eventAccumulator < 12) return;
 
     final chance = (_state.chosenBranches.contains('risky') ? 0.04 : 0.022) +
         (_state.eventPityCounter * 0.006).clamp(0.0, 0.05);
