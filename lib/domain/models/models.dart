@@ -1,4 +1,5 @@
 export 'achievement.dart';
+export 'codex.dart';
 export 'era.dart';
 export 'game_state.dart';
 export 'gameplay_extensions.dart';
