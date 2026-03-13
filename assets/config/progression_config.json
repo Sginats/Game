@@ -492,7 +492,7 @@
       "id": "secret_critical_mass",
       "title": "Critical Mass",
       "description": "Enough critical hits create a self-sustaining chain reaction in the AI core.",
-      "hint": "Each critical click leaves a mark. Two hundred marks form a pattern the AI can exploit.",
+      "hint": "Each critical click leaves a mark. Twenty-five thousand marks form a pattern the AI can exploit.",
       "metric": "totalTaps",
       "target": 25000,
       "eraId": "era_15",
