@@ -54,21 +54,28 @@ class RoomSceneService {
     _eventPoolCache.clear();
 
     // Index raw JSON by id and extract event pools.
+    // Entries missing required keys (id, order) are silently skipped.
     for (final json in roomJsonList) {
-      final id = json['id'] as String;
+      final id = json['id'];
+      final order = json['order'];
+      if (id is! String || order is! int) continue;
+
       _rawRoomJsonById[id] = json;
 
-      if (json['eventPool'] != null) {
-        _rawEventPoolJsonById[id] =
-            json['eventPool'] as Map<String, dynamic>;
+      final eventPool = json['eventPool'];
+      if (eventPool is Map<String, dynamic>) {
+        _rawEventPoolJsonById[id] = eventPool;
       }
     }
 
     // Build a lightweight order index without fully parsing each room.
     final orderEntries = <_OrderEntry>[];
-    for (final json in roomJsonList) {
+    for (final entry in _rawRoomJsonById.entries) {
       orderEntries.add(
-        _OrderEntry(id: json['id'] as String, order: json['order'] as int),
+        _OrderEntry(
+          id: entry.key,
+          order: entry.value['order'] as int,
+        ),
       );
     }
     orderEntries.sort((a, b) => a.order.compareTo(b.order));
@@ -119,14 +126,17 @@ class RoomSceneService {
   RoomScene? getRoomByOrder(int order) {
     if (!_initialized) return null;
     for (final id in _orderedRoomIds) {
-      // Peek at raw JSON first to avoid parsing every room.
+      // Check already-parsed rooms first (cheapest).
+      final cached = _roomCache[id];
+      if (cached != null) {
+        if (cached.order == order) return cached;
+        continue;
+      }
+      // Peek at raw JSON to avoid parsing every room.
       final json = _rawRoomJsonById[id];
-      if (json != null && json['order'] as int == order) {
+      if (json != null && json['order'] == order) {
         return _ensureRoom(id);
       }
-      // Also check already-parsed rooms.
-      final cached = _roomCache[id];
-      if (cached != null && cached.order == order) return cached;
     }
     return null;
   }
