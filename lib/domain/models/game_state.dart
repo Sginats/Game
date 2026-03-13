@@ -1,4 +1,5 @@
 import '../../core/math/game_number.dart';
+import 'gameplay_extensions.dart';
 import 'generator.dart';
 import 'upgrade.dart';
 
@@ -19,6 +20,38 @@ class GameState {
   final bool tutorialComplete;
   final int tapCombo;
   final DateTime? lastTapTime;
+  final int strongestCombo;
+  final int totalUpgradesPurchased;
+  final int totalGeneratorsPurchased;
+  final int totalCriticalClicks;
+  final double totalPlaySeconds;
+  final double totalOfflineSeconds;
+  final double automationCharge;
+  final double purchaseMomentum;
+  final Set<String> unlockedMilestones;
+  final Set<String> discoveredSecrets;
+  final Set<String> chosenBranches;
+  final Map<String, ActiveAbilityState> abilities;
+  final GameEventState? activeEvent;
+  final QuestState? activeQuest;
+  final Map<String, double> playstyleTendencies;
+  final List<ChallengeState> challenges;
+  final List<NarrativeBeat> narrativeQueue;
+  final List<GameplayMutatorState> activeMutators;
+  final List<LoadoutPreset> loadoutPresets;
+  final int eventPityCounter;
+  final int totalEventsSpawned;
+  final int totalEventsClicked;
+  final int rareEventsFound;
+  final int bestEventChain;
+  final int currentEventChain;
+  final int totalEventsMissed;
+  final int riskyChoicesTaken;
+  final int challengeRerollsRemaining;
+  final int branchRespecTokens;
+  final String currentSeasonKey;
+  final String routeSignature;
+  final int missedEventCharges;
 
   GameState({
     required this.coins,
@@ -36,6 +69,38 @@ class GameState {
     this.tutorialComplete = false,
     this.tapCombo = 0,
     this.lastTapTime,
+    this.strongestCombo = 0,
+    this.totalUpgradesPurchased = 0,
+    this.totalGeneratorsPurchased = 0,
+    this.totalCriticalClicks = 0,
+    this.totalPlaySeconds = 0,
+    this.totalOfflineSeconds = 0,
+    this.automationCharge = 0,
+    this.purchaseMomentum = 0,
+    this.unlockedMilestones = const {},
+    this.discoveredSecrets = const {},
+    this.chosenBranches = const {},
+    this.abilities = const {},
+    this.activeEvent,
+    this.activeQuest,
+    this.playstyleTendencies = const {},
+    this.challenges = const [],
+    this.narrativeQueue = const [],
+    this.activeMutators = const [],
+    this.loadoutPresets = const [],
+    this.eventPityCounter = 0,
+    this.totalEventsSpawned = 0,
+    this.totalEventsClicked = 0,
+    this.rareEventsFound = 0,
+    this.bestEventChain = 0,
+    this.currentEventChain = 0,
+    this.totalEventsMissed = 0,
+    this.riskyChoicesTaken = 0,
+    this.challengeRerollsRemaining = 2,
+    this.branchRespecTokens = 1,
+    this.currentSeasonKey = 'season_alpha',
+    this.routeSignature = 'fresh',
+    this.missedEventCharges = 0,
   }) : prestigeMultiplier =
             prestigeMultiplier ?? GameNumber.fromDouble(1);
 
@@ -50,6 +115,29 @@ class GameState {
       upgrades: const {},
       unlockedEras: const {'era_1'},
       lastSaveTime: DateTime.now(),
+      abilities: {
+        for (final ability in ActiveAbilityType.values)
+          ability.name: ActiveAbilityState(
+            type: ability,
+            unlocked: ability == ActiveAbilityType.overclock ||
+                ability == ActiveAbilityType.focus,
+          ),
+      },
+      playstyleTendencies: const {
+        'active': 0,
+        'passive': 0,
+        'risky': 0,
+        'efficient': 0,
+        'event_hunter': 0,
+      },
+      loadoutPresets: const [
+        LoadoutPreset(id: 'preset_tap', name: 'Tap Bias', preferredBranches: {'tap'}),
+        LoadoutPreset(
+          id: 'preset_auto',
+          name: 'Auto Bias',
+          preferredBranches: {'automation'},
+        ),
+      ],
     );
   }
 
@@ -69,6 +157,38 @@ class GameState {
     bool? tutorialComplete,
     int? tapCombo,
     DateTime? lastTapTime,
+    int? strongestCombo,
+    int? totalUpgradesPurchased,
+    int? totalGeneratorsPurchased,
+    int? totalCriticalClicks,
+    double? totalPlaySeconds,
+    double? totalOfflineSeconds,
+    double? automationCharge,
+    double? purchaseMomentum,
+    Set<String>? unlockedMilestones,
+    Set<String>? discoveredSecrets,
+    Set<String>? chosenBranches,
+    Map<String, ActiveAbilityState>? abilities,
+    GameEventState? activeEvent,
+    QuestState? activeQuest,
+    Map<String, double>? playstyleTendencies,
+    List<ChallengeState>? challenges,
+    List<NarrativeBeat>? narrativeQueue,
+    List<GameplayMutatorState>? activeMutators,
+    List<LoadoutPreset>? loadoutPresets,
+    int? eventPityCounter,
+    int? totalEventsSpawned,
+    int? totalEventsClicked,
+    int? rareEventsFound,
+    int? bestEventChain,
+    int? currentEventChain,
+    int? totalEventsMissed,
+    int? riskyChoicesTaken,
+    int? challengeRerollsRemaining,
+    int? branchRespecTokens,
+    String? currentSeasonKey,
+    String? routeSignature,
+    int? missedEventCharges,
   }) {
     return GameState(
       coins: coins ?? this.coins,
@@ -86,6 +206,42 @@ class GameState {
       tutorialComplete: tutorialComplete ?? this.tutorialComplete,
       tapCombo: tapCombo ?? this.tapCombo,
       lastTapTime: lastTapTime ?? this.lastTapTime,
+      strongestCombo: strongestCombo ?? this.strongestCombo,
+      totalUpgradesPurchased:
+          totalUpgradesPurchased ?? this.totalUpgradesPurchased,
+      totalGeneratorsPurchased:
+          totalGeneratorsPurchased ?? this.totalGeneratorsPurchased,
+      totalCriticalClicks: totalCriticalClicks ?? this.totalCriticalClicks,
+      totalPlaySeconds: totalPlaySeconds ?? this.totalPlaySeconds,
+      totalOfflineSeconds: totalOfflineSeconds ?? this.totalOfflineSeconds,
+      automationCharge: automationCharge ?? this.automationCharge,
+      purchaseMomentum: purchaseMomentum ?? this.purchaseMomentum,
+      unlockedMilestones: unlockedMilestones ?? this.unlockedMilestones,
+      discoveredSecrets: discoveredSecrets ?? this.discoveredSecrets,
+      chosenBranches: chosenBranches ?? this.chosenBranches,
+      abilities: abilities ?? this.abilities,
+      activeEvent: activeEvent ?? this.activeEvent,
+      activeQuest: activeQuest ?? this.activeQuest,
+      playstyleTendencies:
+          playstyleTendencies ?? this.playstyleTendencies,
+      challenges: challenges ?? this.challenges,
+      narrativeQueue: narrativeQueue ?? this.narrativeQueue,
+      activeMutators: activeMutators ?? this.activeMutators,
+      loadoutPresets: loadoutPresets ?? this.loadoutPresets,
+      eventPityCounter: eventPityCounter ?? this.eventPityCounter,
+      totalEventsSpawned: totalEventsSpawned ?? this.totalEventsSpawned,
+      totalEventsClicked: totalEventsClicked ?? this.totalEventsClicked,
+      rareEventsFound: rareEventsFound ?? this.rareEventsFound,
+      bestEventChain: bestEventChain ?? this.bestEventChain,
+      currentEventChain: currentEventChain ?? this.currentEventChain,
+      totalEventsMissed: totalEventsMissed ?? this.totalEventsMissed,
+      riskyChoicesTaken: riskyChoicesTaken ?? this.riskyChoicesTaken,
+      challengeRerollsRemaining:
+          challengeRerollsRemaining ?? this.challengeRerollsRemaining,
+      branchRespecTokens: branchRespecTokens ?? this.branchRespecTokens,
+      currentSeasonKey: currentSeasonKey ?? this.currentSeasonKey,
+      routeSignature: routeSignature ?? this.routeSignature,
+      missedEventCharges: missedEventCharges ?? this.missedEventCharges,
     );
   }
 
@@ -105,6 +261,38 @@ class GameState {
         'tutorialComplete': tutorialComplete,
         'tapCombo': tapCombo,
         'lastTapTime': lastTapTime?.toIso8601String(),
+        'strongestCombo': strongestCombo,
+        'totalUpgradesPurchased': totalUpgradesPurchased,
+        'totalGeneratorsPurchased': totalGeneratorsPurchased,
+        'totalCriticalClicks': totalCriticalClicks,
+        'totalPlaySeconds': totalPlaySeconds,
+        'totalOfflineSeconds': totalOfflineSeconds,
+        'automationCharge': automationCharge,
+        'purchaseMomentum': purchaseMomentum,
+        'unlockedMilestones': unlockedMilestones.toList(),
+        'discoveredSecrets': discoveredSecrets.toList(),
+        'chosenBranches': chosenBranches.toList(),
+        'abilities': abilities.map((k, v) => MapEntry(k, v.toJson())),
+        'activeEvent': activeEvent?.toJson(),
+        'activeQuest': activeQuest?.toJson(),
+        'playstyleTendencies': playstyleTendencies,
+        'challenges': challenges.map((item) => item.toJson()).toList(),
+        'narrativeQueue': narrativeQueue.map((item) => item.toJson()).toList(),
+        'activeMutators': activeMutators.map((item) => item.toJson()).toList(),
+        'loadoutPresets': loadoutPresets.map((item) => item.toJson()).toList(),
+        'eventPityCounter': eventPityCounter,
+        'totalEventsSpawned': totalEventsSpawned,
+        'totalEventsClicked': totalEventsClicked,
+        'rareEventsFound': rareEventsFound,
+        'bestEventChain': bestEventChain,
+        'currentEventChain': currentEventChain,
+        'totalEventsMissed': totalEventsMissed,
+        'riskyChoicesTaken': riskyChoicesTaken,
+        'challengeRerollsRemaining': challengeRerollsRemaining,
+        'branchRespecTokens': branchRespecTokens,
+        'currentSeasonKey': currentSeasonKey,
+        'routeSignature': routeSignature,
+        'missedEventCharges': missedEventCharges,
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -140,6 +328,113 @@ class GameState {
       lastTapTime: json['lastTapTime'] != null
           ? DateTime.parse(json['lastTapTime'] as String)
           : null,
+      strongestCombo: json['strongestCombo'] as int? ?? 0,
+      totalUpgradesPurchased: json['totalUpgradesPurchased'] as int? ?? 0,
+      totalGeneratorsPurchased:
+          json['totalGeneratorsPurchased'] as int? ?? 0,
+      totalCriticalClicks: json['totalCriticalClicks'] as int? ?? 0,
+      totalPlaySeconds:
+          (json['totalPlaySeconds'] as num?)?.toDouble() ?? 0,
+      totalOfflineSeconds:
+          (json['totalOfflineSeconds'] as num?)?.toDouble() ?? 0,
+      automationCharge:
+          (json['automationCharge'] as num?)?.toDouble() ?? 0,
+      purchaseMomentum:
+          (json['purchaseMomentum'] as num?)?.toDouble() ?? 0,
+      unlockedMilestones: json['unlockedMilestones'] != null
+          ? (json['unlockedMilestones'] as List<dynamic>)
+              .map((e) => e as String)
+              .toSet()
+          : const {},
+      discoveredSecrets: json['discoveredSecrets'] != null
+          ? (json['discoveredSecrets'] as List<dynamic>)
+              .map((e) => e as String)
+              .toSet()
+          : const {},
+      chosenBranches: json['chosenBranches'] != null
+          ? (json['chosenBranches'] as List<dynamic>)
+              .map((e) => e as String)
+              .toSet()
+          : const {},
+      abilities: json['abilities'] != null
+          ? (json['abilities'] as Map<String, dynamic>).map(
+              (k, v) => MapEntry(
+                k,
+                ActiveAbilityState.fromJson(v as Map<String, dynamic>),
+              ),
+            )
+          : {
+              for (final ability in ActiveAbilityType.values)
+                ability.name: ActiveAbilityState(
+                  type: ability,
+                  unlocked: ability == ActiveAbilityType.overclock ||
+                      ability == ActiveAbilityType.focus,
+                ),
+            },
+      activeEvent: json['activeEvent'] != null
+          ? GameEventState.fromJson(
+              json['activeEvent'] as Map<String, dynamic>,
+            )
+          : null,
+      activeQuest: json['activeQuest'] != null
+          ? QuestState.fromJson(json['activeQuest'] as Map<String, dynamic>)
+          : null,
+      playstyleTendencies: json['playstyleTendencies'] != null
+          ? (json['playstyleTendencies'] as Map<String, dynamic>).map(
+              (k, v) => MapEntry(k, (v as num).toDouble()),
+            )
+          : const {
+              'active': 0,
+              'passive': 0,
+              'risky': 0,
+              'efficient': 0,
+              'event_hunter': 0,
+            },
+      challenges: json['challenges'] != null
+          ? (json['challenges'] as List<dynamic>)
+              .map((e) => ChallengeState.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : const [],
+      narrativeQueue: json['narrativeQueue'] != null
+          ? (json['narrativeQueue'] as List<dynamic>)
+              .map((e) => NarrativeBeat.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : const [],
+      activeMutators: json['activeMutators'] != null
+          ? (json['activeMutators'] as List<dynamic>)
+              .map((e) => GameplayMutatorState.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : const [],
+      loadoutPresets: json['loadoutPresets'] != null
+          ? (json['loadoutPresets'] as List<dynamic>)
+              .map((e) => LoadoutPreset.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : const [
+              LoadoutPreset(
+                id: 'preset_tap',
+                name: 'Tap Bias',
+                preferredBranches: {'tap'},
+              ),
+              LoadoutPreset(
+                id: 'preset_auto',
+                name: 'Auto Bias',
+                preferredBranches: {'automation'},
+              ),
+            ],
+      eventPityCounter: json['eventPityCounter'] as int? ?? 0,
+      totalEventsSpawned: json['totalEventsSpawned'] as int? ?? 0,
+      totalEventsClicked: json['totalEventsClicked'] as int? ?? 0,
+      rareEventsFound: json['rareEventsFound'] as int? ?? 0,
+      bestEventChain: json['bestEventChain'] as int? ?? 0,
+      currentEventChain: json['currentEventChain'] as int? ?? 0,
+      totalEventsMissed: json['totalEventsMissed'] as int? ?? 0,
+      riskyChoicesTaken: json['riskyChoicesTaken'] as int? ?? 0,
+      challengeRerollsRemaining:
+          json['challengeRerollsRemaining'] as int? ?? 2,
+      branchRespecTokens: json['branchRespecTokens'] as int? ?? 1,
+      currentSeasonKey: json['currentSeasonKey'] as String? ?? 'season_alpha',
+      routeSignature: json['routeSignature'] as String? ?? 'fresh',
+      missedEventCharges: json['missedEventCharges'] as int? ?? 0,
     );
   }
 }

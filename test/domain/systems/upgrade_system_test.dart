@@ -1,90 +1,92 @@
-import '../../../lib/core/math/game_number.dart';
-import '../../../lib/domain/models/game_state.dart';
-import '../../../lib/domain/models/generator.dart';
-import '../../../lib/domain/models/upgrade.dart';
-import '../../../lib/domain/systems/upgrade_system.dart';
+import 'package:ai_evolution/core/math/game_number.dart';
+import 'package:ai_evolution/domain/models/game_state.dart';
+import 'package:ai_evolution/domain/models/upgrade.dart';
+import 'package:ai_evolution/domain/systems/upgrade_system.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  var passed = 0;
-  var failed = 0;
+  late UpgradeDefinition tapUpgrade;
+  late UpgradeDefinition prodUpgrade;
 
-  void expectTrue(bool condition, String name) {
-    if (condition) {
-      passed++;
-    } else {
-      print('FAIL: $name');
-      failed++;
-    }
-  }
+  setUp(() {
+    tapUpgrade = UpgradeDefinition(
+      id: 'upg_tap',
+      name: 'Tap Boost',
+      description: 'Test',
+      type: UpgradeType.tapMultiplier,
+      eraId: 'era_1',
+      baseCost: GameNumber.fromDouble(50),
+      costGrowthRate: 1.5,
+      maxLevel: 5,
+      effectPerLevel: GameNumber.fromDouble(2),
+    );
 
-  final tapUpgrade = UpgradeDefinition(
-    id: 'upg_tap',
-    name: 'Tap Boost',
-    description: 'Test',
-    type: UpgradeType.tapMultiplier,
-    eraId: 'era_1',
-    baseCost: GameNumber.fromDouble(50),
-    costGrowthRate: 1.5,
-    maxLevel: 5,
-    effectPerLevel: GameNumber.fromDouble(2),
-  );
+    prodUpgrade = UpgradeDefinition(
+      id: 'upg_prod',
+      name: 'Prod Boost',
+      description: 'Test',
+      type: UpgradeType.productionMultiplier,
+      eraId: 'era_1',
+      baseCost: GameNumber.fromDouble(100),
+      costGrowthRate: 2.0,
+      maxLevel: 3,
+      effectPerLevel: GameNumber.fromDouble(1.5),
+    );
+  });
 
-  final prodUpgrade = UpgradeDefinition(
-    id: 'upg_prod',
-    name: 'Prod Boost',
-    description: 'Test',
-    type: UpgradeType.productionMultiplier,
-    eraId: 'era_1',
-    baseCost: GameNumber.fromDouble(100),
-    costGrowthRate: 2.0,
-    maxLevel: 3,
-    effectPerLevel: GameNumber.fromDouble(1.5),
-  );
+  test('purchaseUpgrade applies effects and respects constraints', () {
+    final state = GameState.initial().copyWith(
+      coins: GameNumber.fromDouble(1000),
+    );
 
-  // --- purchaseUpgrade: tap multiplier ---
-  final state = GameState.initial().copyWith(
-    coins: GameNumber.fromDouble(1000),
-  );
+    final afterTapUpg = UpgradeSystem.purchaseUpgrade(state, tapUpgrade);
+    expect(afterTapUpg.upgrades.containsKey('upg_tap'), isTrue);
+    expect(afterTapUpg.upgrades['upg_tap']!.level, 1);
+    expect(afterTapUpg.tapMultiplier.toDouble(), closeTo(2.0, 0.01));
+    expect(afterTapUpg.coins < state.coins, isTrue);
 
-  final afterTapUpg = UpgradeSystem.purchaseUpgrade(state, tapUpgrade);
-  expectTrue(
-    afterTapUpg.upgrades.containsKey('upg_tap'),
-    'tap upgrade purchased',
-  );
-  expectTrue(
-    afterTapUpg.upgrades['upg_tap']!.level == 1,
-    'tap upgrade level 1',
-  );
-  expectTrue(
-    (afterTapUpg.tapMultiplier.toDouble() - 2.0).abs() < 0.01,
-    'tapMultiplier doubled',
-  );
-  expectTrue(afterTapUpg.coins < state.coins, 'coins spent on upgrade');
+    final afterProdUpg = UpgradeSystem.purchaseUpgrade(
+      state.copyWith(coins: GameNumber.fromDouble(500)),
+      prodUpgrade,
+    );
+    expect(
+      afterProdUpg.productionMultiplier.toDouble(),
+      closeTo(1.5, 0.01),
+    );
 
-  // --- purchaseUpgrade: production multiplier ---
-  final afterProdUpg = UpgradeSystem.purchaseUpgrade(
-    state.copyWith(coins: GameNumber.fromDouble(500)),
-    prodUpgrade,
-  );
-  expectTrue(
-    (afterProdUpg.productionMultiplier.toDouble() - 1.5).abs() < 0.01,
-    'productionMultiplier updated',
-  );
+    final poorState = GameState.initial().copyWith(
+      coins: GameNumber.fromDouble(1),
+    );
+    expect(UpgradeSystem.purchaseUpgrade(poorState, tapUpgrade), same(poorState));
 
-  // --- Can't afford ---
-  final poorState = GameState.initial().copyWith(
-    coins: GameNumber.fromDouble(1),
-  );
-  final noUpg = UpgradeSystem.purchaseUpgrade(poorState, tapUpgrade);
-  expectTrue(identical(noUpg, poorState), 'upgrade fails when poor');
+    final maxState = state.copyWith(
+      upgrades: {
+        'upg_tap': const UpgradeState(definitionId: 'upg_tap', level: 5),
+      },
+    );
+    expect(UpgradeSystem.purchaseUpgrade(maxState, tapUpgrade), same(maxState));
+  });
 
-  // --- Max level ---
-  final maxState = state.copyWith(
-    upgrades: {'upg_tap': const UpgradeState(definitionId: 'upg_tap', level: 5)},
-  );
-  final noUpg2 = UpgradeSystem.purchaseUpgrade(maxState, tapUpgrade);
-  expectTrue(identical(noUpg2, maxState), 'upgrade fails at max level');
+  test('purchaseUpgrade supports multi-buy and max clamping', () {
+    final state = GameState.initial().copyWith(
+      coins: GameNumber.fromDouble(1000),
+    );
 
-  print('\n$passed passed, $failed failed');
-  if (failed > 0) throw Exception('Tests failed');
+    final afterTriple =
+        UpgradeSystem.purchaseUpgrade(state, tapUpgrade, quantity: 3);
+    expect(afterTriple.upgrades['upg_tap']!.level, 3);
+    expect(afterTriple.tapMultiplier.toDouble(), closeTo(8.0, 0.01));
+
+    final nearMax = GameState.initial().copyWith(
+      coins: GameNumber.fromDouble(10000),
+      upgrades: {
+        'upg_tap': const UpgradeState(definitionId: 'upg_tap', level: 4),
+      },
+      tapMultiplier: GameNumber.fromDouble(16),
+    );
+    final clamped =
+        UpgradeSystem.purchaseUpgrade(nearMax, tapUpgrade, quantity: 100);
+    expect(clamped.upgrades['upg_tap']!.level, 5);
+    expect(clamped.tapMultiplier.toDouble(), closeTo(32.0, 0.01));
+  });
 }

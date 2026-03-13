@@ -37,6 +37,7 @@ class UpgradeDefinition {
   final int maxLevel;
   final GameNumber effectPerLevel;
   final String? targetGeneratorId;
+  final String? unlockRequirement;
 
   const UpgradeDefinition({
     required this.id,
@@ -50,6 +51,7 @@ class UpgradeDefinition {
     required this.maxLevel,
     required this.effectPerLevel,
     this.targetGeneratorId,
+    this.unlockRequirement,
   });
 
   factory UpgradeDefinition.fromJson(Map<String, dynamic> json) {
@@ -72,6 +74,7 @@ class UpgradeDefinition {
       maxLevel: json['maxLevel'] as int,
       effectPerLevel: _parseGameNumber(json['effectPerLevel']),
       targetGeneratorId: json['targetGeneratorId'] as String?,
+      unlockRequirement: json['unlockRequirement'] as String?,
     );
   }
 }

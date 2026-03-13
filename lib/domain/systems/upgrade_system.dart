@@ -8,65 +8,68 @@ class UpgradeSystem {
   /// Purchase an upgrade. Returns state unchanged if unaffordable or at max level.
   static GameState purchaseUpgrade(
     GameState state,
-    UpgradeDefinition definition,
-  ) {
-    final current = state.upgrades[definition.id];
-    final currentLevel = current?.level ?? 0;
+    UpgradeDefinition definition, {
+    int quantity = 1,
+  }) {
+    if (quantity <= 0) return state;
+    var updatedState = state;
 
-    // Check max level
-    if (currentLevel >= definition.maxLevel) return state;
+    for (var i = 0; i < quantity; i++) {
+      final current = updatedState.upgrades[definition.id];
+      final currentLevel = current?.level ?? 0;
 
-    // Calculate cost
-    final cost = CostCalculator.calculateCost(
-      definition.baseCost,
-      definition.costGrowthRate,
-      currentLevel,
-    );
+      if (currentLevel >= definition.maxLevel) return updatedState;
 
-    // Check affordability
-    if (state.coins < cost) return state;
+      final cost = CostCalculator.calculateCost(
+        definition.baseCost,
+        definition.costGrowthRate,
+        currentLevel,
+      );
 
-    // Update upgrade level
-    final newUpgrades = Map<String, UpgradeState>.from(state.upgrades);
-    newUpgrades[definition.id] = (current ??
-            UpgradeState(definitionId: definition.id))
-        .copyWith(level: currentLevel + 1);
+      if (updatedState.coins < cost) return updatedState;
 
-    // Apply effect based on type
-    GameState newState = state.copyWith(
-      coins: state.coins - cost,
-      upgrades: newUpgrades,
-    );
+      final newUpgrades = Map<String, UpgradeState>.from(updatedState.upgrades);
+      newUpgrades[definition.id] = (current ??
+              UpgradeState(definitionId: definition.id))
+          .copyWith(level: currentLevel + 1);
 
-    switch (definition.type) {
-      case UpgradeType.tapMultiplier:
-        newState = newState.copyWith(
-          tapMultiplier: newState.tapMultiplier * definition.effectPerLevel,
-        );
-        break;
+      updatedState = updatedState.copyWith(
+        coins: updatedState.coins - cost,
+        upgrades: newUpgrades,
+      );
 
-      case UpgradeType.productionMultiplier:
-        newState = newState.copyWith(
-          productionMultiplier:
-              newState.productionMultiplier * definition.effectPerLevel,
-        );
-        break;
+      switch (definition.type) {
+        case UpgradeType.tapMultiplier:
+          updatedState = updatedState.copyWith(
+            tapMultiplier:
+                updatedState.tapMultiplier * definition.effectPerLevel,
+          );
+          break;
 
-      case UpgradeType.generatorMultiplier:
-        if (definition.targetGeneratorId != null) {
-          final genState = newState.generators[definition.targetGeneratorId!];
-          if (genState != null) {
-            final newGenerators =
-                Map<String, GeneratorState>.from(newState.generators);
-            newGenerators[definition.targetGeneratorId!] = genState.copyWith(
-              multiplier: genState.multiplier * definition.effectPerLevel,
-            );
-            newState = newState.copyWith(generators: newGenerators);
+        case UpgradeType.productionMultiplier:
+          updatedState = updatedState.copyWith(
+            productionMultiplier:
+                updatedState.productionMultiplier * definition.effectPerLevel,
+          );
+          break;
+
+        case UpgradeType.generatorMultiplier:
+          if (definition.targetGeneratorId != null) {
+            final genState =
+                updatedState.generators[definition.targetGeneratorId!];
+            if (genState != null) {
+              final newGenerators =
+                  Map<String, GeneratorState>.from(updatedState.generators);
+              newGenerators[definition.targetGeneratorId!] = genState.copyWith(
+                multiplier: genState.multiplier * definition.effectPerLevel,
+              );
+              updatedState = updatedState.copyWith(generators: newGenerators);
+            }
           }
-        }
-        break;
+          break;
+      }
     }
 
-    return newState;
+    return updatedState;
   }
 }

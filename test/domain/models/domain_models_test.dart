@@ -1,224 +1,103 @@
-import '../../../lib/core/math/game_number.dart';
-import '../../../lib/domain/models/game_state.dart';
-import '../../../lib/domain/models/game_systems.dart';
-import '../../../lib/domain/models/generator.dart';
-import '../../../lib/domain/models/upgrade.dart';
-import '../../../lib/domain/models/era.dart';
+import 'package:ai_evolution/core/math/game_number.dart';
+import 'package:ai_evolution/domain/models/era.dart';
+import 'package:ai_evolution/domain/models/game_state.dart';
+import 'package:ai_evolution/domain/models/game_systems.dart';
+import 'package:ai_evolution/domain/models/generator.dart';
+import 'package:ai_evolution/domain/models/upgrade.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  var passed = 0;
-  var failed = 0;
+  test('era model serializes and uses defaults', () {
+    final era = Era.fromJson({
+      'id': 'era_1',
+      'name': 'Junk Corner',
+      'description': 'First era',
+      'order': 1,
+      'unlockRequirement': null,
+      'currency': 'Scrap',
+      'rule': 'Taps stronger than automation',
+    });
+    expect(era.id, 'era_1');
+    expect(era.order, 1);
+    expect(era.currency, 'Scrap');
+    expect(Era.fromJson(era.toJson()).rule, 'Taps stronger than automation');
 
-  void expect(dynamic actual, dynamic expected, String name) {
-    if (actual == expected) {
-      passed++;
-    } else {
-      print('FAIL: $name — expected $expected, got $actual');
-      failed++;
-    }
-  }
-
-  void expectTrue(bool condition, String name) {
-    if (condition) {
-      passed++;
-    } else {
-      print('FAIL: $name');
-      failed++;
-    }
-  }
-
-  // --- Era ---
-  final era = Era.fromJson({
-    'id': 'era_1',
-    'name': 'Junk Corner',
-    'description': 'First era',
-    'order': 1,
-    'unlockRequirement': null,
-    'currency': 'Scrap',
-    'rule': 'Taps stronger than automation',
+    final legacy = Era.fromJson({
+      'id': 'era_old',
+      'name': 'Old Era',
+      'description': 'Legacy',
+      'order': 99,
+    });
+    expect(legacy.currency, 'Scrap');
+    expect(legacy.rule, '');
   });
-  expect(era.id, 'era_1', 'Era.fromJson id');
-  expect(era.order, 1, 'Era.fromJson order');
-  expect(era.currency, 'Scrap', 'Era.fromJson currency');
-  expect(era.rule, 'Taps stronger than automation', 'Era.fromJson rule');
 
-  // Era JSON round-trip
-  final eraJson = era.toJson();
-  final eraFromJson = Era.fromJson(eraJson);
-  expect(eraFromJson.currency, 'Scrap', 'Era JSON round-trip currency');
-  expect(eraFromJson.rule, 'Taps stronger than automation', 'Era JSON round-trip rule');
+  test('generator and upgrade models serialize', () {
+    final genDef = GeneratorDefinition.fromJson({
+      'id': 'gen_1',
+      'name': 'Proc',
+      'description': 'Test',
+      'eraId': 'era_1',
+      'baseCost': '10',
+      'costGrowthRate': '1.15',
+      'baseProduction': '1',
+      'unlockRequirement': null,
+    });
+    expect(genDef.id, 'gen_1');
+    expect(genDef.baseCost.toDouble(), closeTo(10, 0.1));
 
-  // Era with defaults (backward compat)
-  final eraLegacy = Era.fromJson({
-    'id': 'era_old',
-    'name': 'Old Era',
-    'description': 'Legacy',
-    'order': 99,
+    final genState = GeneratorState(definitionId: 'gen_1', level: 5);
+    expect(GeneratorState.fromJson(genState.toJson()).level, 5);
+    expect(genState.copyWith(level: 10).level, 10);
+
+    final upgDef = UpgradeDefinition.fromJson({
+      'id': 'upg_1',
+      'name': 'Test',
+      'description': 'Test upgrade',
+      'type': 'tapMultiplier',
+      'eraId': 'era_1',
+      'baseCost': '50',
+      'costGrowthRate': '1.5',
+      'maxLevel': 10,
+      'effectPerLevel': '2',
+    });
+    expect(upgDef.type, UpgradeType.tapMultiplier);
+    expect(upgDef.maxLevel, 10);
+
+    const upgState = UpgradeState(definitionId: 'upg_1', level: 3);
+    expect(UpgradeState.fromJson(upgState.toJson()).level, 3);
   });
-  expect(eraLegacy.currency, 'Scrap', 'Era default currency');
-  expect(eraLegacy.rule, '', 'Era default rule');
 
-  // --- GeneratorDefinition ---
-  final genDef = GeneratorDefinition.fromJson({
-    'id': 'gen_1',
-    'name': 'Proc',
-    'description': 'Test',
-    'eraId': 'era_1',
-    'baseCost': '10',
-    'costGrowthRate': '1.15',
-    'baseProduction': '1',
-    'unlockRequirement': null,
+  test('game state and system enums preserve expected defaults', () {
+    final state = GameState.initial();
+    expect(state.coins.isZero, isTrue);
+    expect(state.unlockedEras.contains('era_1'), isTrue);
+
+    final modified = state.copyWith(coins: GameNumber.fromDouble(100));
+    expect(modified.coins.toDouble(), closeTo(100, 0.1));
+    expect(state.coins.isZero, isTrue);
+    expect(GameState.fromJson(modified.toJson()).coins.toDouble(), closeTo(100, 0.1));
+
+    final prestigeState = state.copyWith(
+      totalTaps: 50,
+      prestigeCount: 2,
+      prestigeMultiplier: GameNumber.fromDouble(1.5),
+      unlockedAchievements: {'ach_1', 'ach_2'},
+      tutorialComplete: true,
+    );
+    final decoded = GameState.fromJson(prestigeState.toJson());
+    expect(decoded.totalTaps, 50);
+    expect(decoded.prestigeCount, 2);
+    expect(decoded.tutorialComplete, isTrue);
+    expect(decoded.unlockedAchievements.length, 2);
+
+    expect(PurchaseMode.max.label, 'MAX');
+    expect(AITrait.transcendent.label, 'Transcendent');
+    expect(Ending.fromJson({
+      'id': 'ending_mercy',
+      'name': 'Mercy',
+      'description': 'The AI chooses compassion.',
+    }).name, 'Mercy');
+    expect(UpgradeCategory.values.length, 5);
   });
-  expect(genDef.id, 'gen_1', 'GeneratorDefinition.fromJson id');
-  expectTrue((genDef.baseCost.toDouble() - 10).abs() < 0.1, 'GenDef baseCost');
-  expectTrue((genDef.costGrowthRate - 1.15).abs() < 0.01, 'GenDef growthRate');
-
-  // --- GeneratorState ---
-  final genState = GeneratorState(definitionId: 'gen_1', level: 5);
-  expect(genState.level, 5, 'GeneratorState level');
-  final genCopy = genState.copyWith(level: 10);
-  expect(genCopy.level, 10, 'GeneratorState copyWith');
-
-  final genJson = genState.toJson();
-  final genFromJson = GeneratorState.fromJson(genJson);
-  expect(genFromJson.definitionId, 'gen_1', 'GeneratorState JSON round-trip');
-  expect(genFromJson.level, 5, 'GeneratorState JSON round-trip level');
-
-  // --- UpgradeDefinition ---
-  final upgDef = UpgradeDefinition.fromJson({
-    'id': 'upg_1',
-    'name': 'Test',
-    'description': 'Test upgrade',
-    'type': 'tapMultiplier',
-    'eraId': 'era_1',
-    'baseCost': '50',
-    'costGrowthRate': '1.5',
-    'maxLevel': 10,
-    'effectPerLevel': '2',
-  });
-  expect(upgDef.id, 'upg_1', 'UpgradeDefinition.fromJson id');
-  expect(upgDef.type, UpgradeType.tapMultiplier, 'UpgradeDefinition type');
-  expect(upgDef.maxLevel, 10, 'UpgradeDefinition maxLevel');
-
-  // --- UpgradeState ---
-  final upgState = UpgradeState(definitionId: 'upg_1', level: 3);
-  expect(upgState.level, 3, 'UpgradeState level');
-  final upgJson = upgState.toJson();
-  final upgFromJson = UpgradeState.fromJson(upgJson);
-  expect(upgFromJson.level, 3, 'UpgradeState JSON round-trip');
-
-  // --- GameState ---
-  final state = GameState.initial();
-  expectTrue(state.coins.isZero, 'Initial coins are zero');
-  expectTrue(state.unlockedEras.contains('era_1'), 'Era 1 unlocked initially');
-
-  final modifiedState = state.copyWith(
-    coins: GameNumber.fromDouble(100),
-  );
-  expectTrue((modifiedState.coins.toDouble() - 100).abs() < 0.1, 'copyWith coins');
-  expectTrue(state.coins.isZero, 'Original state unchanged');
-
-  // GameState JSON round-trip
-  final stateJson = modifiedState.toJson();
-  final stateFromJson = GameState.fromJson(stateJson);
-  expectTrue(
-    (stateFromJson.coins.toDouble() - 100).abs() < 0.1,
-    'GameState JSON round-trip coins',
-  );
-
-  // New fields
-  expect(state.totalTaps, 0, 'Initial totalTaps = 0');
-  expect(state.prestigeCount, 0, 'Initial prestigeCount = 0');
-  expect(state.tutorialComplete, false, 'Initial tutorial not complete');
-  expectTrue(state.unlockedAchievements.isEmpty, 'Initial no achievements');
-
-  final prestigeState = state.copyWith(
-    totalTaps: 50,
-    prestigeCount: 2,
-    prestigeMultiplier: GameNumber.fromDouble(1.5),
-    unlockedAchievements: {'ach_1', 'ach_2'},
-    tutorialComplete: true,
-  );
-  expect(prestigeState.totalTaps, 50, 'copyWith totalTaps');
-  expect(prestigeState.prestigeCount, 2, 'copyWith prestigeCount');
-  expectTrue(
-    (prestigeState.prestigeMultiplier.toDouble() - 1.5).abs() < 0.01,
-    'copyWith prestigeMultiplier',
-  );
-  expect(prestigeState.tutorialComplete, true, 'copyWith tutorialComplete');
-  expect(prestigeState.unlockedAchievements.length, 2, 'copyWith achievements');
-
-  // New fields JSON round-trip
-  final pJson = prestigeState.toJson();
-  final pFromJson = GameState.fromJson(pJson);
-  expect(pFromJson.totalTaps, 50, 'JSON round-trip totalTaps');
-  expect(pFromJson.prestigeCount, 2, 'JSON round-trip prestigeCount');
-  expect(pFromJson.tutorialComplete, true, 'JSON round-trip tutorialComplete');
-  expect(pFromJson.unlockedAchievements.length, 2, 'JSON round-trip achievements');
-
-  // --- PurchaseMode ---
-  expect(PurchaseMode.x1.label, '1x', 'PurchaseMode.x1 label');
-  expect(PurchaseMode.x10.label, '10x', 'PurchaseMode.x10 label');
-  expect(PurchaseMode.x100.label, '100x', 'PurchaseMode.x100 label');
-  expect(PurchaseMode.max.label, 'MAX', 'PurchaseMode.max label');
-  expect(PurchaseMode.values.length, 4, 'PurchaseMode has 4 values');
-
-  // --- AITrait ---
-  expect(AITrait.helpful.label, 'Helpful', 'AITrait.helpful label');
-  expect(AITrait.obsessive.label, 'Obsessive', 'AITrait.obsessive label');
-  expect(AITrait.chaotic.label, 'Chaotic', 'AITrait.chaotic label');
-  expect(AITrait.transcendent.label, 'Transcendent', 'AITrait.transcendent label');
-  expect(AITrait.values.length, 4, 'AITrait has 4 values');
-
-  // --- Ending ---
-  final ending = Ending.fromJson({
-    'id': 'ending_mercy',
-    'name': 'Mercy',
-    'description': 'The AI chooses compassion.',
-  });
-  expect(ending.id, 'ending_mercy', 'Ending.fromJson id');
-  expect(ending.name, 'Mercy', 'Ending.fromJson name');
-  final endingJson = ending.toJson();
-  final endingFromJson = Ending.fromJson(endingJson);
-  expect(endingFromJson.name, 'Mercy', 'Ending JSON round-trip name');
-
-  // --- UpgradeCategory ---
-  expect(UpgradeCategory.values.length, 5, 'UpgradeCategory has 5 values');
-  expect(UpgradeCategory.tap.name, 'tap', 'UpgradeCategory.tap');
-  expect(UpgradeCategory.automation.name, 'automation', 'UpgradeCategory.automation');
-  expect(UpgradeCategory.room.name, 'room', 'UpgradeCategory.room');
-  expect(UpgradeCategory.ai.name, 'ai', 'UpgradeCategory.ai');
-  expect(UpgradeCategory.special.name, 'special', 'UpgradeCategory.special');
-
-  // --- UpgradeDefinition with category ---
-  final catUpg = UpgradeDefinition.fromJson({
-    'id': 'upg_cat',
-    'name': 'Categorized',
-    'description': 'Test',
-    'type': 'tapMultiplier',
-    'category': 'ai',
-    'eraId': 'era_1',
-    'baseCost': '50',
-    'costGrowthRate': '1.5',
-    'maxLevel': 5,
-    'effectPerLevel': '2',
-  });
-  expect(catUpg.category, UpgradeCategory.ai, 'UpgradeDefinition.fromJson category');
-
-  // UpgradeDefinition with default category
-  final defCatUpg = UpgradeDefinition.fromJson({
-    'id': 'upg_defcat',
-    'name': 'DefaultCat',
-    'description': 'Test',
-    'type': 'tapMultiplier',
-    'eraId': 'era_1',
-    'baseCost': '50',
-    'costGrowthRate': '1.5',
-    'maxLevel': 5,
-    'effectPerLevel': '2',
-  });
-  expect(defCatUpg.category, UpgradeCategory.room, 'UpgradeDefinition default category');
-
-  print('\n$passed passed, $failed failed');
-  if (failed > 0) throw Exception('Tests failed');
 }

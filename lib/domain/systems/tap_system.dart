@@ -11,6 +11,7 @@ import '../models/game_state.dart';
 class TapSystem {
   /// Milliseconds within which taps count towards a combo.
   static const comboWindowMs = 2000;
+  static const baseCooldownMs = 550;
 
   /// Maximum combo multiplier (caps the bonus).
   static const maxCombo = 50;
@@ -38,8 +39,11 @@ class TapSystem {
 
   /// Process a tap event and return the updated game state.
   /// Handles combo tracking and prestige multiplier.
-  static GameState processTap(GameState state, GameNumber baseTapValue) {
-    final now = DateTime.now();
+  static GameState processTap(
+    GameState state,
+    GameNumber baseTapValue, {
+    required DateTime now,
+  }) {
     int newCombo = 0;
     if (state.lastTapTime != null) {
       final elapsed = now.difference(state.lastTapTime!).inMilliseconds;

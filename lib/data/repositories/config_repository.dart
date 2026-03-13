@@ -5,12 +5,14 @@ import 'package:flutter/services.dart';
 import '../../domain/models/era.dart';
 import '../../domain/models/game_systems.dart';
 import '../../domain/models/generator.dart';
+import '../../domain/models/progression_content.dart';
 import '../../domain/models/upgrade.dart';
 
 /// Repository for loading configuration from JSON assets.
 class ConfigRepository {
   Map<String, dynamic>? _gameConfig;
   Map<String, dynamic>? _economyConfig;
+  Map<String, dynamic>? _progressionConfig;
 
   Future<void> loadConfigs() async {
     final gameConfigStr =
@@ -20,6 +22,11 @@ class ConfigRepository {
     final economyConfigStr =
         await rootBundle.loadString('assets/config/economy_config.json');
     _economyConfig = json.decode(economyConfigStr) as Map<String, dynamic>;
+
+    final progressionConfigStr =
+        await rootBundle.loadString('assets/config/progression_config.json');
+    _progressionConfig =
+        json.decode(progressionConfigStr) as Map<String, dynamic>;
   }
 
   Map<String, dynamic> get gameConfig {
@@ -34,6 +41,13 @@ class ConfigRepository {
       throw StateError('Configs not loaded. Call loadConfigs() first.');
     }
     return _economyConfig!;
+  }
+
+  Map<String, dynamic> get progressionConfig {
+    if (_progressionConfig == null) {
+      throw StateError('Configs not loaded. Call loadConfigs() first.');
+    }
+    return _progressionConfig!;
   }
 
   int get maxOfflineHours => gameConfig['maxOfflineHours'] as int;
@@ -67,5 +81,9 @@ class ConfigRepository {
     return endings
         .map((e) => Ending.fromJson(e as Map<String, dynamic>))
         .toList();
+  }
+
+  ProgressionContent getProgressionContent() {
+    return ProgressionContent.fromJson(progressionConfig);
   }
 }

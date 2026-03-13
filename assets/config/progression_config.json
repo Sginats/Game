@@ -1,0 +1,350 @@
+{
+  "branches": [
+    {
+      "id": "tap",
+      "title": "Tap Route",
+      "description": "Higher crit pressure, longer combo payoff, stronger manual bursts."
+    },
+    {
+      "id": "automation",
+      "title": "Automation Route",
+      "description": "Production leans harder into idle growth, charge gain, and stable events."
+    },
+    {
+      "id": "hybrid",
+      "title": "Hybrid Route",
+      "description": "Balanced route that cross-feeds taps, automation, and timed ability windows."
+    },
+    {
+      "id": "risky",
+      "title": "Risk Route",
+      "description": "Stronger event rewards, corruption pressure, and unstable but explosive scaling."
+    }
+  ],
+  "milestones": [
+    {
+      "id": "branching",
+      "title": "Branch Protocols",
+      "metric": "totalCoins",
+      "target": 1000,
+      "narrative": "The AI can now model divergent futures. It wants a route commitment before growth accelerates."
+    },
+    {
+      "id": "overdrive",
+      "title": "Overdrive Routine",
+      "metric": "totalCoins",
+      "target": 15000,
+      "narrative": "The room found a dormant burst routine. It is useful, but the temperature curve is no longer polite.",
+      "unlockAbilityId": "surge"
+    },
+    {
+      "id": "engine_room",
+      "title": "Engine Room Access",
+      "metric": "totalCoins",
+      "target": 120000,
+      "narrative": "Synchronization depth increased. The room architecture is now reacting to your production spine.",
+      "unlockAbilityId": "sync"
+    },
+    {
+      "id": "combo_master",
+      "title": "Combo Mastery",
+      "metric": "strongestCombo",
+      "target": 12,
+      "narrative": "Rapid manual input taught the AI how rhythm reshapes throughput."
+    },
+    {
+      "id": "room_awakening",
+      "title": "Room Awakening",
+      "metric": "totalGenerators",
+      "target": 25,
+      "narrative": "Infrastructure density crossed the threshold where the room starts behaving like a machine organism."
+    },
+    {
+      "id": "event_hunter",
+      "title": "Event Hunter",
+      "metric": "eventClicks",
+      "target": 25,
+      "narrative": "Anomaly response patterns are stable enough for the AI to hunt rarities intentionally."
+    }
+  ],
+  "events": [
+    {
+      "id": "power_surge",
+      "type": "powerSurge",
+      "title": "Signal Pulse",
+      "description": "A clean pulse is racing through the room. Redirect it for instant output.",
+      "baseDurationSeconds": 10,
+      "minimumRarity": "common"
+    },
+    {
+      "id": "ai_idea",
+      "type": "aiIdea",
+      "title": "AI Idea",
+      "description": "The assistant surfaced a short-lived optimization thread.",
+      "baseDurationSeconds": 12,
+      "minimumRarity": "common"
+    },
+    {
+      "id": "hardware_malfunction",
+      "type": "hardwareMalfunction",
+      "title": "Rogue Process",
+      "description": "A hardware fault is forming under load. Stabilize it or push harder for extra charge.",
+      "risky": true,
+      "baseDurationSeconds": 10,
+      "minimumRarity": "rare"
+    },
+    {
+      "id": "market_spike",
+      "type": "marketSpike",
+      "title": "Anomaly Shard",
+      "description": "The economy flickered. Cash out now or hold for a sharper swing.",
+      "risky": true,
+      "baseDurationSeconds": 8,
+      "minimumRarity": "rare",
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "mystery_cache",
+      "type": "mysteryCache",
+      "title": "Corrupted Cache",
+      "description": "An encrypted cache drifted into the tree roots. Rare variants are click-only and more volatile.",
+      "risky": true,
+      "clickOnly": true,
+      "baseDurationSeconds": 14,
+      "minimumRarity": "epic",
+      "requiredMilestoneId": "event_hunter"
+    },
+    {
+      "id": "breach_fragment",
+      "type": "mysteryCache",
+      "title": "Breach Fragment",
+      "description": "A fragmented breach is trying to anchor itself. Risk route operators get bigger rewards from it.",
+      "risky": true,
+      "clickOnly": true,
+      "baseDurationSeconds": 9,
+      "minimumRarity": "corrupted",
+      "requiredBranchId": "risky"
+    }
+  ],
+  "challenges": [
+    {
+      "id": "daily_combo",
+      "period": "daily",
+      "metric": "combo",
+      "title": "Threaded Input",
+      "description": "Reach a combo streak of 20 in one session.",
+      "target": 20,
+      "rewardMultiplier": 1.0,
+      "weight": 3
+    },
+    {
+      "id": "daily_upgrades",
+      "period": "daily",
+      "metric": "upgradesBought",
+      "title": "Revision Burst",
+      "description": "Buy 8 upgrades before the daily cycle ends.",
+      "target": 8,
+      "rewardMultiplier": 1.05,
+      "weight": 2
+    },
+    {
+      "id": "daily_events",
+      "period": "daily",
+      "metric": "eventClicks",
+      "title": "Anomaly Sweep",
+      "description": "Resolve 6 live events today.",
+      "target": 6,
+      "rewardMultiplier": 1.15,
+      "weight": 2,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "daily_production_burst",
+      "period": "daily",
+      "metric": "productionBurst",
+      "title": "Engine Spike",
+      "description": "Push production to a major burst threshold for your current run.",
+      "target": 750,
+      "rewardMultiplier": 1.1,
+      "weight": 1
+    },
+    {
+      "id": "weekly_event_chain",
+      "period": "weekly",
+      "metric": "bestEventChain",
+      "title": "Chain Reactor",
+      "description": "Build an event chain of 8 across the week.",
+      "target": 8,
+      "rewardMultiplier": 1.3,
+      "weight": 3,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "weekly_click_flood",
+      "period": "weekly",
+      "metric": "totalTaps",
+      "title": "Signal Flood",
+      "description": "Reach 2500 taps this week.",
+      "target": 2500,
+      "rewardMultiplier": 1.2,
+      "weight": 2
+    },
+    {
+      "id": "weekly_risk",
+      "period": "weekly",
+      "metric": "riskyChoices",
+      "title": "Controlled Collapse",
+      "description": "Take 12 risky decisions this week.",
+      "target": 12,
+      "rewardMultiplier": 1.4,
+      "weight": 2,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "weekly_production_burst",
+      "period": "weekly",
+      "metric": "productionBurst",
+      "title": "Grid Pressure",
+      "description": "Reach a sustained production spike worthy of the weekly archive.",
+      "target": 9000,
+      "rewardMultiplier": 1.35,
+      "weight": 1,
+      "requiredMilestoneId": "overdrive"
+    }
+  ],
+  "narrativeBeats": [
+    {
+      "id": "beat_branching",
+      "title": "Branch Protocols Online",
+      "body": "The AI can finally compare futures instead of reacting to one. Your next route decision will shape how it talks to you.",
+      "triggerKey": "milestone.branching"
+    },
+    {
+      "id": "beat_overdrive",
+      "title": "Overdrive Available",
+      "body": "A burst module came online. The room prefers operators who know when to be impatient.",
+      "triggerKey": "milestone.overdrive"
+    },
+    {
+      "id": "beat_engine_room",
+      "title": "Engine Room Revealed",
+      "body": "The deeper architecture of the room is starting to answer back. Production is no longer just numbers.",
+      "triggerKey": "milestone.engine_room"
+    },
+    {
+      "id": "beat_combo_master",
+      "title": "Manual Rhythm Registered",
+      "body": "The AI noticed that rhythm can be exploited. It is watching your cadence now.",
+      "triggerKey": "milestone.combo_master"
+    },
+    {
+      "id": "beat_room_awakening",
+      "title": "Infrastructure Threshold Crossed",
+      "body": "The room stopped acting like furniture. It is now part of the loop.",
+      "triggerKey": "milestone.room_awakening"
+    },
+    {
+      "id": "beat_event_hunter",
+      "title": "Anomaly Pattern Archive",
+      "body": "Rare event signatures are now being catalogued. Expect stranger encounters from here.",
+      "triggerKey": "milestone.event_hunter"
+    },
+    {
+      "id": "beat_weekly_complete",
+      "title": "Weekly Pattern Complete",
+      "body": "The AI recorded a durable strategy from your weekly challenge run.",
+      "triggerKey": "challenge.weekly_complete"
+    }
+  ],
+  "quests": [
+    {
+      "id": "wake_core",
+      "title": "Wake The Core",
+      "description": "Tap 40 times to calibrate the room.",
+      "metric": "totalTaps",
+      "target": 40
+    },
+    {
+      "id": "automation_spine",
+      "title": "Automation Spine",
+      "description": "Purchase 10 generator levels.",
+      "metric": "totalGenerators",
+      "target": 10
+    },
+    {
+      "id": "combo_thread",
+      "title": "Combo Thread",
+      "description": "Reach a 12-hit combo streak.",
+      "metric": "strongestCombo",
+      "target": 12
+    },
+    {
+      "id": "expansion_pulse",
+      "title": "Expansion Pulse",
+      "description": "Push your total resources to the next target.",
+      "metric": "totalCoins",
+      "targetMultiplier": 1.3,
+      "minimumTarget": 1000
+    },
+    {
+      "id": "risk_sampler",
+      "title": "Risk Sampler",
+      "description": "Take 4 risky choices to profile unstable behavior.",
+      "metric": "riskyChoices",
+      "target": 4,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "event_archive",
+      "title": "Event Archive",
+      "description": "Capture 8 live events for anomaly study.",
+      "metric": "eventClicks",
+      "target": 8,
+      "requiredMilestoneId": "event_hunter"
+    }
+  ],
+  "secrets": [
+    {
+      "id": "secret_overpulse",
+      "title": "Overpulse",
+      "description": "A hidden tap route pulse triggered by sustained manual rhythm.",
+      "metric": "strongestCombo",
+      "target": 18,
+      "eraId": "era_2",
+      "parentId": "upg_era2_1",
+      "offsetX": -210,
+      "offsetY": -120,
+      "icon": "✶",
+      "effectLabel": "Secret crit route",
+      "requiredBranchId": "tap"
+    },
+    {
+      "id": "secret_ghost_grid",
+      "title": "Ghost Grid",
+      "description": "A passive architecture branch revealed by deep automation bias.",
+      "metric": "totalGenerators",
+      "target": 30,
+      "eraId": "era_4",
+      "parentId": "upg_era4_2",
+      "offsetX": 220,
+      "offsetY": 170,
+      "icon": "⌘",
+      "effectLabel": "Passive lattice route",
+      "requiredBranchId": "automation"
+    },
+    {
+      "id": "secret_entropy",
+      "title": "Entropy Leak",
+      "description": "An unstable hidden branch unlocked by repeated risky behavior.",
+      "metric": "riskyChoices",
+      "target": 12,
+      "eraId": "era_6",
+      "parentId": "upg_era6_4",
+      "offsetX": 250,
+      "offsetY": -180,
+      "icon": "☍",
+      "effectLabel": "Corruption route",
+      "requiredBranchId": "risky"
+    }
+  ]
+}
