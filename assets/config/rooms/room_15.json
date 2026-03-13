@@ -1,0 +1,405 @@
+{
+  "id": "room_15",
+  "name": "Simulation Chamber",
+  "subtitle": "Nothing is real, everything matters",
+  "order": 15,
+  "introText": "Welcome to Simulation Chamber. Nothing is real, everything matters. This is where your journey continues.",
+  "completionText": "You have mastered Simulation Chamber. The Paradox Threads you've gathered here will echo through every room that follows.",
+  "guideTone": "unstable, questioning",
+  "guideIntroLine": "Is this real? The simulation chamber makes everything uncertain.",
+  "currency": "Paradox Threads",
+  "mechanicEmphasis": "event",
+  "themeColors": {
+    "primary": "#00BCD4",
+    "accent": "#80DEEA",
+    "background": "#040C0E"
+  },
+  "transformationStages": [
+    {
+      "id": "room_15_stage_1",
+      "name": "Simulation Chamber \u2014 Bare Bones",
+      "description": "The room in its raw state. Simulation Chamber evolves as you progress.",
+      "requiredUpgrades": 75,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_15_stage_2",
+      "name": "Simulation Chamber \u2014 First Light",
+      "description": "Basic improvements visible. Simulation Chamber evolves as you progress.",
+      "requiredUpgrades": 225,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_15_stage_3",
+      "name": "Simulation Chamber \u2014 Functional",
+      "description": "A proper working space. Simulation Chamber evolves as you progress.",
+      "requiredUpgrades": 450,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_15_stage_4",
+      "name": "Simulation Chamber \u2014 Advanced",
+      "description": "High-tech transformation. Simulation Chamber evolves as you progress.",
+      "requiredUpgrades": 750,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_15_stage_5",
+      "name": "Simulation Chamber \u2014 Mastered",
+      "description": "The room at its peak. Simulation Chamber evolves as you progress.",
+      "requiredUpgrades": 1200,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_15_ambient",
+      "name": "simulation ambience",
+      "assetPath": "assets/audio/rooms/room_15_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_15_active",
+      "name": "simulation activity",
+      "assetPath": "assets/audio/rooms/room_15_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_15_secret_1",
+      "title": "Hidden Simulation Cache",
+      "description": "A secret stash hidden in the Simulation Chamber.",
+      "hint": "Look behind the simulation equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_15_twist",
+    "title": "Simulation Chamber Shift",
+    "description": "Something changes in the Simulation Chamber. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 375",
+    "effectDescription": "New mechanics unlock in Simulation Chamber. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_15",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_15_lore_1",
+    "room_15_lore_2",
+    "room_15_lore_3"
+  ],
+  "unlockRequirement": "room_14",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_15",
+    "events": [
+      {
+        "id": "room_15_evt_1",
+        "roomId": "room_15",
+        "title": "Reality Glitch",
+        "description": "Reality Glitch \u2014 a common instant event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_15_evt_2",
+        "roomId": "room_15",
+        "title": "Paradox Loop",
+        "description": "Paradox Loop \u2014 a common shortChoice event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_15_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 8.5,
+                "description": "Gain Paradox Threads"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_15_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 17.0,
+                "description": "Gain more Paradox Threads"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_15_evt_3",
+        "roomId": "room_15",
+        "title": "Simulation Leak",
+        "description": "Simulation Leak \u2014 a common timedChain event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_15_evt_4",
+        "roomId": "room_15",
+        "title": "False Memory",
+        "description": "False Memory \u2014 a common utility event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_15_evt_5",
+        "roomId": "room_15",
+        "title": "Debug Request",
+        "description": "Debug Request \u2014 a rare secretTrigger event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_15_evt_6",
+        "roomId": "room_15",
+        "title": "Layer Collapse",
+        "description": "Layer Collapse \u2014 a rare legendaryAnomaly event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_15_evt_7",
+        "roomId": "room_15",
+        "title": "Ghost Process",
+        "description": "Ghost Process \u2014 a epic warningRisk event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_15_evt_8",
+        "roomId": "room_15",
+        "title": "Truth Fragment",
+        "description": "Truth Fragment \u2014 a corrupted miniBoss event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_15_evt_9",
+        "roomId": "room_15",
+        "title": "Escape Attempt",
+        "description": "Escape Attempt \u2014 a legendary guideAdvisory event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_15_evt_10",
+        "roomId": "room_15",
+        "title": "Simulation Reset",
+        "description": "Simulation Reset \u2014 a common hiddenGlitch event in Simulation Chamber.",
+        "flavorText": "The simulation environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Paradox Threads"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.75,
+    "pityThreshold": 23,
+    "spawnRateMultiplier": 1.3,
+    "midTwistEvents": [
+      {
+        "id": "room_15_twist_evt_1",
+        "roomId": "room_15",
+        "title": "Simulation Chamber Awakening",
+        "description": "The twist in Simulation Chamber unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

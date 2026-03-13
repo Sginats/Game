@@ -1,0 +1,405 @@
+{
+  "id": "room_17",
+  "name": "Planetary Systems Forge",
+  "subtitle": "Shaping worlds",
+  "order": 17,
+  "introText": "Welcome to Planetary Systems Forge. Shaping worlds. This is where your journey continues.",
+  "completionText": "You have mastered Planetary Systems Forge. The Planetary Cores you've gathered here will echo through every room that follows.",
+  "guideTone": "grand, powerful",
+  "guideIntroLine": "We're not just building machines anymore. We're shaping entire systems.",
+  "currency": "Planetary Cores",
+  "mechanicEmphasis": "synthesis",
+  "themeColors": {
+    "primary": "#BF360C",
+    "accent": "#FF8A65",
+    "background": "#0C0604"
+  },
+  "transformationStages": [
+    {
+      "id": "room_17_stage_1",
+      "name": "Planetary Systems Forge \u2014 Bare Bones",
+      "description": "The room in its raw state. Planetary Systems Forge evolves as you progress.",
+      "requiredUpgrades": 85,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_17_stage_2",
+      "name": "Planetary Systems Forge \u2014 First Light",
+      "description": "Basic improvements visible. Planetary Systems Forge evolves as you progress.",
+      "requiredUpgrades": 255,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_17_stage_3",
+      "name": "Planetary Systems Forge \u2014 Functional",
+      "description": "A proper working space. Planetary Systems Forge evolves as you progress.",
+      "requiredUpgrades": 510,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_17_stage_4",
+      "name": "Planetary Systems Forge \u2014 Advanced",
+      "description": "High-tech transformation. Planetary Systems Forge evolves as you progress.",
+      "requiredUpgrades": 850,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_17_stage_5",
+      "name": "Planetary Systems Forge \u2014 Mastered",
+      "description": "The room at its peak. Planetary Systems Forge evolves as you progress.",
+      "requiredUpgrades": 1360,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_17_ambient",
+      "name": "planetary ambience",
+      "assetPath": "assets/audio/rooms/room_17_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_17_active",
+      "name": "planetary activity",
+      "assetPath": "assets/audio/rooms/room_17_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_17_secret_1",
+      "title": "Hidden Planetary Cache",
+      "description": "A secret stash hidden in the Planetary Systems Forge.",
+      "hint": "Look behind the planetary equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_17_twist",
+    "title": "Planetary Systems Forge Shift",
+    "description": "Something changes in the Planetary Systems Forge. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 425",
+    "effectDescription": "New mechanics unlock in Planetary Systems Forge. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_17",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_17_lore_1",
+    "room_17_lore_2",
+    "room_17_lore_3"
+  ],
+  "unlockRequirement": "room_16",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_17",
+    "events": [
+      {
+        "id": "room_17_evt_1",
+        "roomId": "room_17",
+        "title": "Tectonic Shift",
+        "description": "Tectonic Shift \u2014 a common instant event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_17_evt_2",
+        "roomId": "room_17",
+        "title": "Core Tap",
+        "description": "Core Tap \u2014 a common shortChoice event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_17_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 9.5,
+                "description": "Gain Planetary Cores"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_17_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 19.0,
+                "description": "Gain more Planetary Cores"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_17_evt_3",
+        "roomId": "room_17",
+        "title": "Atmosphere Build",
+        "description": "Atmosphere Build \u2014 a common timedChain event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_17_evt_4",
+        "roomId": "room_17",
+        "title": "Ocean Formation",
+        "description": "Ocean Formation \u2014 a common utility event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_17_evt_5",
+        "roomId": "room_17",
+        "title": "Continent Drift",
+        "description": "Continent Drift \u2014 a rare secretTrigger event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_17_evt_6",
+        "roomId": "room_17",
+        "title": "Magnetic Reversal",
+        "description": "Magnetic Reversal \u2014 a rare legendaryAnomaly event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_17_evt_7",
+        "roomId": "room_17",
+        "title": "Life Spark",
+        "description": "Life Spark \u2014 a epic warningRisk event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_17_evt_8",
+        "roomId": "room_17",
+        "title": "Weather System",
+        "description": "Weather System \u2014 a corrupted miniBoss event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_17_evt_9",
+        "roomId": "room_17",
+        "title": "Resource Deposit",
+        "description": "Resource Deposit \u2014 a legendary guideAdvisory event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_17_evt_10",
+        "roomId": "room_17",
+        "title": "World Complete",
+        "description": "World Complete \u2014 a common hiddenGlitch event in Planetary Systems Forge.",
+        "flavorText": "The planetary environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 39.0,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.85,
+    "pityThreshold": 25,
+    "spawnRateMultiplier": 1.34,
+    "midTwistEvents": [
+      {
+        "id": "room_17_twist_evt_1",
+        "roomId": "room_17",
+        "title": "Planetary Systems Forge Awakening",
+        "description": "The twist in Planetary Systems Forge unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

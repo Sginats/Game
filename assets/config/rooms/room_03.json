@@ -1,0 +1,405 @@
+{
+  "id": "room_03",
+  "name": "Creator Room",
+  "subtitle": "Build an audience",
+  "order": 3,
+  "introText": "Welcome to Creator Room. Build an audience. This is where your journey continues.",
+  "completionText": "You have mastered Creator Room. The Likes you've gathered here will echo through every room that follows.",
+  "guideTone": "enthusiastic, creative",
+  "guideIntroLine": "Lights, camera\u2026 well, a webcam taped to a monitor. Let's create!",
+  "currency": "Likes",
+  "mechanicEmphasis": "combo",
+  "themeColors": {
+    "primary": "#9B59B6",
+    "accent": "#E74C8B",
+    "background": "#0D0812"
+  },
+  "transformationStages": [
+    {
+      "id": "room_03_stage_1",
+      "name": "Creator Room \u2014 Bare Bones",
+      "description": "The room in its raw state. Creator Room evolves as you progress.",
+      "requiredUpgrades": 15,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_03_stage_2",
+      "name": "Creator Room \u2014 First Light",
+      "description": "Basic improvements visible. Creator Room evolves as you progress.",
+      "requiredUpgrades": 45,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_03_stage_3",
+      "name": "Creator Room \u2014 Functional",
+      "description": "A proper working space. Creator Room evolves as you progress.",
+      "requiredUpgrades": 90,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_03_stage_4",
+      "name": "Creator Room \u2014 Advanced",
+      "description": "High-tech transformation. Creator Room evolves as you progress.",
+      "requiredUpgrades": 150,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_03_stage_5",
+      "name": "Creator Room \u2014 Mastered",
+      "description": "The room at its peak. Creator Room evolves as you progress.",
+      "requiredUpgrades": 240,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_03_ambient",
+      "name": "creative ambience",
+      "assetPath": "assets/audio/rooms/room_03_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_03_active",
+      "name": "creative activity",
+      "assetPath": "assets/audio/rooms/room_03_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_03_secret_1",
+      "title": "Hidden Creative Cache",
+      "description": "A secret stash hidden in the Creator Room.",
+      "hint": "Look behind the creative equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_03_twist",
+    "title": "Creator Room Shift",
+    "description": "Something changes in the Creator Room. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 75",
+    "effectDescription": "New mechanics unlock in Creator Room. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_03",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_03_lore_1",
+    "room_03_lore_2",
+    "room_03_lore_3"
+  ],
+  "unlockRequirement": "room_02",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_03",
+    "events": [
+      {
+        "id": "room_03_evt_1",
+        "roomId": "room_03",
+        "title": "Viral Moment",
+        "description": "Viral Moment \u2014 a common instant event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_03_evt_2",
+        "roomId": "room_03",
+        "title": "Creative Block",
+        "description": "Creative Block \u2014 a common shortChoice event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_03_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 2.5,
+                "description": "Gain Likes"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_03_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 5.0,
+                "description": "Gain more Likes"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_03_evt_3",
+        "roomId": "room_03",
+        "title": "Inspiration Strike",
+        "description": "Inspiration Strike \u2014 a common timedChain event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_03_evt_4",
+        "roomId": "room_03",
+        "title": "Audience Surge",
+        "description": "Audience Surge \u2014 a common utility event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_03_evt_5",
+        "roomId": "room_03",
+        "title": "Collab Offer",
+        "description": "Collab Offer \u2014 a rare secretTrigger event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_03_evt_6",
+        "roomId": "room_03",
+        "title": "Content Leak",
+        "description": "Content Leak \u2014 a rare legendaryAnomaly event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_03_evt_7",
+        "roomId": "room_03",
+        "title": "Algorithm Shift",
+        "description": "Algorithm Shift \u2014 a epic warningRisk event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_03_evt_8",
+        "roomId": "room_03",
+        "title": "Fan Art Surprise",
+        "description": "Fan Art Surprise \u2014 a corrupted miniBoss event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_03_evt_9",
+        "roomId": "room_03",
+        "title": "Burnout Warning",
+        "description": "Burnout Warning \u2014 a legendary guideAdvisory event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_03_evt_10",
+        "roomId": "room_03",
+        "title": "Masterpiece Draft",
+        "description": "Masterpiece Draft \u2014 a common hiddenGlitch event in Creator Room.",
+        "flavorText": "The creative environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Likes"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.15,
+    "pityThreshold": 11,
+    "spawnRateMultiplier": 1.06,
+    "midTwistEvents": [
+      {
+        "id": "room_03_twist_evt_1",
+        "roomId": "room_03",
+        "title": "Creator Room Awakening",
+        "description": "The twist in Creator Room unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

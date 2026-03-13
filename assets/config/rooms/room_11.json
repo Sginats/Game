@@ -1,0 +1,405 @@
+{
+  "id": "room_11",
+  "name": "Underground Prototype Chamber",
+  "subtitle": "Forge the impossible",
+  "order": 11,
+  "introText": "Welcome to Underground Prototype Chamber. Forge the impossible. This is where your journey continues.",
+  "completionText": "You have mastered Underground Prototype Chamber. The Alloy you've gathered here will echo through every room that follows.",
+  "guideTone": "intense, industrial",
+  "guideIntroLine": "Deep underground. The prototypes here were never meant to see daylight.",
+  "currency": "Alloy",
+  "mechanicEmphasis": "synthesis",
+  "themeColors": {
+    "primary": "#7F8C8D",
+    "accent": "#BDC3C7",
+    "background": "#080808"
+  },
+  "transformationStages": [
+    {
+      "id": "room_11_stage_1",
+      "name": "Underground Prototype Chamber \u2014 Bare Bones",
+      "description": "The room in its raw state. Underground Prototype Chamber evolves as you progress.",
+      "requiredUpgrades": 55,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_11_stage_2",
+      "name": "Underground Prototype Chamber \u2014 First Light",
+      "description": "Basic improvements visible. Underground Prototype Chamber evolves as you progress.",
+      "requiredUpgrades": 165,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_11_stage_3",
+      "name": "Underground Prototype Chamber \u2014 Functional",
+      "description": "A proper working space. Underground Prototype Chamber evolves as you progress.",
+      "requiredUpgrades": 330,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_11_stage_4",
+      "name": "Underground Prototype Chamber \u2014 Advanced",
+      "description": "High-tech transformation. Underground Prototype Chamber evolves as you progress.",
+      "requiredUpgrades": 550,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_11_stage_5",
+      "name": "Underground Prototype Chamber \u2014 Mastered",
+      "description": "The room at its peak. Underground Prototype Chamber evolves as you progress.",
+      "requiredUpgrades": 880,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_11_ambient",
+      "name": "forge ambience",
+      "assetPath": "assets/audio/rooms/room_11_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_11_active",
+      "name": "forge activity",
+      "assetPath": "assets/audio/rooms/room_11_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_11_secret_1",
+      "title": "Hidden Forge Cache",
+      "description": "A secret stash hidden in the Underground Prototype Chamber.",
+      "hint": "Look behind the forge equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_11_twist",
+    "title": "Underground Prototype Chamber Shift",
+    "description": "Something changes in the Underground Prototype Chamber. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 275",
+    "effectDescription": "New mechanics unlock in Underground Prototype Chamber. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_11",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_11_lore_1",
+    "room_11_lore_2",
+    "room_11_lore_3"
+  ],
+  "unlockRequirement": "room_10",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_11",
+    "events": [
+      {
+        "id": "room_11_evt_1",
+        "roomId": "room_11",
+        "title": "Alloy Mix",
+        "description": "Alloy Mix \u2014 a common instant event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_11_evt_2",
+        "roomId": "room_11",
+        "title": "Prototype Failure",
+        "description": "Prototype Failure \u2014 a common shortChoice event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_11_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 6.5,
+                "description": "Gain Alloy"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_11_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 13.0,
+                "description": "Gain more Alloy"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_11_evt_3",
+        "roomId": "room_11",
+        "title": "Material Stress",
+        "description": "Material Stress \u2014 a common timedChain event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_11_evt_4",
+        "roomId": "room_11",
+        "title": "Forge Temperature",
+        "description": "Forge Temperature \u2014 a common utility event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_11_evt_5",
+        "roomId": "room_11",
+        "title": "Blueprint Error",
+        "description": "Blueprint Error \u2014 a rare secretTrigger event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_11_evt_6",
+        "roomId": "room_11",
+        "title": "Smelting Success",
+        "description": "Smelting Success \u2014 a rare legendaryAnomaly event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_11_evt_7",
+        "roomId": "room_11",
+        "title": "Structural Flaw",
+        "description": "Structural Flaw \u2014 a epic warningRisk event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_11_evt_8",
+        "roomId": "room_11",
+        "title": "New Composite",
+        "description": "New Composite \u2014 a corrupted miniBoss event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_11_evt_9",
+        "roomId": "room_11",
+        "title": "Pressure Test",
+        "description": "Pressure Test \u2014 a legendary guideAdvisory event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_11_evt_10",
+        "roomId": "room_11",
+        "title": "Master Craft",
+        "description": "Master Craft \u2014 a common hiddenGlitch event in Underground Prototype Chamber.",
+        "flavorText": "The forge environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 27.0,
+            "description": "Gain Alloy"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.55,
+    "pityThreshold": 19,
+    "spawnRateMultiplier": 1.22,
+    "midTwistEvents": [
+      {
+        "id": "room_11_twist_evt_1",
+        "roomId": "room_11",
+        "title": "Underground Prototype Chamber Awakening",
+        "description": "The twist in Underground Prototype Chamber unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

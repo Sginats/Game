@@ -1,0 +1,405 @@
+{
+  "id": "room_19",
+  "name": "Reality Kernel Chamber",
+  "subtitle": "Rewriting the rules",
+  "order": 19,
+  "introText": "Welcome to Reality Kernel Chamber. Rewriting the rules. This is where your journey continues.",
+  "completionText": "You have mastered Reality Kernel Chamber. The Kernel Bits you've gathered here will echo through every room that follows.",
+  "guideTone": "intense, final",
+  "guideIntroLine": "This is it. The kernel of reality itself. One wrong move and...",
+  "currency": "Kernel Bits",
+  "mechanicEmphasis": "signal",
+  "themeColors": {
+    "primary": "#212121",
+    "accent": "#FAFAFA",
+    "background": "#040404"
+  },
+  "transformationStages": [
+    {
+      "id": "room_19_stage_1",
+      "name": "Reality Kernel Chamber \u2014 Bare Bones",
+      "description": "The room in its raw state. Reality Kernel Chamber evolves as you progress.",
+      "requiredUpgrades": 95,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_19_stage_2",
+      "name": "Reality Kernel Chamber \u2014 First Light",
+      "description": "Basic improvements visible. Reality Kernel Chamber evolves as you progress.",
+      "requiredUpgrades": 285,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_19_stage_3",
+      "name": "Reality Kernel Chamber \u2014 Functional",
+      "description": "A proper working space. Reality Kernel Chamber evolves as you progress.",
+      "requiredUpgrades": 570,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_19_stage_4",
+      "name": "Reality Kernel Chamber \u2014 Advanced",
+      "description": "High-tech transformation. Reality Kernel Chamber evolves as you progress.",
+      "requiredUpgrades": 950,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_19_stage_5",
+      "name": "Reality Kernel Chamber \u2014 Mastered",
+      "description": "The room at its peak. Reality Kernel Chamber evolves as you progress.",
+      "requiredUpgrades": 1520,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_19_ambient",
+      "name": "kernel ambience",
+      "assetPath": "assets/audio/rooms/room_19_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_19_active",
+      "name": "kernel activity",
+      "assetPath": "assets/audio/rooms/room_19_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_19_secret_1",
+      "title": "Hidden Kernel Cache",
+      "description": "A secret stash hidden in the Reality Kernel Chamber.",
+      "hint": "Look behind the kernel equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_19_twist",
+    "title": "Reality Kernel Chamber Shift",
+    "description": "Something changes in the Reality Kernel Chamber. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 475",
+    "effectDescription": "New mechanics unlock in Reality Kernel Chamber. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_19",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_19_lore_1",
+    "room_19_lore_2",
+    "room_19_lore_3"
+  ],
+  "unlockRequirement": "room_18",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_19",
+    "events": [
+      {
+        "id": "room_19_evt_1",
+        "roomId": "room_19",
+        "title": "Kernel Panic",
+        "description": "Kernel Panic \u2014 a common instant event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_19_evt_2",
+        "roomId": "room_19",
+        "title": "Reality Rewrite",
+        "description": "Reality Rewrite \u2014 a common shortChoice event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_19_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 10.5,
+                "description": "Gain Kernel Bits"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_19_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 21.0,
+                "description": "Gain more Kernel Bits"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_19_evt_3",
+        "roomId": "room_19",
+        "title": "Law Amendment",
+        "description": "Law Amendment \u2014 a common timedChain event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_19_evt_4",
+        "roomId": "room_19",
+        "title": "Physics Glitch",
+        "description": "Physics Glitch \u2014 a common utility event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_19_evt_5",
+        "roomId": "room_19",
+        "title": "Constant Shift",
+        "description": "Constant Shift \u2014 a rare secretTrigger event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_19_evt_6",
+        "roomId": "room_19",
+        "title": "Rule Exception",
+        "description": "Rule Exception \u2014 a rare legendaryAnomaly event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_19_evt_7",
+        "roomId": "room_19",
+        "title": "Foundation Crack",
+        "description": "Foundation Crack \u2014 a epic warningRisk event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_19_evt_8",
+        "roomId": "room_19",
+        "title": "Origin Signal",
+        "description": "Origin Signal \u2014 a corrupted miniBoss event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_19_evt_9",
+        "roomId": "room_19",
+        "title": "Void Touch",
+        "description": "Void Touch \u2014 a legendary guideAdvisory event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_19_evt_10",
+        "roomId": "room_19",
+        "title": "Kernel Compile",
+        "description": "Kernel Compile \u2014 a common hiddenGlitch event in Reality Kernel Chamber.",
+        "flavorText": "The kernel environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 43.0,
+            "description": "Gain Kernel Bits"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.9500000000000002,
+    "pityThreshold": 27,
+    "spawnRateMultiplier": 1.38,
+    "midTwistEvents": [
+      {
+        "id": "room_19_twist_evt_1",
+        "roomId": "room_19",
+        "title": "Reality Kernel Chamber Awakening",
+        "description": "The twist in Reality Kernel Chamber unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}
