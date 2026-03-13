@@ -1,8 +1,12 @@
 export 'achievement.dart';
+export 'codex.dart';
 export 'era.dart';
 export 'game_state.dart';
 export 'gameplay_extensions.dart';
 export 'generator.dart';
+export 'meta_progression.dart';
 export 'progression_content.dart';
 export 'robot_guide.dart';
+export 'room_scene.dart';
+export 'scene_event.dart';
 export 'upgrade.dart';
