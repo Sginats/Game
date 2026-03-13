@@ -11,6 +11,7 @@ import 'application/services/app_strings.dart';
 import 'application/services/config_service.dart';
 import 'application/services/game_audio_service.dart';
 import 'application/services/leaderboard_service.dart';
+import 'application/services/room_content_generator.dart';
 import 'application/services/leaderboard_session_service.dart';
 import 'core/math/game_number.dart';
 import 'core/time/time_provider.dart';
@@ -110,10 +111,10 @@ class _GameLoaderState extends State<GameLoader> {
       final progressionConfig =
           json.decode(progressionConfigStr) as Map<String, dynamic>;
 
-      final generators = (economyConfig['generators'] as List<dynamic>)
+      final baseGenerators = (economyConfig['generators'] as List<dynamic>)
           .map((item) => GeneratorDefinition.fromJson(item as Map<String, dynamic>))
           .toList();
-      final upgrades = (economyConfig['upgrades'] as List<dynamic>)
+      final baseUpgrades = (economyConfig['upgrades'] as List<dynamic>)
           .map((item) => UpgradeDefinition.fromJson(item as Map<String, dynamic>))
           .toList();
       final eras = (economyConfig['eras'] as List<dynamic>)
@@ -141,6 +142,27 @@ class _GameLoaderState extends State<GameLoader> {
           .map((item) => Ending.fromJson(item as Map<String, dynamic>))
           .toList();
       final progression = ProgressionContent.fromJson(progressionConfig);
+
+      // Generate 100 upgrades per era using the content generator
+      final roomContent = const RoomContentGenerator().build(
+        eras: eras,
+        baseGenerators: baseGenerators,
+      );
+
+      // Merge base config with generated content
+      // Generated content supplements the base config entries
+      final generators = <GeneratorDefinition>[
+        ...baseGenerators,
+        ...roomContent.generators.where(
+          (g) => !baseGenerators.any((b) => b.id == g.id),
+        ),
+      ];
+      final upgrades = <UpgradeDefinition>[
+        ...baseUpgrades,
+        ...roomContent.upgrades.where(
+          (u) => !baseUpgrades.any((b) => b.id == u.id),
+        ),
+      ];
 
       final config = ConfigService(
         baseTapValue: GameNumber.fromDouble(
