@@ -611,6 +611,31 @@ class GameController {
               GameNumber.fromDouble(aggressiveChoice ? 1200 : 400),
         );
         break;
+      case GameEventType.breachFragment:
+        final breachReward = GameNumber.fromDouble(
+          math.max(200, updated.totalCoinsEarned.toDouble() * 0.03 * rewardScale),
+        );
+        updated = updated.copyWith(
+          coins: updated.coins + breachReward,
+          totalCoinsEarned: updated.totalCoinsEarned + breachReward,
+          discoveredSecrets: {
+            ...updated.discoveredSecrets,
+            if (aggressiveChoice) 'breach_echo',
+          },
+        );
+        break;
+      case GameEventType.dataCorruption:
+        if (aggressiveChoice) {
+          updated = updated.copyWith(
+            productionMultiplier: updated.productionMultiplier *
+                GameNumber.fromDouble(1.12),
+          );
+        } else {
+          updated = updated.copyWith(
+            automationCharge: (updated.automationCharge + 15).clamp(0, 100),
+          );
+        }
+        break;
     }
 
     _state = updated.copyWith(
@@ -899,7 +924,9 @@ class GameController {
   }
 
   void _maybeSpawnEvent() {
-    if (_state.activeEvent != null || _eventAccumulator < 18) return;
+    if (_state.activeEvent != null || _eventAccumulator < 12) return;
+    // Cap accumulator to prevent unbounded growth
+    if (_eventAccumulator > 60) _eventAccumulator = 60;
 
     final chance = (_state.chosenBranches.contains('risky') ? 0.04 : 0.022) +
         (_state.eventPityCounter * 0.006).clamp(0.0, 0.05);

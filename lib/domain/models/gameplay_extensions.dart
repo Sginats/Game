@@ -75,6 +75,8 @@ enum GameEventType {
   hardwareMalfunction,
   marketSpike,
   mysteryCache,
+  breachFragment,
+  dataCorruption,
 }
 
 class GameEventState {

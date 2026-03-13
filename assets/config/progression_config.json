@@ -116,7 +116,7 @@
     },
     {
       "id": "breach_fragment",
-      "type": "mysteryCache",
+      "type": "breachFragment",
       "title": "Breach Fragment",
       "description": "A fragmented breach is trying to anchor itself. Risk route operators get bigger rewards from it.",
       "risky": true,
@@ -124,6 +124,23 @@
       "baseDurationSeconds": 9,
       "minimumRarity": "corrupted",
       "requiredBranchId": "risky"
+    },
+    {
+      "id": "data_corruption",
+      "type": "dataCorruption",
+      "title": "Data Corruption Wave",
+      "description": "Corrupted data is flooding the system. Purge it safely or absorb it for a production boost.",
+      "risky": true,
+      "baseDurationSeconds": 11,
+      "minimumRarity": "rare"
+    },
+    {
+      "id": "signal_echo",
+      "type": "powerSurge",
+      "title": "Signal Echo",
+      "description": "A faint echo of a previous power surge returns. Quick operators can capture its remnants.",
+      "baseDurationSeconds": 8,
+      "minimumRarity": "common"
     }
   ],
   "challenges": [
