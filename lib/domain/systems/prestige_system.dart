@@ -49,6 +49,7 @@ class PrestigeSystem {
       generators: const {},
       upgrades: const {},
       unlockedEras: const {'era_1'},
+      currentEraId: 'era_1',
       lastSaveTime: state.lastSaveTime,
       totalTaps: 0,
       prestigeCount: state.prestigeCount + 1,

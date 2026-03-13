@@ -164,12 +164,9 @@ class _GameLoaderState extends State<GameLoader> {
         baseUpgrades: baseUpgrades,
       );
 
-      // Only load the first era and its neighbor at startup for fast loading
+      // Only load the first era at startup for fast loading.
       contentManager.ensureEraLoaded('era_1');
-      contentManager.ensureEraLoaded('era_2');
 
-      // Load remaining eras that the player has already unlocked
-      // (will be populated after loading save data)
       final generators = contentManager.generators;
       final upgrades = contentManager.upgrades;
 
@@ -219,10 +216,21 @@ class _GameLoaderState extends State<GameLoader> {
 
       await controller.loadGame();
 
-      // After loading save data, ensure all unlocked eras have their content loaded
-      contentManager.ensureErasAroundLoaded(controller.state.unlockedEras);
-      // Update config with any newly loaded content
+      // After loading save data, load only the current room window and owned eras.
+      for (final eraId in controller.loadedEraWindow) {
+        contentManager.ensureEraLoaded(eraId);
+      }
       config.refreshContent(contentManager);
+
+      // Preload the next room window in the background to smooth transitions.
+      Future<void>.microtask(() {
+        final ordered = eras.toList()..sort((a, b) => a.order.compareTo(b.order));
+        final currentIndex = ordered.indexWhere((era) => era.id == controller.currentEraId);
+        if (currentIndex >= 0 && currentIndex < ordered.length - 1) {
+          contentManager.ensureEraLoaded(ordered[currentIndex + 1].id);
+          config.refreshContent(contentManager);
+        }
+      });
 
       _audioService.setEnabled(settings.soundEnabled);
       _audioService.configureVolumes(

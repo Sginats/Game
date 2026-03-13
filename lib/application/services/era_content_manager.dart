@@ -10,7 +10,6 @@ class EraContentManager {
   final RoomContentGenerator _generator;
   final List<Era> _eras;
   final List<GeneratorDefinition> _baseGenerators;
-  final List<UpgradeDefinition> _baseUpgrades;
 
   final Map<String, GeneratedRoomContent> _cache = {};
   final Map<String, GeneratorDefinition> _generatorCache = {};
@@ -26,15 +25,17 @@ class EraContentManager {
     required List<UpgradeDefinition> baseUpgrades,
   })  : _generator = generator,
         _eras = eras,
-        _baseGenerators = baseGenerators,
-        _baseUpgrades = baseUpgrades {
-    // Index base content by ID
+        _baseGenerators = baseGenerators {
+    // Only keep the starter era available at boot.
+    // Later eras are streamed in on demand to reduce startup work and to let
+    // generated room content override lightweight seed definitions cleanly.
     for (final gen in _baseGenerators) {
-      _generatorCache[gen.id] = gen;
+      if (gen.eraId == 'era_1') {
+        _generatorCache[gen.id] = gen;
+      }
     }
-    for (final upg in _baseUpgrades) {
-      _upgradeCache[upg.id] = upg;
-    }
+    // Base upgrades are treated as seed data only; generated room upgrades
+    // define the live content for each era.
   }
 
   /// Get all currently loaded generators (base + generated for loaded eras).
@@ -63,10 +64,10 @@ class EraContentManager {
 
     final content = _cache[eraId]!;
     for (final gen in content.generators) {
-      _generatorCache.putIfAbsent(gen.id, () => gen);
+      _generatorCache[gen.id] = gen;
     }
     for (final upg in content.upgrades) {
-      _upgradeCache.putIfAbsent(upg.id, () => upg);
+      _upgradeCache[upg.id] = upg;
     }
     _loadedEras.add(eraId);
   }

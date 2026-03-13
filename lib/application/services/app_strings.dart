@@ -2,6 +2,8 @@ import 'app_settings_service.dart';
 import 'leaderboard_service.dart';
 import '../../domain/models/progression_content.dart';
 import '../../domain/models/gameplay_extensions.dart';
+import '../../domain/models/generator.dart';
+import '../../domain/models/era.dart';
 import '../../domain/models/upgrade.dart';
 
 class AppStrings {
@@ -61,6 +63,22 @@ class AppStrings {
   String get stats => isRussian ? 'Статистика' : 'Stats';
   String get settings => isRussian ? 'Настройки' : 'Settings';
   String get leaderboard => isRussian ? 'Таблица лидеров' : 'Leaderboard';
+  String get codex => isRussian ? 'Кодекс' : 'Codex';
+  String get sceneArchive => isRussian ? 'Архив сцен' : 'Scene archive';
+  String get eventCodex => isRussian ? 'Архив событий' : 'Event codex';
+  String get routeSummary => isRussian ? 'Сводка маршрута' : 'Route summary';
+  String get guideStatus => isRussian ? 'Статус гида' : 'Guide status';
+  String get discoveredEntries => isRussian ? 'Открыто записей' : 'Discovered entries';
+  String get sceneBadge => isRussian ? 'Значок сцены' : 'Scene badge';
+  String get activeEventTitle => isRussian ? 'Активное событие' : 'Active event';
+  String get eventChain => isRussian ? 'Цепочка событий' : 'Event chain';
+  String get timeRemaining => isRussian ? 'Осталось времени' : 'Time remaining';
+  String get sceneCompleted => isRussian ? 'Сцена завершена' : 'Scene complete';
+  String get notYetCompleted => isRussian ? 'Ещё не завершена' : 'Not yet complete';
+  String get seenSecrets => isRussian ? 'Найдено секретов' : 'Secrets found';
+  String get guideAffinityLabel => isRussian ? 'Доверие гида' : 'Guide affinity';
+  String get guideTierLabel => isRussian ? 'Уровень гида' : 'Guide tier';
+  String get mutators => isRussian ? 'Мутаторы' : 'Mutators';
   String get challenges => isRussian ? 'Испытания' : 'Challenges';
   String get reducedMotion => isRussian ? 'Меньше анимации' : 'Reduced motion';
   String get reducedMotionDescription => isRussian
@@ -152,6 +170,36 @@ class AppStrings {
   String get fallback => isRussian ? 'резерв' : 'fallback';
   String get missing => isRussian ? 'отсутствует' : 'missing';
   String get currentRoom => isRussian ? 'Текущая комната' : 'Current Room';
+  String get previousRoom => isRussian ? 'Назад' : 'Previous';
+  String get nextRoom => isRussian ? 'Далее' : 'Next';
+  String get roomMap => isRussian ? 'Комнаты' : 'Rooms';
+  String get roomGuide => isRussian ? 'Гид' : 'Guide';
+  String get firstRoomChecklist => isRussian ? 'Первые шаги' : 'First steps';
+  String get nextRoomTarget => isRussian ? 'Следующая комната' : 'Next room';
+  String tutorialTapGoal(int current, int target) => isRussian
+      ? 'Нажмите по ядру: $current/$target'
+      : 'Tap the core: $current/$target';
+  String tutorialGeneratorGoal(int current, int target) => isRussian
+      ? 'Поднимите уровень ядра: $current/$target'
+      : 'Raise the core level: $current/$target';
+  String tutorialUpgradeGoal(int current, int target) => isRussian
+      ? 'Купите улучшения: $current/$target'
+      : 'Buy upgrades: $current/$target';
+  String unlockRequirementLabel(String name, int level) => isRussian
+      ? 'Открытие: $name ур. $level'
+      : 'Unlock at $name Lv $level';
+  String roomEvolutionStage(String label) =>
+      isRussian ? 'Стадия: $label' : 'Stage: $label';
+  String get stageDormant => isRussian ? 'Пробуждение' : 'Awakening';
+  String get stageActive => isRussian ? 'Разгон' : 'Active';
+  String get stageRefined => isRussian ? 'Отстройка' : 'Refined';
+  String get stageAscendant => isRussian ? 'Доминирование' : 'Ascendant';
+  String roomUpgradeProgress(int bought, int total) => isRussian
+      ? 'Узлы комнаты: $bought/$total'
+      : 'Room nodes: $bought/$total';
+  String get preloadingNextRoom => isRussian
+      ? 'Подготовка следующей комнаты'
+      : 'Preloading next room';
   String get roomRule => isRussian ? 'Правило комнаты' : 'Room rule';
   String roomProgress(int current, int total) =>
       isRussian ? 'Комната $current/$total' : 'Room $current/$total';
@@ -294,6 +342,9 @@ class AppStrings {
   String requiresGeneratorLevel(String name, int level) => isRussian
       ? 'Требуется $name ур. $level'
       : 'Requires $name Lv $level';
+  String requiresUpgradeLevel(String name, int level) => isRussian
+      ? 'Требуется $name ур. $level'
+      : 'Requires $name Lv $level';
   String get fullyUpgraded => isRussian ? 'Полностью улучшено' : 'Fully upgraded';
   String get secretRouteDiscovered => isRussian
       ? 'Секретный маршрут найден'
@@ -319,6 +370,16 @@ class AppStrings {
       };
   String get roomInteraction => isRussian ? 'Комнатные действия' : 'Room actions';
   String get aiHints => isRussian ? 'Подсказки ИИ' : 'AI hints';
+  String get roomIdentity => isRussian ? 'Идентичность комнаты' : 'Room identity';
+  String get sceneFocus => isRussian ? 'Фокус сцены' : 'Scene focus';
+  String get sceneAdvice => isRussian ? 'Совет по сцене' : 'Scene advice';
+  String get robotGuide => isRussian ? 'Робот-гид' : 'Robot guide';
+  String get recommendedNext => isRussian ? 'Рекомендуемый шаг' : 'Recommended next';
+  String get focusSuggestedNode => isRussian ? 'Показать узел' : 'Focus node';
+  String get storyBeat => isRussian ? 'Сюжетный сигнал' : 'Story beat';
+  String get noGuideMessage => isRussian
+      ? 'Гид наблюдает и ждёт следующего важного изменения.'
+      : 'The guide is watching for the next meaningful change.';
   String get upgradeAll => isRussian ? 'Улучшить всё' : 'Upgrade All';
   String upgradeAllPurchased(int count) => isRussian
       ? 'Куплено улучшений: $count'
@@ -365,6 +426,97 @@ class AppStrings {
   String get branchUnlockedToast => isRussian
       ? 'Открыт новый рубеж'
       : 'New milestone unlocked';
+  String roomBranchLabel(String branchId) => switch (branchId) {
+        'tap' => isRussian ? 'ручной ритм' : 'manual rhythm',
+        'automation' => isRussian ? 'автоматизация' : 'automation',
+        'room' => isRussian ? 'инфраструктура комнаты' : 'room infrastructure',
+        'ai' => isRussian ? 'ядро ИИ' : 'AI core',
+        'special' => isRussian ? 'аномальные модули' : 'anomaly modules',
+      _ => branchId,
+      };
+  String eventRarityLabel(EventRarity rarity) => switch (rarity) {
+        EventRarity.common => isRussian ? 'обычное' : 'common',
+        EventRarity.rare => isRussian ? 'редкое' : 'rare',
+        EventRarity.epic => isRussian ? 'эпическое' : 'epic',
+        EventRarity.corrupted => isRussian ? 'искажённое' : 'corrupted',
+        EventRarity.legendary => isRussian ? 'легендарное' : 'legendary',
+      };
+  String sceneArchiveProgress(int completed, int total) => isRussian
+      ? 'Завершено сцен: $completed/$total'
+      : 'Scenes completed: $completed/$total';
+  String eventArchiveProgress(int seen, int total) => isRussian
+      ? 'Изучено событий: $seen/$total'
+      : 'Events studied: $seen/$total';
+  String formatGuideTier(int tier) =>
+      isRussian ? 'Контур $tier' : 'Tier $tier';
+  String roomFocusSummary(List<String> branchLabels) => isRussian
+      ? 'Комната сильнее всего раскрывается через: ${branchLabels.join(' · ')}'
+      : 'This room leans hardest into: ${branchLabels.join(' · ')}';
+  String formatRoomFlavor(String key) => switch (key) {
+        'repair' => isRussian
+            ? 'Медленное пробуждение через ремонт, стабилизацию и ручную работу.'
+            : 'A slow awakening built on repair, stabilization, and manual effort.',
+        'budget' => isRussian
+            ? 'Дешёвая, но гибкая сборка с ранним смешением ручной игры и автоматизации.'
+            : 'A cheap but flexible setup that mixes early tapping with starter automation.',
+        'creator' => isRussian
+            ? 'Производство, импульсы и видимость усиливают пики дохода.'
+            : 'Production spikes, visibility, and output loops drive stronger bursts.',
+        'optimization' => isRussian
+            ? 'Точность и структура важнее сырого темпа.'
+            : 'Precision and structure matter more than raw speed here.',
+        'research' => isRussian
+            ? 'Эксперименты и ответвления награждают за осознанный выбор.'
+            : 'Experiments and branch choices reward deliberate decisions.',
+        'thermal' => isRussian
+            ? 'Мощность растёт через инфраструктуру, но давление тоже усиливается.'
+            : 'Power scales through infrastructure, but system pressure climbs too.',
+        'focus' => isRussian
+            ? 'Серии действий и дисциплинированная ручная игра здесь особенно сильны.'
+            : 'Streaks and disciplined active play are unusually strong in this room.',
+        'autonomy' => isRussian
+            ? 'Автономные системы начинают работать за вас и менять ритм комнаты.'
+            : 'Autonomous systems begin acting for you and reshape the room rhythm.',
+        'apartment' => isRussian
+            ? 'Синергия между зонами и комфортом становится частью экономики.'
+            : 'Cross-zone synergy and comfort systems start feeding the economy.',
+        'containment' => isRussian
+            ? 'Ограничения делают скрытые, осторожные усиления особенно ценными.'
+            : 'Restrictions make hidden and careful power routes more valuable.',
+        'industrial' => isRussian
+            ? 'Тяжёлая инфраструктура и цепочки производства выходят на первый план.'
+            : 'Heavy infrastructure and chain production take center stage.',
+        'identity' => isRussian
+            ? 'Личность ИИ и выразительность усиливают прогресс не хуже мощности.'
+            : 'AI identity and expression become power sources of their own.',
+        'corporate' => isRussian
+            ? 'Леверидж, сделки и масштаб дают силу, но требуют хладнокровия.'
+            : 'Leverage, deals, and scale offer power, but demand control.',
+        'cathedral' => isRussian
+            ? 'Крупные синергии и гармония систем ценнее резких скачков.'
+            : 'Large synergies and harmony matter more than short spikes.',
+        'simulation' => isRussian
+            ? 'Нестабильность и странные решения открывают альтернативные выгоды.'
+            : 'Instability and strange choices open alternate rewards.',
+        'orbital' => isRussian
+            ? 'Точное время, импульсы и циклы орбиты формируют темп комнаты.'
+            : 'Precise timing, pulses, and orbital cycles define this room.',
+        'planetary' => isRussian
+            ? 'Широкие системные выборы и специализация усиливают долгую игру.'
+            : 'Large-scale strategic choices and specialization drive long-run gains.',
+        'chrono' => isRussian
+            ? 'Планирование вперёд и рекурсия награждают терпеливые сборки.'
+            : 'Forward planning and recursion reward patient builds.',
+        'kernel' => isRussian
+            ? 'Старые системы здесь переплавляются в новые правила и синергии.'
+            : 'Old systems are rewritten here into new rules and synergies.',
+        'singularity' => isRussian
+            ? 'Финальная сцена просит не скорости, а ясного выбора пути.'
+            : 'The final scene is about decisive route choice, not speed alone.',
+        _ => isRussian
+            ? 'У комнаты есть собственный ритм и предпочтительные пути усиления.'
+            : 'This room has its own rhythm and preferred power routes.',
+      };
   String unlockedMilestonesToast(String titles) => isRussian
       ? 'Открыты рубежи: $titles'
       : 'Unlocked milestones: $titles';
@@ -393,6 +545,21 @@ class AppStrings {
         ActiveAbilityType.sync => isRussian ? 'Синхро' : 'Sync',
       };
 
+  String formatAbilityDescription(ActiveAbilityType type) => switch (type) {
+        ActiveAbilityType.overclock => isRussian
+            ? 'Коротко усиливает автоматическое производство.'
+            : 'Briefly boosts automatic production.',
+        ActiveAbilityType.focus => isRussian
+            ? 'Ненадолго усиливает ручные нажатия и уменьшает задержку.'
+            : 'Temporarily strengthens manual taps and lowers tap cooldown.',
+        ActiveAbilityType.surge => isRussian
+            ? 'Даёт мгновенный пакет ресурсов по текущему производству.'
+            : 'Grants an instant burst of resources based on current production.',
+        ActiveAbilityType.sync => isRussian
+            ? 'На время связывает бонусы ручной игры и автоматизации.'
+            : 'Temporarily links manual and automation bonuses together.',
+      };
+
   String formatColorblindMode(ColorblindMode mode) => switch (mode) {
         ColorblindMode.off => isRussian ? 'Выключено' : 'Off',
         ColorblindMode.deuteranopia => isRussian ? 'Дейтеранопия' : 'Deuteranopia',
@@ -412,16 +579,16 @@ class AppStrings {
   String formatRecommendation(String raw) {
     if (!isRussian) return raw;
     if (raw.startsWith('Quest: ')) {
-      return 'Задание: ${raw.substring(7)}';
+      return 'Задание: ${translateContent(raw.substring(7))}';
     }
     if (raw.startsWith('Resolve ')) {
-      return 'Решить: ${raw.substring(8)}';
+      return 'Решить: ${translateContent(raw.substring(8))}';
     }
     if (raw.startsWith('Use ')) {
       return 'Использовать ${formatAbilityName(raw.substring(4))}';
     }
     if (raw.startsWith('Buy ')) {
-      return 'Купить ${raw.substring(4)}';
+      return 'Купить ${translateContent(raw.substring(4))}';
     }
     if (raw == 'Grow income toward the next branch') {
       return 'Наращивайте доход до следующей ветки';
@@ -432,7 +599,7 @@ class AppStrings {
   String formatAiLine(String raw) {
     if (!isRussian) return raw;
     if (raw.startsWith('AI suggests a short-term objective: ')) {
-      return 'ИИ предлагает краткосрочную цель: ${raw.substring(36)}';
+      return 'ИИ предлагает краткосрочную цель: ${translateContent(raw.substring(36))}';
     }
     return switch (raw) {
       'A live event is affecting the room. Decide quickly.' =>
@@ -511,4 +678,250 @@ class AppStrings {
       };
 
   String levelLabel(int current, int max) => '$current/$max';
+
+  String localizedEraName(String raw) {
+    if (!isRussian) return raw;
+    return _contentMap[raw] ?? raw;
+  }
+
+  String localizedEraDescription(Era era) =>
+      translateContent(era.description);
+
+  String localizedEraRule(Era era) => translateContent(era.rule);
+
+  String localizedGeneratorName(GeneratorDefinition generator) =>
+      translateContent(generator.name);
+
+  String localizedGeneratorDescription(GeneratorDefinition generator) =>
+      translateContent(generator.description);
+
+  String localizedUpgradeName(UpgradeDefinition upgrade) {
+    if (!isRussian) return upgrade.name;
+    final parts = upgrade.id.split('_');
+    final tier = int.tryParse(parts.isNotEmpty ? parts.last : '') ?? 1;
+    final category = switch (upgrade.category) {
+      UpgradeCategory.tap => 'Тап-модуль',
+      UpgradeCategory.automation => 'Авто-модуль',
+      UpgradeCategory.room => 'Комнатный модуль',
+      UpgradeCategory.ai => 'ИИ-модуль',
+      UpgradeCategory.special => 'Особый модуль',
+    };
+    return '$category $tier';
+  }
+
+  String localizedUpgradeDescription(UpgradeDefinition upgrade) {
+    if (!isRussian) return upgrade.description;
+    return switch (upgrade.category) {
+      UpgradeCategory.tap =>
+        'Усиливает ручной ввод и отдачу от нажатий в этой комнате.',
+      UpgradeCategory.automation =>
+        'Усиливает пассивное производство и стабильность автоматизации.',
+      UpgradeCategory.room =>
+        'Развивает саму комнату и укрепляет главное ядро сцены.',
+      UpgradeCategory.ai =>
+        'Открывает более умные реакции ИИ и повышает эффективность решений.',
+      UpgradeCategory.special =>
+        'Редкий модуль с более сильным, но узким эффектом.',
+    };
+  }
+
+  String translateContent(String raw) {
+    if (!isRussian) return raw;
+    final exact = _contentMap[raw];
+    if (exact != null) return exact;
+
+    final coreMatch = RegExp(r'^(.+) Core$').firstMatch(raw);
+    if (coreMatch != null) {
+      return '${localizedEraName(coreMatch.group(1)!)} Ядро';
+    }
+
+    final generatedNode = RegExp(r'^([A-Za-z]+) (Tap|Automation|Room|AI|Special|Milestone) Tier (\d+)$')
+        .firstMatch(raw);
+    if (generatedNode != null) {
+      final branch = switch (generatedNode.group(2)) {
+        'Tap' => 'Тап',
+        'Automation' => 'Авто',
+        'Room' => 'Комната',
+        'AI' => 'ИИ',
+        'Special' => 'Особое',
+        _ => 'Рубеж',
+      };
+      return '$branch ${generatedNode.group(3)}';
+    }
+
+    if (raw.startsWith('Primary room engine for ')) {
+      return 'Главное ядро комнаты. Эта сцена рассчитана на долгий и постепенный прогресс.';
+    }
+
+    final completionMatch = RegExp(r'^(.+) Complete$').firstMatch(raw);
+    if (completionMatch != null) {
+      return '${localizedEraName(completionMatch.group(1)!)} завершена';
+    }
+
+    if (raw.contains('lattice tier') && raw.contains('Progress here is meant')) {
+      return 'Узел прогресса этой комнаты. Продвижение здесь должно ощущаться постепенным, а не мгновенным.';
+    }
+
+    return raw;
+  }
+
+  static const Map<String, String> _contentMap = {
+    'Junk Corner': 'Угол с хламом',
+    'Budget Setup': 'Бюджетный сетап',
+    'Creator Room': 'Комната создателя',
+    'Upgrade Cave': 'Пещера апгрейдов',
+    'Smart Lab Bedroom': 'Умная спальня-лаборатория',
+    'Hidden Server Closet': 'Скрытая серверная кладовка',
+    'Night Shift Command Room': 'Командная комната ночной смены',
+    'Autonomous Workspace': 'Автономное рабочее пространство',
+    'Research Apartment': 'Исследовательская квартира',
+    'Containment Loft': 'Лофт сдерживания',
+    'Underground Prototype Chamber': 'Подземная камера прототипов',
+    'Synthetic Studio': 'Синтетическая студия',
+    'Corporate Takeover Suite': 'Корпоративный люкс захвата',
+    'Data Cathedral': 'Собор данных',
+    'Simulation Chamber': 'Камера симуляции',
+    'Orbital Control Habitat': 'Орбитальный центр управления',
+    'Planetary Systems Forge': 'Кузница планетарных систем',
+    'Chrono Engine Room': 'Хроно-машинный зал',
+    'Reality Kernel Chamber': 'Камера ядра реальности',
+    'Quiet Singularity Room': 'Комната тихой сингулярности',
+    'Taps stronger than automation': 'Нажатия сильнее автоматизации',
+    'Tap combos give bonus Cash': 'Комбо нажатий дают бонусные ресурсы',
+    'Viral surge events.': 'Вирусные всплески и импульсы роста.',
+    'Viral surge events': 'Вирусные всплески и импульсы роста',
+    'Balanced click + automation rewarded': 'Баланс кликов и автоматизации вознаграждается',
+    'Research branch choices': 'Выбор исследовательских веток',
+    'Heat management': 'Управление перегревом',
+    'Long streak sessions rewarded': 'Длинные серии вознаграждаются',
+    'AI auto-builds sometimes': 'ИИ иногда строит сам',
+    'Connected rooms give passive bonuses': 'Связанные комнаты дают пассивные бонусы',
+    'Restricted upgrades and hidden unlocks': 'Ограниченные улучшения и скрытые открытия',
+    'Active abilities stronger': 'Активные способности сильнее',
+    'AI personality shaping': 'Формирование личности ИИ',
+    'Risky deals': 'Рискованные сделки',
+    'Balanced builds get bonus': 'Сбалансированные сборки получают бонус',
+    'Glitches and fake UI become gameplay': 'Сбои и ложный интерфейс становятся частью игры',
+    'Timed production pulses': 'Производственные импульсы по таймеру',
+    'Strategic branch choices': 'Стратегический выбор веток',
+    'Preview and lock future gains': 'Предпросмотр и фиксация будущей прибыли',
+    'Convert old resources into endgame growth': 'Преобразование старых ресурсов в рост эндгейма',
+    'Choose final ending': 'Выбор финальной развязки',
+    'Tap Route': 'Тап-маршрут',
+    'Automation Route': 'Маршрут автоматизации',
+    'Hybrid Route': 'Гибридный маршрут',
+    'Risk Route': 'Маршрут риска',
+    'Branch Protocols': 'Протоколы ветвления',
+    'Overdrive Routine': 'Режим перегруза',
+    'Engine Room Access': 'Доступ к машинному залу',
+    'Combo Mastery': 'Мастерство комбо',
+    'Room Awakening': 'Пробуждение комнаты',
+    'Event Hunter': 'Охотник за аномалиями',
+    'Upgrade Veteran': 'Ветеран улучшений',
+    'Mass Producer': 'Массовый производитель',
+    'Deep Explorer': 'Глубокий исследователь',
+    'Signal Pulse': 'Сигнальный импульс',
+    'AI Idea': 'Идея ИИ',
+    'Rogue Process': 'Сбойный процесс',
+    'Anomaly Shard': 'Осколок аномалии',
+    'Corrupted Cache': 'Поврежденный кэш',
+    'Breach Fragment': 'Фрагмент прорыва',
+    'Data Corruption Wave': 'Волна повреждения данных',
+    'Signal Echo': 'Эхо сигнала',
+    'Memory Leak Detected': 'Обнаружена утечка памяти',
+    'Automation Surge': 'Всплеск автоматизации',
+    'Ghost Signal': 'Призрачный сигнал',
+    'Recursive Loop': 'Рекурсивная петля',
+    'Timeline Fracture': 'Разлом временной линии',
+    'Threaded Input': 'Поточное нажатие',
+    'Revision Burst': 'Пакет ревизий',
+    'Anomaly Sweep': 'Зачистка аномалий',
+    'Engine Spike': 'Пиковая нагрузка',
+    'Chain Reactor': 'Цепной реактор',
+    'Signal Flood': 'Потоп сигнала',
+    'Controlled Collapse': 'Контролируемый коллапс',
+    'Grid Pressure': 'Давление сети',
+    'Branch Protocols Online': 'Протоколы ветвления в сети',
+    'Overdrive Available': 'Перегруз доступен',
+    'Engine Room Revealed': 'Машинный зал открыт',
+    'Manual Rhythm Registered': 'Ручной ритм зафиксирован',
+    'Infrastructure Threshold Crossed': 'Порог инфраструктуры пройден',
+    'Anomaly Pattern Archive': 'Архив шаблонов аномалий',
+    'Weekly Pattern Complete': 'Недельный шаблон завершен',
+    'Task Complete': 'Задача выполнена',
+    'A higher-tier anomaly just manifested inside the current room.':
+        'В текущей комнате проявилась аномалия повышенного уровня.',
+    'The room stabilized into a lasting configuration. The guide archived the run and opened stronger planning tools.':
+        'Комната стабилизировалась в устойчивую конфигурацию. Гид архивировал прохождение и открыл более сильные инструменты планирования.',
+    'Overheating': 'Перегрев',
+    'Unstable Economy': 'Нестабильная экономика',
+    'Wake The Core': 'Пробуди ядро',
+    'Automation Spine': 'Хребет автоматизации',
+    'Combo Thread': 'Нить комбо',
+    'Expansion Pulse': 'Импульс расширения',
+    'Risk Sampler': 'Профиль риска',
+    'Event Archive': 'Архив событий',
+    'Overpulse': 'Сверхимпульс',
+    'Ghost Grid': 'Призрачная сеть',
+    'Entropy Leak': 'Утечка энтропии',
+    'Echo Chamber': 'Эхо-камера',
+    'Time Fold': 'Складка времени',
+    'Event Weaver': 'Ткач событий',
+    'Silent Core': 'Тихое ядро',
+    'Critical Mass': 'Критическая масса',
+    'Hello World': 'Привет, мир',
+    'Getting Started': 'Начало пути',
+    'Tap Master': 'Мастер нажатий',
+    'Pocket Change': 'Мелочь в кармане',
+    'Investor': 'Инвестор',
+    'Millionaire': 'Миллионер',
+    'Billionaire': 'Миллиардер',
+    'Automation Begins': 'Начало автоматизации',
+    'Room Builder': 'Строитель комнаты',
+    'Assembly Line': 'Конвейер',
+    'Industrial Revolution': 'Промышленная революция',
+    'Tap Maniac': 'Маньяк нажатий',
+    'Signal Storm': 'Сигнальная буря',
+    'Neural Overload': 'Нейроперегрузка',
+    'Rhythm Found': 'Ритм найден',
+    'Combo Adept': 'Адепт комбо',
+    'Combo Master': 'Мастер комбо',
+    'Combo Legend': 'Легенда комбо',
+    'Infinite Rhythm': 'Бесконечный ритм',
+    'Tycoon': 'Магнат',
+    'Trillion Dreams': 'Триллионные мечты',
+    'Tinkerer': 'Мастер на все руки',
+    'Engineer': 'Инженер',
+    'Architect': 'Архитектор',
+    'Grand Designer': 'Главный проектировщик',
+    'Infrastructure': 'Инфраструктура',
+    'Factory Floor': 'Производственный цех',
+    'Industrial Empire': 'Индустриальная империя',
+    'First Anomaly': 'Первая аномалия',
+    'Event Responder': 'Реагирующий на события',
+    'Anomaly Hunter': 'Охотник за аномалиями',
+    'Event Veteran': 'Ветеран событий',
+    'Hidden Path': 'Скрытый путь',
+    'Secret Keeper': 'Хранитель секретов',
+    'Daredevil': 'Сорвиголова',
+    'Chaos Agent': 'Агент хаоса',
+    'Risk Master': 'Мастер риска',
+    'Dedicated': 'Преданный делу',
+    'Committed': 'Вовлеченный',
+    'Obsessed': 'Одержимый',
+    'Fresh Start': 'Новый старт',
+    'Cycle Master': 'Мастер циклов',
+    'Eternal Loop': 'Вечная петля',
+    'Lucky Strike': 'Удачный удар',
+    'Precision Engine': 'Машина точности',
+    'Power Plant': 'Электростанция',
+    'Energy Grid': 'Энергосеть',
+    'Welcome. I am your guide. This dusty corner holds a spark of something extraordinary — let\'s bring it to life.': 'Привет. Я ваш проводник. В этом пыльном углу тлеет нечто необычное. Давайте оживим это.',
+    'A real workstation at last. Budget-friendly, but functional. Time to make some strategic choices.': 'Наконец-то настоящая рабочая станция. Бюджетная, но рабочая. Пора принимать стратегические решения.',
+    'Tap the core node to generate resources. Build a combo for bonus output.': 'Нажимайте на ядро, чтобы получать ресурсы. Собирайте комбо для бонусной отдачи.',
+    'Upgrades branch out from each core. Each one boosts a different aspect of your system.': 'От каждого ядра расходятся ветки улучшений. Каждая усиливает свою часть системы.',
+    'Generators produce resources automatically. Level them up for steady income.': 'Генераторы создают ресурсы автоматически. Повышайте их уровень для стабильного дохода.',
+    'Events appear randomly — act fast! Choose safe or risky options for different rewards.': 'События появляются случайно. Реагируйте быстро и выбирайте безопасный или рискованный вариант.',
+    'When you reach a milestone, consider prestige. You\'ll reset progress but gain a permanent multiplier.': 'Когда достигнете рубежа, подумайте о престиже. Прогресс сбросится, но вы получите постоянный множитель.',
+  };
 }

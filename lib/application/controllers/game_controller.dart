@@ -6,9 +6,11 @@ import '../../data/repositories/game_repository.dart';
 import '../../domain/mechanics/cost_calculator.dart';
 import '../../domain/mechanics/offline_progression.dart';
 import '../../domain/models/achievement.dart';
+import '../../domain/models/era.dart';
 import '../../domain/models/game_state.dart';
 import '../../domain/models/gameplay_extensions.dart';
 import '../../domain/models/progression_content.dart';
+import '../../domain/models/generator.dart';
 import '../../domain/models/upgrade.dart';
 import '../../domain/systems/achievement_system.dart';
 import '../../domain/systems/generator_system.dart';
@@ -20,6 +22,8 @@ import '../services/config_service.dart';
 /// Main game controller that orchestrates all game logic.
 /// Pure Dart — no Flutter imports.
 class GameController {
+  static const bool _eventsEnabled = true;
+
   final ConfigService _config;
   final TimeProvider _timeProvider;
   final GameRepository? _repository;
@@ -49,6 +53,8 @@ class GameController {
         _repository = repository,
         _random = random ?? math.Random(),
         _state = initialState ?? GameState.initial() {
+    _checkEraUnlocks();
+    _checkSceneBadges();
     _ensureQuest();
     _ensureChallenges();
     _refreshGuidance();
@@ -56,10 +62,27 @@ class GameController {
 
   GameState get state => _state;
   ConfigService get config => _config;
+  String get currentEraId => _currentEraId;
+  Set<String> get loadedEraWindow {
+    final ids = <String>{..._ownedEraIds, _currentEraId};
+    final current = _eraById(_currentEraId);
+    if (current != null) {
+      for (final era in _config.eras) {
+        if ((era.order - current.order).abs() <= 1) {
+          ids.add(era.id);
+        }
+      }
+    }
+    return ids;
+  }
   Map<String, ActiveAbilityState> get abilities => _state.abilities;
   GameEventState? get activeEvent => _state.activeEvent;
   QuestState? get activeQuest => _state.activeQuest;
   List<ChallengeState> get challenges => _state.challenges;
+  Set<String> get seenEventTemplates => _state.seenEventTemplates;
+  Set<String> get completedSceneBadges => _state.completedSceneBadges;
+  double get guideAffinity => _state.guideAffinity;
+  int get guideTier => 1 + (_state.guideAffinity ~/ 6).clamp(0, 4);
   ChallengeState? get dailyChallenge => _challengeByPeriod(ChallengePeriod.daily);
   ChallengeState? get weeklyChallenge => _challengeByPeriod(ChallengePeriod.weekly);
   NarrativeBeat? get activeNarrativeBeat {
@@ -184,6 +207,8 @@ class GameController {
     _state = tapped;
     lastTapGain = gain;
     _updateQuestProgress();
+    _checkEraUnlocks();
+    _checkSceneBadges();
     _checkSecrets();
     _checkMilestones();
     _checkAchievements();
@@ -228,6 +253,8 @@ class GameController {
     );
 
     _updateQuestProgress();
+    _checkEraUnlocks();
+    _checkSceneBadges();
     _checkMilestones();
     _checkAchievements();
     _refreshGuidance();
@@ -284,6 +311,8 @@ class GameController {
 
     _state = updated;
     _updateQuestProgress();
+    _checkEraUnlocks();
+    _checkSceneBadges();
     _checkMilestones();
     _checkAchievements();
     _refreshGuidance();
@@ -300,6 +329,7 @@ class GameController {
     _state = _state.copyWith(
       chosenBranches: chosen,
       routeSignature: branchId,
+      guideAffinity: _state.guideAffinity + 0.8,
       playstyleTendencies: branchId == 'risky'
           ? _bumpTendency(_state.playstyleTendencies, 'risky', 2)
           : _state.playstyleTendencies,
@@ -317,6 +347,14 @@ class GameController {
       branchRespecTokens: _state.branchRespecTokens - 1,
       routeSignature: '${_state.routeSignature}|respec',
     );
+    _refreshGuidance();
+    return true;
+  }
+
+  bool setCurrentEra(String eraId) {
+    if (!_state.unlockedEras.contains(eraId)) return false;
+    if (_state.currentEraId == eraId) return true;
+    _state = _state.copyWith(currentEraId: eraId);
     _refreshGuidance();
     return true;
   }
@@ -483,6 +521,7 @@ class GameController {
     _state = _state.copyWith(
       coins: _state.coins + reward,
       totalCoinsEarned: _state.totalCoinsEarned + reward,
+      guideAffinity: _state.guideAffinity + 1.2,
       challenges: _state.challenges
           .map((item) =>
               item.id == challengeId ? item.copyWith(claimed: true) : item)
@@ -524,30 +563,32 @@ class GameController {
       case ActiveAbilityType.overclock:
         updatedAbilities[type.name] = ability.copyWith(
           activeRemaining: 10,
-          cooldownRemaining: 42,
+          cooldownRemaining: math.max(24, 42 - guideTier * 2),
         );
         break;
       case ActiveAbilityType.focus:
         updatedAbilities[type.name] = ability.copyWith(
           activeRemaining: 9,
-          cooldownRemaining: 28,
+          cooldownRemaining: math.max(18, 28 - guideTier * 1.5),
         );
         break;
       case ActiveAbilityType.surge:
         updatedAbilities[type.name] = ability.copyWith(
           activeRemaining: 0,
-          cooldownRemaining: 55,
+          cooldownRemaining: math.max(32, 55 - guideTier * 2),
+        );
+        final surgeReward = GameNumber.fromDouble(
+          math.max(25, productionPerSecond.toDouble() * (5 + guideTier * 0.25)),
         );
         _state = _state.copyWith(
-          coins: _state.coins + (productionPerSecond * GameNumber.fromDouble(18)),
-          totalCoinsEarned:
-              _state.totalCoinsEarned + (productionPerSecond * GameNumber.fromDouble(18)),
+          coins: _state.coins + surgeReward,
+          totalCoinsEarned: _state.totalCoinsEarned + surgeReward,
         );
         break;
       case ActiveAbilityType.sync:
         updatedAbilities[type.name] = ability.copyWith(
           activeRemaining: 12,
-          cooldownRemaining: 60,
+          cooldownRemaining: math.max(36, 60 - guideTier * 2),
         );
         break;
     }
@@ -568,40 +609,65 @@ class GameController {
                 : aggressiveChoice
                     ? 1.3
                     : 1.0) *
-            _rarityRewardMultiplier(event.rarity);
+            _rarityRewardMultiplier(event.rarity) *
+            (1 + (_state.currentEventChain * 0.05).clamp(0, 0.45));
 
     switch (event.type) {
       case GameEventType.powerSurge:
+        final pulseReward = GameNumber.fromDouble(
+          math.max(
+            10,
+            productionPerSecond.toDouble() * 4 * rewardScale,
+          ),
+        );
         updated = updated.copyWith(
-          coins: updated.coins +
-              (productionPerSecond * GameNumber.fromDouble(8 * rewardScale)),
-          totalCoinsEarned: updated.totalCoinsEarned +
-              (productionPerSecond * GameNumber.fromDouble(8 * rewardScale)),
+          coins: updated.coins + pulseReward,
+          totalCoinsEarned: updated.totalCoinsEarned + pulseReward,
         );
         break;
       case GameEventType.aiIdea:
         updated = updated.copyWith(
           tapMultiplier: updated.tapMultiplier *
-              GameNumber.fromDouble(aggressiveChoice ? 1.18 : 1.08),
+              GameNumber.fromDouble(aggressiveChoice ? 1.03 : 1.015),
+          abilities: updated.abilities.map(
+            (key, value) => MapEntry(
+              key,
+              value.copyWith(
+                cooldownRemaining:
+                    math.max(0, value.cooldownRemaining - (aggressiveChoice ? 4 : 2)),
+              ),
+            ),
+          ),
         );
         break;
       case GameEventType.hardwareMalfunction:
         updated = updated.copyWith(
           automationCharge: aggressiveChoice
-              ? (updated.automationCharge + 20).clamp(0, 100)
-              : (updated.automationCharge + 8).clamp(0, 100),
+              ? (updated.automationCharge + 8).clamp(0, 100)
+              : (updated.automationCharge + 3).clamp(0, 100),
+          activeMutators: aggressiveChoice
+              ? [
+                  ...updated.activeMutators.where(
+                    (item) => item.type != MutatorType.overheating,
+                  ),
+                  const GameplayMutatorState(
+                    type: MutatorType.overheating,
+                    title: 'Overheating',
+                    description:
+                        'Manual and automation output spike together, but pacing grows harsher.',
+                    remainingSeconds: 32,
+                  ),
+                ]
+              : updated.activeMutators,
         );
         break;
       case GameEventType.marketSpike:
+        final spikeReward = GameNumber.fromDouble(
+          math.max(20, productionPerSecond.toDouble() * 6 * rewardScale),
+        );
         updated = updated.copyWith(
-          coins: updated.coins +
-              GameNumber.fromDouble(
-                math.max(150, updated.totalCoinsEarned.toDouble() * 0.025 * rewardScale),
-              ),
-          totalCoinsEarned: updated.totalCoinsEarned +
-              GameNumber.fromDouble(
-                math.max(150, updated.totalCoinsEarned.toDouble() * 0.025 * rewardScale),
-              ),
+          coins: updated.coins + spikeReward,
+          totalCoinsEarned: updated.totalCoinsEarned + spikeReward,
         );
         break;
       case GameEventType.mysteryCache:
@@ -611,14 +677,14 @@ class GameController {
             if (aggressiveChoice) 'cache_echo',
           },
           coins: updated.coins +
-              GameNumber.fromDouble(aggressiveChoice ? 1200 : 400),
+              GameNumber.fromDouble(aggressiveChoice ? 120 : 45),
           totalCoinsEarned: updated.totalCoinsEarned +
-              GameNumber.fromDouble(aggressiveChoice ? 1200 : 400),
+              GameNumber.fromDouble(aggressiveChoice ? 120 : 45),
         );
         break;
       case GameEventType.breachFragment:
         final breachReward = GameNumber.fromDouble(
-          math.max(200, updated.totalCoinsEarned.toDouble() * 0.03 * rewardScale),
+          math.max(35, productionPerSecond.toDouble() * 8 * rewardScale),
         );
         updated = updated.copyWith(
           coins: updated.coins + breachReward,
@@ -633,11 +699,23 @@ class GameController {
         if (aggressiveChoice) {
           updated = updated.copyWith(
             productionMultiplier: updated.productionMultiplier *
-                GameNumber.fromDouble(1.12),
+                GameNumber.fromDouble(1.018),
+            activeMutators: [
+              ...updated.activeMutators.where(
+                (item) => item.type != MutatorType.unstableEconomy,
+              ),
+              const GameplayMutatorState(
+                type: MutatorType.unstableEconomy,
+                title: 'Unstable Economy',
+                description:
+                    'Production is volatile, but chain rewards climb faster.',
+                remainingSeconds: 40,
+              ),
+            ],
           );
         } else {
           updated = updated.copyWith(
-            automationCharge: (updated.automationCharge + 15).clamp(0, 100),
+            automationCharge: (updated.automationCharge + 5).clamp(0, 100),
           );
         }
         break;
@@ -662,9 +740,25 @@ class GameController {
         'event_hunter',
         0.8,
       ),
+      guideAffinity: updated.guideAffinity + (aggressiveChoice ? 0.25 : 0.4),
     );
     _updateChallengeProgress();
+    _checkSceneBadges();
     _checkMilestones();
+    _refreshGuidance();
+    return true;
+  }
+
+  bool dismissActiveEvent() {
+    final event = _state.activeEvent;
+    if (event == null) return false;
+    _state = _state.copyWith(
+      activeEvent: null,
+      currentEventChain: 0,
+      totalEventsMissed: _state.totalEventsMissed + 1,
+      missedEventCharges: (_state.missedEventCharges + 1).clamp(0, 3),
+      eventPityCounter: _state.eventPityCounter + 1,
+    );
     _refreshGuidance();
     return true;
   }
@@ -673,11 +767,12 @@ class GameController {
     final quest = _state.activeQuest;
     if (quest == null || !quest.completed || quest.claimed) return false;
     final reward = GameNumber.fromDouble(
-      math.max(250, _state.totalCoinsEarned.toDouble() * 0.03),
+      math.max(20, productionPerSecond.toDouble() * 10),
     );
     _state = _state.copyWith(
       coins: _state.coins + reward,
       totalCoinsEarned: _state.totalCoinsEarned + reward,
+      guideAffinity: _state.guideAffinity + 1,
       activeQuest: quest.copyWith(claimed: true),
     );
     _ensureQuest(forceRefresh: true);
@@ -727,6 +822,8 @@ class GameController {
     _maybeSpawnEvent();
     _updateQuestProgress();
     _updateChallengeProgress();
+    _checkEraUnlocks();
+    _checkSceneBadges();
     _checkMilestones();
     _checkAchievements();
     _refreshGuidance();
@@ -773,6 +870,8 @@ class GameController {
 
   void setState(GameState state) {
     _state = state;
+    _checkEraUnlocks();
+    _checkSceneBadges();
     _ensureQuest();
     _ensureChallenges();
     _refreshGuidance();
@@ -790,10 +889,17 @@ class GameController {
     if (_repository == null) return false;
     final saved = await _repository!.loadGame();
     if (saved == null) return false;
-    _state = saved;
+    _state = saved.copyWith(activeEvent: null);
+    _checkEraUnlocks();
+    _checkSceneBadges();
+    if (!_state.unlockedEras.contains(_state.currentEraId)) {
+      _state = _state.copyWith(currentEraId: _highestUnlockedEraId);
+    }
     _ensureQuest();
     _ensureChallenges();
     applyOfflineEarnings();
+    _checkEraUnlocks();
+    _checkSceneBadges();
     _refreshGuidance();
     return true;
   }
@@ -819,6 +925,9 @@ class GameController {
       discoveredSecrets: preservedSecrets,
       chosenBranches: preservedBranches,
       abilities: preservedAbilities,
+      seenEventTemplates: _state.seenEventTemplates,
+      completedSceneBadges: _state.completedSceneBadges,
+      guideAffinity: _state.guideAffinity,
       routeSignature:
           '${_state.routeSignature}|prestige${_state.prestigeCount + 1}',
     );
@@ -892,6 +1001,43 @@ class GameController {
     return bestOrder;
   }
 
+  String get _currentEraId {
+    if (_state.unlockedEras.contains(_state.currentEraId)) {
+      return _state.currentEraId;
+    }
+    return _highestUnlockedEraId;
+  }
+
+  String get _highestUnlockedEraId {
+    var best = _config.eras.first.id;
+    var bestOrder = 1;
+    for (final era in _config.eras) {
+      if (_state.unlockedEras.contains(era.id) && era.order > bestOrder) {
+        best = era.id;
+        bestOrder = era.order;
+      }
+    }
+    return best;
+  }
+
+  Set<String> get _ownedEraIds {
+    final ids = <String>{'era_1'};
+    for (final generator in _config.generators.values) {
+      final level = _state.generators[generator.id]?.level ?? 0;
+      if (level > 0) {
+        ids.add(generator.eraId);
+      }
+    }
+    return ids;
+  }
+
+  Era? _eraById(String eraId) {
+    for (final era in _config.eras) {
+      if (era.id == eraId) return era;
+    }
+    return null;
+  }
+
   bool _abilityActive(ActiveAbilityType type) =>
       _state.abilities[type.name]?.isActive ?? false;
 
@@ -929,16 +1075,22 @@ class GameController {
   }
 
   void _maybeSpawnEvent() {
+    if (!_eventsEnabled) return;
     // Cap accumulator to prevent unbounded growth even during active events
     if (_eventAccumulator > 60) _eventAccumulator = 60;
     if (_state.activeEvent != null || _eventAccumulator < 12) return;
 
-    final chance = (_state.chosenBranches.contains('risky') ? 0.04 : 0.022) +
-        (_state.eventPityCounter * 0.006).clamp(0.0, 0.05);
+    final chance = (_state.chosenBranches.contains('risky') ? 0.045 : 0.024) +
+        ((_state.eventPityCounter + _state.missedEventCharges) * 0.006)
+            .clamp(0.0, 0.06) +
+        (guideTier * 0.002);
     if (_random.nextDouble() > chance) return;
     final rarity = _rollEventRarity();
+    final currentEra = _eraById(_currentEraId);
+    final eraOrder = currentEra?.order ?? 1;
     final templates = _config.progression.events
         .where((item) => rarity.index >= item.minimumRarity.index)
+        .where((item) => _isTemplateAvailableForEra(item, eraOrder))
         .where((item) =>
             item.requiredMilestoneId == null ||
             _state.unlockedMilestones.contains(item.requiredMilestoneId))
@@ -965,7 +1117,15 @@ class GameController {
     _state = _state.copyWith(
       activeEvent: event,
       totalEventsSpawned: _state.totalEventsSpawned + 1,
+      seenEventTemplates: {..._state.seenEventTemplates, template.id},
     );
+    if (rarity.index >= EventRarity.epic.index) {
+      _pushNarrativeBeat(
+        id: 'event_${template.id}_${_state.totalEventsSpawned}',
+        title: '${template.title} / ${currentEra?.name ?? 'Unknown Room'}',
+        body: 'A higher-tier anomaly just manifested inside the current room.',
+      );
+    }
   }
 
   void _decayComboIfNeeded() {
@@ -1019,8 +1179,63 @@ class GameController {
     }
   }
 
+  void _checkEraUnlocks() {
+    var unlocked = <String>{..._state.unlockedEras};
+    String? newestEraId;
+    var newestOrder = _highestReachedEraOrder;
+
+    for (final era in _config.eras) {
+      if (unlocked.contains(era.id)) continue;
+      GeneratorDefinition? generator;
+      for (final item in _config.generators.values) {
+        if (item.eraId == era.id) {
+          generator = item;
+          break;
+        }
+      }
+      final requirement = generator?.unlockRequirement ?? era.unlockRequirement;
+      if (requirement == null || requirement.isEmpty) {
+        unlocked.add(era.id);
+      } else {
+        final parts = requirement.split(':');
+        if (parts.length != 2) continue;
+        final generatorId = parts.first;
+        final neededLevel = int.tryParse(parts.last) ?? 0;
+        final currentLevel = _state.generators[generatorId]?.level ?? 0;
+        if (currentLevel < neededLevel) continue;
+        unlocked.add(era.id);
+      }
+
+      if (unlocked.contains(era.id) && era.order > newestOrder) {
+        newestEraId = era.id;
+        newestOrder = era.order;
+      }
+    }
+
+    if (unlocked.length == _state.unlockedEras.length && newestEraId == null) {
+      return;
+    }
+
+    _state = _state.copyWith(
+      unlockedEras: unlocked,
+      currentEraId: newestEraId ?? _currentEraId,
+    );
+
+    if (newestEraId != null) {
+      final era = _eraById(newestEraId);
+      _pushNarrativeForTrigger(
+        triggerKey: 'era.$newestEraId',
+        fallbackId: 'era_unlock_$newestEraId',
+        fallbackTitle: era?.name ?? 'New Room Online',
+        fallbackBody: era?.description ??
+            'A new room configuration is ready for exploration.',
+      );
+    }
+  }
+
   void _checkSecrets() {
-    final discovered = <String>{..._state.discoveredSecrets};
+    final previous = <String>{..._state.discoveredSecrets};
+    final discovered = <String>{...previous};
     for (final secret in _config.progression.secrets) {
       if (secret.requiredBranchId != null &&
           !_state.chosenBranches.contains(secret.requiredBranchId)) {
@@ -1034,8 +1249,66 @@ class GameController {
         discovered.add(secret.id);
       }
     }
-    if (discovered.length != _state.discoveredSecrets.length) {
-      _state = _state.copyWith(discoveredSecrets: discovered);
+    final newSecrets = discovered.difference(previous);
+    if (newSecrets.isNotEmpty) {
+      _state = _state.copyWith(
+        discoveredSecrets: discovered,
+        guideAffinity: _state.guideAffinity + (newSecrets.length * 0.8),
+      );
+      for (final id in newSecrets) {
+        final secret = _config.progression.secrets.firstWhere(
+          (item) => item.id == id,
+        );
+        _pushNarrativeBeat(
+          id: 'secret_$id',
+          title: secret.title,
+          body: secret.description,
+        );
+      }
+    }
+  }
+
+  void _checkSceneBadges() {
+    final completed = <String>{..._state.completedSceneBadges};
+    for (final era in _config.eras) {
+      final roomUpgrades = _config.upgrades.values
+          .where((item) => item.eraId == era.id)
+          .toList();
+      if (roomUpgrades.isEmpty) continue;
+      final bought = roomUpgrades
+          .where((item) => (_state.upgrades[item.id]?.level ?? 0) > 0)
+          .length;
+      GeneratorDefinition? generator;
+      for (final item in _config.generators.values) {
+        if (item.eraId == era.id) {
+          generator = item;
+          break;
+        }
+      }
+      final generatorLevel =
+          generator == null ? 0 : (_state.generators[generator.id]?.level ?? 0);
+      final ratio = bought / roomUpgrades.length;
+      if (ratio >= 0.65 && generatorLevel >= 18) {
+        completed.add(era.id);
+      }
+    }
+    final newlyCompleted = completed.difference(_state.completedSceneBadges);
+    if (newlyCompleted.isEmpty) return;
+    _state = _state.copyWith(
+      completedSceneBadges: completed,
+      branchRespecTokens: _state.branchRespecTokens + newlyCompleted.length,
+      challengeRerollsRemaining:
+          (_state.challengeRerollsRemaining + newlyCompleted.length).clamp(0, 6),
+      guideAffinity: _state.guideAffinity + newlyCompleted.length * 1.5,
+    );
+    for (final eraId in newlyCompleted) {
+      final era = _eraById(eraId);
+      _pushNarrativeBeat(
+        id: 'scene_complete_$eraId',
+        title: '${era?.name ?? eraId} Complete',
+        body:
+            'The room stabilized into a lasting configuration. The guide archived the run and opened stronger planning tools.',
+      );
     }
   }
 
@@ -1293,11 +1566,23 @@ class GameController {
   EventRarity _rollEventRarity() {
     final roll = _random.nextDouble();
     final riskyBias = _state.chosenBranches.contains('risky') ? 0.04 : 0;
-    if (roll < 0.01 + riskyBias) return EventRarity.legendary;
-    if (roll < 0.04 + riskyBias) return EventRarity.corrupted;
-    if (roll < 0.12 + riskyBias) return EventRarity.epic;
-    if (roll < 0.32 + riskyBias) return EventRarity.rare;
+    final pityBias = (_state.eventPityCounter * 0.01).clamp(0.0, 0.08);
+    if (roll < 0.01 + riskyBias + pityBias * 0.35) return EventRarity.legendary;
+    if (roll < 0.04 + riskyBias + pityBias * 0.5) return EventRarity.corrupted;
+    if (roll < 0.12 + riskyBias + pityBias) return EventRarity.epic;
+    if (roll < 0.34 + riskyBias + pityBias) return EventRarity.rare;
     return EventRarity.common;
+  }
+
+  bool _isTemplateAvailableForEra(EventTemplateDefinition template, int eraOrder) {
+    return switch (template.type) {
+      GameEventType.powerSurge || GameEventType.aiIdea => true,
+      GameEventType.hardwareMalfunction => eraOrder >= 4,
+      GameEventType.marketSpike => eraOrder >= 3,
+      GameEventType.mysteryCache => eraOrder >= 6,
+      GameEventType.breachFragment => eraOrder >= 9,
+      GameEventType.dataCorruption => eraOrder >= 5,
+    };
   }
 
   void _updateMutators(double deltaSeconds) {

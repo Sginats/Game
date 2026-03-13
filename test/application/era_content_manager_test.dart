@@ -3,7 +3,6 @@ import 'package:ai_evolution/application/services/room_content_generator.dart';
 import 'package:ai_evolution/core/math/game_number.dart';
 import 'package:ai_evolution/domain/models/era.dart';
 import 'package:ai_evolution/domain/models/generator.dart';
-import 'package:ai_evolution/domain/models/upgrade.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

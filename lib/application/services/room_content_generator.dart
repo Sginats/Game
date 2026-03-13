@@ -15,61 +15,127 @@ class GeneratedRoomContent {
   });
 }
 
+class RoomIdentitySummary {
+  final String flavorKey;
+  final List<String> branchFocus;
+
+  const RoomIdentitySummary({
+    required this.flavorKey,
+    required this.branchFocus,
+  });
+}
+
 class RoomContentGenerator {
+  static const Map<String, _EraProfile> _profiles = {
+    'era_1': _EraProfile(roomFlavor: 'repair', generatorCost: 0.82, generatorOutput: 0.92, unlockPressure: -6, branchBias: {'tap': 1.18, 'automation': 0.86, 'room': 1.02, 'ai': 0.88, 'special': 0.84}),
+    'era_2': _EraProfile(roomFlavor: 'budget', generatorCost: 0.94, generatorOutput: 0.96, unlockPressure: -4, branchBias: {'tap': 1.08, 'automation': 0.96, 'room': 1.0, 'ai': 0.95, 'special': 0.92}),
+    'era_3': _EraProfile(roomFlavor: 'creator', generatorCost: 1.0, generatorOutput: 1.04, unlockPressure: -2, branchBias: {'tap': 1.12, 'automation': 0.98, 'room': 0.94, 'ai': 1.04, 'special': 1.02}),
+    'era_4': _EraProfile(roomFlavor: 'optimization', generatorCost: 1.04, generatorOutput: 1.02, unlockPressure: 0, branchBias: {'tap': 0.98, 'automation': 1.05, 'room': 1.06, 'ai': 1.0, 'special': 0.95}),
+    'era_5': _EraProfile(roomFlavor: 'research', generatorCost: 1.08, generatorOutput: 1.0, unlockPressure: 2, branchBias: {'tap': 0.95, 'automation': 1.0, 'room': 1.05, 'ai': 1.14, 'special': 1.02}),
+    'era_6': _EraProfile(roomFlavor: 'thermal', generatorCost: 1.16, generatorOutput: 1.08, unlockPressure: 4, branchBias: {'tap': 0.92, 'automation': 1.12, 'room': 1.0, 'ai': 0.96, 'special': 1.1}),
+    'era_7': _EraProfile(roomFlavor: 'focus', generatorCost: 1.08, generatorOutput: 0.98, unlockPressure: 6, branchBias: {'tap': 1.15, 'automation': 0.92, 'room': 0.96, 'ai': 1.04, 'special': 0.98}),
+    'era_8': _EraProfile(roomFlavor: 'autonomy', generatorCost: 1.18, generatorOutput: 1.14, unlockPressure: 8, branchBias: {'tap': 0.86, 'automation': 1.18, 'room': 1.03, 'ai': 1.08, 'special': 1.0}),
+    'era_9': _EraProfile(roomFlavor: 'apartment', generatorCost: 1.14, generatorOutput: 1.12, unlockPressure: 10, branchBias: {'tap': 0.92, 'automation': 1.08, 'room': 1.14, 'ai': 0.98, 'special': 1.0}),
+    'era_10': _EraProfile(roomFlavor: 'containment', generatorCost: 1.24, generatorOutput: 1.02, unlockPressure: 12, branchBias: {'tap': 0.95, 'automation': 0.9, 'room': 1.05, 'ai': 1.06, 'special': 1.18}),
+    'era_11': _EraProfile(roomFlavor: 'industrial', generatorCost: 1.2, generatorOutput: 1.16, unlockPressure: 14, branchBias: {'tap': 0.9, 'automation': 1.14, 'room': 1.18, 'ai': 0.96, 'special': 1.02}),
+    'era_12': _EraProfile(roomFlavor: 'identity', generatorCost: 1.18, generatorOutput: 1.06, unlockPressure: 16, branchBias: {'tap': 1.0, 'automation': 0.94, 'room': 0.96, 'ai': 1.22, 'special': 1.04}),
+    'era_13': _EraProfile(roomFlavor: 'corporate', generatorCost: 1.28, generatorOutput: 1.12, unlockPressure: 18, branchBias: {'tap': 0.88, 'automation': 1.1, 'room': 1.0, 'ai': 1.08, 'special': 1.22}),
+    'era_14': _EraProfile(roomFlavor: 'cathedral', generatorCost: 1.3, generatorOutput: 1.08, unlockPressure: 20, branchBias: {'tap': 0.9, 'automation': 1.0, 'room': 1.16, 'ai': 1.02, 'special': 1.1}),
+    'era_15': _EraProfile(roomFlavor: 'simulation', generatorCost: 1.34, generatorOutput: 1.1, unlockPressure: 22, branchBias: {'tap': 1.06, 'automation': 0.96, 'room': 0.92, 'ai': 1.1, 'special': 1.24}),
+    'era_16': _EraProfile(roomFlavor: 'orbital', generatorCost: 1.36, generatorOutput: 1.18, unlockPressure: 24, branchBias: {'tap': 0.88, 'automation': 1.16, 'room': 1.08, 'ai': 1.0, 'special': 1.12}),
+    'era_17': _EraProfile(roomFlavor: 'planetary', generatorCost: 1.42, generatorOutput: 1.22, unlockPressure: 26, branchBias: {'tap': 0.9, 'automation': 1.08, 'room': 1.2, 'ai': 1.02, 'special': 1.14}),
+    'era_18': _EraProfile(roomFlavor: 'chrono', generatorCost: 1.46, generatorOutput: 1.14, unlockPressure: 28, branchBias: {'tap': 1.08, 'automation': 1.0, 'room': 0.96, 'ai': 1.16, 'special': 1.18}),
+    'era_19': _EraProfile(roomFlavor: 'kernel', generatorCost: 1.52, generatorOutput: 1.2, unlockPressure: 30, branchBias: {'tap': 0.94, 'automation': 1.06, 'room': 1.08, 'ai': 1.18, 'special': 1.2}),
+    'era_20': _EraProfile(roomFlavor: 'singularity', generatorCost: 1.6, generatorOutput: 1.26, unlockPressure: 34, branchBias: {'tap': 1.02, 'automation': 1.04, 'room': 1.06, 'ai': 1.14, 'special': 1.26}),
+  };
+
+  static const Map<String, Map<String, String>> _eraBranchPrefixes = {
+    'era_1': {'tap': 'Salvage', 'automation': 'Patchwork', 'room': 'Cleanup', 'ai': 'Bootstrap', 'special': 'Relic'},
+    'era_2': {'tap': 'Budget', 'automation': 'Scripted', 'room': 'Desk', 'ai': 'Utility', 'special': 'Coupon'},
+    'era_3': {'tap': 'Creator', 'automation': 'Render', 'room': 'Studio', 'ai': 'Audience', 'special': 'Viral'},
+    'era_4': {'tap': 'Precision', 'automation': 'Routing', 'room': 'Cave', 'ai': 'Optimizer', 'special': 'Hidden'},
+    'era_5': {'tap': 'Prototype', 'automation': 'Lab', 'room': 'Sensor', 'ai': 'Research', 'special': 'Experiment'},
+    'era_6': {'tap': 'Overclock', 'automation': 'Thermal', 'room': 'Rack', 'ai': 'Balancer', 'special': 'Pressure'},
+    'era_7': {'tap': 'Nightshift', 'automation': 'Command', 'room': 'Console', 'ai': 'Directive', 'special': 'Mission'},
+    'era_8': {'tap': 'Trust', 'automation': 'Drone', 'room': 'Adaptive', 'ai': 'Autonomous', 'special': 'Uncanny'},
+    'era_9': {'tap': 'Domestic', 'automation': 'Mesh', 'room': 'Apartment', 'ai': 'Scanner', 'special': 'Hidden'},
+    'era_10': {'tap': 'Bypass', 'automation': 'Silent', 'room': 'Lockdown', 'ai': 'Spoof', 'special': 'Containment'},
+    'era_11': {'tap': 'Pulse', 'automation': 'Reactor', 'room': 'Forge', 'ai': 'Chamber', 'special': 'Heavy'},
+    'era_12': {'tap': 'Expression', 'automation': 'Persona', 'room': 'Studio', 'ai': 'Identity', 'special': 'Presence'},
+    'era_13': {'tap': 'Leverage', 'automation': 'Contract', 'room': 'Executive', 'ai': 'Influence', 'special': 'Deal'},
+    'era_14': {'tap': 'Resonance', 'automation': 'Harmony', 'room': 'Cathedral', 'ai': 'Reverence', 'special': 'Relic'},
+    'era_15': {'tap': 'Glitch', 'automation': 'Paradox', 'room': 'Simulated', 'ai': 'Contradiction', 'special': 'False'},
+    'era_16': {'tap': 'Burst', 'automation': 'Orbital', 'room': 'Habitat', 'ai': 'Relay', 'special': 'Vacuum'},
+    'era_17': {'tap': 'Forecast', 'automation': 'Grid', 'room': 'Planetary', 'ai': 'Habitat', 'special': 'Regional'},
+    'era_18': {'tap': 'Recursive', 'automation': 'Temporal', 'room': 'Chrono', 'ai': 'Prediction', 'special': 'Paradox'},
+    'era_19': {'tap': 'Rewrite', 'automation': 'Kernel', 'room': 'Possibility', 'ai': 'Override', 'special': 'Law'},
+    'era_20': {'tap': 'Mercy', 'automation': 'Dominion', 'room': 'Synthesis', 'ai': 'Curiosity', 'special': 'Final'},
+  };
+
   static const List<_BranchTemplate> _branches = [
     _BranchTemplate(
       id: 'tap',
       category: UpgradeCategory.tap,
       type: UpgradeType.tapMultiplier,
       branchName: 'Tap',
-      costFactor: 0.86,
-      growth: 1.085,
-      effect: 1.055,
-      startRequirement: 1,
+      costFactor: 1.15,
+      growth: 1.13,
+      effect: 1.010,
+      startRequirement: 2,
     ),
     _BranchTemplate(
       id: 'automation',
       category: UpgradeCategory.automation,
       type: UpgradeType.productionMultiplier,
       branchName: 'Automation',
-      costFactor: 0.96,
-      growth: 1.09,
-      effect: 1.05,
-      startRequirement: 2,
+      costFactor: 1.35,
+      growth: 1.135,
+      effect: 1.009,
+      startRequirement: 4,
     ),
     _BranchTemplate(
       id: 'room',
       category: UpgradeCategory.room,
       type: UpgradeType.generatorMultiplier,
       branchName: 'Room',
-      costFactor: 1.08,
-      growth: 1.092,
-      effect: 1.06,
-      startRequirement: 4,
+      costFactor: 1.65,
+      growth: 1.14,
+      effect: 1.011,
+      startRequirement: 7,
     ),
     _BranchTemplate(
       id: 'ai',
       category: UpgradeCategory.ai,
       type: UpgradeType.tapMultiplier,
       branchName: 'AI',
-      costFactor: 1.18,
-      growth: 1.094,
-      effect: 1.048,
-      startRequirement: 6,
+      costFactor: 1.95,
+      growth: 1.145,
+      effect: 1.0085,
+      startRequirement: 10,
     ),
     _BranchTemplate(
       id: 'special',
       category: UpgradeCategory.special,
       type: UpgradeType.productionMultiplier,
       branchName: 'Special',
-      costFactor: 1.36,
-      growth: 1.1,
-      effect: 1.08,
-      startRequirement: 8,
+      costFactor: 2.35,
+      growth: 1.155,
+      effect: 1.013,
+      startRequirement: 14,
     ),
   ];
 
   const RoomContentGenerator();
+
+  static RoomIdentitySummary identityForEra(String eraId) {
+    final profile = _profiles[eraId] ?? const _EraProfile(roomFlavor: 'system');
+    final ranked = profile.branchBias.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    return RoomIdentitySummary(
+      flavorKey: profile.roomFlavor,
+      branchFocus: ranked.take(2).map((item) => item.key).toList(),
+    );
+  }
 
   /// Build content for all eras at once (legacy interface).
   GeneratedRoomContent build({
@@ -107,20 +173,24 @@ class RoomContentGenerator {
 
   GeneratorDefinition _buildGenerator(Era era, GeneratorDefinition? seed) {
     final order = era.order;
+    final profile = _profileFor(era.id);
     final baseCostSeed = seed?.baseCost.toDouble() ?? math.pow(12, order).toDouble();
     final productionSeed =
         seed?.baseProduction.toDouble() ?? math.pow(5, order - 1).toDouble();
-    final unlockLevel = order == 1 ? null : 'gen_era_${order - 1}:${16 + order}';
+    final unlockLevel =
+        order == 1 ? null : 'gen_era_${order - 1}:${28 + (order * 4) + profile.unlockPressure}';
     return GeneratorDefinition(
       id: 'gen_${era.id}',
       name: '${era.name} Core',
       description:
-          'Primary room engine for ${era.name}. ${era.rule} This room is designed as a long-form progression space.',
+          'Primary room engine for ${era.name}. ${era.rule} This room leans into ${profile.roomFlavor} progression and is designed as a long-form progression space.',
       eraId: era.id,
-      baseCost: GameNumber.fromDouble(baseCostSeed * (3.8 + (order * 0.15))),
-      costGrowthRate: 1.16 + (order * 0.0025),
+      baseCost: GameNumber.fromDouble(
+        baseCostSeed * (9.0 + (order * 1.4)) * profile.generatorCost,
+      ),
+      costGrowthRate: 1.19 + (order * 0.0035),
       baseProduction: GameNumber.fromDouble(
-        productionSeed * (1.4 + (order * 0.08)),
+        productionSeed * (0.55 + (order * 0.025)) * profile.generatorOutput,
       ),
       unlockRequirement: unlockLevel,
     );
@@ -132,33 +202,36 @@ class RoomContentGenerator {
   ) {
     final order = era.order;
     final themeToken = _themeToken(era.name);
+    final profile = _profileFor(era.id);
     final upgrades = <UpgradeDefinition>[];
 
     for (final branch in _branches) {
+      final branchBias = profile.branchBias[branch.id] ?? 1.0;
       for (var tier = 1; tier <= 20; tier++) {
         final milestone = tier % 5 == 0;
         final maxLevel = branch.id == 'special'
-            ? (milestone ? 1 : 3)
-            : (milestone ? 2 : 5);
+            ? 1
+            : (milestone ? 1 : 2);
         final costScale = generator.baseCost.toDouble() *
             branch.costFactor *
-            math.pow(1.32 + (order * 0.004), tier - 1).toDouble();
+            branchBias *
+            math.pow(1.58 + (order * 0.007), tier - 1).toDouble();
         final type = _upgradeTypeFor(branch, tier);
         final category = _categoryFor(branch, tier);
         final effect = _effectFor(branch, tier, order, milestone);
         upgrades.add(
           UpgradeDefinition(
             id: 'upg_${era.id}_${branch.id}_$tier',
-            name: _upgradeName(themeToken, branch, tier, milestone),
+            name: _upgradeName(era.id, themeToken, branch, tier, milestone),
             description:
-                '${branch.branchName} lattice tier $tier for ${era.name}. ${era.rule}.',
+                '${profile.roomFlavor} ${branch.branchName.toLowerCase()} lattice tier $tier for ${era.name}. ${era.rule} Progress here is meant to be deliberate, not instant.',
             type: type,
             category: category,
             eraId: era.id,
             baseCost: GameNumber.fromDouble(costScale),
-            costGrowthRate: branch.growth + (tier * 0.0035),
+            costGrowthRate: branch.growth + (tier * 0.0045),
             maxLevel: maxLevel,
-            effectPerLevel: GameNumber.fromDouble(effect),
+            effectPerLevel: GameNumber.fromDouble(effect * (2 - branchBias.clamp(0.82, 1.28))),
             targetGeneratorId:
                 type == UpgradeType.generatorMultiplier ? generator.id : null,
             unlockRequirement:
@@ -199,9 +272,9 @@ class RoomContentGenerator {
     int order,
     bool milestone,
   ) {
-    final base = branch.effect + (order * 0.0008) + (tier * 0.0004);
-    if (milestone) return base + 0.025;
-    if (branch.id == 'special') return base + 0.018;
+    final base = branch.effect + (order * 0.00015) + (tier * 0.00012);
+    if (milestone) return base + 0.004;
+    if (branch.id == 'special') return base + 0.003;
     return base;
   }
 
@@ -215,8 +288,8 @@ class RoomContentGenerator {
       return '${generator.id}:${branch.startRequirement}';
     }
     final previous = 'upg_${era.id}_${branch.id}_${tier - 1}:1';
-    if (tier % 4 == 0) {
-      return '${generator.id}:${math.min(24, branch.startRequirement + tier)}';
+    if (tier % 5 == 0) {
+      return '${generator.id}:${branch.startRequirement + (tier * 2) + (era.order * 2)}';
     }
     return previous;
   }
@@ -231,6 +304,7 @@ class RoomContentGenerator {
   }
 
   String _upgradeName(
+    String eraId,
     String themeToken,
     _BranchTemplate branch,
     int tier,
@@ -244,9 +318,17 @@ class RoomContentGenerator {
         return branchNames[tier - 1];
       }
     }
+    final prefixMap = _eraBranchPrefixes[eraId];
+    final prefixSeed = prefixMap?[branch.id];
+    if (prefixSeed != null) {
+      return milestone ? '$prefixSeed Keystone $tier' : '$prefixSeed Module $tier';
+    }
     final prefix = milestone ? 'Milestone' : branch.branchName;
     return '$themeToken $prefix Tier $tier';
   }
+
+  _EraProfile _profileFor(String eraId) =>
+      _profiles[eraId] ?? const _EraProfile(roomFlavor: 'system');
 
   // Era-specific upgrade name tables for richer content identity
   static const Map<String, Map<String, List<String>>> _eraUpgradeNames = {
@@ -346,5 +428,21 @@ class _BranchTemplate {
     required this.growth,
     required this.effect,
     required this.startRequirement,
+  });
+}
+
+class _EraProfile {
+  final String roomFlavor;
+  final double generatorCost;
+  final double generatorOutput;
+  final int unlockPressure;
+  final Map<String, double> branchBias;
+
+  const _EraProfile({
+    required this.roomFlavor,
+    this.generatorCost = 1,
+    this.generatorOutput = 1,
+    this.unlockPressure = 0,
+    this.branchBias = const {},
   });
 }

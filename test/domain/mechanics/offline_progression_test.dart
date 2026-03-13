@@ -59,6 +59,7 @@ void main() {
       },
       upgrades: const {},
       unlockedEras: const {'era_1'},
+      currentEraId: 'era_1',
       lastSaveTime: baseTime,
     );
 

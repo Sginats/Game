@@ -12,11 +12,13 @@ import '../application/services/game_audio_service.dart';
 import '../application/services/leaderboard_service.dart';
 import '../application/services/leaderboard_session_service.dart';
 import '../application/services/robot_guide_service.dart';
-import '../domain/models/robot_guide.dart';
+import '../application/services/room_content_generator.dart';
 import '../core/math/game_number.dart';
 import '../domain/mechanics/cost_calculator.dart';
+import '../domain/models/era.dart';
 import '../domain/models/game_systems.dart';
 import '../domain/models/gameplay_extensions.dart';
+import '../domain/models/generator.dart';
 import '../domain/systems/prestige_system.dart';
 import '../domain/systems/tap_system.dart';
 import 'tech_tree/tech_tree_builder.dart';
@@ -62,6 +64,8 @@ class _GameScreenState extends State<GameScreen>
   Size _viewportSize = const Size(1200, 700);
   int _toastId = 0;
   late final int _frameTickMs;
+  final Set<String> _queuedEraPreloads = {};
+  String? _lastEventId;
 
   // Cached tech tree graph — rebuilt only when state actually changes
   TechTreeGraph? _cachedGraph;
@@ -95,9 +99,10 @@ class _GameScreenState extends State<GameScreen>
           final eraId = _currentEra(_controller);
           if (eraId != _lastEraId) {
             _lastEraId = eraId;
-            widget.config.ensureEraContent(eraId);
+            _syncEraWindow(eraId);
             _robotGuide.onEraChanged(eraId);
             _cachedGraph = null; // Invalidate cache on era change
+            _selectedNodeId = null;
           }
         });
         _handleFeedback();
@@ -105,6 +110,7 @@ class _GameScreenState extends State<GameScreen>
     );
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showOffline();
+      _syncEraWindow(_currentEra(_controller));
       _focusCurrentEra();
       // Initialize robot guide with current era
       final eraId = _currentEra(_controller);
@@ -133,8 +139,13 @@ class _GameScreenState extends State<GameScreen>
   @override
   Widget build(BuildContext context) {
     final eraId = _currentEra(_controller);
+    _syncEraWindow(eraId);
     final accent = _eraAccent(eraId);
     final gradient = _eraGradient(eraId);
+    final eraDef = widget.config.eras.firstWhere(
+      (item) => item.id == eraId,
+      orElse: () => widget.config.eras.first,
+    );
 
     // Cache the tech tree graph — only rebuild when state actually changes
     final stateHash = _computeStateHash();
@@ -145,6 +156,7 @@ class _GameScreenState extends State<GameScreen>
         controller: _controller,
         strings: widget.strings,
         purchaseMode: _purchaseMode,
+        eraId: eraId,
         selectedNodeId: _selectedNodeId,
       );
     }
@@ -197,6 +209,7 @@ class _GameScreenState extends State<GameScreen>
                                             child: _buildTreeArea(
                                               graph,
                                               accent,
+                                              eraDef,
                                             ),
                                           ),
                                           if (node != null)
@@ -223,7 +236,7 @@ class _GameScreenState extends State<GameScreen>
                                     CrossAxisAlignment.stretch,
                                 children: [
                                   Expanded(
-                                    child: _buildTreeArea(graph, accent),
+                                    child: _buildTreeArea(graph, accent, eraDef),
                                   ),
                                   const SizedBox(width: 10),
                                   SizedBox(
@@ -250,7 +263,6 @@ class _GameScreenState extends State<GameScreen>
                     ),
                   ),
                 ),
-                _buildNotificationOverlay(),
               ],
             ),
           ),
@@ -318,6 +330,7 @@ class _GameScreenState extends State<GameScreen>
               }),
               _hudIconButton(Icons.bar_chart_rounded, _showStatsSheet),
               _hudIconButton(Icons.emoji_events_rounded, _showAchievementsSheet),
+              _hudIconButton(Icons.menu_book_rounded, _showCodexSheet),
               _hudIconButton(Icons.auto_awesome, _showPrestigeSheet),
               _hudIconButton(Icons.settings_rounded, _showSettingsSheet),
             ],
@@ -359,147 +372,7 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
-  Widget _buildNotificationOverlay() {
-    final cards = <Widget>[];
-
-    // Robot guide message (shown first if active)
-    if (_robotGuide.hasMessage) {
-      cards.add(_buildRobotGuideCard());
-    }
-
-    if (_controller.activeEvent != null) {
-      cards.add(_buildEventCard(compact: true));
-    }
-    if (_controller.activeNarrativeBeat != null) {
-      cards.add(_buildNarrativeCard(compact: true));
-    }
-    if (_controller.lastRecommendation != null) {
-      cards.add(
-        _buildInfoCard(
-          icon: Icons.auto_awesome,
-          title: widget.strings.notifications,
-          body: widget.strings.formatRecommendation(
-            _controller.lastRecommendation!,
-          ),
-          accent: const Color(0xFF5BD2FF),
-          compact: true,
-        ),
-      );
-    }
-
-    if (cards.isEmpty) return const SizedBox.shrink();
-
-    return Positioned(
-      top: 56,
-      left: 14,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 320),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            for (var i = 0; i < cards.length; i++) ...[
-              cards[i],
-              if (i != cards.length - 1) const SizedBox(height: 6),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRobotGuideCard() {
-    final message = _robotGuide.currentMessage!;
-    final iconData = switch (message.type) {
-      RobotGuideMessageType.tutorial => Icons.school_rounded,
-      RobotGuideMessageType.tip => Icons.tips_and_updates_rounded,
-      RobotGuideMessageType.warning => Icons.warning_amber_rounded,
-      RobotGuideMessageType.secret => Icons.visibility_rounded,
-      RobotGuideMessageType.eraIntro => Icons.explore_rounded,
-      RobotGuideMessageType.milestone => Icons.emoji_events_rounded,
-      RobotGuideMessageType.encouragement => Icons.thumb_up_alt_rounded,
-      RobotGuideMessageType.reflection => Icons.psychology_rounded,
-    };
-    final accentColor = switch (message.type) {
-      RobotGuideMessageType.tutorial => const Color(0xFF64B5F6),
-      RobotGuideMessageType.tip => const Color(0xFF81C784),
-      RobotGuideMessageType.warning => const Color(0xFFFFB74D),
-      RobotGuideMessageType.secret => const Color(0xFFCE93D8),
-      RobotGuideMessageType.eraIntro => const Color(0xFF4DD0E1),
-      RobotGuideMessageType.milestone => const Color(0xFFFFD54F),
-      RobotGuideMessageType.encouragement => const Color(0xFF81C784),
-      RobotGuideMessageType.reflection => const Color(0xFF90CAF9),
-    };
-
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: const Color(0xDD0C1820),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: accentColor.withAlpha(60)),
-        boxShadow: [
-          BoxShadow(
-            color: accentColor.withAlpha(20),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 28,
-            height: 28,
-            decoration: BoxDecoration(
-              color: accentColor.withAlpha(30),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(iconData, color: accentColor, size: 14),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'GUIDE',
-                  style: TextStyle(
-                    color: accentColor,
-                    fontSize: 9,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  message.text,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12,
-                    height: 1.3,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              _robotGuide.dismiss();
-              setState(() {});
-            },
-            borderRadius: BorderRadius.circular(12),
-            child: const Padding(
-              padding: EdgeInsets.all(4),
-              child: Icon(Icons.close, color: Colors.white38, size: 14),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTreeArea(TechTreeGraph graph, Color accent) {
+  Widget _buildTreeArea(TechTreeGraph graph, Color accent, Era eraDef) {
     return Stack(
       children: [
         Positioned.fill(
@@ -519,182 +392,123 @@ class _GameScreenState extends State<GameScreen>
             },
           ),
         ),
+        Positioned(
+          top: 10,
+          left: 10,
+          right: 10,
+          child: _buildSceneHeader(eraDef, accent),
+        ),
       ],
     );
   }
 
-  Widget _buildEventCard({required bool compact}) {
-    final event = _controller.activeEvent!;
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: _glassBox(radius: 14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.crisis_alert,
-                color: Colors.amberAccent,
-                size: 14,
-              ),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  event.title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
+  Widget _buildSceneHeader(Era era, Color accent) {
+    final ordered = widget.config.eras.toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+    final index = ordered.indexWhere((item) => item.id == era.id);
+    final previous = index > 0 ? ordered[index - 1] : null;
+    final next = index >= 0 && index < ordered.length - 1 ? ordered[index + 1] : null;
+    final bought = _roomUpgradeCount(era.id);
+    final total = _roomUpgradeTotal(era.id);
+    final stage = _roomStageLabel(era.id);
+    final nextLoaded = next != null &&
+        (widget.config.generators.values.any((item) => item.eraId == next.id) ||
+            widget.config.upgrades.values.any((item) => item.eraId == next.id));
+
+    return IgnorePointer(
+      ignoring: false,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: _glassBox(radius: 18),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${widget.strings.roomProgress(era.order, widget.config.eras.length)} • ${widget.strings.localizedEraName(era.name)}',
+                    style: TextStyle(
+                      color: accent,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 2,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.amberAccent.withAlpha(20),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  '${event.remainingSeconds.ceil()}s',
-                  style: const TextStyle(
-                    color: Colors.amberAccent,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
+                  const SizedBox(height: 4),
+                  Text(
+                    widget.strings.localizedEraDescription(era),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                      height: 1.35,
+                    ),
                   ),
-                ),
+                  if (_robotGuide.hasMessage) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      '${widget.strings.roomGuide}: ${_robotGuide.currentMessage!.text}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: accent.withAlpha(220),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 6),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 6,
+                    children: [
+                      _hudChip(Icons.auto_awesome, widget.strings.roomEvolutionStage(stage)),
+                      _hudChip(Icons.account_tree_rounded,
+                          widget.strings.roomUpgradeProgress(bought, total)),
+                      _hudChip(Icons.rule_folder_outlined, widget.strings.localizedEraRule(era)),
+                      ..._controller.state.activeMutators.take(2).map(
+                        (mutator) => _hudChip(
+                          Icons.bolt_rounded,
+                          widget.strings.translateContent(mutator.title),
+                        ),
+                      ),
+                      if (next != null && !nextLoaded)
+                        _hudChip(Icons.hourglass_bottom_rounded,
+                            widget.strings.preloadingNextRoom),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            event.description,
-            style: const TextStyle(
-              color: Colors.white54,
-              fontSize: 12,
-              height: 1.3,
             ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 32,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      textStyle: const TextStyle(fontSize: 12),
-                    ),
-                    onPressed: () {
-                      final ok = _controller.resolveActiveEvent(
-                        aggressiveChoice: false,
-                      );
-                      if (!ok) return;
-                      unawaited(widget.audioService.playBranchUnlock());
-                      setState(() {});
-                    },
-                    child: Text(widget.strings.safeChoice),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 6),
-              Expanded(
-                child: SizedBox(
-                  height: 32,
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      textStyle: const TextStyle(fontSize: 12),
-                    ),
-                    onPressed: () {
-                      final ok = _controller.resolveActiveEvent(
-                        aggressiveChoice: true,
-                      );
-                      if (!ok) return;
-                      unawaited(widget.audioService.playMilestone());
-                      setState(() {});
-                    },
-                    child: Text(
-                      event.risky
-                          ? widget.strings.pushChoice
-                          : widget.strings.takeChoice,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNarrativeCard({required bool compact}) {
-    final beat = _controller.activeNarrativeBeat!;
-    return _buildInfoCard(
-      icon: Icons.psychology_alt,
-      title: beat.title,
-      body: beat.body,
-      accent: Colors.lightBlueAccent,
-      trailing: TextButton(
-        onPressed: () {
-          _controller.dismissNarrativeBeat(beat.id);
-          setState(() {});
-        },
-        child: Text(widget.strings.close),
-      ),
-    );
-  }
-
-  Widget _buildInfoCard({
-    required IconData icon,
-    required String title,
-    required String body,
-    required Color accent,
-    Widget? trailing,
-    bool compact = false,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: _glassBox(radius: 14),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: accent, size: 14),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            const SizedBox(width: 12),
+            Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                  ),
+                IconButton(
+                  tooltip: widget.strings.previousRoom,
+                  onPressed: previous != null && _controller.state.unlockedEras.contains(previous.id)
+                      ? () => _switchEra(previous.id)
+                      : null,
+                  icon: const Icon(Icons.chevron_left_rounded),
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  body,
-                  style: const TextStyle(
-                    color: Colors.white54,
-                    fontSize: 12,
-                  ),
+                FilledButton.tonalIcon(
+                  onPressed: _showRoomMapSheet,
+                  icon: const Icon(Icons.map_rounded, size: 16),
+                  label: Text(widget.strings.roomMap),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  tooltip: widget.strings.nextRoom,
+                  onPressed: next != null && _controller.state.unlockedEras.contains(next.id)
+                      ? () => _switchEra(next.id)
+                      : null,
+                  icon: const Icon(Icons.chevron_right_rounded),
                 ),
               ],
             ),
-          ),
-          if (trailing != null) ...[
-            const SizedBox(width: 4),
-            trailing,
           ],
-        ],
+        ),
       ),
     );
   }
@@ -753,7 +567,8 @@ class _GameScreenState extends State<GameScreen>
         return Opacity(
           opacity: ability.unlocked ? 1 : 0.3,
           child: Tooltip(
-            message: widget.strings.formatAbilityLabel(ability.type),
+            message:
+                '${widget.strings.formatAbilityLabel(ability.type)}\n${widget.strings.formatAbilityDescription(ability.type)}',
             child: InkWell(
               onTap: ability.unlocked
                   ? () => _activateAbility(ability.type)
@@ -899,6 +714,20 @@ class _GameScreenState extends State<GameScreen>
     return SingleChildScrollView(
       child: Column(
         children: [
+          _buildGuideCard(),
+          const SizedBox(height: 8),
+          if (_controller.activeEvent != null) ...[
+            _buildActiveEventCard(_controller.activeEvent!),
+            const SizedBox(height: 8),
+          ],
+          if (currentEra == 'era_1') ...[
+            _buildFirstRoomChecklist(),
+            const SizedBox(height: 8),
+          ],
+          if (_controller.activeNarrativeBeat != null) ...[
+            _buildNarrativeBeatCard(_controller.activeNarrativeBeat!),
+            const SizedBox(height: 8),
+          ],
           node == null
               ? Container(
                   padding: const EdgeInsets.all(14),
@@ -925,7 +754,347 @@ class _GameScreenState extends State<GameScreen>
                 )
               : _buildNodeCard(node),
           const SizedBox(height: 8),
+          _buildNextRoomCard(currentEra),
+          const SizedBox(height: 8),
+          _buildRoomIdentityCard(currentEra),
+          const SizedBox(height: 8),
           _buildSecretHintsCard(currentEra),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGuideCard() {
+    final guideMessage = _robotGuide.currentMessage;
+    final recommendation = _controller.lastRecommendation;
+    final aiLine = _controller.lastAiLine;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.smart_toy_rounded, color: Colors.cyanAccent, size: 18),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  widget.strings.robotGuide,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              if (guideMessage != null)
+                IconButton(
+                  onPressed: () => setState(_robotGuide.dismiss),
+                  icon: const Icon(Icons.close_rounded, size: 18),
+                  splashRadius: 18,
+                  color: Colors.white54,
+                  tooltip: widget.strings.close,
+                ),
+            ],
+          ),
+          Text(
+            guideMessage == null
+                ? widget.strings.noGuideMessage
+                : widget.strings.translateContent(guideMessage.text),
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              height: 1.35,
+            ),
+          ),
+          if (recommendation != null || aiLine != null) ...[
+            const SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(7),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: Colors.white.withAlpha(12)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.strings.recommendedNext,
+                    style: const TextStyle(
+                      color: Colors.cyanAccent,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  if (recommendation != null) ...[
+                    const SizedBox(height: 3),
+                    Text(
+                      widget.strings.formatRecommendation(recommendation),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                  if (aiLine != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      widget.strings.formatAiLine(aiLine),
+                      style: const TextStyle(
+                        color: Colors.white60,
+                        fontSize: 12,
+                        height: 1.35,
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 8),
+                  FilledButton.tonalIcon(
+                    onPressed: _focusSuggestedNode,
+                    icon: const Icon(Icons.my_location_rounded, size: 16),
+                    label: Text(widget.strings.focusSuggestedNode),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNarrativeBeatCard(NarrativeBeat beat) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.auto_stories_rounded, color: Colors.amberAccent, size: 18),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  widget.strings.storyBeat,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  final dismissed = _controller.dismissNarrativeBeat(beat.id);
+                  if (!dismissed) return;
+                  setState(() {});
+                },
+                icon: const Icon(Icons.close_rounded, size: 18),
+                splashRadius: 18,
+                color: Colors.white54,
+                tooltip: widget.strings.close,
+              ),
+            ],
+          ),
+          Text(
+            widget.strings.translateContent(beat.title),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            widget.strings.translateContent(beat.body),
+            style: const TextStyle(
+              color: Colors.white60,
+              fontSize: 12,
+              height: 1.35,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActiveEventCard(GameEventState event) {
+    final chainValue = math.max(1, _controller.state.currentEventChain + 1);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.auto_awesome_rounded, color: Colors.amberAccent, size: 18),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  widget.strings.activeEventTitle,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              Text(
+                widget.strings.eventRarityLabel(event.rarity).toUpperCase(),
+                style: const TextStyle(
+                  color: Colors.amberAccent,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            widget.strings.translateContent(event.title),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            widget.strings.translateContent(event.description),
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              height: 1.35,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: _nodeStatChip(
+                  widget.strings.eventChain,
+                  'x$chainValue',
+                  Colors.cyanAccent,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _nodeStatChip(
+                  widget.strings.timeRemaining,
+                  widget.strings.secondsShort(event.remainingSeconds.ceil()),
+                  Colors.amberAccent,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () {
+                    final ok = _controller.dismissActiveEvent();
+                    if (!ok) return;
+                    setState(() {});
+                  },
+                  child: Text(widget.strings.close),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: FilledButton(
+                  onPressed: () {
+                    final ok = _controller.resolveActiveEvent(
+                      aggressiveChoice: event.risky && !event.clickOnly,
+                    );
+                    if (!ok) return;
+                    unawaited(widget.audioService.playEventResolve());
+                    _handleFeedback();
+                    setState(() {});
+                  },
+                  child: Text(
+                    event.clickOnly
+                        ? widget.strings.takeChoice
+                        : (event.risky
+                            ? widget.strings.pushChoice
+                            : widget.strings.safeChoice),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRoomIdentityCard(String eraId) {
+    final identity = RoomContentGenerator.identityForEra(eraId);
+    final branchLabels = identity.branchFocus
+        .map(widget.strings.roomBranchLabel)
+        .toList();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.strings.roomIdentity,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            widget.strings.formatRoomFlavor(identity.flavorKey),
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              height: 1.35,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.strings.roomFocusSummary(branchLabels),
+            style: const TextStyle(
+              color: Colors.cyanAccent,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: branchLabels
+                .map(
+                  (label) => Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(8),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.white.withAlpha(14)),
+                    ),
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
         ],
       ),
     );
@@ -1078,7 +1247,7 @@ class _GameScreenState extends State<GameScreen>
                 spacing: 8,
                 runSpacing: 8,
                 children: widget.config.progression.branches
-                    .map((branch) => _branchButton(branch.id, branch.title))
+                    .map((branch) => _branchButton(branch.id, widget.strings.translateContent(branch.title)))
                     .toList(),
               ),
             ),
@@ -1397,6 +1566,17 @@ class _GameScreenState extends State<GameScreen>
   }
 
   void _handleFeedback() {
+    final activeEvent = _controller.activeEvent;
+    if (activeEvent?.id != _lastEventId) {
+      _lastEventId = activeEvent?.id;
+      if (activeEvent != null) {
+        _showToast(
+          widget.strings.translateContent(activeEvent.title),
+          Colors.deepPurpleAccent,
+        );
+        unawaited(widget.audioService.playEventSpawn());
+      }
+    }
     if (_controller.lastUnlockedAchievements.isNotEmpty) {
       _showToast(
         '${widget.strings.achievementUnlocked}: ${_controller.lastUnlockedAchievements.first.name}',
@@ -1407,7 +1587,7 @@ class _GameScreenState extends State<GameScreen>
     }
     if (_controller.lastUnlockedMilestones.isNotEmpty) {
       final titles = _controller.lastUnlockedMilestones
-          .map((id) => widget.config.milestoneById(id)?.title ?? id)
+          .map((id) => widget.strings.translateContent(widget.config.milestoneById(id)?.title ?? id))
           .join(', ');
       _showToast(
         widget.strings.unlockedMilestonesToast(titles),
@@ -1418,6 +1598,37 @@ class _GameScreenState extends State<GameScreen>
     }
   }
 
+  void _syncEraWindow(String eraId) {
+    widget.config.ensureEraContent(eraId);
+    final ordered = widget.config.eras.toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+    final index = ordered.indexWhere((item) => item.id == eraId);
+    if (index < 0) return;
+
+    for (final neighborIndex in [index - 1, index + 1]) {
+      if (neighborIndex < 0 || neighborIndex >= ordered.length) continue;
+      final neighbor = ordered[neighborIndex];
+      if (_queuedEraPreloads.contains(neighbor.id)) continue;
+      _queuedEraPreloads.add(neighbor.id);
+      Future<void>.microtask(() {
+        widget.config.ensureEraContent(neighbor.id);
+        _queuedEraPreloads.remove(neighbor.id);
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
+  }
+
+  void _switchEra(String eraId) {
+    if (!_controller.setCurrentEra(eraId)) return;
+    _syncEraWindow(eraId);
+    _selectedNodeId = null;
+    _cachedGraph = null;
+    setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) => _focusCurrentEra());
+  }
+
   void _focusCurrentEra() {
     // Use the cached graph if available, otherwise build one
     final graph = _cachedGraph ?? TechTreeBuilder.build(
@@ -1425,9 +1636,11 @@ class _GameScreenState extends State<GameScreen>
       controller: _controller,
       strings: widget.strings,
       purchaseMode: _purchaseMode,
+      eraId: _currentEra(_controller),
       selectedNodeId: _selectedNodeId,
     );
-    final current = graph.nodes.lastWhere(
+    if (graph.nodes.isEmpty) return;
+    final current = graph.nodes.firstWhere(
       (item) => item.kind == TechTreeNodeKind.generator,
       orElse: () => graph.nodes.first,
     );
@@ -1507,6 +1720,295 @@ class _GameScreenState extends State<GameScreen>
     setState(() {});
   }
 
+  void _focusSuggestedNode() {
+    final graph = _cachedGraph;
+    if (graph == null) return;
+    TechTreeNodeData? candidate;
+    for (final node in graph.nodes) {
+      if (node.kind == TechTreeNodeKind.secret || node.purchased) {
+        continue;
+      }
+      if (_nodePurchaseState(node) == _NodePurchaseState.canBuy) {
+        candidate = node;
+        break;
+      }
+    }
+    if (candidate == null) {
+      _showToast(widget.strings.nothingAffordable, Colors.white38);
+      return;
+    }
+    setState(() => _selectedNodeId = candidate!.id);
+    _focusNode(candidate.position);
+    unawaited(widget.audioService.playNodeSelect());
+  }
+
+  int _roomUpgradeTotal(String eraId) {
+    return widget.config.upgrades.values
+        .where((item) => item.eraId == eraId)
+        .length;
+  }
+
+  int _roomUpgradeCount(String eraId) {
+    var count = 0;
+    for (final upgrade in widget.config.upgrades.values.where((item) => item.eraId == eraId)) {
+      if ((_controller.state.upgrades[upgrade.id]?.level ?? 0) > 0) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  String _roomStageLabel(String eraId) {
+    final total = math.max(1, _roomUpgradeTotal(eraId));
+    final ratio = _roomUpgradeCount(eraId) / total;
+    if (ratio < 0.2) return widget.strings.stageDormant;
+    if (ratio < 0.45) return widget.strings.stageActive;
+    if (ratio < 0.75) return widget.strings.stageRefined;
+    return widget.strings.stageAscendant;
+  }
+
+  Future<void> _showRoomMapSheet() async {
+    final ordered = widget.config.eras.toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: const Color(0xFF121D28),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _sheetTitle(widget.strings.roomMap),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: ordered.map((era) {
+                      final unlocked = _controller.state.unlockedEras.contains(era.id);
+                      final selected = _currentEra(_controller) == era.id;
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: selected
+                              ? Colors.cyanAccent.withAlpha(18)
+                              : Colors.white.withAlpha(6),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: selected
+                                ? Colors.cyanAccent.withAlpha(90)
+                                : Colors.white.withAlpha(14),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                '${widget.strings.roomProgress(era.order, ordered.length)} • ${widget.strings.localizedEraName(era.name)}',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    widget.strings.localizedEraDescription(era),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: Colors.white60,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            FilledButton.tonal(
+                              onPressed: unlocked
+                                  ? () {
+                                      Navigator.pop(context);
+                                      _switchEra(era.id);
+                                    }
+                                  : null,
+                              child: Text(
+                                unlocked
+                                    ? (selected
+                                        ? widget.strings.currentRoom
+                                        : widget.strings.enterRoomZero)
+                                    : widget.strings.locked,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFirstRoomChecklist() {
+    final generatorLevel = _controller.state.generators['gen_era_1']?.level ?? 0;
+    final upgradesBought = _roomUpgradeCount('era_1');
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.strings.firstRoomChecklist,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 8),
+          _tutorialLine(
+            Icons.touch_app_rounded,
+            widget.strings.tutorialTapGoal(
+              math.min(_controller.state.totalTaps, 25),
+              25,
+            ),
+            _controller.state.totalTaps >= 25,
+          ),
+          _tutorialLine(
+            Icons.memory_rounded,
+            widget.strings.tutorialGeneratorGoal(
+              math.min(generatorLevel, 6),
+              6,
+            ),
+            generatorLevel >= 6,
+          ),
+          _tutorialLine(
+            Icons.upgrade_rounded,
+            widget.strings.tutorialUpgradeGoal(
+              math.min(upgradesBought, 8),
+              8,
+            ),
+            upgradesBought >= 8,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _tutorialLine(IconData icon, String text, bool complete) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Icon(
+            complete ? Icons.check_circle_rounded : icon,
+            color: complete ? Colors.greenAccent : Colors.white54,
+            size: 16,
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: complete ? Colors.white : Colors.white70,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNextRoomCard(String currentEraId) {
+    final ordered = widget.config.eras.toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+    final index = ordered.indexWhere((item) => item.id == currentEraId);
+    if (index < 0 || index >= ordered.length - 1) {
+      return const SizedBox.shrink();
+    }
+    final nextEra = ordered[index + 1];
+    GeneratorDefinition? nextGenerator;
+    for (final generator in widget.config.generators.values) {
+      if (generator.eraId == nextEra.id) {
+        nextGenerator = generator;
+        break;
+      }
+    }
+    final requirement = nextGenerator?.unlockRequirement;
+    var requirementText = nextEra.description;
+    int? currentLevel;
+    int? neededLevel;
+    if (requirement != null) {
+      final parts = requirement.split(':');
+      if (parts.length == 2) {
+        currentLevel = _controller.state.generators[parts.first]?.level ?? 0;
+        neededLevel = int.tryParse(parts.last) ?? 1;
+        requirementText = widget.strings.unlockRequirementLabel(
+          parts.first.replaceAll('_', ' '),
+          neededLevel,
+        );
+        requirementText = '$requirementText • ${widget.strings.generatorLevelLabel(currentLevel)}';
+      }
+    }
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.strings.nextRoomTarget,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            widget.strings.localizedEraName(nextEra.name),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            requirementText,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              height: 1.35,
+            ),
+          ),
+          if (currentLevel != null && neededLevel != null) ...[
+            const SizedBox(height: 8),
+            LinearProgressIndicator(
+              value: (currentLevel / math.max(1, neededLevel)).clamp(0, 1),
+              minHeight: 6,
+              backgroundColor: Colors.white.withAlpha(16),
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.cyanAccent),
+              borderRadius: BorderRadius.circular(999),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
   Widget _buildSecretHintsCard(String eraId) {
     final hints = widget.config.progression.secrets
         .where((item) => item.eraId == eraId)
@@ -1548,18 +2050,18 @@ class _GameScreenState extends State<GameScreen>
                   secret,
                   branchLabel: secret.requiredBranchId == null
                       ? null
-                      : widget.config
+                      : widget.strings.translateContent(widget.config
                               .branchById(secret.requiredBranchId!)
                               ?.title ??
-                          secret.requiredBranchId,
+                          secret.requiredBranchId!),
                   milestoneTitle: secret.requiredMilestoneId == null
                       ? null
-                      : widget.config
+                      : widget.strings.translateContent(widget.config
                               .milestoneById(
                                 secret.requiredMilestoneId!,
                               )
                               ?.title ??
-                          secret.requiredMilestoneId,
+                          secret.requiredMilestoneId!),
                 ),
                 style: const TextStyle(
                   color: Colors.white38,
@@ -1828,6 +2330,162 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
+  Future<void> _showCodexSheet() async {
+    final orderedEras = widget.config.eras.toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+    for (final era in orderedEras) {
+      widget.config.ensureEraContent(era.id);
+    }
+    final seenEvents = _controller.seenEventTemplates;
+    await _simpleSheet(
+      widget.strings.codex,
+      SizedBox(
+        height: 420,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.sceneArchive,
+                widget.strings.sceneArchiveProgress(
+                  _controller.completedSceneBadges.length,
+                  orderedEras.length,
+                ),
+              ),
+              _statLine(
+                widget.strings.eventCodex,
+                widget.strings.eventArchiveProgress(
+                  seenEvents.length,
+                  widget.config.progression.events.length,
+                ),
+              ),
+              _statLine(
+                widget.strings.seenSecrets,
+                '${_controller.state.discoveredSecrets.length}',
+              ),
+              _statLine(
+                widget.strings.guideAffinityLabel,
+                _controller.guideAffinity.toStringAsFixed(1),
+              ),
+              _statLine(
+                widget.strings.guideTierLabel,
+                widget.strings.formatGuideTier(_controller.guideTier),
+              ),
+              const SizedBox(height: 14),
+              Text(
+                widget.strings.routeSummary,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${widget.strings.playstyle}: ${widget.strings.formatPlaystyle(_controller.dominantPlaystyle)}\n${widget.strings.route}: ${_controller.state.chosenBranches.isEmpty ? widget.strings.hidden : _controller.state.chosenBranches.map(_branchLabel).join(' / ')}',
+                style: const TextStyle(color: Colors.white70, height: 1.35),
+              ),
+              const SizedBox(height: 14),
+              Text(
+                widget.strings.sceneArchive,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ...orderedEras.map((era) {
+                final bought = _roomUpgradeCount(era.id);
+                final total = _roomUpgradeTotal(era.id);
+                final completed =
+                    _controller.completedSceneBadges.contains(era.id);
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(6),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: Colors.white.withAlpha(12)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.strings.localizedEraName(era.name),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          completed
+                              ? widget.strings.sceneCompleted
+                              : widget.strings.notYetCompleted,
+                          style: TextStyle(
+                            color: completed ? Colors.greenAccent : Colors.white54,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        LinearProgressIndicator(
+                          value: total <= 0 ? 0 : (bought / total).clamp(0, 1),
+                          minHeight: 5,
+                          backgroundColor: Colors.white.withAlpha(16),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            completed ? Colors.greenAccent : Colors.cyanAccent,
+                          ),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+              const SizedBox(height: 14),
+              Text(
+                widget.strings.eventCodex,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ...widget.config.progression.events.map((event) {
+                final seen = seenEvents.contains(event.id);
+                return ListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    seen ? Icons.bolt_rounded : Icons.lock_outline_rounded,
+                    color: seen ? Colors.amberAccent : Colors.white24,
+                  ),
+                  title: Text(
+                    widget.strings.translateContent(event.title),
+                    style: TextStyle(
+                      color: seen ? Colors.white : Colors.white54,
+                    ),
+                  ),
+                  subtitle: Text(
+                    seen
+                        ? widget.strings.translateContent(event.description)
+                        : widget.strings.hidden,
+                    style: const TextStyle(color: Colors.white54),
+                  ),
+                  trailing: Text(
+                    widget.strings.eventRarityLabel(event.minimumRarity),
+                    style: const TextStyle(color: Colors.white38, fontSize: 11),
+                  ),
+                );
+              }),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<void> _showStatsSheet() async {
     final state = _controller.state;
     await _simpleSheet(
@@ -1882,13 +2540,13 @@ class _GameScreenState extends State<GameScreen>
             return ListTile(
               leading: Text(unlocked ? achievement.icon : '•'),
               title: Text(
-                achievement.name,
+                widget.strings.translateContent(achievement.name),
                 style: TextStyle(
                   color: unlocked ? Colors.white : Colors.white54,
                 ),
               ),
               subtitle: Text(
-                achievement.description,
+                widget.strings.translateContent(achievement.description),
                 style: const TextStyle(color: Colors.white54),
               ),
             );
@@ -2281,7 +2939,7 @@ class _GameScreenState extends State<GameScreen>
                     children: widget.config.progression.branches.map((branch) {
                       final selected = selectedBranches.contains(branch.id);
                       return FilterChip(
-                        label: Text(branch.title),
+                        label: Text(widget.strings.translateContent(branch.title)),
                         selected: selected,
                         onSelected: (_) {
                           setModalState(() {
@@ -2289,7 +2947,7 @@ class _GameScreenState extends State<GameScreen>
                             if (nameController.text.trim().isEmpty ||
                                 nameController.text.trim() ==
                                     initialSelection.map(_branchLabel).join(' ')) {
-                              nameController.text = branch.title;
+                              nameController.text = widget.strings.translateContent(branch.title);
                             }
                           });
                         },
@@ -2571,7 +3229,7 @@ class _GameScreenState extends State<GameScreen>
 
   String _branchLabel(String branchId) {
     for (final branch in widget.config.progression.branches) {
-      if (branch.id == branchId) return branch.title;
+      if (branch.id == branchId) return widget.strings.translateContent(branch.title);
     }
     return branchId;
   }
@@ -2695,6 +3353,7 @@ class _GameScreenState extends State<GameScreen>
     hash ^= state.discoveredSecrets.length.hashCode;
     hash ^= state.unlockedMilestones.length.hashCode;
     hash ^= state.chosenBranches.length.hashCode;
+    hash ^= state.currentEraId.hashCode;
     hash ^= _selectedNodeId.hashCode;
     hash ^= _purchaseMode.hashCode;
     // Include total levels to detect purchases
@@ -2819,23 +3478,7 @@ Color _eraAccent(String eraId) =>
         .accent;
 
 String _currentEra(GameController controller) {
-  final generators = controller.config.generators.values.toList();
-  String best = 'era_1';
-  int bestOrder = 1;
-  for (final generator in generators) {
-    final state = controller.state.generators[generator.id];
-    if (state != null && state.level > 0) {
-      final era = controller.config.eras.firstWhere(
-        (value) => value.id == generator.eraId,
-        orElse: () => controller.config.eras.first,
-      );
-      if (era.order > bestOrder) {
-        bestOrder = era.order;
-        best = era.id;
-      }
-    }
-  }
-  return best;
+  return controller.currentEraId;
 }
 
 enum _NodePurchaseState { canBuy, tooExpensive, locked, owned }

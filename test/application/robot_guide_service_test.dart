@@ -47,10 +47,11 @@ void main() {
     expect(guide.currentMessage, isNull);
   });
 
-  test('robot guide message expires after timer', () {
+  test('robot guide message expiry advances to next eligible guide message', () {
     final guide = RobotGuideService();
     guide.onEraChanged('era_1');
     expect(guide.hasMessage, isTrue);
+    expect(guide.currentMessage!.id, 'intro_era1');
 
     // Tick past the message duration (12 seconds)
     guide.tick(
@@ -62,7 +63,8 @@ void main() {
       coins: 0,
       highestEraOrder: 1,
     );
-    expect(guide.hasMessage, isFalse);
+    expect(guide.hasMessage, isTrue);
+    expect(guide.currentMessage!.id, 'tut_tap');
   });
 
   test('robot guide queues multiple messages by priority', () {

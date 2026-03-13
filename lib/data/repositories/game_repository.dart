@@ -10,6 +10,12 @@ class GameRepository {
   Future<GameState?> loadGame() async {
     final data = await _saveManager.loadGameState();
     if (data == null) return null;
+    final revision = data['economyRevision'] as int? ?? 0;
+    if (revision != GameState.currentEconomyRevision) {
+      return GameState.initial().copyWith(
+        tutorialComplete: data['tutorialComplete'] as bool? ?? false,
+      );
+    }
     return GameState.fromJson(data);
   }
 

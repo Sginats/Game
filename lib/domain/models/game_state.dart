@@ -5,6 +5,8 @@ import 'upgrade.dart';
 
 /// Complete game state — immutable, updated via [copyWith].
 class GameState {
+  static const int currentEconomyRevision = 2;
+
   final GameNumber coins;
   final GameNumber totalCoinsEarned;
   final GameNumber tapMultiplier;
@@ -12,6 +14,7 @@ class GameState {
   final Map<String, GeneratorState> generators;
   final Map<String, UpgradeState> upgrades;
   final Set<String> unlockedEras;
+  final String currentEraId;
   final DateTime lastSaveTime;
   final int totalTaps;
   final int prestigeCount;
@@ -52,6 +55,10 @@ class GameState {
   final String currentSeasonKey;
   final String routeSignature;
   final int missedEventCharges;
+  final Set<String> seenEventTemplates;
+  final Set<String> completedSceneBadges;
+  final double guideAffinity;
+  final int economyRevision;
 
   GameState({
     required this.coins,
@@ -61,6 +68,7 @@ class GameState {
     required this.generators,
     required this.upgrades,
     required this.unlockedEras,
+    required this.currentEraId,
     required this.lastSaveTime,
     this.totalTaps = 0,
     this.prestigeCount = 0,
@@ -101,6 +109,10 @@ class GameState {
     this.currentSeasonKey = 'season_alpha',
     this.routeSignature = 'fresh',
     this.missedEventCharges = 0,
+    this.seenEventTemplates = const {},
+    this.completedSceneBadges = const {},
+    this.guideAffinity = 0,
+    this.economyRevision = currentEconomyRevision,
   }) : prestigeMultiplier =
             prestigeMultiplier ?? GameNumber.fromDouble(1);
 
@@ -114,6 +126,7 @@ class GameState {
       generators: const {},
       upgrades: const {},
       unlockedEras: const {'era_1'},
+      currentEraId: 'era_1',
       lastSaveTime: DateTime.now(),
       abilities: {
         for (final ability in ActiveAbilityType.values)
@@ -130,6 +143,7 @@ class GameState {
         'efficient': 0,
         'event_hunter': 0,
       },
+      guideAffinity: 2,
       loadoutPresets: const [
         LoadoutPreset(id: 'preset_tap', name: 'Tap Bias', preferredBranches: {'tap'}),
         LoadoutPreset(
@@ -149,6 +163,7 @@ class GameState {
     Map<String, GeneratorState>? generators,
     Map<String, UpgradeState>? upgrades,
     Set<String>? unlockedEras,
+    String? currentEraId,
     DateTime? lastSaveTime,
     int? totalTaps,
     int? prestigeCount,
@@ -189,6 +204,10 @@ class GameState {
     String? currentSeasonKey,
     String? routeSignature,
     int? missedEventCharges,
+    Set<String>? seenEventTemplates,
+    Set<String>? completedSceneBadges,
+    double? guideAffinity,
+    int? economyRevision,
   }) {
     return GameState(
       coins: coins ?? this.coins,
@@ -198,6 +217,7 @@ class GameState {
       generators: generators ?? this.generators,
       upgrades: upgrades ?? this.upgrades,
       unlockedEras: unlockedEras ?? this.unlockedEras,
+      currentEraId: currentEraId ?? this.currentEraId,
       lastSaveTime: lastSaveTime ?? this.lastSaveTime,
       totalTaps: totalTaps ?? this.totalTaps,
       prestigeCount: prestigeCount ?? this.prestigeCount,
@@ -242,6 +262,10 @@ class GameState {
       currentSeasonKey: currentSeasonKey ?? this.currentSeasonKey,
       routeSignature: routeSignature ?? this.routeSignature,
       missedEventCharges: missedEventCharges ?? this.missedEventCharges,
+      seenEventTemplates: seenEventTemplates ?? this.seenEventTemplates,
+      completedSceneBadges: completedSceneBadges ?? this.completedSceneBadges,
+      guideAffinity: guideAffinity ?? this.guideAffinity,
+      economyRevision: economyRevision ?? this.economyRevision,
     );
   }
 
@@ -253,6 +277,7 @@ class GameState {
         'generators': generators.map((k, v) => MapEntry(k, v.toJson())),
         'upgrades': upgrades.map((k, v) => MapEntry(k, v.toJson())),
         'unlockedEras': unlockedEras.toList(),
+        'currentEraId': currentEraId,
         'lastSaveTime': lastSaveTime.toIso8601String(),
         'totalTaps': totalTaps,
         'prestigeCount': prestigeCount,
@@ -293,6 +318,10 @@ class GameState {
         'currentSeasonKey': currentSeasonKey,
         'routeSignature': routeSignature,
         'missedEventCharges': missedEventCharges,
+        'seenEventTemplates': seenEventTemplates.toList(),
+        'completedSceneBadges': completedSceneBadges.toList(),
+        'guideAffinity': guideAffinity,
+        'economyRevision': economyRevision,
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -312,6 +341,7 @@ class GameState {
       ),
       unlockedEras:
           (json['unlockedEras'] as List<dynamic>).map((e) => e as String).toSet(),
+      currentEraId: json['currentEraId'] as String? ?? 'era_1',
       lastSaveTime: DateTime.parse(json['lastSaveTime'] as String),
       totalTaps: json['totalTaps'] as int? ?? 0,
       prestigeCount: json['prestigeCount'] as int? ?? 0,
@@ -435,6 +465,16 @@ class GameState {
       currentSeasonKey: json['currentSeasonKey'] as String? ?? 'season_alpha',
       routeSignature: json['routeSignature'] as String? ?? 'fresh',
       missedEventCharges: json['missedEventCharges'] as int? ?? 0,
+      seenEventTemplates: (json['seenEventTemplates'] as List<dynamic>? ?? const [])
+          .map((e) => e as String)
+          .toSet(),
+      completedSceneBadges:
+          (json['completedSceneBadges'] as List<dynamic>? ?? const [])
+              .map((e) => e as String)
+              .toSet(),
+      guideAffinity: (json['guideAffinity'] as num?)?.toDouble() ?? 0,
+      economyRevision:
+          json['economyRevision'] as int? ?? currentEconomyRevision,
     );
   }
 }
