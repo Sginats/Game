@@ -226,6 +226,7 @@ class SecretDefinition {
   final double offsetY;
   final String icon;
   final String effectLabel;
+  final String hint;
   final String? requiredBranchId;
   final String? requiredMilestoneId;
 
@@ -241,6 +242,7 @@ class SecretDefinition {
     required this.offsetY,
     required this.icon,
     required this.effectLabel,
+    this.hint = 'Something hidden awaits...',
     this.requiredBranchId,
     this.requiredMilestoneId,
   });
@@ -260,6 +262,7 @@ class SecretDefinition {
       offsetY: (json['offsetY'] as num?)?.toDouble() ?? 0,
       icon: json['icon'] as String? ?? '?',
       effectLabel: json['effectLabel'] as String? ?? 'Hidden branch',
+      hint: json['hint'] as String? ?? 'Something hidden awaits...',
       requiredBranchId: json['requiredBranchId'] as String?,
       requiredMilestoneId: json['requiredMilestoneId'] as String?,
     );
