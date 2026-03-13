@@ -65,6 +65,27 @@
       "metric": "eventClicks",
       "target": 25,
       "narrative": "Anomaly response patterns are stable enough for the AI to hunt rarities intentionally."
+    },
+    {
+      "id": "upgrade_veteran",
+      "title": "Upgrade Veteran",
+      "metric": "totalCoins",
+      "target": 500000,
+      "narrative": "Your upgrade history is deep enough that the AI treats you as a co-architect."
+    },
+    {
+      "id": "mass_producer",
+      "title": "Mass Producer",
+      "metric": "totalGenerators",
+      "target": 100,
+      "narrative": "Generator density crossed a second threshold. The room infrastructure is self-aware now."
+    },
+    {
+      "id": "deep_explorer",
+      "title": "Deep Explorer",
+      "metric": "totalCoins",
+      "target": 5000000,
+      "narrative": "You have pushed further than most operators. The room is changing its behavior to match your ambition."
     }
   ],
   "events": [
@@ -116,7 +137,7 @@
     },
     {
       "id": "breach_fragment",
-      "type": "mysteryCache",
+      "type": "breachFragment",
       "title": "Breach Fragment",
       "description": "A fragmented breach is trying to anchor itself. Risk route operators get bigger rewards from it.",
       "risky": true,
@@ -124,6 +145,68 @@
       "baseDurationSeconds": 9,
       "minimumRarity": "corrupted",
       "requiredBranchId": "risky"
+    },
+    {
+      "id": "data_corruption",
+      "type": "dataCorruption",
+      "title": "Data Corruption Wave",
+      "description": "Corrupted data is flooding the system. Purge it safely or absorb it for a production boost.",
+      "risky": true,
+      "baseDurationSeconds": 11,
+      "minimumRarity": "rare"
+    },
+    {
+      "id": "signal_echo",
+      "type": "powerSurge",
+      "title": "Signal Echo",
+      "description": "A faint echo of a previous power surge returns. Quick operators can capture its remnants.",
+      "baseDurationSeconds": 8,
+      "minimumRarity": "common"
+    },
+    {
+      "id": "memory_leak",
+      "type": "aiIdea",
+      "title": "Memory Leak Detected",
+      "description": "A beneficial memory leak is exposing optimization paths. Capture or ignore it.",
+      "baseDurationSeconds": 10,
+      "minimumRarity": "common"
+    },
+    {
+      "id": "automation_surge",
+      "type": "powerSurge",
+      "title": "Automation Surge",
+      "description": "Your generators are overperforming. Channel the excess before it dissipates.",
+      "baseDurationSeconds": 9,
+      "minimumRarity": "common"
+    },
+    {
+      "id": "ghost_signal",
+      "type": "marketSpike",
+      "title": "Ghost Signal",
+      "description": "A phantom signal from a future room is carrying value. Intercept it.",
+      "risky": true,
+      "baseDurationSeconds": 11,
+      "minimumRarity": "rare",
+      "requiredMilestoneId": "engine_room"
+    },
+    {
+      "id": "recursive_loop",
+      "type": "dataCorruption",
+      "title": "Recursive Loop",
+      "description": "The system detected an infinite loop. Break it for safety or ride it for power.",
+      "risky": true,
+      "baseDurationSeconds": 10,
+      "minimumRarity": "epic"
+    },
+    {
+      "id": "timeline_fracture",
+      "type": "breachFragment",
+      "title": "Timeline Fracture",
+      "description": "A crack in the room's timeline is leaking resources from an alternate version.",
+      "risky": true,
+      "clickOnly": true,
+      "baseDurationSeconds": 12,
+      "minimumRarity": "legendary"
     }
   ],
   "challenges": [
@@ -308,6 +391,7 @@
       "id": "secret_overpulse",
       "title": "Overpulse",
       "description": "A hidden tap route pulse triggered by sustained manual rhythm.",
+      "hint": "The rhythm of sustained tapping echoes through early rooms. Push your combo further than comfort allows.",
       "metric": "strongestCombo",
       "target": 18,
       "eraId": "era_2",
@@ -322,6 +406,7 @@
       "id": "secret_ghost_grid",
       "title": "Ghost Grid",
       "description": "A passive architecture branch revealed by deep automation bias.",
+      "hint": "Automation routes whisper of a ghost lattice. Build enough generators and listen carefully.",
       "metric": "totalGenerators",
       "target": 30,
       "eraId": "era_4",
@@ -336,6 +421,7 @@
       "id": "secret_entropy",
       "title": "Entropy Leak",
       "description": "An unstable hidden branch unlocked by repeated risky behavior.",
+      "hint": "Those who embrace risk repeatedly will find the system leaking. Twelve gambles open a door that should stay shut.",
       "metric": "riskyChoices",
       "target": 12,
       "eraId": "era_6",
@@ -345,6 +431,76 @@
       "icon": "☍",
       "effectLabel": "Corruption route",
       "requiredBranchId": "risky"
+    },
+    {
+      "id": "secret_echo_chamber",
+      "title": "Echo Chamber",
+      "description": "A resonance loop discovered through massive tapping dedication.",
+      "hint": "Ten thousand taps create a resonance that the room cannot ignore.",
+      "metric": "totalTaps",
+      "target": 10000,
+      "eraId": "era_3",
+      "parentId": "upg_era3_1",
+      "offsetX": -180,
+      "offsetY": 140,
+      "icon": "◎",
+      "effectLabel": "Tap resonance amplifier"
+    },
+    {
+      "id": "secret_time_fold",
+      "title": "Time Fold",
+      "description": "Extended play sessions reveal temporal anomalies in the room's architecture.",
+      "hint": "The AI notices patterns only after hours of observation. Time reveals what speed cannot.",
+      "metric": "totalCoins",
+      "target": 50000000,
+      "eraId": "era_8",
+      "parentId": "upg_era8_2",
+      "offsetX": 190,
+      "offsetY": -150,
+      "icon": "⧖",
+      "effectLabel": "Temporal production layer"
+    },
+    {
+      "id": "secret_event_weaver",
+      "title": "Event Weaver",
+      "description": "Resolving many events teaches the system to generate richer anomalies.",
+      "hint": "The room remembers every anomaly you resolve. Fifty events teach it something new.",
+      "metric": "eventClicks",
+      "target": 50,
+      "eraId": "era_10",
+      "parentId": "upg_era10_3",
+      "offsetX": -200,
+      "offsetY": 100,
+      "icon": "⟁",
+      "effectLabel": "Enhanced event rewards"
+    },
+    {
+      "id": "secret_silent_core",
+      "title": "Silent Core",
+      "description": "Deep generator investment reveals an underlying silence in the machine.",
+      "hint": "A hundred generators hum so loudly that you can hear the silence between them.",
+      "metric": "totalGenerators",
+      "target": 100,
+      "eraId": "era_12",
+      "parentId": "upg_era12_1",
+      "offsetX": 160,
+      "offsetY": -130,
+      "icon": "◉",
+      "effectLabel": "Silent production bonus"
+    },
+    {
+      "id": "secret_critical_mass",
+      "title": "Critical Mass",
+      "description": "Enough critical hits create a self-sustaining chain reaction in the AI core.",
+      "hint": "Each critical click leaves a mark. Twenty-five thousand marks form a pattern the AI can exploit.",
+      "metric": "totalTaps",
+      "target": 25000,
+      "eraId": "era_15",
+      "parentId": "upg_era15_2",
+      "offsetX": -170,
+      "offsetY": -160,
+      "icon": "✦",
+      "effectLabel": "Critical chain reaction"
     }
   ]
 }

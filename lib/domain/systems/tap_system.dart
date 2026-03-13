@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import '../../core/math/game_number.dart';
 import '../models/game_state.dart';
 
@@ -13,8 +15,8 @@ class TapSystem {
   static const comboWindowMs = 2000;
   static const baseCooldownMs = 550;
 
-  /// Maximum combo multiplier (caps the bonus).
-  static const maxCombo = 50;
+  /// Soft cap for combo — no hard limit, but UI may truncate display.
+  static const maxCombo = 9999;
 
   /// Calculate the current tap value (without combo).
   static GameNumber calculateTapValue(
@@ -24,8 +26,23 @@ class TapSystem {
     return baseTapValue * tapMultiplier;
   }
 
+  /// Calculate combo bonus multiplier with diminishing returns.
+  /// Formula: 1.0 + combo * 0.02 + ln(1 + combo) * 0.05
+  /// At combo 10: ~1.32, combo 50: ~2.20, combo 100: ~3.23, combo 500: ~7.31
+  static double comboTapMultiplier(int combo) {
+    if (combo <= 0) return 1.0;
+    return 1.0 + combo * 0.02 + math.log(1 + combo) * 0.05;
+  }
+
+  /// Calculate combo production bonus (very small per-combo).
+  /// Formula: 1.0 + combo * 0.0001
+  /// At combo 50: 1.005, combo 500: 1.05
+  static double comboProductionMultiplier(int combo) {
+    if (combo <= 0) return 1.0;
+    return 1.0 + combo * 0.0001;
+  }
+
   /// Calculate tap value including combo bonus.
-  /// combo multiplier = 1 + combo * 0.1 (i.e. each combo hit adds 10%).
   static GameNumber calculateTapValueWithCombo(
     GameNumber baseTapValue,
     GameNumber tapMultiplier,
@@ -33,7 +50,7 @@ class TapSystem {
     GameNumber prestigeMultiplier,
   ) {
     final base = baseTapValue * tapMultiplier;
-    final comboBonus = GameNumber.fromDouble(1.0 + combo * 0.1);
+    final comboBonus = GameNumber.fromDouble(comboTapMultiplier(combo));
     return base * comboBonus * prestigeMultiplier;
   }
 

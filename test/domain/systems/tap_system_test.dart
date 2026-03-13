@@ -14,6 +14,7 @@ void main() {
       TapSystem.calculateTapValue(baseTap, GameNumber.fromDouble(2)).toDouble(),
       closeTo(2, 0.01),
     );
+    // combo=5: 1.0 + 5*0.02 + ln(6)*0.05 ≈ 1.1896
     expect(
       TapSystem.calculateTapValueWithCombo(
         baseTap,
@@ -21,8 +22,9 @@ void main() {
         5,
         GameNumber.fromDouble(1),
       ).toDouble(),
-      closeTo(1.5, 0.01),
+      closeTo(1.19, 0.01),
     );
+    // combo=10: multiplier ≈ 1.3199 → 1*2*1.3199*1.5 ≈ 3.96
     expect(
       TapSystem.calculateTapValueWithCombo(
         baseTap,
@@ -30,7 +32,7 @@ void main() {
         10,
         GameNumber.fromDouble(1.5),
       ).toDouble(),
-      closeTo(6.0, 0.01),
+      closeTo(3.96, 0.02),
     );
   });
 

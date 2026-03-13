@@ -43,6 +43,14 @@ void main() {
         type: AchievementType.productionRate,
         threshold: GameNumber.fromInt(50),
       ),
+      AchievementDefinition(
+        id: 'ach_combo',
+        name: 'Combo King',
+        description: 'Reach a 20 combo',
+        icon: '🔥',
+        type: AchievementType.strongestCombo,
+        threshold: GameNumber.fromInt(20),
+      ),
     ];
   });
 
@@ -79,6 +87,46 @@ void main() {
         GameNumber.fromDouble(100),
       ),
       contains('ach_prod'),
+    );
+  });
+
+  test('strongestCombo achievement unlocks when threshold met', () {
+    final baseState = GameState.initial();
+    final production = GameNumber.fromDouble(0);
+
+    // Below threshold – should not unlock
+    final lowComboState = baseState.copyWith(strongestCombo: 10);
+    expect(
+      AchievementSystem.checkAchievements(
+          lowComboState, achievements, production),
+      isNot(contains('ach_combo')),
+    );
+
+    // At threshold – should unlock
+    final atComboState = baseState.copyWith(strongestCombo: 20);
+    expect(
+      AchievementSystem.checkAchievements(
+          atComboState, achievements, production),
+      contains('ach_combo'),
+    );
+
+    // Above threshold – should also unlock
+    final highComboState = baseState.copyWith(strongestCombo: 50);
+    expect(
+      AchievementSystem.checkAchievements(
+          highComboState, achievements, production),
+      contains('ach_combo'),
+    );
+
+    // Already unlocked – should not appear again
+    final alreadyUnlocked = baseState.copyWith(
+      strongestCombo: 30,
+      unlockedAchievements: {'ach_combo'},
+    );
+    expect(
+      AchievementSystem.checkAchievements(
+          alreadyUnlocked, achievements, production),
+      isNot(contains('ach_combo')),
     );
   });
 

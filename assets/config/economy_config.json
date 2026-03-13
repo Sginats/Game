@@ -1491,6 +1491,302 @@
       "icon": "⚙️",
       "type": "productionRate",
       "threshold": "10000"
+    },
+    {
+      "id": "ach_5000_taps",
+      "name": "Tap Maniac",
+      "description": "Tap 5,000 times.",
+      "icon": "⚡",
+      "type": "totalTaps",
+      "threshold": 5000
+    },
+    {
+      "id": "ach_10000_taps",
+      "name": "Signal Storm",
+      "description": "Tap 10,000 times.",
+      "icon": "🌩️",
+      "type": "totalTaps",
+      "threshold": 10000
+    },
+    {
+      "id": "ach_50000_taps",
+      "name": "Neural Overload",
+      "description": "Tap 50,000 times.",
+      "icon": "🧠",
+      "type": "totalTaps",
+      "threshold": 50000
+    },
+    {
+      "id": "ach_combo_10",
+      "name": "Rhythm Found",
+      "description": "Reach a 10-hit combo.",
+      "icon": "🎵",
+      "type": "strongestCombo",
+      "threshold": 10
+    },
+    {
+      "id": "ach_combo_25",
+      "name": "Combo Adept",
+      "description": "Reach a 25-hit combo.",
+      "icon": "🎶",
+      "type": "strongestCombo",
+      "threshold": 25
+    },
+    {
+      "id": "ach_combo_50",
+      "name": "Combo Master",
+      "description": "Reach a 50-hit combo.",
+      "icon": "🔥",
+      "type": "strongestCombo",
+      "threshold": 50
+    },
+    {
+      "id": "ach_combo_100",
+      "name": "Combo Legend",
+      "description": "Reach a 100-hit combo.",
+      "icon": "💫",
+      "type": "strongestCombo",
+      "threshold": 100
+    },
+    {
+      "id": "ach_combo_500",
+      "name": "Infinite Rhythm",
+      "description": "Reach a 500-hit combo.",
+      "icon": "♾️",
+      "type": "strongestCombo",
+      "threshold": 500
+    },
+    {
+      "id": "ach_100m_coins",
+      "name": "Tycoon",
+      "description": "Earn 100,000,000 coins total.",
+      "icon": "💰",
+      "type": "totalCoins",
+      "threshold": 100000000
+    },
+    {
+      "id": "ach_1t_coins",
+      "name": "Trillion Dreams",
+      "description": "Earn 1,000,000,000,000 coins total.",
+      "icon": "🏦",
+      "type": "totalCoins",
+      "threshold": 1000000000000
+    },
+    {
+      "id": "ach_upgrades_10",
+      "name": "Tinkerer",
+      "description": "Purchase 10 upgrades.",
+      "icon": "🔧",
+      "type": "totalUpgradesPurchased",
+      "threshold": 10
+    },
+    {
+      "id": "ach_upgrades_50",
+      "name": "Engineer",
+      "description": "Purchase 50 upgrades.",
+      "icon": "⚙️",
+      "type": "totalUpgradesPurchased",
+      "threshold": 50
+    },
+    {
+      "id": "ach_upgrades_100",
+      "name": "Architect",
+      "description": "Purchase 100 upgrades.",
+      "icon": "🏗️",
+      "type": "totalUpgradesPurchased",
+      "threshold": 100
+    },
+    {
+      "id": "ach_upgrades_500",
+      "name": "Grand Designer",
+      "description": "Purchase 500 upgrades.",
+      "icon": "🌆",
+      "type": "totalUpgradesPurchased",
+      "threshold": 500
+    },
+    {
+      "id": "ach_generators_25",
+      "name": "Infrastructure",
+      "description": "Purchase 25 generators.",
+      "icon": "🏭",
+      "type": "totalGeneratorsPurchased",
+      "threshold": 25
+    },
+    {
+      "id": "ach_generators_100",
+      "name": "Factory Floor",
+      "description": "Purchase 100 generators.",
+      "icon": "🔨",
+      "type": "totalGeneratorsPurchased",
+      "threshold": 100
+    },
+    {
+      "id": "ach_generators_500",
+      "name": "Industrial Empire",
+      "description": "Purchase 500 generators.",
+      "icon": "🏙️",
+      "type": "totalGeneratorsPurchased",
+      "threshold": 500
+    },
+    {
+      "id": "ach_events_1",
+      "name": "First Anomaly",
+      "description": "Resolve your first event.",
+      "icon": "⚠️",
+      "type": "totalEventsClicked",
+      "threshold": 1
+    },
+    {
+      "id": "ach_events_10",
+      "name": "Event Responder",
+      "description": "Resolve 10 events.",
+      "icon": "📡",
+      "type": "totalEventsClicked",
+      "threshold": 10
+    },
+    {
+      "id": "ach_events_50",
+      "name": "Anomaly Hunter",
+      "description": "Resolve 50 events.",
+      "icon": "🎯",
+      "type": "totalEventsClicked",
+      "threshold": 50
+    },
+    {
+      "id": "ach_events_100",
+      "name": "Event Veteran",
+      "description": "Resolve 100 events.",
+      "icon": "🛡️",
+      "type": "totalEventsClicked",
+      "threshold": 100
+    },
+    {
+      "id": "ach_secret_1",
+      "name": "Hidden Path",
+      "description": "Discover your first secret.",
+      "icon": "🔍",
+      "type": "discoveredSecrets",
+      "threshold": 1
+    },
+    {
+      "id": "ach_secret_3",
+      "name": "Secret Keeper",
+      "description": "Discover 3 secrets.",
+      "icon": "🗝️",
+      "type": "discoveredSecrets",
+      "threshold": 3
+    },
+    {
+      "id": "ach_risky_5",
+      "name": "Daredevil",
+      "description": "Take 5 risky choices.",
+      "icon": "🎲",
+      "type": "riskyChoicesTaken",
+      "threshold": 5
+    },
+    {
+      "id": "ach_risky_25",
+      "name": "Chaos Agent",
+      "description": "Take 25 risky choices.",
+      "icon": "💀",
+      "type": "riskyChoicesTaken",
+      "threshold": 25
+    },
+    {
+      "id": "ach_risky_50",
+      "name": "Risk Master",
+      "description": "Take 50 risky choices.",
+      "icon": "☠️",
+      "type": "riskyChoicesTaken",
+      "threshold": 50
+    },
+    {
+      "id": "ach_playtime_1h",
+      "name": "Dedicated",
+      "description": "Play for 1 hour total.",
+      "icon": "⏰",
+      "type": "totalPlaySeconds",
+      "threshold": 3600
+    },
+    {
+      "id": "ach_playtime_10h",
+      "name": "Committed",
+      "description": "Play for 10 hours total.",
+      "icon": "🕰️",
+      "type": "totalPlaySeconds",
+      "threshold": 36000
+    },
+    {
+      "id": "ach_playtime_100h",
+      "name": "Obsessed",
+      "description": "Play for 100 hours total.",
+      "icon": "📅",
+      "type": "totalPlaySeconds",
+      "threshold": 360000
+    },
+    {
+      "id": "ach_prestige_1",
+      "name": "Fresh Start",
+      "description": "Prestige for the first time.",
+      "icon": "🔄",
+      "type": "prestigeCount",
+      "threshold": 1
+    },
+    {
+      "id": "ach_prestige_5",
+      "name": "Cycle Master",
+      "description": "Prestige 5 times.",
+      "icon": "♻️",
+      "type": "prestigeCount",
+      "threshold": 5
+    },
+    {
+      "id": "ach_prestige_10",
+      "name": "Eternal Loop",
+      "description": "Prestige 10 times.",
+      "icon": "🌀",
+      "type": "prestigeCount",
+      "threshold": 10
+    },
+    {
+      "id": "ach_crits_10",
+      "name": "Lucky Strike",
+      "description": "Land 10 critical clicks.",
+      "icon": "✨",
+      "type": "totalCriticalClicks",
+      "threshold": 10
+    },
+    {
+      "id": "ach_crits_100",
+      "name": "Critical Mass",
+      "description": "Land 100 critical clicks.",
+      "icon": "💥",
+      "type": "totalCriticalClicks",
+      "threshold": 100
+    },
+    {
+      "id": "ach_crits_500",
+      "name": "Precision Engine",
+      "description": "Land 500 critical clicks.",
+      "icon": "🎯",
+      "type": "totalCriticalClicks",
+      "threshold": 500
+    },
+    {
+      "id": "ach_production_100k",
+      "name": "Power Plant",
+      "description": "Reach 100K production per second.",
+      "icon": "⚡",
+      "type": "productionRate",
+      "threshold": 100000
+    },
+    {
+      "id": "ach_production_1m",
+      "name": "Energy Grid",
+      "description": "Reach 1M production per second.",
+      "icon": "🔋",
+      "type": "productionRate",
+      "threshold": 1000000
     }
   ]
 }
