@@ -43,6 +43,33 @@ class AchievementSystem {
         case AchievementType.productionRate:
           met = productionPerSecond >= def.threshold;
           break;
+        case AchievementType.strongestCombo:
+          met = GameNumber.fromInt(state.strongestCombo) >= def.threshold;
+          break;
+        case AchievementType.totalUpgradesPurchased:
+          met = GameNumber.fromInt(state.totalUpgradesPurchased) >= def.threshold;
+          break;
+        case AchievementType.totalGeneratorsPurchased:
+          met = GameNumber.fromInt(state.totalGeneratorsPurchased) >= def.threshold;
+          break;
+        case AchievementType.totalEventsClicked:
+          met = GameNumber.fromInt(state.totalEventsClicked) >= def.threshold;
+          break;
+        case AchievementType.totalPlaySeconds:
+          met = GameNumber.fromDouble(state.totalPlaySeconds) >= def.threshold;
+          break;
+        case AchievementType.prestigeCount:
+          met = GameNumber.fromInt(state.prestigeCount) >= def.threshold;
+          break;
+        case AchievementType.discoveredSecrets:
+          met = GameNumber.fromInt(state.discoveredSecrets.length) >= def.threshold;
+          break;
+        case AchievementType.riskyChoicesTaken:
+          met = GameNumber.fromInt(state.riskyChoicesTaken) >= def.threshold;
+          break;
+        case AchievementType.totalCriticalClicks:
+          met = GameNumber.fromInt(state.totalCriticalClicks) >= def.threshold;
+          break;
       }
 
       if (met) newlyUnlocked.add(def.id);

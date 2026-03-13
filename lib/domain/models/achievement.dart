@@ -7,6 +7,15 @@ enum AchievementType {
   generatorLevel,
   upgradeLevel,
   productionRate,
+  strongestCombo,
+  totalUpgradesPurchased,
+  totalGeneratorsPurchased,
+  totalEventsClicked,
+  totalPlaySeconds,
+  prestigeCount,
+  discoveredSecrets,
+  riskyChoicesTaken,
+  totalCriticalClicks,
 }
 
 /// Definition of an achievement loaded from configuration.
