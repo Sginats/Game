@@ -66,10 +66,35 @@ class AppStrings {
   String get reducedMotionDescription => isRussian
       ? 'Смягчает интенсивные анимации и движение интерфейса.'
       : 'Tones down movement-heavy effects.';
+  String get screenShake => isRussian ? 'Тряска экрана' : 'Screen shake';
+  String get screenShakeDescription => isRussian
+      ? 'Включить эффекты тряски экрана при действиях.'
+      : 'Enable screen shake effects on actions.';
   String get uiScale => isRussian ? 'Масштаб UI' : 'UI scale';
   String get musicLayer => isRussian ? 'Музыкальный слой' : 'Music layer';
   String get sfxVolume => isRussian ? 'Громкость SFX' : 'SFX volume';
   String get colorClarity => isRussian ? 'Цветовая ясность' : 'Color clarity';
+  String get settingsGeneral => isRussian ? 'Основные' : 'General';
+  String get settingsAudio => isRussian ? 'Звук' : 'Audio';
+  String get settingsGraphics => isRussian ? 'Графика' : 'Graphics';
+  String get settingsAccessibility =>
+      isRussian ? 'Доступность' : 'Accessibility';
+  String get settingsGameplay =>
+      isRussian ? 'Игровой процесс' : 'Gameplay';
+  String get purchaseQuantity =>
+      isRussian ? 'Количество покупки' : 'Purchase quantity';
+  String get abilities => isRussian ? 'Способности' : 'Abilities';
+  String get selectNodeHint => isRussian
+      ? 'Нажмите на узел дерева'
+      : 'Tap a tree node';
+  String get canPurchase => isRussian ? 'Можно купить' : 'Can purchase';
+  String get notEnoughCoins =>
+      isRussian ? 'Недостаточно ресурсов' : 'Not enough resources';
+  String get dependencyMissing =>
+      isRussian ? 'Зависимость не выполнена' : 'Dependency not met';
+  String get alreadyOwned => isRussian ? 'Уже куплено' : 'Already owned';
+  String get lockedByRoute =>
+      isRussian ? 'Заблокировано маршрутом' : 'Locked by route';
   String get source => isRussian ? 'Источник' : 'Source';
   String get online => isRussian ? 'Сеть' : 'Online';
   String get submitPath => isRussian ? 'Путь отправки' : 'Submit path';

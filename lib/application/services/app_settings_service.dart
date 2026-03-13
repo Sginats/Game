@@ -22,6 +22,7 @@ class AppSettings {
   final bool languageConfirmed;
   final bool soundEnabled;
   final bool reducedMotion;
+  final bool screenShake;
   final double uiScale;
   final double musicVolume;
   final double sfxVolume;
@@ -32,6 +33,7 @@ class AppSettings {
     this.languageConfirmed = false,
     this.soundEnabled = true,
     this.reducedMotion = false,
+    this.screenShake = true,
     this.uiScale = 1,
     this.musicVolume = 0.65,
     this.sfxVolume = 0.85,
@@ -43,6 +45,7 @@ class AppSettings {
     bool? languageConfirmed,
     bool? soundEnabled,
     bool? reducedMotion,
+    bool? screenShake,
     double? uiScale,
     double? musicVolume,
     double? sfxVolume,
@@ -53,6 +56,7 @@ class AppSettings {
       languageConfirmed: languageConfirmed ?? this.languageConfirmed,
       soundEnabled: soundEnabled ?? this.soundEnabled,
       reducedMotion: reducedMotion ?? this.reducedMotion,
+      screenShake: screenShake ?? this.screenShake,
       uiScale: uiScale ?? this.uiScale,
       musicVolume: musicVolume ?? this.musicVolume,
       sfxVolume: sfxVolume ?? this.sfxVolume,
@@ -70,6 +74,7 @@ class AppSettingsService {
   static const _musicVolumeKey = 'music_volume';
   static const _sfxVolumeKey = 'sfx_volume';
   static const _colorblindModeKey = 'colorblind_mode';
+  static const _screenShakeKey = 'screen_shake';
 
   Future<AppSettings> load() async {
     final prefs = await SharedPreferences.getInstance();
@@ -78,6 +83,7 @@ class AppSettingsService {
       languageConfirmed: prefs.getBool(_languageConfirmedKey) ?? false,
       soundEnabled: prefs.getBool(_soundEnabledKey) ?? true,
       reducedMotion: prefs.getBool(_reducedMotionKey) ?? false,
+      screenShake: prefs.getBool(_screenShakeKey) ?? true,
       uiScale: prefs.getDouble(_uiScaleKey) ?? 1,
       musicVolume: prefs.getDouble(_musicVolumeKey) ?? 0.65,
       sfxVolume: prefs.getDouble(_sfxVolumeKey) ?? 0.85,
@@ -94,6 +100,7 @@ class AppSettingsService {
     await prefs.setBool(_languageConfirmedKey, settings.languageConfirmed);
     await prefs.setBool(_soundEnabledKey, settings.soundEnabled);
     await prefs.setBool(_reducedMotionKey, settings.reducedMotion);
+    await prefs.setBool(_screenShakeKey, settings.screenShake);
     await prefs.setDouble(_uiScaleKey, settings.uiScale);
     await prefs.setDouble(_musicVolumeKey, settings.musicVolume);
     await prefs.setDouble(_sfxVolumeKey, settings.sfxVolume);

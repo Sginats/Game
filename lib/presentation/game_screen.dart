@@ -133,89 +133,96 @@ class _GameScreenState extends State<GameScreen>
             ),
             child: Stack(
               children: [
-              Positioned(
-                top: -120,
-                left: -80,
-                child: _blurBlob(accent.withAlpha(80), 260),
-              ),
-              Positioned(
-                bottom: -160,
-                right: -60,
-                child: _blurBlob(Colors.lightBlueAccent.withAlpha(36), 340),
-              ),
-              Positioned.fill(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-                  child: Column(
-                    children: [
-                      _buildHud(accent),
-                      const SizedBox(height: 12),
-                      Expanded(
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            _viewportSize = Size(
-                              constraints.maxWidth,
-                              constraints.maxHeight,
-                            );
-                            final compact = constraints.maxWidth < 1180 ||
-                                constraints.maxHeight < 760;
-                            if (compact) {
-                              return Column(
+                Positioned(
+                  top: -120,
+                  left: -80,
+                  child: _blurBlob(accent.withAlpha(60), 200),
+                ),
+                Positioned(
+                  bottom: -160,
+                  right: -60,
+                  child: _blurBlob(Colors.lightBlueAccent.withAlpha(24), 260),
+                ),
+                Positioned.fill(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 6, 10, 8),
+                    child: Column(
+                      children: [
+                        _buildHud(accent),
+                        const SizedBox(height: 6),
+                        Expanded(
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              _viewportSize = Size(
+                                constraints.maxWidth,
+                                constraints.maxHeight,
+                              );
+                              final compact = constraints.maxWidth < 900 ||
+                                  constraints.maxHeight < 600;
+                              if (compact) {
+                                return Column(
+                                  children: [
+                                    Expanded(
+                                      child: Stack(
+                                        children: [
+                                          Positioned.fill(
+                                            child: _buildTreeArea(
+                                              graph,
+                                              accent,
+                                            ),
+                                          ),
+                                          if (node != null)
+                                            Positioned(
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0,
+                                              width: math.min(
+                                                280,
+                                                constraints.maxWidth * 0.42,
+                                              ),
+                                              child: _buildContextPanel(node),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 6),
+                                    _buildBottomDock(accent),
+                                  ],
+                                );
+                              }
+                              return Row(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.stretch,
                                 children: [
-                                  _buildNotificationStack(compact: true),
-                                  const SizedBox(height: 10),
                                   Expanded(
-                                    child: Row(
+                                    child: _buildTreeArea(graph, accent),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
+                                    width: math.min(
+                                      300,
+                                      constraints.maxWidth * 0.26,
+                                    ),
+                                    child: Column(
                                       children: [
                                         Expanded(
-                                          child: _buildTreeArea(graph, accent),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        SizedBox(
-                                          width: math.min(320, constraints.maxWidth * 0.34),
                                           child: _buildContextPanel(node),
                                         ),
+                                        const SizedBox(height: 8),
+                                        _buildSideControls(accent),
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
-                                  _buildBottomDock(accent),
                                 ],
                               );
-                            }
-                            return Row(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      _buildNotificationStack(compact: false),
-                                      const SizedBox(height: 10),
-                                      Expanded(
-                                        child: _buildTreeArea(graph, accent),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 14),
-                                SizedBox(
-                                  width: math.min(340, constraints.maxWidth * 0.28),
-                                  child: _buildContextPanel(node),
-                                ),
-                                const SizedBox(width: 14),
-                                SizedBox(
-                                  width: 220,
-                                  child: _buildSideRail(accent),
-                                ),
-                              ],
-                            );
-                          },
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+                _buildNotificationOverlay(),
               ],
             ),
           ),
@@ -231,106 +238,106 @@ class _GameScreenState extends State<GameScreen>
       (item) => item.id == currentEra,
       orElse: () => widget.config.eras.first,
     );
-    final actions = Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        _miniAction(Icons.save_rounded, () {
-          unawaited(_controller.saveGame());
-          _showToast(widget.strings.gameSaved, Colors.green.shade700);
-        }),
-        _miniAction(Icons.bar_chart_rounded, _showStatsSheet),
-        _miniAction(Icons.military_tech_rounded, _showChallengesSheet),
-        _miniAction(Icons.leaderboard_rounded, _showLeaderboardSheet),
-        _miniAction(Icons.emoji_events_rounded, _showAchievementsSheet),
-        _miniAction(Icons.auto_awesome, _showPrestigeSheet),
-        _miniAction(Icons.settings_rounded, _showSettingsSheet),
-      ],
-    );
-    final summary = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: _glassBox(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: _glassBox(radius: 16),
+      child: Row(
         children: [
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 180),
-            child: Text(
-              state.coins.toStringFormatted(),
-              key: ValueKey(state.coins.toStringFormatted()),
-              style: const TextStyle(
-                color: Colors.amberAccent,
-                fontSize: 28,
-                fontWeight: FontWeight.w800,
-              ),
+          Expanded(
+            child: Row(
+              children: [
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 180),
+                  child: Text(
+                    state.coins.toStringFormatted(),
+                    key: ValueKey(state.coins.toStringFormatted()),
+                    style: const TextStyle(
+                      color: Colors.amberAccent,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                _hudChip(
+                  Icons.trending_up,
+                  widget.strings.perSecond(
+                    _controller.productionPerSecond.toStringFormatted(),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                _hudChip(
+                  Icons.local_fire_department,
+                  widget.strings.combo(state.tapCombo),
+                ),
+                const SizedBox(width: 8),
+                _hudChip(
+                  Icons.meeting_room_rounded,
+                  widget.strings.roomProgress(
+                    currentEraDef.order,
+                    widget.config.eras.length,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 6),
-          Wrap(
-            spacing: 10,
-            runSpacing: 8,
+          Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              _glassChip(
-                icon: Icons.trending_up,
-                label: widget.strings.perSecond(
-                  _controller.productionPerSecond.toStringFormatted(),
-                ),
-              ),
-              _glassChip(
-                icon: Icons.local_fire_department,
-                label: widget.strings.combo(state.tapCombo),
-              ),
-              _glassChip(
-                icon: Icons.psychology_alt,
-                label: widget.strings.formatPlaystyle(
-                  _controller.dominantPlaystyle,
-                ),
-              ),
-              _glassChip(
-                icon: Icons.meeting_room_rounded,
-                label: widget.strings.roomProgress(
-                  currentEraDef.order,
-                  widget.config.eras.length,
-                ),
-              ),
-              _glassChip(
-                icon: Icons.rule_rounded,
-                label: currentEraDef.rule,
-              ),
+              _hudIconButton(Icons.save_rounded, () {
+                unawaited(_controller.saveGame());
+                _showToast(widget.strings.gameSaved, Colors.green.shade700);
+              }),
+              _hudIconButton(Icons.bar_chart_rounded, _showStatsSheet),
+              _hudIconButton(Icons.emoji_events_rounded, _showAchievementsSheet),
+              _hudIconButton(Icons.auto_awesome, _showPrestigeSheet),
+              _hudIconButton(Icons.settings_rounded, _showSettingsSheet),
             ],
           ),
         ],
       ),
     );
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth < 980) {
-          return Column(
-            children: [
-              summary,
-              const SizedBox(height: 10),
-              Align(alignment: Alignment.centerLeft, child: actions),
-            ],
-          );
-        }
-        return Row(
-          children: [
-            Expanded(child: summary),
-            const SizedBox(width: 10),
-            actions,
-          ],
-        );
-      },
+  }
+
+  Widget _hudChip(IconData icon, String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha(10),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 13, color: Colors.white60),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: const TextStyle(color: Colors.white70, fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildNotificationStack({required bool compact}) {
+  Widget _hudIconButton(IconData icon, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Icon(icon, color: Colors.white70, size: 20),
+      ),
+    );
+  }
+
+  Widget _buildNotificationOverlay() {
     final cards = <Widget>[];
     if (_controller.activeEvent != null) {
-      cards.add(_buildEventCard(compact: compact));
+      cards.add(_buildEventCard(compact: true));
     }
     if (_controller.activeNarrativeBeat != null) {
-      cards.add(_buildNarrativeCard(compact: compact));
+      cards.add(_buildNarrativeCard(compact: true));
     }
     if (_controller.lastRecommendation != null) {
       cards.add(
@@ -341,31 +348,28 @@ class _GameScreenState extends State<GameScreen>
             _controller.lastRecommendation!,
           ),
           accent: const Color(0xFF5BD2FF),
+          compact: true,
         ),
       );
     }
 
-    return Align(
-      alignment: Alignment.topLeft,
+    if (cards.isEmpty) return const SizedBox.shrink();
+
+    return Positioned(
+      top: 56,
+      left: 14,
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: compact ? 420 : 360),
-        child: cards.isEmpty
-            ? _buildInfoCard(
-                icon: Icons.check_circle_outline,
-                title: widget.strings.notifications,
-                body: widget.strings.noNotifications,
-                accent: Colors.white24,
-                compact: true,
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  for (var i = 0; i < cards.length; i++) ...[
-                    cards[i],
-                    if (i != cards.length - 1) const SizedBox(height: 8),
-                  ],
-                ],
-              ),
+        constraints: const BoxConstraints(maxWidth: 320),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (var i = 0; i < cards.length; i++) ...[
+              cards[i],
+              if (i != cards.length - 1) const SizedBox(height: 6),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -397,64 +401,104 @@ class _GameScreenState extends State<GameScreen>
   Widget _buildEventCard({required bool compact}) {
     final event = _controller.activeEvent!;
     return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: _glassBox(radius: 18),
+      padding: const EdgeInsets.all(10),
+      decoration: _glassBox(radius: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
-              const Icon(Icons.crisis_alert, color: Colors.amberAccent, size: 18),
-              const SizedBox(width: 8),
+              const Icon(
+                Icons.crisis_alert,
+                color: Colors.amberAccent,
+                size: 14,
+              ),
+              const SizedBox(width: 6),
               Expanded(
                 child: Text(
                   event.title,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
+                    fontSize: 13,
                   ),
                 ),
               ),
-              Text(
-                '${event.remainingSeconds.ceil()}s',
-                style: const TextStyle(color: Colors.white54, fontSize: 11),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.amberAccent.withAlpha(20),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  '${event.remainingSeconds.ceil()}s',
+                  style: const TextStyle(
+                    color: Colors.amberAccent,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             event.description,
-            style: const TextStyle(color: Colors.white60, height: 1.3),
+            style: const TextStyle(
+              color: Colors.white54,
+              fontSize: 12,
+              height: 1.3,
+            ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           Row(
             children: [
               Expanded(
-                child: OutlinedButton(
-                  onPressed: () {
-                    final ok =
-                        _controller.resolveActiveEvent(aggressiveChoice: false);
-                    if (!ok) return;
-                    unawaited(widget.audioService.playBranchUnlock());
-                    setState(() {});
-                  },
-                  child: Text(widget.strings.safeChoice),
+                child: SizedBox(
+                  height: 32,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      textStyle: const TextStyle(fontSize: 12),
+                    ),
+                    onPressed: () {
+                      final ok = _controller.resolveActiveEvent(
+                        aggressiveChoice: false,
+                      );
+                      if (!ok) return;
+                      unawaited(widget.audioService.playBranchUnlock());
+                      setState(() {});
+                    },
+                    child: Text(widget.strings.safeChoice),
+                  ),
                 ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 6),
               Expanded(
-                child: FilledButton(
-                  onPressed: () {
-                    final ok =
-                        _controller.resolveActiveEvent(aggressiveChoice: true);
-                    if (!ok) return;
-                    unawaited(widget.audioService.playMilestone());
-                    setState(() {});
-                  },
-                  child: Text(
-                    event.risky
-                        ? widget.strings.pushChoice
-                        : widget.strings.takeChoice,
+                child: SizedBox(
+                  height: 32,
+                  child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      textStyle: const TextStyle(fontSize: 12),
+                    ),
+                    onPressed: () {
+                      final ok = _controller.resolveActiveEvent(
+                        aggressiveChoice: true,
+                      );
+                      if (!ok) return;
+                      unawaited(widget.audioService.playMilestone());
+                      setState(() {});
+                    },
+                    child: Text(
+                      event.risky
+                          ? widget.strings.pushChoice
+                          : widget.strings.takeChoice,
+                    ),
                   ),
                 ),
               ),
@@ -491,13 +535,13 @@ class _GameScreenState extends State<GameScreen>
     bool compact = false,
   }) {
     return Container(
-      padding: EdgeInsets.all(compact ? 12 : 14),
-      decoration: _glassBox(radius: 18),
+      padding: const EdgeInsets.all(10),
+      decoration: _glassBox(radius: 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: accent, size: 18),
-          const SizedBox(width: 10),
+          Icon(icon, color: accent, size: 14),
+          const SizedBox(width: 8),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -507,15 +551,22 @@ class _GameScreenState extends State<GameScreen>
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
+                    fontSize: 13,
                   ),
                 ),
-                const SizedBox(height: 3),
-                Text(body, style: const TextStyle(color: Colors.white60)),
+                const SizedBox(height: 2),
+                Text(
+                  body,
+                  style: const TextStyle(
+                    color: Colors.white54,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
           if (trailing != null) ...[
-            const SizedBox(width: 6),
+            const SizedBox(width: 4),
             trailing,
           ],
         ],
@@ -525,26 +576,34 @@ class _GameScreenState extends State<GameScreen>
 
   Widget _buildPurchaseMode(Color accent) {
     return Container(
-      padding: const EdgeInsets.all(6),
-      decoration: _glassBox(),
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha(6),
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Wrap(
-        spacing: 6,
+        spacing: 4,
+        runSpacing: 4,
         children: widget.config.purchaseModes.map((mode) {
           final selected = mode == _purchaseMode;
           return InkWell(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(10),
             onTap: () => setState(() => _purchaseMode = mode),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 160),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
-                color: selected ? accent.withAlpha(80) : Colors.transparent,
-                borderRadius: BorderRadius.circular(14),
+                color: selected ? accent.withAlpha(70) : Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
                 mode.label,
                 style: TextStyle(
-                  color: selected ? accent : Colors.white54,
+                  color: selected ? accent : Colors.white40,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -557,8 +616,8 @@ class _GameScreenState extends State<GameScreen>
 
   Widget _buildAbilityBar() {
     return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+      spacing: 6,
+      runSpacing: 6,
       children: _controller.abilities.values.map((ability) {
         final icon = switch (ability.type) {
           ActiveAbilityType.overclock => Icons.bolt,
@@ -567,40 +626,44 @@ class _GameScreenState extends State<GameScreen>
           ActiveAbilityType.sync => Icons.sync,
         };
         return Opacity(
-          opacity: ability.unlocked ? 1 : 0.35,
-          child: InkWell(
-            onTap: ability.unlocked ? () => _activateAbility(ability.type) : null,
-            borderRadius: BorderRadius.circular(18),
-            child: Ink(
-              width: 70,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              decoration: _glassBox(),
-              child: Column(
-                children: [
-                  Icon(icon, color: Colors.white),
-                  const SizedBox(height: 4),
-                  Text(
-                    widget.strings.formatAbilityLabel(ability.type),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
+          opacity: ability.unlocked ? 1 : 0.3,
+          child: Tooltip(
+            message: widget.strings.formatAbilityLabel(ability.type),
+            child: InkWell(
+              onTap: ability.unlocked
+                  ? () => _activateAbility(ability.type)
+                  : null,
+              borderRadius: BorderRadius.circular(14),
+              child: Ink(
+                width: 56,
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(8),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: Colors.white.withAlpha(12)),
+                ),
+                child: Column(
+                  children: [
+                    Icon(icon, color: Colors.white, size: 18),
+                    const SizedBox(height: 2),
+                    Text(
+                      ability.isReady
+                          ? widget.strings.ready
+                          : ability.isActive
+                              ? widget.strings.secondsShort(
+                                  ability.activeRemaining.ceil(),
+                                )
+                              : widget.strings.secondsShort(
+                                  ability.cooldownRemaining.ceil(),
+                                ),
+                      style: const TextStyle(
+                        color: Colors.white54,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    ability.isReady
-                        ? widget.strings.ready
-                        : ability.isActive
-                            ? widget.strings.secondsShort(
-                                ability.activeRemaining.ceil(),
-                              )
-                            : widget.strings.secondsShort(
-                                ability.cooldownRemaining.ceil(),
-                              ),
-                    style: const TextStyle(color: Colors.white54, fontSize: 10),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -609,90 +672,54 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
-  Widget _buildSideRail(Color accent) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildRoomTools(accent),
-        const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: _glassBox(radius: 18),
-          child: _buildAbilityBar(),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: _glassBox(radius: 18),
-          child: Column(
+  Widget _buildBottomDock(Color accent) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: _glassBox(radius: 16),
+      child: Row(
+        children: [
+          _buildPurchaseMode(accent),
+          const SizedBox(width: 8),
+          Expanded(child: _buildAbilityBar()),
+          const SizedBox(width: 8),
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
             children: [
-              Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.center,
-                children: [
-                  _buildTapOrb(accent),
-                  ..._gainToasts.map((toast) {
-                    return Positioned(
-                      top: -8 - (toast.id % 3) * 14,
-                      child: _AnimatedGainToast(
-                        key: ValueKey(toast.id),
-                        label: toast.label,
-                        critical: toast.critical,
-                      ),
-                    );
-                  }),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                alignment: WrapAlignment.center,
-                children: [
-                  _miniAction(Icons.memory, () {
-                    _showToast(
-                      _controller.lastAiLine == null
-                          ? widget.strings.noNotifications
-                          : widget.strings.formatAiLine(_controller.lastAiLine!),
-                      accent,
-                    );
-                  }),
-                  _miniAction(Icons.dns_rounded, () {
-                    _activateAbility(ActiveAbilityType.overclock);
-                  }),
-                  _miniAction(Icons.smart_toy_outlined, () {
-                    _showToast(
-                      _controller.lastAiLine == null
-                          ? widget.strings.noNotifications
-                          : widget.strings.formatAiLine(_controller.lastAiLine!),
-                      Colors.lightBlueAccent,
-                    );
-                  }),
-                ],
-              ),
+              _buildTapOrb(accent),
+              ..._gainToasts.map((toast) {
+                return Positioned(
+                  top: -8 - (toast.id % 3) * 14,
+                  child: _AnimatedGainToast(
+                    key: ValueKey(toast.id),
+                    label: toast.label,
+                    critical: toast.critical,
+                  ),
+                );
+              }),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _buildBottomDock(Color accent) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(child: _buildRoomTools(accent)),
-        const SizedBox(width: 10),
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: _glassBox(radius: 18),
-            child: Row(
-              children: [
-                Expanded(child: _buildAbilityBar()),
-                const SizedBox(width: 10),
-                Stack(
+  Widget _buildSideControls(Color accent) {
+    final currentEra = _currentEra(_controller);
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: _glassBox(radius: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildPurchaseMode(accent),
+          const SizedBox(height: 8),
+          _buildAbilityBar(),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Stack(
                   clipBehavior: Clip.none,
                   alignment: Alignment.center,
                   children: [
@@ -709,28 +736,33 @@ class _GameScreenState extends State<GameScreen>
                     }),
                   ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: FilledButton.icon(
+                  onPressed: () => _upgradeAll(currentEra),
+                  icon: const Icon(Icons.auto_fix_high_rounded, size: 16),
+                  label: Text(
+                    widget.strings.upgradeAll,
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRoomTools(Color accent) {
-    final currentEra = _currentEra(_controller);
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: _glassBox(radius: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _buildPurchaseMode(accent),
-          const SizedBox(height: 10),
-          FilledButton.icon(
-            onPressed: () => _upgradeAll(currentEra),
-            icon: const Icon(Icons.auto_fix_high_rounded, size: 18),
-            label: Text(widget.strings.upgradeAll),
+          const SizedBox(height: 6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _hudIconButton(
+                Icons.military_tech_rounded,
+                _showChallengesSheet,
+              ),
+              _hudIconButton(
+                Icons.leaderboard_rounded,
+                _showLeaderboardSheet,
+              ),
+            ],
           ),
         ],
       ),
@@ -744,29 +776,28 @@ class _GameScreenState extends State<GameScreen>
         children: [
           node == null
               ? Container(
-                  padding: const EdgeInsets.all(18),
-                  decoration: _glassBox(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: const EdgeInsets.all(14),
+                  decoration: _glassBox(radius: 18),
+                  child: Row(
                     children: [
-                      Text(
-                        widget.strings.selectedNode,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                        ),
+                      const Icon(
+                        Icons.touch_app_rounded,
+                        color: Colors.white38,
+                        size: 20,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(width: 10),
                       Text(
-                        widget.strings.treeFocusHint,
-                        style: const TextStyle(color: Colors.white60, height: 1.4),
+                        widget.strings.selectNodeHint,
+                        style: const TextStyle(
+                          color: Colors.white54,
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),
                 )
               : _buildNodeCard(node),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           _buildSecretHintsCard(currentEra),
         ],
       ),
@@ -774,47 +805,148 @@ class _GameScreenState extends State<GameScreen>
   }
 
   Widget _buildNodeCard(TechTreeNodeData node) {
+    final purchaseState = _nodePurchaseState(node);
+    final stateColor = _purchaseStateColor(purchaseState);
     return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: _glassBox(),
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '${node.icon} ${node.title}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-            ),
+          Row(
+            children: [
+              Text(
+                node.icon,
+                style: const TextStyle(fontSize: 22),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      node.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      node.subtitle.toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white38,
+                        fontSize: 10,
+                        letterSpacing: 1.1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: stateColor.withAlpha(30),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: stateColor.withAlpha(80)),
+                ),
+                child: Text(
+                  _purchaseStateLabel(purchaseState),
+                  style: TextStyle(
+                    color: stateColor,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 10),
           Text(
-            node.subtitle.toUpperCase(),
+            node.description,
             style: const TextStyle(
-              color: Colors.white54,
-              fontSize: 11,
-              letterSpacing: 1.1,
+              color: Colors.white60,
+              fontSize: 13,
+              height: 1.3,
             ),
           ),
           const SizedBox(height: 12),
-          Text(node.description, style: const TextStyle(color: Colors.white70)),
-          const SizedBox(height: 14),
-          _statLine(widget.strings.cost, node.costLabel),
-          _statLine(widget.strings.effect, node.effectLabel),
-          _statLine(widget.strings.dependency, node.dependencyLabel),
-          _statLine(widget.strings.requirement, node.requirementLabel),
-          if (_controller.state.chosenBranches.isNotEmpty)
-            _statLine(
-              widget.strings.route,
-              _controller.state.chosenBranches.join(' / '),
+          Row(
+            children: [
+              Expanded(
+                child: _nodeStatChip(
+                  widget.strings.cost,
+                  node.costLabel,
+                  Colors.amberAccent,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _nodeStatChip(
+                  widget.strings.effect,
+                  node.effectLabel,
+                  Colors.lightBlueAccent,
+                ),
+              ),
+            ],
+          ),
+          if (node.dependencyLabel.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            _nodeStatChip(
+              widget.strings.dependency,
+              node.dependencyLabel,
+              Colors.white54,
             ),
+          ],
+          if (node.requirementLabel.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            _nodeStatChip(
+              widget.strings.requirement,
+              node.requirementLabel,
+              Colors.white54,
+            ),
+          ],
+          if (_controller.state.chosenBranches.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Wrap(
+              spacing: 6,
+              runSpacing: 4,
+              children: _controller.state.chosenBranches
+                  .map(
+                    (branch) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.cyanAccent.withAlpha(16),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: Colors.cyanAccent.withAlpha(50),
+                        ),
+                      ),
+                      child: Text(
+                        _branchLabel(branch),
+                        style: const TextStyle(
+                          color: Colors.cyanAccent,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
           if (_controller.canChooseBranch &&
               node.kind == TechTreeNodeKind.generator &&
               _controller.state.chosenBranches.isEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 12),
+              padding: const EdgeInsets.only(top: 10),
               child: Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -823,13 +955,22 @@ class _GameScreenState extends State<GameScreen>
                     .toList(),
               ),
             ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: FilledButton(
               onPressed: node.locked || node.kind == TechTreeNodeKind.secret
                   ? null
                   : () => _purchaseNode(node),
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                backgroundColor: purchaseState == _NodePurchaseState.canBuy
+                    ? Colors.cyanAccent.withAlpha(200)
+                    : null,
+                foregroundColor: purchaseState == _NodePurchaseState.canBuy
+                    ? const Color(0xFF071018)
+                    : null,
+              ),
               child: Text(
                 node.kind == TechTreeNodeKind.secret
                     ? (node.purchased
@@ -838,11 +979,12 @@ class _GameScreenState extends State<GameScreen>
                     : node.locked
                         ? widget.strings.locked
                         : widget.strings.purchase,
+                style: const TextStyle(fontWeight: FontWeight.w700),
               ),
             ),
           ),
           if (_controller.state.chosenBranches.isNotEmpty) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
             Row(
               children: [
                 Expanded(
@@ -856,19 +998,56 @@ class _GameScreenState extends State<GameScreen>
                         : null,
                     child: Text(
                       'Respec (${_controller.state.branchRespecTokens})',
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 6),
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => _showLoadoutSheet(),
-                    child: Text(widget.strings.loadout),
+                    child: Text(
+                      widget.strings.loadout,
+                      style: const TextStyle(fontSize: 12),
+                    ),
                   ),
                 ),
               ],
             ),
           ],
+        ],
+      ),
+    );
+  }
+
+  Widget _nodeStatChip(String label, String value, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withAlpha(10),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: color.withAlpha(30)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              color: color.withAlpha(160),
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            value,
+            style: TextStyle(
+              color: color,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ],
       ),
     );
@@ -899,8 +1078,8 @@ class _GameScreenState extends State<GameScreen>
       onTap: _tap,
       borderRadius: BorderRadius.circular(999),
       child: Ink(
-        width: 118,
-        height: 118,
+        width: 80,
+        height: 80,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(
@@ -910,9 +1089,9 @@ class _GameScreenState extends State<GameScreen>
           ),
           boxShadow: [
             BoxShadow(
-              color: accent.withAlpha(120),
-              blurRadius: 22,
-              spreadRadius: 3,
+              color: accent.withAlpha(100),
+              blurRadius: 16,
+              spreadRadius: 2,
             ),
           ],
         ),
@@ -922,11 +1101,11 @@ class _GameScreenState extends State<GameScreen>
             Positioned.fill(
               child: IgnorePointer(
                 child: Padding(
-                  padding: const EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(4),
                   child: CircularProgressIndicator(
                     value: cooldownProgress,
-                    strokeWidth: 4,
-                    backgroundColor: Colors.white.withAlpha(20),
+                    strokeWidth: 3,
+                    backgroundColor: Colors.white.withAlpha(16),
                     valueColor: AlwaysStoppedAnimation<Color>(
                       canTap ? Colors.white70 : Colors.cyanAccent,
                     ),
@@ -944,29 +1123,19 @@ class _GameScreenState extends State<GameScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      canTap ? Icons.touch_app : Icons.hourglass_bottom_rounded,
+                      canTap
+                          ? Icons.touch_app
+                          : Icons.hourglass_bottom_rounded,
                       color: Colors.white,
-                      size: 34,
+                      size: 22,
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 3),
                     Text(
                       '+${gain.toStringFormatted()}',
                       style: const TextStyle(
                         color: Colors.white,
+                        fontSize: 11,
                         fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      canTap
-                          ? widget.strings.ready
-                          : widget.strings.secondsShort(
-                              _controller.tapCooldownRemainingSeconds.ceil(),
-                            ),
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
@@ -1201,52 +1370,61 @@ class _GameScreenState extends State<GameScreen>
         .where((item) => !_controller.state.discoveredSecrets.contains(item.id))
         .take(3)
         .toList();
+    if (hints.isEmpty) return const SizedBox.shrink();
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: _glassBox(),
+      padding: const EdgeInsets.all(12),
+      decoration: _glassBox(radius: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.strings.secretHints,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-            ),
+          Row(
+            children: [
+              const Icon(
+                Icons.visibility_outlined,
+                color: Colors.white38,
+                size: 14,
+              ),
+              const SizedBox(width: 6),
+              Text(
+                widget.strings.secretHints,
+                style: const TextStyle(
+                  color: Colors.white54,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 6),
-          Text(
-            widget.strings.hiddenRouteHint,
-            style: const TextStyle(color: Colors.white60, height: 1.35),
-          ),
-          const SizedBox(height: 10),
-          if (hints.isEmpty)
-            Text(
-              widget.strings.noSecretHints,
-              style: const TextStyle(color: Colors.white54),
-            )
-          else
-            ...hints.map(
-              (secret) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: _glassChip(
-                  icon: Icons.visibility_outlined,
-                  label: widget.strings.formatSecretHint(
-                    secret,
-                    branchLabel: secret.requiredBranchId == null
-                        ? null
-                        : widget.config.branchById(secret.requiredBranchId!)?.title ??
-                            secret.requiredBranchId,
-                    milestoneTitle: secret.requiredMilestoneId == null
-                        ? null
-                        : widget.config.milestoneById(secret.requiredMilestoneId!)?.title ??
-                            secret.requiredMilestoneId,
-                  ),
+          ...hints.map(
+            (secret) => Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text(
+                widget.strings.formatSecretHint(
+                  secret,
+                  branchLabel: secret.requiredBranchId == null
+                      ? null
+                      : widget.config
+                              .branchById(secret.requiredBranchId!)
+                              ?.title ??
+                          secret.requiredBranchId,
+                  milestoneTitle: secret.requiredMilestoneId == null
+                      ? null
+                      : widget.config
+                              .milestoneById(
+                                secret.requiredMilestoneId!,
+                              )
+                              ?.title ??
+                          secret.requiredMilestoneId,
+                ),
+                style: const TextStyle(
+                  color: Colors.white38,
+                  fontSize: 12,
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
@@ -1256,156 +1434,252 @@ class _GameScreenState extends State<GameScreen>
     await showModalBottomSheet<void>(
       context: context,
       backgroundColor: const Color(0xFF121D28),
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
       builder: (context) => StatefulBuilder(
-        builder: (context, setSheetState) => SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _sheetTitle(widget.strings.settings),
-              ListTile(
-                title: Text(widget.strings.language,
-                    style: const TextStyle(color: Colors.white)),
-                subtitle: Text(widget.strings.chooseLanguage,
-                    style: const TextStyle(color: Colors.white54)),
-                trailing: DropdownButton<AppLanguage>(
-                  value: widget.settings.language,
-                  dropdownColor: const Color(0xFF121D28),
-                  items: [
-                    DropdownMenuItem(
-                      value: AppLanguage.english,
-                      child: Text(widget.strings.english,
-                          style: const TextStyle(color: Colors.white)),
-                    ),
-                    DropdownMenuItem(
-                      value: AppLanguage.russian,
-                      child: Text(widget.strings.russian,
-                          style: const TextStyle(color: Colors.white)),
-                    ),
-                  ],
-                  onChanged: (value) async {
-                    if (value == null) return;
-                    await widget.onSettingsChanged(
-                      widget.settings.copyWith(language: value),
-                    );
-                    if (!mounted) return;
-                    setState(() {});
-                    setSheetState(() {});
-                  },
-                ),
-              ),
-              SwitchListTile(
-                value: widget.settings.soundEnabled,
-                title: Text(widget.strings.sound,
-                    style: const TextStyle(color: Colors.white)),
-                subtitle: Text(widget.strings.soundOn,
-                    style: const TextStyle(color: Colors.white54)),
-                onChanged: (value) async {
-                  await widget.onSettingsChanged(
-                    widget.settings.copyWith(soundEnabled: value),
-                  );
-                  if (!mounted) return;
-                  setState(() {});
-                  setSheetState(() {});
-                },
-              ),
-              SwitchListTile(
-                value: widget.settings.reducedMotion,
-                title: Text(widget.strings.reducedMotion,
-                    style: const TextStyle(color: Colors.white)),
-                subtitle: Text(widget.strings.reducedMotionDescription,
-                    style: const TextStyle(color: Colors.white54)),
-                onChanged: (value) async {
-                  await widget.onSettingsChanged(
-                    widget.settings.copyWith(reducedMotion: value),
-                  );
-                  if (!mounted) return;
-                  setState(() {});
-                  setSheetState(() {});
-                },
-              ),
-              ListTile(
-                title: Text(widget.strings.uiScale,
-                    style: const TextStyle(color: Colors.white)),
-                subtitle: Slider(
-                  value: widget.settings.uiScale,
-                  min: 0.9,
-                  max: 1.25,
-                  divisions: 7,
-                  label: widget.settings.uiScale.toStringAsFixed(2),
-                  onChanged: (value) async {
-                    await widget.onSettingsChanged(
-                      widget.settings.copyWith(uiScale: value),
-                    );
-                    if (!mounted) return;
-                    setState(() {});
-                    setSheetState(() {});
-                  },
-                ),
-              ),
-              ListTile(
-                title: Text(widget.strings.musicLayer,
-                    style: const TextStyle(color: Colors.white)),
-                subtitle: Text(
-                  '${widget.audioService.currentMusicLayer} • ${widget.settings.musicVolume.toStringAsFixed(2)}',
-                  style: const TextStyle(color: Colors.white54),
-                ),
-              ),
-              ListTile(
-                title: Text(widget.strings.sfxVolume,
-                    style: const TextStyle(color: Colors.white)),
-                subtitle: Slider(
-                  value: widget.settings.sfxVolume,
-                  min: 0,
-                  max: 1,
-                  divisions: 10,
-                  label: widget.settings.sfxVolume.toStringAsFixed(1),
-                  onChanged: (value) async {
-                    await widget.onSettingsChanged(
-                      widget.settings.copyWith(sfxVolume: value),
-                    );
-                    if (!mounted) return;
-                    setState(() {});
-                    setSheetState(() {});
-                  },
-                ),
-              ),
-              ListTile(
-                title: Text(widget.strings.colorClarity,
-                    style: const TextStyle(color: Colors.white)),
-                subtitle: Text(
-                  widget.strings.formatColorblindMode(
-                    widget.settings.colorblindMode,
+        builder: (context, setSheetState) => DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          maxChildSize: 0.92,
+          minChildSize: 0.4,
+          expand: false,
+          builder: (context, scrollController) => SingleChildScrollView(
+            controller: scrollController,
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _sheetTitle(widget.strings.settings),
+
+                _settingsSectionHeader(widget.strings.settingsGeneral),
+                ListTile(
+                  leading: const Icon(
+                    Icons.language_rounded,
+                    color: Colors.white70,
+                    size: 20,
                   ),
-                  style: const TextStyle(color: Colors.white54),
+                  title: Text(widget.strings.language,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Text(widget.strings.chooseLanguage,
+                      style: const TextStyle(color: Colors.white54)),
+                  trailing: DropdownButton<AppLanguage>(
+                    value: widget.settings.language,
+                    dropdownColor: const Color(0xFF121D28),
+                    items: [
+                      DropdownMenuItem(
+                        value: AppLanguage.english,
+                        child: Text(widget.strings.english,
+                            style: const TextStyle(color: Colors.white)),
+                      ),
+                      DropdownMenuItem(
+                        value: AppLanguage.russian,
+                        child: Text(widget.strings.russian,
+                            style: const TextStyle(color: Colors.white)),
+                      ),
+                    ],
+                    onChanged: (value) async {
+                      if (value == null) return;
+                      await widget.onSettingsChanged(
+                        widget.settings.copyWith(language: value),
+                      );
+                      if (!mounted) return;
+                      setState(() {});
+                      setSheetState(() {});
+                    },
+                  ),
                 ),
-                trailing: DropdownButton<ColorblindMode>(
-                  value: widget.settings.colorblindMode,
-                  dropdownColor: const Color(0xFF121D28),
-                  items: ColorblindMode.values
-                      .map((mode) => DropdownMenuItem(
-                            value: mode,
-                            child: Text(
-                                widget.strings.formatColorblindMode(mode),
-                                style: const TextStyle(color: Colors.white)),
-                          ))
-                      .toList(),
+
+                const Divider(color: Colors.white10, height: 24),
+                _settingsSectionHeader(widget.strings.settingsAudio),
+                SwitchListTile(
+                  secondary: const Icon(
+                    Icons.volume_up_rounded,
+                    color: Colors.white70,
+                    size: 20,
+                  ),
+                  value: widget.settings.soundEnabled,
+                  title: Text(widget.strings.sound,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Text(widget.strings.soundOn,
+                      style: const TextStyle(color: Colors.white54)),
                   onChanged: (value) async {
-                    if (value == null) return;
                     await widget.onSettingsChanged(
-                      widget.settings.copyWith(colorblindMode: value),
+                      widget.settings.copyWith(soundEnabled: value),
                     );
                     if (!mounted) return;
                     setState(() {});
                     setSheetState(() {});
                   },
                 ),
-              ),
-            ],
+                ListTile(
+                  leading: const Icon(
+                    Icons.music_note_rounded,
+                    color: Colors.white70,
+                    size: 20,
+                  ),
+                  title: Text(widget.strings.musicLayer,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Slider(
+                    value: widget.settings.musicVolume,
+                    min: 0,
+                    max: 1,
+                    divisions: 10,
+                    label: widget.settings.musicVolume.toStringAsFixed(1),
+                    onChanged: (value) async {
+                      await widget.onSettingsChanged(
+                        widget.settings.copyWith(musicVolume: value),
+                      );
+                      if (!mounted) return;
+                      setState(() {});
+                      setSheetState(() {});
+                    },
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.graphic_eq_rounded,
+                    color: Colors.white70,
+                    size: 20,
+                  ),
+                  title: Text(widget.strings.sfxVolume,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Slider(
+                    value: widget.settings.sfxVolume,
+                    min: 0,
+                    max: 1,
+                    divisions: 10,
+                    label: widget.settings.sfxVolume.toStringAsFixed(1),
+                    onChanged: (value) async {
+                      await widget.onSettingsChanged(
+                        widget.settings.copyWith(sfxVolume: value),
+                      );
+                      if (!mounted) return;
+                      setState(() {});
+                      setSheetState(() {});
+                    },
+                  ),
+                ),
+
+                const Divider(color: Colors.white10, height: 24),
+                _settingsSectionHeader(widget.strings.settingsAccessibility),
+                SwitchListTile(
+                  secondary: const Icon(
+                    Icons.animation_rounded,
+                    color: Colors.white70,
+                    size: 20,
+                  ),
+                  value: widget.settings.reducedMotion,
+                  title: Text(widget.strings.reducedMotion,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Text(widget.strings.reducedMotionDescription,
+                      style: const TextStyle(color: Colors.white54)),
+                  onChanged: (value) async {
+                    await widget.onSettingsChanged(
+                      widget.settings.copyWith(reducedMotion: value),
+                    );
+                    if (!mounted) return;
+                    setState(() {});
+                    setSheetState(() {});
+                  },
+                ),
+                SwitchListTile(
+                  secondary: const Icon(
+                    Icons.vibration_rounded,
+                    color: Colors.white70,
+                    size: 20,
+                  ),
+                  value: widget.settings.screenShake,
+                  title: Text(widget.strings.screenShake,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Text(widget.strings.screenShakeDescription,
+                      style: const TextStyle(color: Colors.white54)),
+                  onChanged: (value) async {
+                    await widget.onSettingsChanged(
+                      widget.settings.copyWith(screenShake: value),
+                    );
+                    if (!mounted) return;
+                    setState(() {});
+                    setSheetState(() {});
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.palette_rounded,
+                    color: Colors.white70,
+                    size: 20,
+                  ),
+                  title: Text(widget.strings.colorClarity,
+                      style: const TextStyle(color: Colors.white)),
+                  trailing: DropdownButton<ColorblindMode>(
+                    value: widget.settings.colorblindMode,
+                    dropdownColor: const Color(0xFF121D28),
+                    items: ColorblindMode.values
+                        .map((mode) => DropdownMenuItem(
+                              value: mode,
+                              child: Text(
+                                  widget.strings.formatColorblindMode(mode),
+                                  style:
+                                      const TextStyle(color: Colors.white)),
+                            ))
+                        .toList(),
+                    onChanged: (value) async {
+                      if (value == null) return;
+                      await widget.onSettingsChanged(
+                        widget.settings.copyWith(colorblindMode: value),
+                      );
+                      if (!mounted) return;
+                      setState(() {});
+                      setSheetState(() {});
+                    },
+                  ),
+                ),
+
+                const Divider(color: Colors.white10, height: 24),
+                _settingsSectionHeader(widget.strings.settingsGraphics),
+                ListTile(
+                  leading: const Icon(
+                    Icons.text_fields_rounded,
+                    color: Colors.white70,
+                    size: 20,
+                  ),
+                  title: Text(widget.strings.uiScale,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Slider(
+                    value: widget.settings.uiScale,
+                    min: 0.8,
+                    max: 1.5,
+                    divisions: 14,
+                    label: widget.settings.uiScale.toStringAsFixed(2),
+                    onChanged: (value) async {
+                      await widget.onSettingsChanged(
+                        widget.settings.copyWith(uiScale: value),
+                      );
+                      if (!mounted) return;
+                      setState(() {});
+                      setSheetState(() {});
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _settingsSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4, top: 4, bottom: 4),
+      child: Text(
+        title.toUpperCase(),
+        style: const TextStyle(
+          color: Colors.cyanAccent,
+          fontSize: 11,
+          fontWeight: FontWeight.w800,
+          letterSpacing: 1.2,
         ),
       ),
     );
@@ -2189,6 +2463,42 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
+  _NodePurchaseState _nodePurchaseState(TechTreeNodeData node) {
+    if (node.kind == TechTreeNodeKind.secret) {
+      return node.purchased
+          ? _NodePurchaseState.owned
+          : _NodePurchaseState.locked;
+    }
+    if (node.purchased && node.kind == TechTreeNodeKind.upgrade) {
+      final upgrade = widget.config.upgrades[node.id];
+      if (upgrade != null) {
+        final level = _controller.state.upgrades[node.id]?.level ?? 0;
+        if (level >= upgrade.maxLevel) return _NodePurchaseState.owned;
+      }
+    }
+    if (node.locked) return _NodePurchaseState.locked;
+    if (node.affordable) return _NodePurchaseState.canBuy;
+    return _NodePurchaseState.tooExpensive;
+  }
+
+  Color _purchaseStateColor(_NodePurchaseState state) {
+    return switch (state) {
+      _NodePurchaseState.canBuy => Colors.cyanAccent,
+      _NodePurchaseState.tooExpensive => Colors.amberAccent,
+      _NodePurchaseState.locked => Colors.white38,
+      _NodePurchaseState.owned => Colors.greenAccent,
+    };
+  }
+
+  String _purchaseStateLabel(_NodePurchaseState state) {
+    return switch (state) {
+      _NodePurchaseState.canBuy => widget.strings.canPurchase,
+      _NodePurchaseState.tooExpensive => widget.strings.notEnoughCoins,
+      _NodePurchaseState.locked => widget.strings.locked,
+      _NodePurchaseState.owned => widget.strings.alreadyOwned,
+    };
+  }
+
   Widget _statLine(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -2389,3 +2699,5 @@ String _currentEra(GameController controller) {
   }
   return best;
 }
+
+enum _NodePurchaseState { canBuy, tooExpensive, locked, owned }
