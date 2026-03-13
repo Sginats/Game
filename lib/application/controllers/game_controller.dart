@@ -97,7 +97,8 @@ class GameController {
           _state.productionMultiplier,
         ) *
         _state.prestigeMultiplier *
-        _productionBonusMultiplier;
+        _productionBonusMultiplier *
+        GameNumber.fromDouble(TapSystem.comboProductionMultiplier(_state.tapCombo));
   }
 
   // ─── Tap ─────────────────────────────────────────────────────────────
@@ -390,7 +391,7 @@ class GameController {
     var totalBought = 0;
     var progressed = true;
     var guard = 0;
-    while (progressed && guard < 128) {
+    while (progressed && guard < 256) {
       progressed = false;
       guard++;
 
@@ -400,12 +401,14 @@ class GameController {
         ..sort((a, b) => a.baseCost.toDouble().compareTo(b.baseCost.toDouble()));
       for (final generator in generators) {
         final currentLevel = _state.generators[generator.id]?.level ?? 0;
-        final quantity = CostCalculator.maxAffordable(
+        final affordable = CostCalculator.maxAffordable(
           generator.baseCost,
           generator.costGrowthRate,
           currentLevel,
           _state.coins,
-        ).clamp(1, 9999);
+        );
+        if (affordable <= 0) continue;
+        final quantity = affordable.clamp(1, 9999);
         final before = _state.generators[generator.id]?.level ?? 0;
         if (purchaseGenerator(generator.id, quantity: quantity)) {
           final after = _state.generators[generator.id]?.level ?? before;
@@ -422,12 +425,14 @@ class GameController {
         final before = _state.upgrades[upgrade.id]?.level ?? 0;
         final remaining = math.max(0, upgrade.maxLevel - before);
         if (remaining <= 0) continue;
-        final quantity = CostCalculator.maxAffordable(
+        final affordable = CostCalculator.maxAffordable(
           upgrade.baseCost,
           upgrade.costGrowthRate,
           before,
           _state.coins,
-        ).clamp(1, remaining);
+        );
+        if (affordable <= 0) continue;
+        final quantity = affordable.clamp(1, remaining);
         if (purchaseUpgrade(upgrade.id, quantity: quantity)) {
           final after = _state.upgrades[upgrade.id]?.level ?? before;
           totalBought += math.max(0, after - before);
