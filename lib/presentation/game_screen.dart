@@ -11,6 +11,8 @@ import '../application/services/config_service.dart';
 import '../application/services/game_audio_service.dart';
 import '../application/services/leaderboard_service.dart';
 import '../application/services/leaderboard_session_service.dart';
+import '../application/services/robot_guide_service.dart';
+import '../domain/models/robot_guide.dart';
 import '../core/math/game_number.dart';
 import '../domain/mechanics/cost_calculator.dart';
 import '../domain/models/game_systems.dart';
@@ -51,6 +53,7 @@ class _GameScreenState extends State<GameScreen>
     with WidgetsBindingObserver {
   final TransformationController _camera = TransformationController();
   final List<_GainToast> _gainToasts = [];
+  final RobotGuideService _robotGuide = RobotGuideService();
   Timer? _tickTimer;
   String? _selectedNodeId;
   String? _hoveredNodeId;
@@ -59,6 +62,11 @@ class _GameScreenState extends State<GameScreen>
   Size _viewportSize = const Size(1200, 700);
   int _toastId = 0;
   late final int _frameTickMs;
+
+  // Cached tech tree graph — rebuilt only when state actually changes
+  TechTreeGraph? _cachedGraph;
+  String _lastEraId = '';
+  int _lastStateHash = 0;
 
   GameController get _controller => widget.controller;
   LeaderboardService get _leaderboardService => widget.leaderboardService;
@@ -73,6 +81,24 @@ class _GameScreenState extends State<GameScreen>
       (_) {
         setState(() {
           _controller.tick(_frameTickMs / 1000.0);
+          // Tick robot guide with current game state context
+          _robotGuide.tick(
+            _frameTickMs / 1000.0,
+            totalTaps: _controller.state.totalTaps,
+            tapCombo: _controller.state.tapCombo,
+            eventActive: _controller.activeEvent != null,
+            prestigeCount: _controller.state.prestigeCount,
+            coins: _controller.state.coins.toDouble(),
+            highestEraOrder: _highestEraOrder(),
+          );
+          // Ensure current era content is loaded lazily
+          final eraId = _currentEra(_controller);
+          if (eraId != _lastEraId) {
+            _lastEraId = eraId;
+            widget.config.ensureEraContent(eraId);
+            _robotGuide.onEraChanged(eraId);
+            _cachedGraph = null; // Invalidate cache on era change
+          }
         });
         _handleFeedback();
       },
@@ -80,6 +106,9 @@ class _GameScreenState extends State<GameScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showOffline();
       _focusCurrentEra();
+      // Initialize robot guide with current era
+      final eraId = _currentEra(_controller);
+      _robotGuide.onEraChanged(eraId);
     });
   }
 
@@ -106,13 +135,20 @@ class _GameScreenState extends State<GameScreen>
     final eraId = _currentEra(_controller);
     final accent = _eraAccent(eraId);
     final gradient = _eraGradient(eraId);
-    final graph = TechTreeBuilder.build(
-      config: widget.config,
-      controller: _controller,
-      strings: widget.strings,
-      purchaseMode: _purchaseMode,
-      selectedNodeId: _selectedNodeId,
-    );
+
+    // Cache the tech tree graph — only rebuild when state actually changes
+    final stateHash = _computeStateHash();
+    if (_cachedGraph == null || stateHash != _lastStateHash) {
+      _lastStateHash = stateHash;
+      _cachedGraph = TechTreeBuilder.build(
+        config: widget.config,
+        controller: _controller,
+        strings: widget.strings,
+        purchaseMode: _purchaseMode,
+        selectedNodeId: _selectedNodeId,
+      );
+    }
+    final graph = _cachedGraph!;
     final node = graph.nodeById(_hoveredNodeId ?? _selectedNodeId ?? '');
 
     return Scaffold(
@@ -325,6 +361,12 @@ class _GameScreenState extends State<GameScreen>
 
   Widget _buildNotificationOverlay() {
     final cards = <Widget>[];
+
+    // Robot guide message (shown first if active)
+    if (_robotGuide.hasMessage) {
+      cards.add(_buildRobotGuideCard());
+    }
+
     if (_controller.activeEvent != null) {
       cards.add(_buildEventCard(compact: true));
     }
@@ -362,6 +404,97 @@ class _GameScreenState extends State<GameScreen>
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildRobotGuideCard() {
+    final message = _robotGuide.currentMessage!;
+    final iconData = switch (message.type) {
+      RobotGuideMessageType.tutorial => Icons.school_rounded,
+      RobotGuideMessageType.tip => Icons.tips_and_updates_rounded,
+      RobotGuideMessageType.warning => Icons.warning_amber_rounded,
+      RobotGuideMessageType.secret => Icons.visibility_rounded,
+      RobotGuideMessageType.eraIntro => Icons.explore_rounded,
+      RobotGuideMessageType.milestone => Icons.emoji_events_rounded,
+      RobotGuideMessageType.encouragement => Icons.thumb_up_alt_rounded,
+      RobotGuideMessageType.reflection => Icons.psychology_rounded,
+    };
+    final accentColor = switch (message.type) {
+      RobotGuideMessageType.tutorial => const Color(0xFF64B5F6),
+      RobotGuideMessageType.tip => const Color(0xFF81C784),
+      RobotGuideMessageType.warning => const Color(0xFFFFB74D),
+      RobotGuideMessageType.secret => const Color(0xFFCE93D8),
+      RobotGuideMessageType.eraIntro => const Color(0xFF4DD0E1),
+      RobotGuideMessageType.milestone => const Color(0xFFFFD54F),
+      RobotGuideMessageType.encouragement => const Color(0xFF81C784),
+      RobotGuideMessageType.reflection => const Color(0xFF90CAF9),
+    };
+
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: const Color(0xDD0C1820),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: accentColor.withAlpha(60)),
+        boxShadow: [
+          BoxShadow(
+            color: accentColor.withAlpha(20),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 28,
+            height: 28,
+            decoration: BoxDecoration(
+              color: accentColor.withAlpha(30),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(iconData, color: accentColor, size: 14),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'GUIDE',
+                  style: TextStyle(
+                    color: accentColor,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  message.text,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              _robotGuide.dismiss();
+              setState(() {});
+            },
+            borderRadius: BorderRadius.circular(12),
+            child: const Padding(
+              padding: EdgeInsets.all(4),
+              child: Icon(Icons.close, color: Colors.white38, size: 14),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -1286,7 +1419,8 @@ class _GameScreenState extends State<GameScreen>
   }
 
   void _focusCurrentEra() {
-    final graph = TechTreeBuilder.build(
+    // Use the cached graph if available, otherwise build one
+    final graph = _cachedGraph ?? TechTreeBuilder.build(
       config: widget.config,
       controller: _controller,
       strings: widget.strings,
@@ -2547,6 +2681,45 @@ class _GameScreenState extends State<GameScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
+  }
+
+  /// Compute a lightweight hash of state fields that affect the tech tree.
+  /// Used to avoid expensive TechTreeBuilder.build() calls every tick.
+  int _computeStateHash() {
+    final state = _controller.state;
+    // Combine key fields that affect tree rendering using integer-based hashing
+    var hash = state.coins.toStringFormatted().hashCode;
+    hash ^= state.generators.length.hashCode;
+    hash ^= state.upgrades.length.hashCode;
+    hash ^= state.unlockedEras.length.hashCode;
+    hash ^= state.discoveredSecrets.length.hashCode;
+    hash ^= state.unlockedMilestones.length.hashCode;
+    hash ^= state.chosenBranches.length.hashCode;
+    hash ^= _selectedNodeId.hashCode;
+    hash ^= _purchaseMode.hashCode;
+    // Include total levels to detect purchases
+    for (final gen in state.generators.values) {
+      hash ^= gen.level.hashCode;
+    }
+    for (final upg in state.upgrades.values) {
+      hash ^= upg.level.hashCode;
+    }
+    return hash;
+  }
+
+  int _highestEraOrder() {
+    int best = 1;
+    for (final gen in _controller.config.generators.values) {
+      final state = _controller.state.generators[gen.id];
+      if (state != null && state.level > 0) {
+        final era = _controller.config.eras.firstWhere(
+          (e) => e.id == gen.eraId,
+          orElse: () => _controller.config.eras.first,
+        );
+        if (era.order > best) best = era.order;
+      }
+    }
+    return best;
   }
 }
 

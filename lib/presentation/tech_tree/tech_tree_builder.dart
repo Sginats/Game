@@ -16,8 +16,13 @@ class TechTreeBuilder {
   static const double eraSpacing = 320;
   static const double baseX = 220;
   static const double generatorY = 540;
+  // Expanded layout positions for up to 100 upgrades per era
+  // Upgrades are placed in a grid pattern around the generator
   static const List<double> _upgradeY = [240, 390, 690, 840];
   static const List<double> _upgradeX = [120, 200, 200, 120];
+  static const int _rowsPerColumn = 5;
+  static const double _columnSpacing = 30;
+  static const double _verticalStagger = 8;
 
   const TechTreeBuilder._();
 
@@ -34,7 +39,21 @@ class TechTreeBuilder {
 
     GeneratorDefinition? previousGenerator;
 
+    // Only build nodes for eras that have content loaded.
+    // This avoids processing all 20 eras when only a few are unlocked.
+    final unlockedEras = controller.state.unlockedEras;
+
     for (final era in eras) {
+      // Skip eras whose content hasn't been loaded yet,
+      // unless the era has a generator in config (always show base content)
+      final hasGenerator = config.generators.values.any(
+        (item) => item.eraId == era.id,
+      );
+      if (!hasGenerator) {
+        // If this era has no generator loaded, skip it entirely
+        continue;
+      }
+
       final eraX = baseX + ((era.order - 1) * eraSpacing);
       final generator = config.generators.values.firstWhere(
         (item) => item.eraId == era.id,
@@ -68,15 +87,20 @@ class TechTreeBuilder {
 
       for (var index = 0; index < upgrades.length; index++) {
         final upgrade = upgrades[index];
+        // Compute grid position for large numbers of upgrades
+        final col = index ~/ _rowsPerColumn;
+        final row = index % _rowsPerColumn;
+        final offsetX = _upgradeX[row.clamp(0, _upgradeX.length - 1).toInt()] +
+            (col * _columnSpacing);
+        final offsetY = _upgradeY[row.clamp(0, _upgradeY.length - 1).toInt()] +
+            (col * _verticalStagger);
         final upgradeNode = _buildUpgradeNode(
           upgrade: upgrade,
           controller: controller,
           generator: generator,
           strings: strings,
-          positionX:
-              eraX + _upgradeX[index.clamp(0, _upgradeX.length - 1).toInt()],
-          positionY:
-              _upgradeY[index.clamp(0, _upgradeY.length - 1).toInt()],
+          positionX: eraX + offsetX,
+          positionY: offsetY,
           selectedNodeId: selectedNodeId,
           purchaseMode: purchaseMode,
         );

@@ -71,6 +71,7 @@ class RoomContentGenerator {
 
   const RoomContentGenerator();
 
+  /// Build content for all eras at once (legacy interface).
   GeneratedRoomContent build({
     required List<Era> eras,
     required List<GeneratorDefinition> baseGenerators,
@@ -87,6 +88,21 @@ class RoomContentGenerator {
     }
 
     return GeneratedRoomContent(generators: generators, upgrades: upgrades);
+  }
+
+  /// Build content for a single era (lazy loading support).
+  GeneratedRoomContent buildForEra({
+    required Era era,
+    required List<GeneratorDefinition> baseGenerators,
+  }) {
+    final baseByEra = {for (final item in baseGenerators) item.eraId: item};
+    final seed = baseByEra[era.id];
+    final generator = _buildGenerator(era, seed);
+    final upgrades = _buildRoomUpgrades(era, generator);
+    return GeneratedRoomContent(
+      generators: [generator],
+      upgrades: upgrades,
+    );
   }
 
   GeneratorDefinition _buildGenerator(Era era, GeneratorDefinition? seed) {
@@ -220,9 +236,95 @@ class RoomContentGenerator {
     int tier,
     bool milestone,
   ) {
+    // Use era-themed names for more variety
+    final names = _eraUpgradeNames[themeToken];
+    if (names != null) {
+      final branchNames = names[branch.id];
+      if (branchNames != null && tier <= branchNames.length) {
+        return branchNames[tier - 1];
+      }
+    }
     final prefix = milestone ? 'Milestone' : branch.branchName;
     return '$themeToken $prefix Tier $tier';
   }
+
+  // Era-specific upgrade name tables for richer content identity
+  static const Map<String, Map<String, List<String>>> _eraUpgradeNames = {
+    'Junk': {
+      'tap': [
+        'Loose Wire Fix', 'Rusty Button Repair', 'Scrap Hammer', 'Makeshift Switch',
+        'Tape Reinforcement', 'Bent Pin Adjust', 'Junk Click Amp', 'Salvage Trigger',
+        'Crude Lever', 'Emergency Tap', 'Rewired Contact', 'Found Battery',
+        'Scrap Capacitor', 'Junk Relay Fix', 'Recycled Input', 'Debris Tap Boost',
+        'Cable Splice Tap', 'Tin Foil Bridge', 'Recovered Input', 'Breakthrough Tap',
+      ],
+      'automation': [
+        'Dripping Coolant Loop', 'Wobbly Fan Fix', 'Scrap Conveyor', 'Rust Gear Oil',
+        'Gravity Feed Setup', 'Junk Timer Circuit', 'Salvage Auto-Feeder', 'Duct Tape Servo',
+        'Rattling Motor Tune', 'Makeshift Pulley', 'Found Gear Train', 'Recycled Pump',
+        'Debris Sorter', 'Crude Auto-Switch', 'Scrap Roller Belt', 'Junk Piston Repair',
+        'Wire Spool Spinner', 'Broken Clock Motor', 'Salvaged Actuator', 'Auto-Patch System',
+      ],
+      'room': [
+        'Sweep Dust', 'Clear Cobwebs', 'Patch Floor Crack', 'Fix Lightbulb',
+        'Reinforce Desk', 'Unclog Vent', 'Straighten Shelves', 'Tape Window Crack',
+        'Mount Power Strip', 'Organize Cables', 'Clean Monitor', 'Replace Chair Leg',
+        'Fix Door Hinge', 'Insulate Wall Gap', 'Hang Work Light', 'Level Workspace',
+        'Secure Loose Board', 'Patch Ceiling Leak', 'Install Shelf Hook', 'First Room Cleanup',
+      ],
+      'ai': [
+        'Spark Recognition', 'Signal Noise Filter', 'Basic Pattern Match', 'First Neural Seed',
+        'Input Parser v0.1', 'Memory Register Fix', 'Logic Gate Repair', 'Binary Bootstrap',
+        'Feedback Loop Init', 'Error Correction Bit', 'Simple Decision Tree', 'Data Trickle Feed',
+        'Primitive Learning Cycle', 'Boot Sequence Patch', 'AI Heartbeat Monitor', 'Core Awareness Ping',
+        'Self-Check Routine', 'Instruction Decoder', 'First Thought Seed', 'Consciousness Flicker',
+      ],
+      'special': [
+        'Lucky Find', 'Hidden Stash', 'Mystery Component', 'Strange Signal',
+        'Forgotten Blueprint', 'Mysterious Circuit', 'Enigma Cell', 'Glitch Crystal',
+        'Old Tech Fragment', 'Secret Wiring', 'Unknown Module', 'Anomaly Shard',
+        'Uncharted Node', 'Relic Processor', 'Phantom Trace', 'Echo Amplifier',
+        'Lost Prototype', 'Void Spark', 'Dark Matter Bit', 'Quantum Scrap',
+      ],
+    },
+    'Budget': {
+      'tap': [
+        'Basic Mouse Upgrade', 'Keyboard Polish', 'Click Sensitivity Tune', 'Wrist Rest',
+        'Faster Click Driver', 'Input Buffer Boost', 'Cheap Macro Key', 'Budget Tap Pad',
+        'Response Optimizer', 'Click Debounce Fix', 'Input Polling Boost', 'Trigger Speed Mod',
+        'Affordable Precision', 'Budget Hotkey Set', 'Economy Input Rail', 'Value Tap Amp',
+        'Refurbished Mouse Sensor', 'Discount Click Layer', 'Smart Tap Filter', 'Budget Mastery',
+      ],
+      'automation': [
+        'Script Scheduler v1', 'Cron Job Setup', 'Basic Batch Runner', 'Auto-Restart Service',
+        'Simple Task Queue', 'Budget Auto-Clicker', 'Process Monitor', 'Idle Detection Loop',
+        'Log Rotator', 'Watchdog Timer', 'Retry Handler', 'Queue Drainer',
+        'Event Loop Polish', 'Heartbeat Checker', 'Auto-Save Interval', 'Background Worker',
+        'Cheap Thread Pool', 'Timer Optimization', 'Scheduled Backup', 'Full Auto Suite',
+      ],
+      'room': [
+        'Second Monitor Stand', 'Budget RGB Strip', 'Cable Organizer Box', 'Desk Lamp Upgrade',
+        'Monitor Arm Mount', 'Surge Protector', 'Basic UPS Battery', 'Budget Desk Mat',
+        'Cable Management Clips', 'USB Hub', 'Power Strip Upgrade', 'Ergonomic Chair Cushion',
+        'Air Filter Fan', 'Desktop Shelf', 'Monitor Light Bar', 'Budget Sound Panel',
+        'Webcam Mount', 'Desk Drawer Organizer', 'Floor Mat', 'Complete Budget Setup',
+      ],
+      'ai': [
+        'Memory Cache Bump', 'Storage Index Build', 'Basic ML Model Load', 'First Dataset Feed',
+        'Simple Classification', 'Prediction Engine v0.1', 'Feature Extractor', 'Model Checkpoint',
+        'Training Scheduler', 'Gradient Optimizer', 'Batch Normalization', 'Dropout Layer',
+        'Learning Rate Finder', 'Hyperparameter Sweep', 'Validation Pipeline', 'Cross-Validation',
+        'Model Pruning', 'Inference Optimizer', 'Smart Cache Layer', 'Budget AI Suite',
+      ],
+      'special': [
+        'Hidden Coupon', 'Flash Sale Alert', 'Bulk Discount', 'Loyalty Bonus',
+        'Referral Credit', 'Cashback Reward', 'Bundle Deal', 'Clearance Find',
+        'Secret Promo Code', 'Reward Points', 'Mystery Box', 'Golden Ticket',
+        'Lucky Draw', 'Bonus Multiplier', 'Hidden Efficiency', 'Value Maximizer',
+        'Discount Stack', 'Combo Savings', 'Mega Deal', 'Budget Breakthrough',
+      ],
+    },
+  };
 }
 
 class _BranchTemplate {
