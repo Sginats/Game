@@ -11,6 +11,7 @@ import 'application/services/app_strings.dart';
 import 'application/services/config_service.dart';
 import 'application/services/game_audio_service.dart';
 import 'application/services/leaderboard_service.dart';
+import 'application/services/era_content_manager.dart';
 import 'application/services/room_content_generator.dart';
 import 'application/services/leaderboard_session_service.dart';
 import 'core/math/game_number.dart';
@@ -28,23 +29,33 @@ import 'presentation/game_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  const supabaseUrl = String.fromEnvironment(
-    'SUPABASE_URL',
-    defaultValue: 'https://uqixesqvozizevjuzjjn.supabase.co',
-  );
-  const supabaseAnonKey = String.fromEnvironment(
-    'SUPABASE_ANON_KEY',
-    defaultValue: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxaXhlc3F2b3ppemV2anV6ampuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MTMxMTMsImV4cCI6MjA4ODk4OTExM30.dTlIqXh4Z7sBSVijYfyHz-NDBgZk9R2Olj2HvXfdG1s',
-  );
-
-  if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
-    await Supabase.initialize(
-      url: supabaseUrl,
-      anonKey: supabaseAnonKey,
-    );
-  }
+  // Defer Supabase initialization to avoid blocking startup
+  _initSupabase();
 
   runApp(const RoomZeroApp());
+}
+
+/// Initialize Supabase in the background without blocking the main UI.
+Future<void> _initSupabase() async {
+  try {
+    const supabaseUrl = String.fromEnvironment(
+      'SUPABASE_URL',
+      defaultValue: 'https://uqixesqvozizevjuzjjn.supabase.co',
+    );
+    const supabaseAnonKey = String.fromEnvironment(
+      'SUPABASE_ANON_KEY',
+      defaultValue: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxaXhlc3F2b3ppemV2anV6ampuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MTMxMTMsImV4cCI6MjA4ODk4OTExM30.dTlIqXh4Z7sBSVijYfyHz-NDBgZk9R2Olj2HvXfdG1s',
+    );
+
+    if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
+      await Supabase.initialize(
+        url: supabaseUrl,
+        anonKey: supabaseAnonKey,
+      );
+    }
+  } catch (_) {
+    // Supabase init failure should not prevent game from loading
+  }
 }
 
 class RoomZeroApp extends StatelessWidget {
@@ -143,26 +154,22 @@ class _GameLoaderState extends State<GameLoader> {
           .toList();
       final progression = ProgressionContent.fromJson(progressionConfig);
 
-      // Generate 100 upgrades per era using the content generator
-      final roomContent = const RoomContentGenerator().build(
+      // Use lazy era content manager instead of loading all 2000+ upgrades at once
+      final contentManager = EraContentManager(
+        generator: const RoomContentGenerator(),
         eras: eras,
         baseGenerators: baseGenerators,
+        baseUpgrades: baseUpgrades,
       );
 
-      // Merge base config with generated content
-      // Generated content supplements the base config entries
-      final generators = <GeneratorDefinition>[
-        ...baseGenerators,
-        ...roomContent.generators.where(
-          (g) => !baseGenerators.any((b) => b.id == g.id),
-        ),
-      ];
-      final upgrades = <UpgradeDefinition>[
-        ...baseUpgrades,
-        ...roomContent.upgrades.where(
-          (u) => !baseUpgrades.any((b) => b.id == u.id),
-        ),
-      ];
+      // Only load the first era and its neighbor at startup for fast loading
+      contentManager.ensureEraLoaded('era_1');
+      contentManager.ensureEraLoaded('era_2');
+
+      // Load remaining eras that the player has already unlocked
+      // (will be populated after loading save data)
+      final generators = contentManager.generators;
+      final upgrades = contentManager.upgrades;
 
       final config = ConfigService(
         baseTapValue: GameNumber.fromDouble(
@@ -171,8 +178,8 @@ class _GameLoaderState extends State<GameLoader> {
         baseTapMultiplier: GameNumber.fromDouble(
           double.parse(economyConfig['baseTapMultiplier'].toString()),
         ),
-        generators: {for (final item in generators) item.id: item},
-        upgrades: {for (final item in upgrades) item.id: item},
+        generators: Map<String, GeneratorDefinition>.from(generators),
+        upgrades: Map<String, UpgradeDefinition>.from(upgrades),
         eras: eras,
         achievements: achievements,
         purchaseModes: purchaseModes.isEmpty
@@ -196,6 +203,7 @@ class _GameLoaderState extends State<GameLoader> {
         maxOfflineHours: gameConfig['maxOfflineHours'] as int,
         autoSaveIntervalSeconds: gameConfig['autoSaveIntervalSeconds'] as int,
         tickRateMs: gameConfig['tickRateMs'] as int,
+        contentManager: contentManager,
       );
 
       final controller = GameController(
@@ -208,6 +216,11 @@ class _GameLoaderState extends State<GameLoader> {
       );
 
       await controller.loadGame();
+
+      // After loading save data, ensure all unlocked eras have their content loaded
+      contentManager.ensureErasAroundLoaded(controller.state.unlockedEras);
+      // Update config with any newly loaded content
+      config.refreshContent(contentManager);
 
       _audioService.setEnabled(settings.soundEnabled);
       _audioService.configureVolumes(

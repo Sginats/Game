@@ -5,14 +5,15 @@ import '../../domain/models/game_systems.dart';
 import '../../domain/models/generator.dart';
 import '../../domain/models/progression_content.dart';
 import '../../domain/models/upgrade.dart';
+import 'era_content_manager.dart';
 
 /// Service that provides parsed configuration data to the game systems.
 /// Pure Dart — no Flutter imports.
 class ConfigService {
   final GameNumber baseTapValue;
   final GameNumber baseTapMultiplier;
-  final Map<String, GeneratorDefinition> generators;
-  final Map<String, UpgradeDefinition> upgrades;
+  Map<String, GeneratorDefinition> generators;
+  Map<String, UpgradeDefinition> upgrades;
   final List<Era> eras;
   final List<AchievementDefinition> achievements;
   final int maxOfflineHours;
@@ -22,6 +23,7 @@ class ConfigService {
   final List<AITrait> aiTraits;
   final List<Ending> endings;
   final ProgressionContent progression;
+  final EraContentManager? contentManager;
 
   ConfigService({
     required this.baseTapValue,
@@ -47,7 +49,22 @@ class ConfigService {
     ],
     this.endings = const [],
     this.progression = const ProgressionContent(),
+    this.contentManager,
   });
+
+  /// Refresh generators and upgrades from the content manager after lazy loading.
+  void refreshContent(EraContentManager manager) {
+    generators = Map<String, GeneratorDefinition>.from(manager.generators);
+    upgrades = Map<String, UpgradeDefinition>.from(manager.upgrades);
+  }
+
+  /// Ensure content for a specific era is available.
+  void ensureEraContent(String eraId) {
+    if (contentManager != null) {
+      contentManager!.ensureEraLoaded(eraId);
+      refreshContent(contentManager!);
+    }
+  }
 
   BranchDefinition? branchById(String id) {
     for (final branch in progression.branches) {
@@ -84,4 +101,3 @@ class ConfigService {
     return null;
   }
 }
-
