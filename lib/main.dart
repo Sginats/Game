@@ -53,8 +53,10 @@ Future<void> _initSupabase() async {
         anonKey: supabaseAnonKey,
       );
     }
-  } catch (_) {
-    // Supabase init failure should not prevent game from loading
+  } catch (e) {
+    // Supabase init failure should not prevent game from loading.
+    // Log for debugging but continue gracefully.
+    debugPrint('Supabase initialization failed: $e');
   }
 }
 

@@ -2687,8 +2687,8 @@ class _GameScreenState extends State<GameScreen>
   /// Used to avoid expensive TechTreeBuilder.build() calls every tick.
   int _computeStateHash() {
     final state = _controller.state;
-    // Combine key fields that affect tree rendering
-    var hash = state.coins.toDouble().hashCode;
+    // Combine key fields that affect tree rendering using integer-based hashing
+    var hash = state.coins.toStringFormatted().hashCode;
     hash ^= state.generators.length.hashCode;
     hash ^= state.upgrades.length.hashCode;
     hash ^= state.unlockedEras.length.hashCode;

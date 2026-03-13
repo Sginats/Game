@@ -20,6 +20,9 @@ class TechTreeBuilder {
   // Upgrades are placed in a grid pattern around the generator
   static const List<double> _upgradeY = [240, 390, 690, 840];
   static const List<double> _upgradeX = [120, 200, 200, 120];
+  static const int _rowsPerColumn = 5;
+  static const double _columnSpacing = 30;
+  static const double _verticalStagger = 8;
 
   const TechTreeBuilder._();
 
@@ -85,12 +88,12 @@ class TechTreeBuilder {
       for (var index = 0; index < upgrades.length; index++) {
         final upgrade = upgrades[index];
         // Compute grid position for large numbers of upgrades
-        final col = index ~/ 5; // 5 rows per column
-        final row = index % 5;
+        final col = index ~/ _rowsPerColumn;
+        final row = index % _rowsPerColumn;
         final offsetX = _upgradeX[row.clamp(0, _upgradeX.length - 1).toInt()] +
-            (col * 30).toDouble(); // spread columns
+            (col * _columnSpacing);
         final offsetY = _upgradeY[row.clamp(0, _upgradeY.length - 1).toInt()] +
-            (col * 8).toDouble(); // slight vertical stagger
+            (col * _verticalStagger);
         final upgradeNode = _buildUpgradeNode(
           upgrade: upgrade,
           controller: controller,

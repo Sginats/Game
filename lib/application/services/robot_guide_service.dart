@@ -12,6 +12,9 @@ class RobotGuideService {
 
   static const double _messageDuration = 12.0;
   static const double _tipCooldown = 30.0;
+  static const int _prestigeHintMinTaps = 200;
+  static const double _prestigeHintMinCoins = 500000;
+  static const int _highComboThreshold = 50;
   double _tipTimer = 0;
 
   RobotGuideMessage? get currentMessage => _currentMessage;
@@ -143,10 +146,10 @@ class RobotGuideService {
     if (eventActive) {
       return _firstUnshown(RobotGuideDialogue.contextualTips['event_active']);
     }
-    if (tapCombo > 50) {
+    if (tapCombo > _highComboThreshold) {
       return _firstUnshown(RobotGuideDialogue.contextualTips['high_combo']);
     }
-    if (prestigeCount == 0 && totalTaps > 200 && coins > 500000) {
+    if (prestigeCount == 0 && totalTaps > _prestigeHintMinTaps && coins > _prestigeHintMinCoins) {
       return _firstUnshown(RobotGuideDialogue.contextualTips['first_prestige']);
     }
     return null;
