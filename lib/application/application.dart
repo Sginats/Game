@@ -1,2 +1,10 @@
 export 'controllers/game_controller.dart';
+export 'services/app_settings_service.dart';
+export 'services/app_strings.dart';
 export 'services/config_service.dart';
+export 'services/game_audio_service.dart';
+export 'services/leaderboard_auth.dart';
+export 'services/leaderboard_service.dart';
+export 'services/leaderboard_session_service.dart';
+export 'services/leaderboard_transport.dart';
+export 'services/room_content_generator.dart';

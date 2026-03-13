@@ -48,7 +48,7 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen>
-    with WidgetsBindingObserver, TickerProviderStateMixin {
+    with WidgetsBindingObserver {
   final TransformationController _camera = TransformationController();
   final List<_GainToast> _gainToasts = [];
   Timer? _tickTimer;
@@ -58,6 +58,7 @@ class _GameScreenState extends State<GameScreen>
   bool _offlineShown = false;
   Size _viewportSize = const Size(1200, 700);
   int _toastId = 0;
+  late final int _frameTickMs;
 
   GameController get _controller => widget.controller;
   LeaderboardService get _leaderboardService => widget.leaderboardService;
@@ -66,11 +67,12 @@ class _GameScreenState extends State<GameScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _frameTickMs = math.max(widget.config.tickRateMs, 250);
     _tickTimer = Timer.periodic(
-      Duration(milliseconds: widget.config.tickRateMs),
+      Duration(milliseconds: _frameTickMs),
       (_) {
         setState(() {
-          _controller.tick(widget.config.tickRateMs / 1000.0);
+          _controller.tick(_frameTickMs / 1000.0);
         });
         _handleFeedback();
       },
@@ -133,16 +135,6 @@ class _GameScreenState extends State<GameScreen>
             ),
             child: Stack(
               children: [
-                Positioned(
-                  top: -120,
-                  left: -80,
-                  child: _blurBlob(accent.withAlpha(60), 200),
-                ),
-                Positioned(
-                  bottom: -160,
-                  right: -60,
-                  child: _blurBlob(Colors.lightBlueAccent.withAlpha(24), 260),
-                ),
                 Positioned.fill(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 6, 10, 8),
@@ -2538,21 +2530,10 @@ class _GameScreenState extends State<GameScreen>
       boxShadow: const [
         BoxShadow(
           color: Color(0x44000000),
-          blurRadius: 18,
-          offset: Offset(0, 10),
+          blurRadius: 10,
+          offset: Offset(0, 4),
         ),
       ],
-    );
-  }
-
-  Widget _blurBlob(Color color, double size) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: [BoxShadow(color: color, blurRadius: 120, spreadRadius: 30)],
-      ),
     );
   }
 

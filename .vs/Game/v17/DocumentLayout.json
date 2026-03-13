@@ -1,0 +1,207 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "Z:\\Everything\\Projects\\Game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\test\\presentation\\game_screen_widget_test.dart||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:test\\presentation\\game_screen_widget_test.dart||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\test\\core\\math\\game_number_test.dart||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:test\\core\\math\\game_number_test.dart||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\assets\\config\\progression_config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\config\\progression_config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\assets\\config\\economy_config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\config\\economy_config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\assets\\config\\game_config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\config\\game_config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\android\\gradle\\wrapper\\gradle-wrapper.properties||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:android\\gradle\\wrapper\\gradle-wrapper.properties||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\android\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:android\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\android\\settings.gradle.kts||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:android\\settings.gradle.kts||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\android\\key.properties.example||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:android\\key.properties.example||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\android\\gradle.properties||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:android\\gradle.properties||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|Z:\\Everything\\Projects\\Game\\android\\build.gradle.kts||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:android\\build.gradle.kts||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "game_screen_widget_test.dart",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\test\\presentation\\game_screen_widget_test.dart",
+              "RelativeDocumentMoniker": "test\\presentation\\game_screen_widget_test.dart",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\test\\presentation\\game_screen_widget_test.dart",
+              "RelativeToolTip": "test\\presentation\\game_screen_widget_test.dart",
+              "ViewState": "AgIAALQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:32:14.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "game_number_test.dart",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\test\\core\\math\\game_number_test.dart",
+              "RelativeDocumentMoniker": "test\\core\\math\\game_number_test.dart",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\test\\core\\math\\game_number_test.dart",
+              "RelativeToolTip": "test\\core\\math\\game_number_test.dart",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:32:09.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "progression_config.json",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\assets\\config\\progression_config.json",
+              "RelativeDocumentMoniker": "assets\\config\\progression_config.json",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\assets\\config\\progression_config.json",
+              "RelativeToolTip": "assets\\config\\progression_config.json",
+              "ViewState": "AgIAANwBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-13T17:30:22.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "game_config.json",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\assets\\config\\game_config.json",
+              "RelativeDocumentMoniker": "assets\\config\\game_config.json",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\assets\\config\\game_config.json",
+              "RelativeToolTip": "assets\\config\\game_config.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-13T17:30:20.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "economy_config.json",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\assets\\config\\economy_config.json",
+              "RelativeDocumentMoniker": "assets\\config\\economy_config.json",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\assets\\config\\economy_config.json",
+              "RelativeToolTip": "assets\\config\\economy_config.json",
+              "ViewState": "AgIAALwGAAAAAAAAAAAAAN0GAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-13T17:30:03.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "gradle-wrapper.properties",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\android\\gradle\\wrapper\\gradle-wrapper.properties",
+              "RelativeDocumentMoniker": "android\\gradle\\wrapper\\gradle-wrapper.properties",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\android\\gradle\\wrapper\\gradle-wrapper.properties",
+              "RelativeToolTip": "android\\gradle\\wrapper\\gradle-wrapper.properties",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:29:57.963Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": ".gitignore",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\android\\.gitignore",
+              "RelativeDocumentMoniker": "android\\.gitignore",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\android\\.gitignore",
+              "RelativeToolTip": "android\\.gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:29:54.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "settings.gradle.kts",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\android\\settings.gradle.kts",
+              "RelativeDocumentMoniker": "android\\settings.gradle.kts",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\android\\settings.gradle.kts",
+              "RelativeToolTip": "android\\settings.gradle.kts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:29:52.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "key.properties.example",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\android\\key.properties.example",
+              "RelativeDocumentMoniker": "android\\key.properties.example",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\android\\key.properties.example",
+              "RelativeToolTip": "android\\key.properties.example",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:29:49.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "gradle.properties",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\android\\gradle.properties",
+              "RelativeDocumentMoniker": "android\\gradle.properties",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\android\\gradle.properties",
+              "RelativeToolTip": "android\\gradle.properties",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:29:46.928Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "build.gradle.kts",
+              "DocumentMoniker": "Z:\\Everything\\Projects\\Game\\android\\build.gradle.kts",
+              "RelativeDocumentMoniker": "android\\build.gradle.kts",
+              "ToolTip": "Z:\\Everything\\Projects\\Game\\android\\build.gradle.kts",
+              "RelativeToolTip": "android\\build.gradle.kts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T17:29:45.89Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

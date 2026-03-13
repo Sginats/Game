@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\android\\gradle\\wrapper",
+    "\\assets",
+    "\\assets\\config",
+    "\\test",
+    "\\test\\core",
+    "\\test\\core\\math",
+    "\\test\\presentation"
+  ],
+  "SelectedNode": "\\test\\presentation\\game_screen_widget_test.dart",
+  "PreviewInSolutionExplorer": false
+}
