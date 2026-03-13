@@ -1419,7 +1419,8 @@ class _GameScreenState extends State<GameScreen>
   }
 
   void _focusCurrentEra() {
-    final graph = TechTreeBuilder.build(
+    // Use the cached graph if available, otherwise build one
+    final graph = _cachedGraph ?? TechTreeBuilder.build(
       config: widget.config,
       controller: _controller,
       strings: widget.strings,
