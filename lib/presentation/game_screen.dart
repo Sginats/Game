@@ -2513,39 +2513,6 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
-  Widget _miniAction(IconData icon, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
-      child: Ink(
-        width: 48,
-        height: 48,
-        decoration: _glassBox(),
-        child: Icon(icon, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _glassChip({required IconData icon, required String label}) {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 280),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: _glassBox(radius: 999),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: Colors.white70),
-          const SizedBox(width: 8),
-          Flexible(
-            child: Text(label,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: Colors.white70)),
-          ),
-        ],
-      ),
-    );
-  }
-
   BoxDecoration _glassBox({double radius = 22}) {
     return BoxDecoration(
       color: const Color(0xCC101A24),
