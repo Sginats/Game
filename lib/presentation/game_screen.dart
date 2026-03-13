@@ -1078,8 +1078,8 @@ class _GameScreenState extends State<GameScreen>
       onTap: _tap,
       borderRadius: BorderRadius.circular(999),
       child: Ink(
-        width: 80,
-        height: 80,
+        width: 90,
+        height: 90,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(
@@ -1648,9 +1648,9 @@ class _GameScreenState extends State<GameScreen>
                       style: const TextStyle(color: Colors.white)),
                   subtitle: Slider(
                     value: widget.settings.uiScale,
-                    min: 0.8,
+                    min: 0.85,
                     max: 1.5,
-                    divisions: 14,
+                    divisions: 13,
                     label: widget.settings.uiScale.toStringAsFixed(2),
                     onChanged: (value) async {
                       await widget.onSettingsChanged(
