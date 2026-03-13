@@ -23,25 +23,19 @@ class TechTreeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(28),
+      borderRadius: BorderRadius.circular(18),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xCC08111D),
-          border: Border.all(color: Colors.white.withAlpha(18)),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x66000000),
-              blurRadius: 30,
-              offset: Offset(0, 18),
-            ),
-          ],
+          color: const Color(0xDD08111D),
+          border: Border.all(color: Colors.white.withAlpha(12)),
+          borderRadius: BorderRadius.circular(18),
         ),
         child: InteractiveViewer(
           transformationController: transformationController,
           constrained: false,
-          minScale: 0.6,
-          maxScale: 1.55,
-          boundaryMargin: const EdgeInsets.all(420),
+          minScale: 0.5,
+          maxScale: 1.8,
+          boundaryMargin: const EdgeInsets.all(480),
           scaleEnabled: true,
           panEnabled: true,
           child: SizedBox(
@@ -243,7 +237,7 @@ class _TreeNode extends StatelessWidget {
                     Text(
                       node.icon,
                       style: TextStyle(
-                        color: Colors.white.withAlpha(node.locked ? 90 : 255),
+                        color: Colors.white.withAlpha(node.locked ? 130 : 255),
                         fontSize: radius * 0.24,
                         fontWeight: FontWeight.w700,
                       ),
@@ -257,7 +251,7 @@ class _TreeNode extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white.withAlpha(node.locked ? 110 : 245),
+                          color: Colors.white.withAlpha(node.locked ? 150 : 245),
                           fontSize: radius < 90 ? 9.5 : 11,
                           fontWeight: FontWeight.w700,
                           height: 1.1,
@@ -270,7 +264,9 @@ class _TreeNode extends StatelessWidget {
                       style: TextStyle(
                         color: node.purchased
                             ? const Color(0xFFFFD66B)
-                            : Colors.white54,
+                            : node.affordable
+                                ? const Color(0xFF7AEACC)
+                                : Colors.white54,
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
                       ),
@@ -316,11 +312,11 @@ class _TreeNode extends StatelessWidget {
     }
     switch (state) {
       case TechTreeNodeState.locked:
-        return const [Color(0xFF243041), Color(0xFF151C2B)];
+        return const [Color(0xFF2A3648), Color(0xFF1A2233)];
       case TechTreeNodeState.unlockable:
-        return const [Color(0xFF2C4764), Color(0xFF172436)];
+        return const [Color(0xFF344D6A), Color(0xFF1C2F48)];
       case TechTreeNodeState.affordable:
-        return const [Color(0xFF18A999), Color(0xFF0E615D)];
+        return const [Color(0xFF1CC4AD), Color(0xFF0F7A6E)];
       case TechTreeNodeState.purchased:
         return const [Color(0xFFF4B942), Color(0xFFB66A1E)];
       case TechTreeNodeState.selected:
