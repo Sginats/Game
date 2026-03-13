@@ -182,6 +182,7 @@ void main() {
 
     await tester.tap(find.byKey(const ValueKey('tree-node-gen_era_1')));
     await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Loadout'));
     await tester.tap(find.text('Loadout'));
     await tester.pumpAndSettle();
 

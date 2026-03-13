@@ -602,7 +602,7 @@ class _GameScreenState extends State<GameScreen>
               child: Text(
                 mode.label,
                 style: TextStyle(
-                  color: selected ? accent : Colors.white40,
+                  color: selected ? accent : Colors.white.withAlpha(120),
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
                 ),
@@ -780,21 +780,23 @@ class _GameScreenState extends State<GameScreen>
                   decoration: _glassBox(radius: 18),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.touch_app_rounded,
-                        color: Colors.white38,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        widget.strings.selectNodeHint,
-                        style: const TextStyle(
-                          color: Colors.white54,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-                  ),
+	                      const Icon(
+	                        Icons.touch_app_rounded,
+	                        color: Colors.white38,
+	                        size: 20,
+	                      ),
+	                      const SizedBox(width: 10),
+	                      Expanded(
+	                        child: Text(
+	                          widget.strings.selectNodeHint,
+	                          style: const TextStyle(
+	                            color: Colors.white54,
+	                            fontSize: 13,
+	                          ),
+	                        ),
+	                      ),
+	                    ],
+	                  ),
                 )
               : _buildNodeCard(node),
           const SizedBox(height: 8),
@@ -985,34 +987,49 @@ class _GameScreenState extends State<GameScreen>
           ),
           if (_controller.state.chosenBranches.isNotEmpty) ...[
             const SizedBox(height: 6),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: _controller.state.branchRespecTokens > 0
-                        ? () {
-                            final ok = _controller.respecBranch();
-                            if (!ok) return;
-                            setState(() {});
-                          }
-                        : null,
-                    child: Text(
-                      'Respec (${_controller.state.branchRespecTokens})',
-                      style: const TextStyle(fontSize: 12),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final compactActions = constraints.maxWidth < 320;
+                final respecButton = OutlinedButton(
+                  onPressed: _controller.state.branchRespecTokens > 0
+                      ? () {
+                          final ok = _controller.respecBranch();
+                          if (!ok) return;
+                          setState(() {});
+                        }
+                      : null,
+                  child: Text(
+                    widget.strings.respecLabel(
+                      _controller.state.branchRespecTokens,
                     ),
+                    style: const TextStyle(fontSize: 12),
                   ),
-                ),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => _showLoadoutSheet(),
-                    child: Text(
-                      widget.strings.loadout,
-                      style: const TextStyle(fontSize: 12),
-                    ),
+                );
+                final loadoutButton = OutlinedButton(
+                  onPressed: () => _showLoadoutSheet(),
+                  child: Text(
+                    widget.strings.loadout,
+                    style: const TextStyle(fontSize: 12),
                   ),
-                ),
-              ],
+                );
+                if (compactActions) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      respecButton,
+                      const SizedBox(height: 6),
+                      loadoutButton,
+                    ],
+                  );
+                }
+                return Row(
+                  children: [
+                    Expanded(child: respecButton),
+                    const SizedBox(width: 6),
+                    Expanded(child: loadoutButton),
+                  ],
+                );
+              },
             ),
           ],
         ],

@@ -109,6 +109,8 @@ class AppStrings {
   String get discovered => isRussian ? 'Найдено' : 'Discovered';
   String get loadout => isRussian ? 'Сборка' : 'Loadout';
   String get loadouts => isRussian ? 'Сборки' : 'Loadouts';
+  String respecLabel(int tokens) =>
+      isRussian ? 'Сброс ($tokens)' : 'Respec ($tokens)';
   String get savePreset => isRussian ? 'Сохранить пресет' : 'Save preset';
   String get saveCurrent => isRussian ? 'Сохранить текущее' : 'Save current';
   String get savedPresets => isRussian ? 'Сохраненные пресеты' : 'Saved presets';
