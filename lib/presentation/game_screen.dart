@@ -94,6 +94,12 @@ class _GameScreenState extends State<GameScreen>
             prestigeCount: _controller.state.prestigeCount,
             coins: _controller.state.coins.toDouble(),
             highestEraOrder: _highestEraOrder(),
+            trustTier: _controller.guideTier,
+          );
+          // Notify guide of room changes
+          _robotGuide.onRoomChanged(
+            _controller.currentRoomId,
+            trustTier: _controller.guideTier,
           );
           // Ensure current era content is loaded lazily
           final eraId = _currentEra(_controller);
