@@ -8,5 +8,6 @@ export 'meta_progression.dart';
 export 'progression_content.dart';
 export 'robot_guide.dart';
 export 'room_scene.dart';
+export 'route_faction.dart';
 export 'scene_event.dart';
 export 'upgrade.dart';
