@@ -1,0 +1,455 @@
+[
+  {
+    "id": "sa_salvage_01",
+    "roomId": "room_01",
+    "name": "Scrap Salvage",
+    "description": "Dig through junk piles to find valuable components.",
+    "type": "salvageExcavation",
+    "difficultyTier": 1,
+    "durationSeconds": 20.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 15.0,
+        "description": "Bonus scrap from salvage",
+        "rarity": "common"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": false,
+    "secretUnlockId": "secret_salvage_cache",
+    "companionDropId": "comp_junk_drone"
+  },
+  {
+    "id": "sa_calibrate_02",
+    "roomId": "room_02",
+    "name": "Budget Calibration",
+    "description": "Fine-tune cheap equipment for maximum output.",
+    "type": "calibrationConsole",
+    "difficultyTier": 1,
+    "durationSeconds": 25.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 20.0,
+        "description": "Calibration bonus",
+        "rarity": "common"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": false
+  },
+  {
+    "id": "sa_craft_03",
+    "roomId": "room_03",
+    "name": "Creative Workshop",
+    "description": "Assemble new components from raw materials.",
+    "type": "calibrationConsole",
+    "difficultyTier": 2,
+    "durationSeconds": 30.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 25.0,
+        "description": "Workshop output",
+        "rarity": "uncommon"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_excavate_04",
+    "roomId": "room_04",
+    "name": "Cave Excavation",
+    "description": "Mine deeper into the upgrade cave for hidden resources.",
+    "type": "salvageExcavation",
+    "difficultyTier": 2,
+    "durationSeconds": 35.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 30.0,
+        "description": "Excavation yield",
+        "rarity": "uncommon"
+      },
+      {
+        "type": "relicFragment",
+        "value": 1.0,
+        "description": "Relic shard chance",
+        "rarity": "rare"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true,
+    "secretUnlockId": "secret_deep_cave"
+  },
+  {
+    "id": "sa_scan_05",
+    "roomId": "room_05",
+    "name": "Signal Scanner",
+    "description": "Scan for data patterns in the lab environment.",
+    "type": "signalScan",
+    "difficultyTier": 3,
+    "durationSeconds": 40.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 35.0,
+        "description": "Scan rewards",
+        "rarity": "uncommon"
+      },
+      {
+        "type": "codexEntry",
+        "value": 1.0,
+        "description": "Data log entry",
+        "rarity": "rare"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_hack_06",
+    "roomId": "room_06",
+    "name": "Server Infiltration",
+    "description": "Hack into the hidden server to extract valuable data.",
+    "type": "terminalHack",
+    "difficultyTier": 3,
+    "durationSeconds": 45.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 40.0,
+        "description": "Hacked data",
+        "rarity": "uncommon"
+      },
+      {
+        "type": "upgradeUnlock",
+        "value": 1.0,
+        "description": "Unlock hidden upgrade",
+        "rarity": "rare"
+      }
+    ],
+    "repeatableDaily": false,
+    "repeatableWeekly": true,
+    "upgradeUnlockId": "upg_stealth_hack"
+  },
+  {
+    "id": "sa_intercept_07",
+    "roomId": "room_07",
+    "name": "Anomaly Intercept",
+    "description": "Intercept and redirect anomalous signals during the night shift.",
+    "type": "anomalyInterception",
+    "difficultyTier": 4,
+    "durationSeconds": 50.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 45.0,
+        "description": "Intercepted signal value",
+        "rarity": "rare"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_benchmark_08",
+    "roomId": "room_08",
+    "name": "Workspace Benchmark",
+    "description": "Run performance benchmarks to optimize automation systems.",
+    "type": "benchmarkChallenge",
+    "difficultyTier": 4,
+    "durationSeconds": 55.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 50.0,
+        "description": "Benchmark results",
+        "rarity": "rare"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true,
+    "companionDropId": "comp_auto_swarm"
+  },
+  {
+    "id": "sa_puzzle_09",
+    "roomId": "room_09",
+    "name": "Routing Puzzle",
+    "description": "Solve complex routing problems to optimize data flow.",
+    "type": "routingPuzzle",
+    "difficultyTier": 5,
+    "durationSeconds": 60.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 55.0,
+        "description": "Puzzle solution bonus",
+        "rarity": "rare"
+      },
+      {
+        "type": "companionDrop",
+        "value": 1.0,
+        "description": "Companion blueprint",
+        "rarity": "epic"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_anomaly_10",
+    "roomId": "room_10",
+    "name": "Anomaly Containment",
+    "description": "Contain unstable anomaly fragments before they destabilize the loft.",
+    "type": "anomalyInterception",
+    "difficultyTier": 5,
+    "durationSeconds": 60.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 60.0,
+        "description": "Contained anomaly value",
+        "rarity": "rare"
+      },
+      {
+        "type": "relicFragment",
+        "value": 2.0,
+        "description": "Relic fragment",
+        "rarity": "epic"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_maintenance_11",
+    "roomId": "room_11",
+    "name": "Prototype Maintenance",
+    "description": "Keep the underground prototypes running at peak efficiency.",
+    "type": "maintenanceChallenge",
+    "difficultyTier": 6,
+    "durationSeconds": 65.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 65.0,
+        "description": "Maintenance bonus",
+        "rarity": "rare"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_synthesize_12",
+    "roomId": "room_12",
+    "name": "Synthetic Creation",
+    "description": "Synthesize new components from base materials in the studio.",
+    "type": "calibrationConsole",
+    "difficultyTier": 6,
+    "durationSeconds": 70.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 70.0,
+        "description": "Synthesis output",
+        "rarity": "epic"
+      },
+      {
+        "type": "companionDrop",
+        "value": 1.0,
+        "description": "Synthetic companion",
+        "rarity": "epic"
+      }
+    ],
+    "repeatableDaily": false,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_stealth_13",
+    "roomId": "room_13",
+    "name": "Corporate Stealth Bypass",
+    "description": "Sneak past corporate security systems to access hidden data.",
+    "type": "stealthBypass",
+    "difficultyTier": 7,
+    "durationSeconds": 75.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 75.0,
+        "description": "Corporate data value",
+        "rarity": "epic"
+      }
+    ],
+    "repeatableDaily": false,
+    "repeatableWeekly": true,
+    "secretUnlockId": "secret_corporate_vault"
+  },
+  {
+    "id": "sa_routing_14",
+    "roomId": "room_14",
+    "name": "Cathedral Data Routing",
+    "description": "Route data streams through the cathedral architecture.",
+    "type": "routingPuzzle",
+    "difficultyTier": 7,
+    "durationSeconds": 80.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 80.0,
+        "description": "Routing efficiency bonus",
+        "rarity": "epic"
+      },
+      {
+        "type": "codexEntry",
+        "value": 1.0,
+        "description": "Cathedral lore entry",
+        "rarity": "epic"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_simulate_15",
+    "roomId": "room_15",
+    "name": "Simulation Challenge",
+    "description": "Run simulations to predict and prepare for future events.",
+    "type": "benchmarkChallenge",
+    "difficultyTier": 8,
+    "durationSeconds": 85.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 85.0,
+        "description": "Simulation data",
+        "rarity": "epic"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_orbital_16",
+    "roomId": "room_16",
+    "name": "Orbital Timing",
+    "description": "Time orbital maneuvers to maximize resource collection.",
+    "type": "orbitalTiming",
+    "difficultyTier": 8,
+    "durationSeconds": 90.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 90.0,
+        "description": "Orbital harvest",
+        "rarity": "epic"
+      },
+      {
+        "type": "relicFragment",
+        "value": 3.0,
+        "description": "Orbital relic shard",
+        "rarity": "legendary"
+      }
+    ],
+    "repeatableDaily": true,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_forge_17",
+    "roomId": "room_17",
+    "name": "Planetary Forge",
+    "description": "Forge powerful components using planetary-scale energy.",
+    "type": "calibrationConsole",
+    "difficultyTier": 9,
+    "durationSeconds": 95.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 95.0,
+        "description": "Forged components",
+        "rarity": "legendary"
+      }
+    ],
+    "repeatableDaily": false,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_temporal_18",
+    "roomId": "room_18",
+    "name": "Chrono Calibration",
+    "description": "Calibrate the chrono engine to manipulate time flow.",
+    "type": "calibrationConsole",
+    "difficultyTier": 9,
+    "durationSeconds": 100.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 100.0,
+        "description": "Temporal energy",
+        "rarity": "legendary"
+      },
+      {
+        "type": "companionDrop",
+        "value": 1.0,
+        "description": "Chrono companion",
+        "rarity": "legendary"
+      }
+    ],
+    "repeatableDaily": false,
+    "repeatableWeekly": true
+  },
+  {
+    "id": "sa_contradiction_19",
+    "roomId": "room_19",
+    "name": "Contradiction Puzzle",
+    "description": "Resolve reality contradictions within the kernel chamber.",
+    "type": "contradictionPuzzle",
+    "difficultyTier": 10,
+    "durationSeconds": 110.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 110.0,
+        "description": "Contradiction resolution",
+        "rarity": "legendary"
+      },
+      {
+        "type": "relicFragment",
+        "value": 5.0,
+        "description": "Kernel relic",
+        "rarity": "legendary"
+      }
+    ],
+    "repeatableDaily": false,
+    "repeatableWeekly": true,
+    "secretUnlockId": "secret_kernel_truth"
+  },
+  {
+    "id": "sa_restore_20",
+    "roomId": "room_20",
+    "name": "Room Restoration",
+    "description": "Restore the Quiet Singularity to its original state of perfect balance.",
+    "type": "roomRestore",
+    "difficultyTier": 10,
+    "durationSeconds": 120.0,
+    "rewards": [
+      {
+        "type": "currency",
+        "value": 120.0,
+        "description": "Singularity balance",
+        "rarity": "legendary"
+      },
+      {
+        "type": "relicFragment",
+        "value": 7.0,
+        "description": "Final relic",
+        "rarity": "legendary"
+      }
+    ],
+    "repeatableDaily": false,
+    "repeatableWeekly": true
+  }
+]

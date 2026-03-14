@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_10_stage_1",
-      "name": "Containment Loft — Bare Bones",
+      "name": "Containment Loft \u2014 Bare Bones",
       "description": "The room in its raw state. Containment Loft evolves as you progress.",
       "requiredUpgrades": 50,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_10_stage_2",
-      "name": "Containment Loft — First Light",
+      "name": "Containment Loft \u2014 First Light",
       "description": "Basic improvements visible. Containment Loft evolves as you progress.",
       "requiredUpgrades": 150,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_10_stage_3",
-      "name": "Containment Loft — Functional",
+      "name": "Containment Loft \u2014 Functional",
       "description": "A proper working space. Containment Loft evolves as you progress.",
       "requiredUpgrades": 300,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_10_stage_4",
-      "name": "Containment Loft — Advanced",
+      "name": "Containment Loft \u2014 Advanced",
       "description": "High-tech transformation. Containment Loft evolves as you progress.",
       "requiredUpgrades": 500,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_10_stage_5",
-      "name": "Containment Loft — Mastered",
+      "name": "Containment Loft \u2014 Mastered",
       "description": "The room at its peak. Containment Loft evolves as you progress.",
       "requiredUpgrades": 800,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_10_evt_1",
         "roomId": "room_10",
         "title": "Containment Breach",
-        "description": "Containment Breach — a common instant event in Containment Loft.",
+        "description": "Containment Breach \u2014 a common instant event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_10_evt_2",
         "roomId": "room_10",
         "title": "Anomaly Pulse",
-        "description": "Anomaly Pulse — a common shortChoice event in Containment Loft.",
+        "description": "Anomaly Pulse \u2014 a common shortChoice event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_10_evt_3",
         "roomId": "room_10",
         "title": "Field Fluctuation",
-        "description": "Field Fluctuation — a common timedChain event in Containment Loft.",
+        "description": "Field Fluctuation \u2014 a common timedChain event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_10_evt_4",
         "roomId": "room_10",
         "title": "Specimen Activity",
-        "description": "Specimen Activity — a common utility event in Containment Loft.",
+        "description": "Specimen Activity \u2014 a common utility event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_10_evt_5",
         "roomId": "room_10",
         "title": "Lockdown Protocol",
-        "description": "Lockdown Protocol — a rare secretTrigger event in Containment Loft.",
+        "description": "Lockdown Protocol \u2014 a rare secretTrigger event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_10_evt_6",
         "roomId": "room_10",
         "title": "Energy Leak",
-        "description": "Energy Leak — a rare legendaryAnomaly event in Containment Loft.",
+        "description": "Energy Leak \u2014 a rare legendaryAnomaly event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_10_evt_7",
         "roomId": "room_10",
         "title": "Unknown Signal",
-        "description": "Unknown Signal — a epic warningRisk event in Containment Loft.",
+        "description": "Unknown Signal \u2014 a epic warningRisk event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_10_evt_8",
         "roomId": "room_10",
         "title": "Barrier Stress",
-        "description": "Barrier Stress — a corrupted miniBoss event in Containment Loft.",
+        "description": "Barrier Stress \u2014 a corrupted miniBoss event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_10_evt_9",
         "roomId": "room_10",
         "title": "Emergency Seal",
-        "description": "Emergency Seal — a legendary guideAdvisory event in Containment Loft.",
+        "description": "Emergency Seal \u2014 a legendary guideAdvisory event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -388,7 +388,7 @@
         "id": "room_10_evt_10",
         "roomId": "room_10",
         "title": "Anomaly Evolution",
-        "description": "Anomaly Evolution — a common hiddenGlitch event in Containment Loft.",
+        "description": "Anomaly Evolution \u2014 a common hiddenGlitch event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -449,5 +449,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_anomaly_10",
+  "companionAffinityIds": [
+    "comp_anomaly_construct",
+    "comp_containment_bot"
+  ],
+  "routeBonus": "anomaly"
 }

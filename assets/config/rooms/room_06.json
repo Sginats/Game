@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_06_stage_1",
-      "name": "Hidden Server Closet — Bare Bones",
+      "name": "Hidden Server Closet \u2014 Bare Bones",
       "description": "The room in its raw state. Hidden Server Closet evolves as you progress.",
       "requiredUpgrades": 30,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_06_stage_2",
-      "name": "Hidden Server Closet — First Light",
+      "name": "Hidden Server Closet \u2014 First Light",
       "description": "Basic improvements visible. Hidden Server Closet evolves as you progress.",
       "requiredUpgrades": 90,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_06_stage_3",
-      "name": "Hidden Server Closet — Functional",
+      "name": "Hidden Server Closet \u2014 Functional",
       "description": "A proper working space. Hidden Server Closet evolves as you progress.",
       "requiredUpgrades": 180,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_06_stage_4",
-      "name": "Hidden Server Closet — Advanced",
+      "name": "Hidden Server Closet \u2014 Advanced",
       "description": "High-tech transformation. Hidden Server Closet evolves as you progress.",
       "requiredUpgrades": 300,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_06_stage_5",
-      "name": "Hidden Server Closet — Mastered",
+      "name": "Hidden Server Closet \u2014 Mastered",
       "description": "The room at its peak. Hidden Server Closet evolves as you progress.",
       "requiredUpgrades": 480,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_06_evt_1",
         "roomId": "room_06",
         "title": "Heat Warning",
-        "description": "Heat Warning — a common instant event in Hidden Server Closet.",
+        "description": "Heat Warning \u2014 a common instant event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_06_evt_2",
         "roomId": "room_06",
         "title": "Fan Failure",
-        "description": "Fan Failure — a common shortChoice event in Hidden Server Closet.",
+        "description": "Fan Failure \u2014 a common shortChoice event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_06_evt_3",
         "roomId": "room_06",
         "title": "Thermal Throttle",
-        "description": "Thermal Throttle — a common timedChain event in Hidden Server Closet.",
+        "description": "Thermal Throttle \u2014 a common timedChain event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_06_evt_4",
         "roomId": "room_06",
         "title": "Coolant Leak",
-        "description": "Coolant Leak — a common utility event in Hidden Server Closet.",
+        "description": "Coolant Leak \u2014 a common utility event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_06_evt_5",
         "roomId": "room_06",
         "title": "Power Surge",
-        "description": "Power Surge — a rare secretTrigger event in Hidden Server Closet.",
+        "description": "Power Surge \u2014 a rare secretTrigger event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -280,7 +280,7 @@
         "id": "room_06_evt_6",
         "roomId": "room_06",
         "title": "Server Overheat",
-        "description": "Server Overheat — a rare legendaryAnomaly event in Hidden Server Closet.",
+        "description": "Server Overheat \u2014 a rare legendaryAnomaly event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -302,7 +302,7 @@
         "id": "room_06_evt_7",
         "roomId": "room_06",
         "title": "Emergency Vent",
-        "description": "Emergency Vent — a epic warningRisk event in Hidden Server Closet.",
+        "description": "Emergency Vent \u2014 a epic warningRisk event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -329,7 +329,7 @@
         "id": "room_06_evt_8",
         "roomId": "room_06",
         "title": "Hot Spot Found",
-        "description": "Hot Spot Found — a corrupted miniBoss event in Hidden Server Closet.",
+        "description": "Hot Spot Found \u2014 a corrupted miniBoss event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -356,7 +356,7 @@
         "id": "room_06_evt_9",
         "roomId": "room_06",
         "title": "Meltdown Risk",
-        "description": "Meltdown Risk — a legendary guideAdvisory event in Hidden Server Closet.",
+        "description": "Meltdown Risk \u2014 a legendary guideAdvisory event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -372,7 +372,7 @@
         "id": "room_06_evt_10",
         "roomId": "room_06",
         "title": "Cold Boot Recovery",
-        "description": "Cold Boot Recovery — a common hiddenGlitch event in Hidden Server Closet.",
+        "description": "Cold Boot Recovery \u2014 a common hiddenGlitch event in Hidden Server Closet.",
         "flavorText": "The thermal environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -423,5 +423,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_hack_06",
+  "companionAffinityIds": [
+    "comp_server_construct",
+    "comp_stealth_bot"
+  ],
+  "routeBonus": "stealth"
 }

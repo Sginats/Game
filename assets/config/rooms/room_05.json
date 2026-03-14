@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_05_stage_1",
-      "name": "Smart Lab Bedroom — Bare Bones",
+      "name": "Smart Lab Bedroom \u2014 Bare Bones",
       "description": "The room in its raw state. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 25,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_05_stage_2",
-      "name": "Smart Lab Bedroom — First Light",
+      "name": "Smart Lab Bedroom \u2014 First Light",
       "description": "Basic improvements visible. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 75,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_05_stage_3",
-      "name": "Smart Lab Bedroom — Functional",
+      "name": "Smart Lab Bedroom \u2014 Functional",
       "description": "A proper working space. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 150,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_05_stage_4",
-      "name": "Smart Lab Bedroom — Advanced",
+      "name": "Smart Lab Bedroom \u2014 Advanced",
       "description": "High-tech transformation. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 250,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_05_stage_5",
-      "name": "Smart Lab Bedroom — Mastered",
+      "name": "Smart Lab Bedroom \u2014 Mastered",
       "description": "The room at its peak. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 400,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_05_evt_1",
         "roomId": "room_05",
         "title": "Signal Spike",
-        "description": "Signal Spike — a common instant event in Smart Lab Bedroom.",
+        "description": "Signal Spike \u2014 a common instant event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_05_evt_2",
         "roomId": "room_05",
         "title": "Data Overflow",
-        "description": "Data Overflow — a common shortChoice event in Smart Lab Bedroom.",
+        "description": "Data Overflow \u2014 a common shortChoice event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_05_evt_3",
         "roomId": "room_05",
         "title": "Sensor Calibration",
-        "description": "Sensor Calibration — a common timedChain event in Smart Lab Bedroom.",
+        "description": "Sensor Calibration \u2014 a common timedChain event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_05_evt_4",
         "roomId": "room_05",
         "title": "Experiment Runaway",
-        "description": "Experiment Runaway — a common utility event in Smart Lab Bedroom.",
+        "description": "Experiment Runaway \u2014 a common utility event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_05_evt_5",
         "roomId": "room_05",
         "title": "Lab Contamination",
-        "description": "Lab Contamination — a rare secretTrigger event in Smart Lab Bedroom.",
+        "description": "Lab Contamination \u2014 a rare secretTrigger event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_05_evt_6",
         "roomId": "room_05",
         "title": "Breakthrough Reading",
-        "description": "Breakthrough Reading — a rare legendaryAnomaly event in Smart Lab Bedroom.",
+        "description": "Breakthrough Reading \u2014 a rare legendaryAnomaly event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_05_evt_7",
         "roomId": "room_05",
         "title": "Noise Filter Fail",
-        "description": "Noise Filter Fail — a epic warningRisk event in Smart Lab Bedroom.",
+        "description": "Noise Filter Fail \u2014 a epic warningRisk event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_05_evt_8",
         "roomId": "room_05",
         "title": "Prototype Test",
-        "description": "Prototype Test — a corrupted miniBoss event in Smart Lab Bedroom.",
+        "description": "Prototype Test \u2014 a corrupted miniBoss event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_05_evt_9",
         "roomId": "room_05",
         "title": "Sleep Deprivation Alert",
-        "description": "Sleep Deprivation Alert — a legendary guideAdvisory event in Smart Lab Bedroom.",
+        "description": "Sleep Deprivation Alert \u2014 a legendary guideAdvisory event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -388,7 +388,7 @@
         "id": "room_05_evt_10",
         "roomId": "room_05",
         "title": "Eureka Moment",
-        "description": "Eureka Moment — a common hiddenGlitch event in Smart Lab Bedroom.",
+        "description": "Eureka Moment \u2014 a common hiddenGlitch event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -449,5 +449,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_scan_05",
+  "companionAffinityIds": [
+    "comp_lab_drone",
+    "comp_smart_daemon"
+  ],
+  "routeBonus": "research"
 }

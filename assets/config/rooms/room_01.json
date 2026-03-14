@@ -6,7 +6,7 @@
   "introText": "Welcome to Junk Corner. Salvage and survive. This is where your journey begins.",
   "completionText": "You have mastered Junk Corner. The Scrap you've gathered here will echo through every room that follows.",
   "guideTone": "encouraging, scrappy",
-  "guideIntroLine": "Hey… you found me in this pile of junk. Let's see what we can do.",
+  "guideIntroLine": "Hey\u2026 you found me in this pile of junk. Let's see what we can do.",
   "currency": "Scrap",
   "mechanicEmphasis": "tap",
   "themeColors": {
@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_01_stage_1",
-      "name": "Junk Corner — Bare Bones",
+      "name": "Junk Corner \u2014 Bare Bones",
       "description": "The room in its raw state. Junk Corner evolves as you progress.",
       "requiredUpgrades": 5,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_01_stage_2",
-      "name": "Junk Corner — First Light",
+      "name": "Junk Corner \u2014 First Light",
       "description": "Basic improvements visible. Junk Corner evolves as you progress.",
       "requiredUpgrades": 15,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_01_stage_3",
-      "name": "Junk Corner — Functional",
+      "name": "Junk Corner \u2014 Functional",
       "description": "A proper working space. Junk Corner evolves as you progress.",
       "requiredUpgrades": 30,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_01_stage_4",
-      "name": "Junk Corner — Advanced",
+      "name": "Junk Corner \u2014 Advanced",
       "description": "High-tech transformation. Junk Corner evolves as you progress.",
       "requiredUpgrades": 50,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_01_stage_5",
-      "name": "Junk Corner — Mastered",
+      "name": "Junk Corner \u2014 Mastered",
       "description": "The room at its peak. Junk Corner evolves as you progress.",
       "requiredUpgrades": 80,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_01_evt_1",
         "roomId": "room_01",
         "title": "Loose Wire",
-        "description": "Loose Wire — a common instant event in Junk Corner.",
+        "description": "Loose Wire \u2014 a common instant event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -171,7 +171,7 @@
         "id": "room_01_evt_2",
         "roomId": "room_01",
         "title": "Scrap Pile Discovery",
-        "description": "Scrap Pile Discovery — a common shortChoice event in Junk Corner.",
+        "description": "Scrap Pile Discovery \u2014 a common shortChoice event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -219,7 +219,7 @@
         "id": "room_01_evt_3",
         "roomId": "room_01",
         "title": "Rusty Toolbox",
-        "description": "Rusty Toolbox — a common timedChain event in Junk Corner.",
+        "description": "Rusty Toolbox \u2014 a common timedChain event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -246,7 +246,7 @@
         "id": "room_01_evt_4",
         "roomId": "room_01",
         "title": "Broken Screen Flicker",
-        "description": "Broken Screen Flicker — a common utility event in Junk Corner.",
+        "description": "Broken Screen Flicker \u2014 a common utility event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -268,7 +268,7 @@
         "id": "room_01_evt_5",
         "roomId": "room_01",
         "title": "Rat in the Cables",
-        "description": "Rat in the Cables — a rare secretTrigger event in Junk Corner.",
+        "description": "Rat in the Cables \u2014 a rare secretTrigger event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -290,7 +290,7 @@
         "id": "room_01_evt_6",
         "roomId": "room_01",
         "title": "Junk Avalanche",
-        "description": "Junk Avalanche — a rare legendaryAnomaly event in Junk Corner.",
+        "description": "Junk Avalanche \u2014 a rare legendaryAnomaly event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_01_evt_7",
         "roomId": "room_01",
         "title": "Old Battery Spark",
-        "description": "Old Battery Spark — a epic warningRisk event in Junk Corner.",
+        "description": "Old Battery Spark \u2014 a epic warningRisk event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_01_evt_8",
         "roomId": "room_01",
         "title": "Mystery Component",
-        "description": "Mystery Component — a corrupted miniBoss event in Junk Corner.",
+        "description": "Mystery Component \u2014 a corrupted miniBoss event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -371,7 +371,7 @@
         "id": "room_01_evt_9",
         "roomId": "room_01",
         "title": "Dust Storm",
-        "description": "Dust Storm — a legendary guideAdvisory event in Junk Corner.",
+        "description": "Dust Storm \u2014 a legendary guideAdvisory event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -387,7 +387,7 @@
         "id": "room_01_evt_10",
         "roomId": "room_01",
         "title": "Salvage Bonanza",
-        "description": "Salvage Bonanza — a common hiddenGlitch event in Junk Corner.",
+        "description": "Salvage Bonanza \u2014 a common hiddenGlitch event in Junk Corner.",
         "flavorText": "The salvage environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -443,5 +443,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_salvage_01",
+  "companionAffinityIds": [
+    "comp_junk_drone",
+    "comp_scrap_bot"
+  ],
+  "routeBonus": "operator"
 }

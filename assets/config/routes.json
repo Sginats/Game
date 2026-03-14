@@ -1,0 +1,163 @@
+[
+  {
+    "id": "route_operator",
+    "name": "Operator Path",
+    "description": "An active, hands-on approach. Tap-heavy gameplay with bonus operator upgrades.",
+    "archetype": "operator",
+    "bonusType": "tapMultiplier",
+    "bonusMagnitude": 1.5,
+    "specialUpgradeIds": [
+      "upg_op_precision",
+      "upg_op_overclock",
+      "upg_op_critical"
+    ],
+    "eventPoolModifiers": {
+      "common": 1.0,
+      "uncommon": 1.1,
+      "rare": 1.2
+    },
+    "dialogueVariant": "direct",
+    "prestigeRewardModifier": 1.1,
+    "exclusiveSecretIds": [
+      "secret_op_hidden_console"
+    ]
+  },
+  {
+    "id": "route_automation",
+    "name": "Automation Path",
+    "description": "Passive efficiency at its finest. Let the machines do the work.",
+    "archetype": "automation",
+    "bonusType": "productionMultiplier",
+    "bonusMagnitude": 1.4,
+    "specialUpgradeIds": [
+      "upg_auto_cascade",
+      "upg_auto_chain",
+      "upg_auto_idle"
+    ],
+    "eventPoolModifiers": {
+      "common": 1.2,
+      "uncommon": 1.0,
+      "rare": 0.9
+    },
+    "dialogueVariant": "methodical",
+    "prestigeRewardModifier": 1.15,
+    "exclusiveSecretIds": [
+      "secret_auto_hidden_pipeline"
+    ]
+  },
+  {
+    "id": "route_anomaly",
+    "name": "Anomaly Path",
+    "description": "Embrace chaos and instability for greater rewards and wilder events.",
+    "archetype": "anomaly",
+    "bonusType": "eventRewardMultiplier",
+    "bonusMagnitude": 1.6,
+    "specialUpgradeIds": [
+      "upg_anom_surge",
+      "upg_anom_warp",
+      "upg_anom_rift"
+    ],
+    "eventPoolModifiers": {
+      "rare": 1.5,
+      "epic": 1.3,
+      "legendary": 1.2
+    },
+    "dialogueVariant": "chaotic",
+    "prestigeRewardModifier": 1.2,
+    "exclusiveSecretIds": [
+      "secret_anom_void_cache"
+    ]
+  },
+  {
+    "id": "route_swarm",
+    "name": "Swarm Path",
+    "description": "Companion-focused strategy. More helpers, bigger bonuses, stronger synergies.",
+    "archetype": "swarm",
+    "bonusType": "companionBonus",
+    "bonusMagnitude": 1.5,
+    "specialUpgradeIds": [
+      "upg_swarm_hive",
+      "upg_swarm_sync",
+      "upg_swarm_amplify"
+    ],
+    "eventPoolModifiers": {
+      "common": 1.1,
+      "uncommon": 1.2,
+      "rare": 1.0
+    },
+    "dialogueVariant": "collaborative",
+    "prestigeRewardModifier": 1.05,
+    "exclusiveSecretIds": [
+      "secret_swarm_hidden_nest"
+    ]
+  },
+  {
+    "id": "route_research",
+    "name": "Research Path",
+    "description": "Precision and knowledge. Unlock deeper mechanics and rarer discoveries.",
+    "archetype": "research",
+    "bonusType": "upgradeEfficiency",
+    "bonusMagnitude": 1.3,
+    "specialUpgradeIds": [
+      "upg_res_insight",
+      "upg_res_analysis",
+      "upg_res_breakthrough"
+    ],
+    "eventPoolModifiers": {
+      "uncommon": 1.3,
+      "rare": 1.1,
+      "epic": 1.1
+    },
+    "dialogueVariant": "analytical",
+    "prestigeRewardModifier": 1.25,
+    "exclusiveSecretIds": [
+      "secret_res_hidden_thesis"
+    ]
+  },
+  {
+    "id": "route_stealth",
+    "name": "Stealth Path",
+    "description": "Stay hidden, act precisely. Focus on secrets and containment.",
+    "archetype": "stealth",
+    "bonusType": "secretDiscoveryBonus",
+    "bonusMagnitude": 1.4,
+    "specialUpgradeIds": [
+      "upg_stealth_cloak",
+      "upg_stealth_ghost",
+      "upg_stealth_bypass"
+    ],
+    "eventPoolModifiers": {
+      "common": 0.8,
+      "rare": 1.3,
+      "legendary": 1.1
+    },
+    "dialogueVariant": "cautious",
+    "prestigeRewardModifier": 1.1,
+    "exclusiveSecretIds": [
+      "secret_stealth_shadow_room"
+    ]
+  },
+  {
+    "id": "route_transcendence",
+    "name": "Transcendence Path",
+    "description": "Push beyond normal limits. Unlock reality-bending mechanics and surreal events.",
+    "archetype": "transcendence",
+    "bonusType": "allMultiplier",
+    "bonusMagnitude": 1.2,
+    "specialUpgradeIds": [
+      "upg_trans_beyond",
+      "upg_trans_fracture",
+      "upg_trans_kernel"
+    ],
+    "eventPoolModifiers": {
+      "epic": 1.4,
+      "corrupted": 1.3,
+      "legendary": 1.5
+    },
+    "dialogueVariant": "philosophical",
+    "prestigeRewardModifier": 1.3,
+    "exclusiveSecretIds": [
+      "secret_trans_hidden_singularity"
+    ]
+  }
+]

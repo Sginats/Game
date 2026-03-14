@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_13_stage_1",
-      "name": "Corporate Takeover Suite — Bare Bones",
+      "name": "Corporate Takeover Suite \u2014 Bare Bones",
       "description": "The room in its raw state. Corporate Takeover Suite evolves as you progress.",
       "requiredUpgrades": 65,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_13_stage_2",
-      "name": "Corporate Takeover Suite — First Light",
+      "name": "Corporate Takeover Suite \u2014 First Light",
       "description": "Basic improvements visible. Corporate Takeover Suite evolves as you progress.",
       "requiredUpgrades": 195,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_13_stage_3",
-      "name": "Corporate Takeover Suite — Functional",
+      "name": "Corporate Takeover Suite \u2014 Functional",
       "description": "A proper working space. Corporate Takeover Suite evolves as you progress.",
       "requiredUpgrades": 390,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_13_stage_4",
-      "name": "Corporate Takeover Suite — Advanced",
+      "name": "Corporate Takeover Suite \u2014 Advanced",
       "description": "High-tech transformation. Corporate Takeover Suite evolves as you progress.",
       "requiredUpgrades": 650,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_13_stage_5",
-      "name": "Corporate Takeover Suite — Mastered",
+      "name": "Corporate Takeover Suite \u2014 Mastered",
       "description": "The room at its peak. Corporate Takeover Suite evolves as you progress.",
       "requiredUpgrades": 1040,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_13_evt_1",
         "roomId": "room_13",
         "title": "Hostile Bid",
-        "description": "Hostile Bid — a common instant event in Corporate Takeover Suite.",
+        "description": "Hostile Bid \u2014 a common instant event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_13_evt_2",
         "roomId": "room_13",
         "title": "Board Meeting",
-        "description": "Board Meeting — a common shortChoice event in Corporate Takeover Suite.",
+        "description": "Board Meeting \u2014 a common shortChoice event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_13_evt_3",
         "roomId": "room_13",
         "title": "Market Crash",
-        "description": "Market Crash — a common timedChain event in Corporate Takeover Suite.",
+        "description": "Market Crash \u2014 a common timedChain event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_13_evt_4",
         "roomId": "room_13",
         "title": "Insider Tip",
-        "description": "Insider Tip — a common utility event in Corporate Takeover Suite.",
+        "description": "Insider Tip \u2014 a common utility event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_13_evt_5",
         "roomId": "room_13",
         "title": "Merger Offer",
-        "description": "Merger Offer — a rare secretTrigger event in Corporate Takeover Suite.",
+        "description": "Merger Offer \u2014 a rare secretTrigger event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -280,7 +280,7 @@
         "id": "room_13_evt_6",
         "roomId": "room_13",
         "title": "Audit Surprise",
-        "description": "Audit Surprise — a rare legendaryAnomaly event in Corporate Takeover Suite.",
+        "description": "Audit Surprise \u2014 a rare legendaryAnomaly event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -302,7 +302,7 @@
         "id": "room_13_evt_7",
         "roomId": "room_13",
         "title": "Stock Split",
-        "description": "Stock Split — a epic warningRisk event in Corporate Takeover Suite.",
+        "description": "Stock Split \u2014 a epic warningRisk event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -329,7 +329,7 @@
         "id": "room_13_evt_8",
         "roomId": "room_13",
         "title": "Lobby Pressure",
-        "description": "Lobby Pressure — a corrupted miniBoss event in Corporate Takeover Suite.",
+        "description": "Lobby Pressure \u2014 a corrupted miniBoss event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -356,7 +356,7 @@
         "id": "room_13_evt_9",
         "roomId": "room_13",
         "title": "Golden Parachute",
-        "description": "Golden Parachute — a legendary guideAdvisory event in Corporate Takeover Suite.",
+        "description": "Golden Parachute \u2014 a legendary guideAdvisory event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -372,7 +372,7 @@
         "id": "room_13_evt_10",
         "roomId": "room_13",
         "title": "Takeover Complete",
-        "description": "Takeover Complete — a common hiddenGlitch event in Corporate Takeover Suite.",
+        "description": "Takeover Complete \u2014 a common hiddenGlitch event in Corporate Takeover Suite.",
         "flavorText": "The corporate environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -423,5 +423,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_stealth_13",
+  "companionAffinityIds": [
+    "comp_corporate_daemon",
+    "comp_takeover_drone"
+  ],
+  "routeBonus": "automation"
 }

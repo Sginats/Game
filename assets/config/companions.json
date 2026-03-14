@@ -1,0 +1,274 @@
+[
+  {
+    "id": "comp_junk_drone",
+    "name": "Scavenger Drone",
+    "description": "A battered drone that sniffs out valuable scraps in the junk piles.",
+    "type": "drone",
+    "rarity": "common",
+    "sceneAffinity": "room_01",
+    "traits": [
+      {
+        "id": "trait_scavenge",
+        "name": "Scavenger",
+        "description": "Finds extra scrap",
+        "effectType": "resourceBonus",
+        "magnitude": 0.05
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_junk_scan",
+        "name": "Junk Scan",
+        "description": "Scans for hidden scrap",
+        "cooldownSeconds": 30.0,
+        "tokenGenerationType": "scrap",
+        "tokenAmount": 3.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "junk_set",
+    "automationRate": 0.3,
+    "resourceBonusPercent": 5.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_scrap_bot",
+    "name": "Scrap Helper",
+    "description": "A small robot that assists with basic scrap collection.",
+    "type": "helperBot",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_01",
+    "traits": [
+      {
+        "id": "trait_efficient",
+        "name": "Efficient Collector",
+        "description": "Reduced collection time",
+        "effectType": "speed",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_sort",
+        "name": "Quick Sort",
+        "description": "Sorts scrap automatically",
+        "cooldownSeconds": 45.0,
+        "tokenGenerationType": "scrap",
+        "tokenAmount": 5.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "junk_set",
+    "automationRate": 0.5,
+    "resourceBonusPercent": 8.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_lab_drone",
+    "name": "Lab Analysis Drone",
+    "description": "Precision drone that analyzes samples and boosts research output.",
+    "type": "drone",
+    "rarity": "rare",
+    "sceneAffinity": "room_05",
+    "traits": [
+      {
+        "id": "trait_precision",
+        "name": "Precision Scanner",
+        "description": "Higher accuracy readings",
+        "effectType": "accuracy",
+        "magnitude": 0.15
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_deep_scan",
+        "name": "Deep Scan",
+        "description": "Comprehensive area analysis",
+        "cooldownSeconds": 60.0,
+        "tokenGenerationType": "data_points",
+        "tokenAmount": 8.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "lab_set",
+    "automationRate": 0.8,
+    "resourceBonusPercent": 12.0,
+    "fusionMaterial": false,
+    "unlockMethod": "built"
+  },
+  {
+    "id": "comp_smart_daemon",
+    "name": "Research Daemon",
+    "description": "A daemon program that optimizes research calculations.",
+    "type": "daemon",
+    "rarity": "rare",
+    "sceneAffinity": "room_05",
+    "traits": [
+      {
+        "id": "trait_optimize",
+        "name": "Optimizer",
+        "description": "Optimizes calculation paths",
+        "effectType": "productionBonus",
+        "magnitude": 0.12
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_compute",
+        "name": "Deep Compute",
+        "description": "Runs intensive calculations",
+        "cooldownSeconds": 90.0,
+        "tokenGenerationType": "insight",
+        "tokenAmount": 10.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "lab_set",
+    "automationRate": 1.0,
+    "resourceBonusPercent": 15.0,
+    "fusionMaterial": false,
+    "unlockMethod": "hatched"
+  },
+  {
+    "id": "comp_anomaly_construct",
+    "name": "Anomaly Signal Construct",
+    "description": "A signal construct that detects and harnesses anomaly energy.",
+    "type": "signalConstruct",
+    "rarity": "epic",
+    "sceneAffinity": "room_10",
+    "traits": [
+      {
+        "id": "trait_anomaly_sense",
+        "name": "Anomaly Sense",
+        "description": "Detects hidden anomalies",
+        "effectType": "eventBonus",
+        "magnitude": 0.2
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_channel",
+        "name": "Anomaly Channel",
+        "description": "Channels anomaly energy",
+        "cooldownSeconds": 120.0,
+        "tokenGenerationType": "anomaly_sparks",
+        "tokenAmount": 15.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "anomaly_set",
+    "automationRate": 1.5,
+    "resourceBonusPercent": 20.0,
+    "fusionMaterial": false,
+    "unlockMethod": "event_drop"
+  },
+  {
+    "id": "comp_containment_bot",
+    "name": "Containment Protocol Bot",
+    "description": "A specialized bot for containing and redirecting unstable data flows.",
+    "type": "roboticAssistant",
+    "rarity": "epic",
+    "sceneAffinity": "room_10",
+    "traits": [
+      {
+        "id": "trait_stability",
+        "name": "Stabilizer",
+        "description": "Reduces instability effects",
+        "effectType": "defenseBonus",
+        "magnitude": 0.18
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_contain",
+        "name": "Containment Field",
+        "description": "Deploys a stabilizing field",
+        "cooldownSeconds": 90.0,
+        "tokenGenerationType": "containment_tokens",
+        "tokenAmount": 12.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "anomaly_set",
+    "automationRate": 1.2,
+    "resourceBonusPercent": 18.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_singularity_drone",
+    "name": "Singularity Observer",
+    "description": "A transcendent drone that perceives reality at its deepest level.",
+    "type": "drone",
+    "rarity": "legendary",
+    "sceneAffinity": "room_20",
+    "traits": [
+      {
+        "id": "trait_transcend",
+        "name": "Beyond Limits",
+        "description": "Transcends normal operational parameters",
+        "effectType": "allBonus",
+        "magnitude": 0.25
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_singularity",
+        "name": "Singularity Pulse",
+        "description": "Emits a pulse of concentrated energy",
+        "cooldownSeconds": 180.0,
+        "tokenGenerationType": "final_sparks",
+        "tokenAmount": 25.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "final_set",
+    "automationRate": 3.0,
+    "resourceBonusPercent": 30.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_final_swarm",
+    "name": "Convergence Swarm",
+    "description": "A swarm module that coordinates countless micro-units into a unified intelligence.",
+    "type": "swarmModule",
+    "rarity": "legendary",
+    "sceneAffinity": "room_20",
+    "traits": [
+      {
+        "id": "trait_unity",
+        "name": "Unity Protocol",
+        "description": "Each unit amplifies the swarm",
+        "effectType": "swarmBonus",
+        "magnitude": 0.3
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_converge",
+        "name": "Full Convergence",
+        "description": "All units merge into one",
+        "cooldownSeconds": 240.0,
+        "tokenGenerationType": "final_sparks",
+        "tokenAmount": 35.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "final_set",
+    "automationRate": 4.0,
+    "resourceBonusPercent": 35.0,
+    "fusionMaterial": true,
+    "unlockMethod": "built"
+  }
+]

@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_11_stage_1",
-      "name": "Underground Prototype Chamber — Bare Bones",
+      "name": "Underground Prototype Chamber \u2014 Bare Bones",
       "description": "The room in its raw state. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 55,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_11_stage_2",
-      "name": "Underground Prototype Chamber — First Light",
+      "name": "Underground Prototype Chamber \u2014 First Light",
       "description": "Basic improvements visible. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 165,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_11_stage_3",
-      "name": "Underground Prototype Chamber — Functional",
+      "name": "Underground Prototype Chamber \u2014 Functional",
       "description": "A proper working space. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 330,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_11_stage_4",
-      "name": "Underground Prototype Chamber — Advanced",
+      "name": "Underground Prototype Chamber \u2014 Advanced",
       "description": "High-tech transformation. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 550,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_11_stage_5",
-      "name": "Underground Prototype Chamber — Mastered",
+      "name": "Underground Prototype Chamber \u2014 Mastered",
       "description": "The room at its peak. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 880,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_11_evt_1",
         "roomId": "room_11",
         "title": "Alloy Mix",
-        "description": "Alloy Mix — a common instant event in Underground Prototype Chamber.",
+        "description": "Alloy Mix \u2014 a common instant event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_11_evt_2",
         "roomId": "room_11",
         "title": "Prototype Failure",
-        "description": "Prototype Failure — a common shortChoice event in Underground Prototype Chamber.",
+        "description": "Prototype Failure \u2014 a common shortChoice event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_11_evt_3",
         "roomId": "room_11",
         "title": "Material Stress",
-        "description": "Material Stress — a common timedChain event in Underground Prototype Chamber.",
+        "description": "Material Stress \u2014 a common timedChain event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_11_evt_4",
         "roomId": "room_11",
         "title": "Forge Temperature",
-        "description": "Forge Temperature — a common utility event in Underground Prototype Chamber.",
+        "description": "Forge Temperature \u2014 a common utility event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_11_evt_5",
         "roomId": "room_11",
         "title": "Blueprint Error",
-        "description": "Blueprint Error — a rare secretTrigger event in Underground Prototype Chamber.",
+        "description": "Blueprint Error \u2014 a rare secretTrigger event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -280,7 +280,7 @@
         "id": "room_11_evt_6",
         "roomId": "room_11",
         "title": "Smelting Success",
-        "description": "Smelting Success — a rare legendaryAnomaly event in Underground Prototype Chamber.",
+        "description": "Smelting Success \u2014 a rare legendaryAnomaly event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -307,7 +307,7 @@
         "id": "room_11_evt_7",
         "roomId": "room_11",
         "title": "Structural Flaw",
-        "description": "Structural Flaw — a epic warningRisk event in Underground Prototype Chamber.",
+        "description": "Structural Flaw \u2014 a epic warningRisk event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -334,7 +334,7 @@
         "id": "room_11_evt_8",
         "roomId": "room_11",
         "title": "New Composite",
-        "description": "New Composite — a corrupted miniBoss event in Underground Prototype Chamber.",
+        "description": "New Composite \u2014 a corrupted miniBoss event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_11_evt_9",
         "roomId": "room_11",
         "title": "Pressure Test",
-        "description": "Pressure Test — a legendary guideAdvisory event in Underground Prototype Chamber.",
+        "description": "Pressure Test \u2014 a legendary guideAdvisory event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -382,7 +382,7 @@
         "id": "room_11_evt_10",
         "roomId": "room_11",
         "title": "Master Craft",
-        "description": "Master Craft — a common hiddenGlitch event in Underground Prototype Chamber.",
+        "description": "Master Craft \u2014 a common hiddenGlitch event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -438,5 +438,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_maintenance_11",
+  "companionAffinityIds": [
+    "comp_proto_swarm",
+    "comp_underground_drone"
+  ],
+  "routeBonus": "stealth"
 }

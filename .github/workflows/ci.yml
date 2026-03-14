@@ -35,6 +35,9 @@ jobs:
           dart run test/application/robot_guide_trust_test.dart
           dart run test/application/era_content_manager_test.dart
           dart run test/application/room_scene_service_test.dart
+          dart run test/application/companion_service_test.dart
+          dart run test/application/route_service_test.dart
+          dart run test/application/side_activity_service_test.dart
           dart run test/domain/models/companion_model_test.dart
           dart run test/domain/models/route_faction_model_test.dart
           dart run test/domain/models/side_activity_model_test.dart

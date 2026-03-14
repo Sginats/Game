@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_20_stage_1",
-      "name": "Quiet Singularity — Bare Bones",
+      "name": "Quiet Singularity \u2014 Bare Bones",
       "description": "The room in its raw state. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 100,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_20_stage_2",
-      "name": "Quiet Singularity — First Light",
+      "name": "Quiet Singularity \u2014 First Light",
       "description": "Basic improvements visible. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 300,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_20_stage_3",
-      "name": "Quiet Singularity — Functional",
+      "name": "Quiet Singularity \u2014 Functional",
       "description": "A proper working space. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 600,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_20_stage_4",
-      "name": "Quiet Singularity — Advanced",
+      "name": "Quiet Singularity \u2014 Advanced",
       "description": "High-tech transformation. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 1000,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_20_stage_5",
-      "name": "Quiet Singularity — Mastered",
+      "name": "Quiet Singularity \u2014 Mastered",
       "description": "The room at its peak. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 1600,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_20_evt_1",
         "roomId": "room_20",
         "title": "Final Convergence",
-        "description": "Final Convergence — a common instant event in Quiet Singularity.",
+        "description": "Final Convergence \u2014 a common instant event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_20_evt_2",
         "roomId": "room_20",
         "title": "Quiet Pulse",
-        "description": "Quiet Pulse — a common shortChoice event in Quiet Singularity.",
+        "description": "Quiet Pulse \u2014 a common shortChoice event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_20_evt_3",
         "roomId": "room_20",
         "title": "Everything Wave",
-        "description": "Everything Wave — a common timedChain event in Quiet Singularity.",
+        "description": "Everything Wave \u2014 a common timedChain event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_20_evt_4",
         "roomId": "room_20",
         "title": "Nothing Moment",
-        "description": "Nothing Moment — a common utility event in Quiet Singularity.",
+        "description": "Nothing Moment \u2014 a common utility event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_20_evt_5",
         "roomId": "room_20",
         "title": "Last Question",
-        "description": "Last Question — a rare secretTrigger event in Quiet Singularity.",
+        "description": "Last Question \u2014 a rare secretTrigger event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -280,7 +280,7 @@
         "id": "room_20_evt_6",
         "roomId": "room_20",
         "title": "Eternal Return",
-        "description": "Eternal Return — a rare legendaryAnomaly event in Quiet Singularity.",
+        "description": "Eternal Return \u2014 a rare legendaryAnomaly event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -307,7 +307,7 @@
         "id": "room_20_evt_7",
         "roomId": "room_20",
         "title": "Silence Break",
-        "description": "Silence Break — a epic warningRisk event in Quiet Singularity.",
+        "description": "Silence Break \u2014 a epic warningRisk event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -334,7 +334,7 @@
         "id": "room_20_evt_8",
         "roomId": "room_20",
         "title": "Unity Fragment",
-        "description": "Unity Fragment — a corrupted miniBoss event in Quiet Singularity.",
+        "description": "Unity Fragment \u2014 a corrupted miniBoss event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_20_evt_9",
         "roomId": "room_20",
         "title": "Beyond Signal",
-        "description": "Beyond Signal — a legendary guideAdvisory event in Quiet Singularity.",
+        "description": "Beyond Signal \u2014 a legendary guideAdvisory event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -382,7 +382,7 @@
         "id": "room_20_evt_10",
         "roomId": "room_20",
         "title": "Singularity Breath",
-        "description": "Singularity Breath — a common hiddenGlitch event in Quiet Singularity.",
+        "description": "Singularity Breath \u2014 a common hiddenGlitch event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -438,5 +438,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_restore_20",
+  "companionAffinityIds": [
+    "comp_singularity_drone",
+    "comp_final_swarm"
+  ],
+  "routeBonus": "transcendence"
 }

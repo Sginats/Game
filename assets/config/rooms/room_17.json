@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_17_stage_1",
-      "name": "Planetary Systems Forge — Bare Bones",
+      "name": "Planetary Systems Forge \u2014 Bare Bones",
       "description": "The room in its raw state. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 85,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_17_stage_2",
-      "name": "Planetary Systems Forge — First Light",
+      "name": "Planetary Systems Forge \u2014 First Light",
       "description": "Basic improvements visible. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 255,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_17_stage_3",
-      "name": "Planetary Systems Forge — Functional",
+      "name": "Planetary Systems Forge \u2014 Functional",
       "description": "A proper working space. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 510,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_17_stage_4",
-      "name": "Planetary Systems Forge — Advanced",
+      "name": "Planetary Systems Forge \u2014 Advanced",
       "description": "High-tech transformation. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 850,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_17_stage_5",
-      "name": "Planetary Systems Forge — Mastered",
+      "name": "Planetary Systems Forge \u2014 Mastered",
       "description": "The room at its peak. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 1360,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_17_evt_1",
         "roomId": "room_17",
         "title": "Tectonic Shift",
-        "description": "Tectonic Shift — a common instant event in Planetary Systems Forge.",
+        "description": "Tectonic Shift \u2014 a common instant event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_17_evt_2",
         "roomId": "room_17",
         "title": "Core Tap",
-        "description": "Core Tap — a common shortChoice event in Planetary Systems Forge.",
+        "description": "Core Tap \u2014 a common shortChoice event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_17_evt_3",
         "roomId": "room_17",
         "title": "Atmosphere Build",
-        "description": "Atmosphere Build — a common timedChain event in Planetary Systems Forge.",
+        "description": "Atmosphere Build \u2014 a common timedChain event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_17_evt_4",
         "roomId": "room_17",
         "title": "Ocean Formation",
-        "description": "Ocean Formation — a common utility event in Planetary Systems Forge.",
+        "description": "Ocean Formation \u2014 a common utility event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_17_evt_5",
         "roomId": "room_17",
         "title": "Continent Drift",
-        "description": "Continent Drift — a rare secretTrigger event in Planetary Systems Forge.",
+        "description": "Continent Drift \u2014 a rare secretTrigger event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -280,7 +280,7 @@
         "id": "room_17_evt_6",
         "roomId": "room_17",
         "title": "Magnetic Reversal",
-        "description": "Magnetic Reversal — a rare legendaryAnomaly event in Planetary Systems Forge.",
+        "description": "Magnetic Reversal \u2014 a rare legendaryAnomaly event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -307,7 +307,7 @@
         "id": "room_17_evt_7",
         "roomId": "room_17",
         "title": "Life Spark",
-        "description": "Life Spark — a epic warningRisk event in Planetary Systems Forge.",
+        "description": "Life Spark \u2014 a epic warningRisk event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -334,7 +334,7 @@
         "id": "room_17_evt_8",
         "roomId": "room_17",
         "title": "Weather System",
-        "description": "Weather System — a corrupted miniBoss event in Planetary Systems Forge.",
+        "description": "Weather System \u2014 a corrupted miniBoss event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_17_evt_9",
         "roomId": "room_17",
         "title": "Resource Deposit",
-        "description": "Resource Deposit — a legendary guideAdvisory event in Planetary Systems Forge.",
+        "description": "Resource Deposit \u2014 a legendary guideAdvisory event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -382,7 +382,7 @@
         "id": "room_17_evt_10",
         "roomId": "room_17",
         "title": "World Complete",
-        "description": "World Complete — a common hiddenGlitch event in Planetary Systems Forge.",
+        "description": "World Complete \u2014 a common hiddenGlitch event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -438,5 +438,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_forge_17",
+  "companionAffinityIds": [
+    "comp_planetary_construct",
+    "comp_forge_swarm"
+  ],
+  "routeBonus": "swarm"
 }

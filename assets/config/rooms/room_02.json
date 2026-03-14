@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_02_stage_1",
-      "name": "Budget Setup — Bare Bones",
+      "name": "Budget Setup \u2014 Bare Bones",
       "description": "The room in its raw state. Budget Setup evolves as you progress.",
       "requiredUpgrades": 10,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_02_stage_2",
-      "name": "Budget Setup — First Light",
+      "name": "Budget Setup \u2014 First Light",
       "description": "Basic improvements visible. Budget Setup evolves as you progress.",
       "requiredUpgrades": 30,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_02_stage_3",
-      "name": "Budget Setup — Functional",
+      "name": "Budget Setup \u2014 Functional",
       "description": "A proper working space. Budget Setup evolves as you progress.",
       "requiredUpgrades": 60,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_02_stage_4",
-      "name": "Budget Setup — Advanced",
+      "name": "Budget Setup \u2014 Advanced",
       "description": "High-tech transformation. Budget Setup evolves as you progress.",
       "requiredUpgrades": 100,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_02_stage_5",
-      "name": "Budget Setup — Mastered",
+      "name": "Budget Setup \u2014 Mastered",
       "description": "The room at its peak. Budget Setup evolves as you progress.",
       "requiredUpgrades": 160,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_02_evt_1",
         "roomId": "room_02",
         "title": "Budget Alert",
-        "description": "Budget Alert — a common instant event in Budget Setup.",
+        "description": "Budget Alert \u2014 a common instant event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_02_evt_2",
         "roomId": "room_02",
         "title": "Coupon Found",
-        "description": "Coupon Found — a common shortChoice event in Budget Setup.",
+        "description": "Coupon Found \u2014 a common shortChoice event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_02_evt_3",
         "roomId": "room_02",
         "title": "Price Drop",
-        "description": "Price Drop — a common timedChain event in Budget Setup.",
+        "description": "Price Drop \u2014 a common timedChain event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_02_evt_4",
         "roomId": "room_02",
         "title": "Clearance Event",
-        "description": "Clearance Event — a common utility event in Budget Setup.",
+        "description": "Clearance Event \u2014 a common utility event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_02_evt_5",
         "roomId": "room_02",
         "title": "Discount Glitch",
-        "description": "Discount Glitch — a rare secretTrigger event in Budget Setup.",
+        "description": "Discount Glitch \u2014 a rare secretTrigger event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -280,7 +280,7 @@
         "id": "room_02_evt_6",
         "roomId": "room_02",
         "title": "Bulk Deal",
-        "description": "Bulk Deal — a rare legendaryAnomaly event in Budget Setup.",
+        "description": "Bulk Deal \u2014 a rare legendaryAnomaly event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -302,7 +302,7 @@
         "id": "room_02_evt_7",
         "roomId": "room_02",
         "title": "Return Refund",
-        "description": "Return Refund — a epic warningRisk event in Budget Setup.",
+        "description": "Return Refund \u2014 a epic warningRisk event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -329,7 +329,7 @@
         "id": "room_02_evt_8",
         "roomId": "room_02",
         "title": "Flash Sale",
-        "description": "Flash Sale — a corrupted miniBoss event in Budget Setup.",
+        "description": "Flash Sale \u2014 a corrupted miniBoss event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -356,7 +356,7 @@
         "id": "room_02_evt_9",
         "roomId": "room_02",
         "title": "Credit Check",
-        "description": "Credit Check — a legendary guideAdvisory event in Budget Setup.",
+        "description": "Credit Check \u2014 a legendary guideAdvisory event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -372,7 +372,7 @@
         "id": "room_02_evt_10",
         "roomId": "room_02",
         "title": "Savings Cascade",
-        "description": "Savings Cascade — a common hiddenGlitch event in Budget Setup.",
+        "description": "Savings Cascade \u2014 a common hiddenGlitch event in Budget Setup.",
         "flavorText": "The thrift environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -423,5 +423,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_calibrate_02",
+  "companionAffinityIds": [
+    "comp_budget_daemon",
+    "comp_wire_bot"
+  ],
+  "routeBonus": "automation"
 }

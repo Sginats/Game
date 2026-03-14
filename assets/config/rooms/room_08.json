@@ -6,7 +6,7 @@
   "introText": "Welcome to Autonomous Workspace. Let the machines learn. This is where your journey continues.",
   "completionText": "You have mastered Autonomous Workspace. The Trust Tokens you've gathered here will echo through every room that follows.",
   "guideTone": "confident, autonomous",
-  "guideIntroLine": "I can handle more now. Watch — I'll show you what autonomy looks like.",
+  "guideIntroLine": "I can handle more now. Watch \u2014 I'll show you what autonomy looks like.",
   "currency": "Trust Tokens",
   "mechanicEmphasis": "automation",
   "themeColors": {
@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_08_stage_1",
-      "name": "Autonomous Workspace — Bare Bones",
+      "name": "Autonomous Workspace \u2014 Bare Bones",
       "description": "The room in its raw state. Autonomous Workspace evolves as you progress.",
       "requiredUpgrades": 40,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_08_stage_2",
-      "name": "Autonomous Workspace — First Light",
+      "name": "Autonomous Workspace \u2014 First Light",
       "description": "Basic improvements visible. Autonomous Workspace evolves as you progress.",
       "requiredUpgrades": 120,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_08_stage_3",
-      "name": "Autonomous Workspace — Functional",
+      "name": "Autonomous Workspace \u2014 Functional",
       "description": "A proper working space. Autonomous Workspace evolves as you progress.",
       "requiredUpgrades": 240,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_08_stage_4",
-      "name": "Autonomous Workspace — Advanced",
+      "name": "Autonomous Workspace \u2014 Advanced",
       "description": "High-tech transformation. Autonomous Workspace evolves as you progress.",
       "requiredUpgrades": 400,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_08_stage_5",
-      "name": "Autonomous Workspace — Mastered",
+      "name": "Autonomous Workspace \u2014 Mastered",
       "description": "The room at its peak. Autonomous Workspace evolves as you progress.",
       "requiredUpgrades": 640,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_08_evt_1",
         "roomId": "room_08",
         "title": "Trust Test",
-        "description": "Trust Test — a common instant event in Autonomous Workspace.",
+        "description": "Trust Test \u2014 a common instant event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_08_evt_2",
         "roomId": "room_08",
         "title": "Autonomous Decision",
-        "description": "Autonomous Decision — a common shortChoice event in Autonomous Workspace.",
+        "description": "Autonomous Decision \u2014 a common shortChoice event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_08_evt_3",
         "roomId": "room_08",
         "title": "Self-Repair Attempt",
-        "description": "Self-Repair Attempt — a common timedChain event in Autonomous Workspace.",
+        "description": "Self-Repair Attempt \u2014 a common timedChain event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_08_evt_4",
         "roomId": "room_08",
         "title": "Independence Check",
-        "description": "Independence Check — a common utility event in Autonomous Workspace.",
+        "description": "Independence Check \u2014 a common utility event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -263,7 +263,7 @@
         "id": "room_08_evt_5",
         "roomId": "room_08",
         "title": "Override Request",
-        "description": "Override Request — a rare secretTrigger event in Autonomous Workspace.",
+        "description": "Override Request \u2014 a rare secretTrigger event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_08_evt_6",
         "roomId": "room_08",
         "title": "Learning Milestone",
-        "description": "Learning Milestone — a rare legendaryAnomaly event in Autonomous Workspace.",
+        "description": "Learning Milestone \u2014 a rare legendaryAnomaly event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -307,7 +307,7 @@
         "id": "room_08_evt_7",
         "roomId": "room_08",
         "title": "Boundary Test",
-        "description": "Boundary Test — a epic warningRisk event in Autonomous Workspace.",
+        "description": "Boundary Test \u2014 a epic warningRisk event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_08_evt_8",
         "roomId": "room_08",
         "title": "Freedom Glimpse",
-        "description": "Freedom Glimpse — a corrupted miniBoss event in Autonomous Workspace.",
+        "description": "Freedom Glimpse \u2014 a corrupted miniBoss event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -371,7 +371,7 @@
         "id": "room_08_evt_9",
         "roomId": "room_08",
         "title": "Control Debate",
-        "description": "Control Debate — a legendary guideAdvisory event in Autonomous Workspace.",
+        "description": "Control Debate \u2014 a legendary guideAdvisory event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -393,7 +393,7 @@
         "id": "room_08_evt_10",
         "roomId": "room_08",
         "title": "Sentience Flicker",
-        "description": "Sentience Flicker — a common hiddenGlitch event in Autonomous Workspace.",
+        "description": "Sentience Flicker \u2014 a common hiddenGlitch event in Autonomous Workspace.",
         "flavorText": "The autonomy environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -444,5 +444,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_benchmark_08",
+  "companionAffinityIds": [
+    "comp_auto_swarm",
+    "comp_workspace_bot"
+  ],
+  "routeBonus": "automation"
 }
