@@ -1,7 +1,7 @@
-/// Domain models for the meta-progression system.
-///
-/// These models represent persistent cross-run unlockables, collectibles,
-/// and progression tracking that survive prestige resets.
+// Domain models for the meta-progression system.
+//
+// These models represent persistent cross-run unlockables, collectibles,
+// and progression tracking that survive prestige resets.
 
 // ─── Enums ──────────────────────────────────────────────────────────
 

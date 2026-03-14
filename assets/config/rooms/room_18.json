@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_18_stage_1",
-      "name": "Chrono Engine Room \u2014 Bare Bones",
+      "name": "Chrono Engine Room — Bare Bones",
       "description": "The room in its raw state. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 90,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_18_stage_2",
-      "name": "Chrono Engine Room \u2014 First Light",
+      "name": "Chrono Engine Room — First Light",
       "description": "Basic improvements visible. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 270,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_18_stage_3",
-      "name": "Chrono Engine Room \u2014 Functional",
+      "name": "Chrono Engine Room — Functional",
       "description": "A proper working space. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 540,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_18_stage_4",
-      "name": "Chrono Engine Room \u2014 Advanced",
+      "name": "Chrono Engine Room — Advanced",
       "description": "High-tech transformation. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 900,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_18_stage_5",
-      "name": "Chrono Engine Room \u2014 Mastered",
+      "name": "Chrono Engine Room — Mastered",
       "description": "The room at its peak. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 1440,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_18_ambient",
-      "name": "chrono ambience",
-      "assetPath": "assets/audio/rooms/room_18_ambient.ogg",
-      "volume": 0.6,
+      "name": "chrono engine room hush",
+      "assetPath": "assets/audio/rooms/room_18_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_18_active",
-      "name": "chrono activity",
-      "assetPath": "assets/audio/rooms/room_18_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "chrono engine room drive",
+      "assetPath": "assets/audio/rooms/room_18_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_18_twist",
+      "name": "chrono engine room rupture",
+      "assetPath": "assets/audio/rooms/room_18_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_18_evt_1",
         "roomId": "room_18",
         "title": "Time Skip",
-        "description": "Time Skip \u2014 a common instant event in Chrono Engine Room.",
+        "description": "Time Skip — a common instant event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 41.0,
+            "value": 24.8,
             "description": "Gain Chrono Flux"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_18_evt_2",
         "roomId": "room_18",
         "title": "Paradox Alert",
-        "description": "Paradox Alert \u2014 a common shortChoice event in Chrono Engine Room.",
+        "description": "Paradox Alert — a common shortChoice event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 10.0,
+                "type": "instantCurrency",
+                "value": 24.8,
                 "description": "Gain Chrono Flux"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 20.0,
-                "description": "Gain more Chrono Flux"
+                "type": "instantCurrency",
+                "value": 33.8,
+                "description": "Gain Chrono Flux"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_18_evt_3",
         "roomId": "room_18",
         "title": "Future Echo",
-        "description": "Future Echo \u2014 a common timedChain event in Chrono Engine Room.",
+        "description": "Future Echo — a common timedChain event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 41.0,
+            "value": 24.8,
             "description": "Gain Chrono Flux"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_18_evt_4",
         "roomId": "room_18",
         "title": "Past Leak",
-        "description": "Past Leak \u2014 a common utility event in Chrono Engine Room.",
+        "description": "Past Leak — a common utility event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 41.0,
-            "description": "Gain Chrono Flux"
+            "type": "temporaryBuff",
+            "value": 4.44,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 2.14,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +263,7 @@
         "id": "room_18_evt_5",
         "roomId": "room_18",
         "title": "Temporal Storm",
-        "description": "Temporal Storm \u2014 a rare secretTrigger event in Chrono Engine Room.",
+        "description": "Temporal Storm — a rare secretTrigger event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +271,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 41.0,
-            "description": "Gain Chrono Flux"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +285,7 @@
         "id": "room_18_evt_6",
         "roomId": "room_18",
         "title": "Clock Malfunction",
-        "description": "Clock Malfunction \u2014 a rare legendaryAnomaly event in Chrono Engine Room.",
+        "description": "Clock Malfunction — a rare legendaryAnomaly event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +293,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 41.0,
-            "description": "Gain Chrono Flux"
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +312,7 @@
         "id": "room_18_evt_7",
         "roomId": "room_18",
         "title": "Age Regression",
-        "description": "Age Regression \u2014 a epic warningRisk event in Chrono Engine Room.",
+        "description": "Age Regression — a epic warningRisk event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +320,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 41.0,
-            "description": "Gain Chrono Flux"
+            "type": "temporaryBuff",
+            "value": 4.44,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 2.14,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +344,7 @@
         "id": "room_18_evt_8",
         "roomId": "room_18",
         "title": "Prophecy Fragment",
-        "description": "Prophecy Fragment \u2014 a corrupted miniBoss event in Chrono Engine Room.",
+        "description": "Prophecy Fragment — a corrupted miniBoss event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +352,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 41.0,
-            "description": "Gain Chrono Flux"
+            "type": "cooldownChange",
+            "value": 2.14,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,7 +376,7 @@
         "id": "room_18_evt_9",
         "roomId": "room_18",
         "title": "Loop Detection",
-        "description": "Loop Detection \u2014 a legendary guideAdvisory event in Chrono Engine Room.",
+        "description": "Loop Detection — a legendary guideAdvisory event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -341,9 +384,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 41.0,
-            "description": "Gain Chrono Flux"
+            "type": "cooldownChange",
+            "value": 2.14,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.9,
@@ -355,7 +398,7 @@
         "id": "room_18_evt_10",
         "roomId": "room_18",
         "title": "Chrono Stabilize",
-        "description": "Chrono Stabilize \u2014 a common hiddenGlitch event in Chrono Engine Room.",
+        "description": "Chrono Stabilize — a common hiddenGlitch event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +407,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 41.0,
+            "value": 24.8,
             "description": "Gain Chrono Flux"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +438,14 @@
         "choices": [],
         "rewards": [
           {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
             "type": "environmentTrigger",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 1.0,

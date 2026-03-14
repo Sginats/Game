@@ -14,6 +14,7 @@ import '../../domain/models/meta_progression.dart';
 import '../../domain/models/progression_content.dart';
 import '../../domain/models/generator.dart';
 import '../../domain/models/room_scene.dart';
+import '../../domain/models/scene_event.dart';
 import '../../domain/models/upgrade.dart';
 import '../../domain/systems/achievement_system.dart';
 import '../../domain/systems/generator_system.dart';
@@ -37,6 +38,7 @@ class GameController {
   double _autoSaveAccumulator = 0;
   double _eventAccumulator = 0;
   Future<void>? _saveFuture;
+  SceneEventDefinition? _activeRoomSceneEvent;
 
   List<AchievementDefinition> lastUnlockedAchievements = [];
   List<String> lastUnlockedMilestones = [];
@@ -60,11 +62,14 @@ class GameController {
         _roomSceneService = roomSceneService,
         _random = random ?? math.Random(),
         _state = initialState ?? GameState.initial() {
+    _syncRoomToCurrentEra(force: true);
+    _bootstrapRoomCollections();
     _checkEraUnlocks();
     _checkSceneBadges();
     _checkRoomProgression();
     _ensureQuest();
     _ensureChallenges();
+    _syncGuideMilestones();
     _refreshGuidance();
   }
 
@@ -125,6 +130,12 @@ class GameController {
 
   /// Total rooms available.
   int get totalRooms => _roomSceneService?.totalRooms ?? 20;
+  List<RoomScene> get allRooms => _roomSceneService?.allRooms ?? const [];
+  RoomScene? roomForEra(String eraId) {
+    final era = _eraById(eraId);
+    if (era == null) return null;
+    return _roomSceneService?.getRoomByOrder(era.order);
+  }
 
   /// MetaProgression state accessor.
   MetaProgressionState get metaProgression => _state.metaProgression;
@@ -389,6 +400,8 @@ class GameController {
           ? _bumpTendency(_state.playstyleTendencies, 'risky', 2)
           : _state.playstyleTendencies,
     );
+    _syncRouteArchive(branchId: branchId);
+    _syncGuideMilestones();
     _refreshGuidance();
     return true;
   }
@@ -402,6 +415,7 @@ class GameController {
       branchRespecTokens: _state.branchRespecTokens - 1,
       routeSignature: '${_state.routeSignature}|respec',
     );
+    _syncRouteArchive();
     _refreshGuidance();
     return true;
   }
@@ -410,6 +424,7 @@ class GameController {
     if (!_state.unlockedEras.contains(eraId)) return false;
     if (_state.currentEraId == eraId) return true;
     _state = _state.copyWith(currentEraId: eraId);
+    _syncRoomToCurrentEra();
     _refreshGuidance();
     return true;
   }
@@ -434,10 +449,18 @@ class GameController {
 
     _state = _state.copyWith(
       currentRoomId: roomId,
+      currentEraId: _eraIdForRoom(room) ?? _state.currentEraId,
       roomStates: roomStates,
       guideAffinity: _state.guideAffinity + 0.3,
     );
 
+    _syncRouteArchive();
+    recordGuideMemory(
+      id: 'guide_room_intro_$roomId',
+      title: room.name,
+      content: room.guideIntroLine,
+      messageType: 'room_intro',
+    );
     _pushNarrativeBeat(
       id: 'room_enter_$roomId',
       title: 'Entering ${room.name}',
@@ -458,7 +481,7 @@ class GameController {
     updatedRoomStates[roomId] = roomState.copyWith(completed: true);
 
     final meta = _state.metaProgression;
-    final updatedMeta = meta.copyWith(
+    var updatedMeta = meta.copyWith(
       roomsCompleted: {...meta.roomsCompleted, roomId},
       totalPrestigeTokens: meta.totalPrestigeTokens + 1,
       lifetimePrestigeTokens: meta.lifetimePrestigeTokens + 1,
@@ -468,7 +491,7 @@ class GameController {
 
     // Add scene lore entry to codex
     final codex = _state.codex;
-    final updatedCodex = codex.copyWith(
+    var updatedCodex = codex.copyWith(
       sceneLore: [
         ...codex.sceneLore,
         SceneLoreEntry(
@@ -483,6 +506,11 @@ class GameController {
       ],
     );
 
+    if (room != null) {
+      updatedMeta = _awardRoomCompletionMeta(room, updatedMeta);
+      updatedCodex = _recordRoomCompletionArchives(room, updatedCodex);
+    }
+
     _state = _state.copyWith(
       roomStates: updatedRoomStates,
       metaProgression: updatedMeta,
@@ -490,6 +518,17 @@ class GameController {
       guideAffinity: _state.guideAffinity + 2.0,
     );
 
+    if (room != null) {
+      recordGuideMemory(
+        id: 'guide_room_complete_$roomId',
+        title: '${room.name} Complete',
+        content:
+            'You stabilized ${room.name} and archived its lessons for the next run.',
+        messageType: 'room_complete',
+      );
+    }
+    _syncRouteArchive(completedRoomId: roomId);
+    _syncGuideMilestones();
     _pushNarrativeBeat(
       id: 'room_complete_$roomId',
       title: '${room?.name ?? roomId} Complete',
@@ -527,11 +566,14 @@ class GameController {
       guideAffinity: _state.guideAffinity + 0.5,
     );
 
+    _recordTransformationArchive(room, stageData, nextStage);
     _pushNarrativeBeat(
       id: 'transform_${roomId}_$nextStage',
       title: stageData.name,
-      body: stageData.description,
+      body:
+          '${stageData.description}\n${stageData.environmentChanges.join(', ')}',
     );
+    _syncGuideMilestones();
     _refreshGuidance();
     return true;
   }
@@ -549,14 +591,29 @@ class GameController {
     );
 
     final meta = _state.metaProgression;
-    final updatedMeta = meta.copyWith(
+    var updatedMeta = meta.copyWith(
       secretsArchived: {...meta.secretsArchived, secretId},
     );
 
     final codex = _state.codex;
-    final updatedCodex = codex.copyWith(
-      secretArchive: [
-        ...codex.secretArchive,
+    final existingSecretIndex =
+        codex.secretArchive.indexWhere((entry) => entry.id == secretId);
+    final updatedSecretArchive = List<SecretArchiveEntry>.from(codex.secretArchive);
+    if (existingSecretIndex >= 0) {
+      final existing = updatedSecretArchive[existingSecretIndex];
+      updatedSecretArchive[existingSecretIndex] = SecretArchiveEntry(
+        id: existing.id,
+        roomId: existing.roomId,
+        title: existing.title,
+        description: existing.description,
+        hint: existing.hint,
+        clueSource: existing.clueSource,
+        discoveryMethod: existing.discoveryMethod,
+        rewardDescription: existing.rewardDescription,
+        discovered: true,
+      );
+    } else {
+      updatedSecretArchive.add(
         SecretArchiveEntry(
           id: secretId,
           roomId: roomId,
@@ -564,8 +621,23 @@ class GameController {
           description: 'A hidden discovery in $roomId.',
           discovered: true,
         ),
-      ],
-    );
+      );
+    }
+    var updatedCodex = codex.copyWith(secretArchive: updatedSecretArchive);
+    final room = _roomSceneService?.getRoomById(roomId);
+    RoomSecret? secret;
+    if (room != null) {
+      for (final item in room.secrets) {
+        if (item.id == secretId) {
+          secret = item;
+          break;
+        }
+      }
+    }
+    if (room != null && secret != null) {
+      updatedMeta = _awardSecretMeta(room, secret, updatedMeta);
+      updatedCodex = _recordSecretRewardArchive(room, secret, updatedCodex);
+    }
 
     _state = _state.copyWith(
       roomStates: updatedRoomStates,
@@ -574,6 +646,7 @@ class GameController {
       discoveredSecrets: {..._state.discoveredSecrets, secretId},
       guideAffinity: _state.guideAffinity + 1.0,
     );
+    _syncGuideMilestones();
     _refreshGuidance();
     return true;
   }
@@ -596,11 +669,19 @@ class GameController {
       guideAffinity: _state.guideAffinity + 0.8,
     );
 
+    _recordTwistArchive(room!);
+    recordGuideMemory(
+      id: 'guide_room_twist_$roomId',
+      title: room.midSceneTwist!.title,
+      content: room.midSceneTwist!.effectDescription,
+      messageType: 'room_twist',
+    );
     _pushNarrativeBeat(
       id: 'twist_$roomId',
-      title: room!.midSceneTwist!.title,
+      title: room.midSceneTwist!.title,
       body: room.midSceneTwist!.effectDescription,
     );
+    _syncGuideMilestones();
     _refreshGuidance();
     return true;
   }
@@ -791,10 +872,20 @@ class GameController {
     final reward = GameNumber.fromDouble(
       math.max(500, _state.totalCoinsEarned.toDouble() * rewardBase),
     );
+    var updatedMeta = _state.metaProgression.copyWith(
+      challengesCleared: _state.metaProgression.challengesCleared + 1,
+    );
+    var updatedCodex = _state.codex;
+    if (challenge.period == ChallengePeriod.weekly) {
+      updatedMeta = _awardChallengeBlueprint(challenge, updatedMeta);
+    }
+    updatedCodex = _recordChallengeArchive(challenge, updatedCodex);
     _state = _state.copyWith(
       coins: _state.coins + reward,
       totalCoinsEarned: _state.totalCoinsEarned + reward,
       guideAffinity: _state.guideAffinity + 1.2,
+      metaProgression: updatedMeta,
+      codex: updatedCodex,
       challenges: _state.challenges
           .map((item) =>
               item.id == challengeId ? item.copyWith(claimed: true) : item)
@@ -809,6 +900,14 @@ class GameController {
             'The AI recorded a durable strategy from your weekly challenge run.',
       );
     }
+    recordGuideMemory(
+      id: 'guide_challenge_$challengeId',
+      title: challenge.title,
+      content:
+          'Challenge archived with ${challenge.progress.toStringAsFixed(0)} progress toward ${challenge.target.toStringAsFixed(0)}.',
+      messageType: 'challenge',
+    );
+    _syncGuideMilestones();
     _refreshGuidance();
     return true;
   }
@@ -874,6 +973,15 @@ class GameController {
   bool resolveActiveEvent({required bool aggressiveChoice}) {
     final event = _state.activeEvent;
     if (event == null) return false;
+    if (_activeRoomSceneEvent != null) {
+      final resolved = _resolveRoomSceneEvent(
+        _activeRoomSceneEvent!,
+        event,
+        aggressiveChoice: aggressiveChoice,
+      );
+      _activeRoomSceneEvent = null;
+      return resolved;
+    }
 
     var updated = _state;
     final rewardScale =
@@ -1018,6 +1126,7 @@ class GameController {
     _updateChallengeProgress();
     _checkSceneBadges();
     _checkMilestones();
+    _syncGuideMilestones();
     _refreshGuidance();
     return true;
   }
@@ -1025,6 +1134,7 @@ class GameController {
   bool dismissActiveEvent() {
     final event = _state.activeEvent;
     if (event == null) return false;
+    _activeRoomSceneEvent = null;
     _state = _state.copyWith(
       activeEvent: null,
       currentEventChain: 0,
@@ -1144,11 +1254,13 @@ class GameController {
 
   void setState(GameState state) {
     _state = state;
+    _activeRoomSceneEvent = null;
     _checkEraUnlocks();
     _checkSceneBadges();
     _checkRoomProgression();
     _ensureQuest();
     _ensureChallenges();
+    _syncGuideMilestones();
     _refreshGuidance();
   }
 
@@ -1164,7 +1276,10 @@ class GameController {
     if (_repository == null) return false;
     final saved = await _repository!.loadGame();
     if (saved == null) return false;
+    _activeRoomSceneEvent = null;
     _state = saved.copyWith(activeEvent: null);
+    _syncRoomToCurrentEra(force: true);
+    _bootstrapRoomCollections();
     _checkEraUnlocks();
     _checkSceneBadges();
     if (!_state.unlockedEras.contains(_state.currentEraId)) {
@@ -1175,8 +1290,111 @@ class GameController {
     applyOfflineEarnings();
     _checkEraUnlocks();
     _checkSceneBadges();
+    _syncGuideMilestones();
     _refreshGuidance();
     return true;
+  }
+
+  void _syncRoomToCurrentEra({bool force = false}) {
+    if (_roomSceneService == null) return;
+    final era = _eraById(_state.currentEraId);
+    if (era == null) return;
+    final room = _roomSceneService!.getRoomByOrder(era.order);
+    if (room == null) return;
+    if (!force && _state.currentRoomId == room.id) return;
+
+    final roomStates = Map<String, RoomSceneState>.from(_state.roomStates);
+    roomStates.putIfAbsent(room.id, () => RoomSceneState(roomId: room.id));
+    _state = _state.copyWith(
+      currentRoomId: room.id,
+      roomStates: roomStates,
+    );
+  }
+
+  void _bootstrapRoomCollections() {
+    if (_roomSceneService == null) return;
+    final rooms = _roomSceneService!.allRooms;
+    if (rooms.isEmpty) return;
+
+    final codex = _state.codex;
+    final existingSecretIds = {
+      for (final entry in codex.secretArchive) entry.id,
+    };
+    final existingLoreIds = {
+      for (final entry in codex.sceneLore) entry.id,
+    };
+    final existingEntryIds = {
+      for (final entry in codex.entries) entry.id,
+    };
+    final secretArchive = List<SecretArchiveEntry>.from(codex.secretArchive);
+    final sceneLore = List<SceneLoreEntry>.from(codex.sceneLore);
+    final entries = List<CodexEntry>.from(codex.entries);
+
+    for (final room in rooms) {
+      for (final secret in room.secrets) {
+        if (existingSecretIds.add(secret.id)) {
+          secretArchive.add(
+            SecretArchiveEntry(
+              id: secret.id,
+              roomId: room.id,
+              title: secret.title,
+              description: secret.description,
+              hint: secret.hint,
+              clueSource: secret.clueSource,
+              rewardDescription: '${secret.rewardType}:${secret.rewardValue}',
+              discovered: _state.discoveredSecrets.contains(secret.id),
+            ),
+          );
+        }
+      }
+      final introLoreId = 'scene_intro_${room.id}';
+      if (existingLoreIds.add(introLoreId)) {
+        sceneLore.add(
+          SceneLoreEntry(
+            id: introLoreId,
+            roomId: room.id,
+            title: '${room.name} Briefing',
+            content: room.introText,
+            loreCategory: 'intro',
+            chapter: room.order,
+            discovered: room.id == _state.currentRoomId,
+          ),
+        );
+      }
+      final transformationEntryId = 'transformation_${room.id}';
+      if (existingEntryIds.add(transformationEntryId)) {
+        entries.add(
+          CodexEntry(
+            id: transformationEntryId,
+            title: '${room.name} Transformation Track',
+            content: room.transformationStages
+                .map((stage) => '${stage.name}: ${stage.description}')
+                .join('\n'),
+            type: CodexEntryType.transformationArchive,
+            category: room.mechanicEmphasis.name,
+            roomId: room.id,
+            discovered: room.id == _state.currentRoomId,
+            icon: 'room',
+            rarity: 'uncommon',
+          ),
+        );
+      }
+    }
+
+    _state = _state.copyWith(
+      codex: codex.copyWith(
+        entries: entries,
+        secretArchive: secretArchive,
+        sceneLore: sceneLore,
+      ),
+    );
+  }
+
+  String? _eraIdForRoom(RoomScene room) {
+    for (final era in _config.eras) {
+      if (era.order == room.order) return era.id;
+    }
+    return null;
   }
 
   // ─── Prestige ────────────────────────────────────────────────────────
@@ -1343,6 +1561,7 @@ class GameController {
     if (event == null) return;
     final remaining = event.remainingSeconds - deltaSeconds;
     if (remaining <= 0) {
+      _activeRoomSceneEvent = null;
       _state = _state.copyWith(
         activeEvent: null,
         currentEventChain: 0,
@@ -1362,6 +1581,7 @@ class GameController {
     // Cap accumulator to prevent unbounded growth even during active events
     if (_eventAccumulator > 60) _eventAccumulator = 60;
     if (_state.activeEvent != null || _eventAccumulator < 12) return;
+    if (_trySpawnRoomSceneEvent()) return;
 
     final chance = (_state.chosenBranches.contains('risky') ? 0.045 : 0.024) +
         ((_state.eventPityCounter + _state.missedEventCharges) * 0.006)
@@ -1938,11 +2158,894 @@ class GameController {
     }
   }
 
+  bool _trySpawnRoomSceneEvent() {
+    final pool = _roomSceneService?.getEventPool(_state.currentRoomId);
+    if (pool == null) return false;
+
+    final chance = ((_state.chosenBranches.contains('risky') ? 0.038 : 0.022) *
+            pool.spawnRateMultiplier) +
+        ((_state.eventPityCounter + _state.missedEventCharges) * 0.006)
+            .clamp(0.0, 0.08) +
+        (guideTier * 0.0025);
+    if (_random.nextDouble() > chance) return false;
+
+    final rolledRarity = _rollEventRarity();
+    final eligible = <SceneEventDefinition>[
+      ...pool.events,
+      if (currentRoomState.twistActivated) ...pool.midTwistEvents,
+    ].where((event) {
+      if (event.roomId != _state.currentRoomId) return false;
+      if (currentRoomState.upgradesPurchased < event.requiredUpgradeCount) {
+        return false;
+      }
+      if (event.requiredTwistActive && !currentRoomState.twistActivated) {
+        return false;
+      }
+      return _sceneEventRarityRank(event.rarity) <= rolledRarity.index;
+    }).toList();
+    if (eligible.isEmpty) return false;
+
+    final totalWeight = eligible.fold<int>(0, (sum, item) => sum + item.weight);
+    var roll = _random.nextInt(math.max(1, totalWeight));
+    SceneEventDefinition selected = eligible.first;
+    for (final item in eligible) {
+      roll -= item.weight;
+      if (roll < 0) {
+        selected = item;
+        break;
+      }
+    }
+
+    _eventAccumulator = 0;
+    _activeRoomSceneEvent = selected;
+    final runtimeEvent = GameEventState(
+      id: '${selected.id}_${_state.totalEventsSpawned + 1}',
+      type: _eventTypeForSceneEvent(selected.category),
+      title: selected.title,
+      description: selected.description,
+      remainingSeconds: selected.durationSeconds,
+      risky: selected.choices.length > 1 &&
+          selected.choices.last.risk >= selected.choices.first.risk,
+      rarity: _eventRarityFromScene(selected.rarity),
+      clickOnly: selected.choices.isEmpty,
+    );
+    _state = _state.copyWith(
+      activeEvent: runtimeEvent,
+      totalEventsSpawned: _state.totalEventsSpawned + 1,
+      seenEventTemplates: {..._state.seenEventTemplates, selected.id},
+    );
+    _recordSceneEventArchive(selected);
+    if (runtimeEvent.rarity.index >= EventRarity.rare.index) {
+      _pushNarrativeBeat(
+        id: 'room_event_${selected.id}_${_state.totalEventsSpawned}',
+        title: '${selected.title} / ${currentRoom?.name ?? _state.currentRoomId}',
+        body: selected.flavorText.isEmpty
+            ? selected.description
+            : selected.flavorText,
+      );
+    }
+    return true;
+  }
+
+  bool _resolveRoomSceneEvent(
+    SceneEventDefinition definition,
+    GameEventState runtimeEvent, {
+    required bool aggressiveChoice,
+  }) {
+    var updated = _state;
+    var triggerTransformation = false;
+    final room = currentRoom;
+    final rewardScale =
+        _rarityRewardMultiplier(runtimeEvent.rarity) *
+        (1 + (definition.chainBonus * 0.35)) *
+        (1 + (_state.currentEventChain * 0.04).clamp(0, 0.4)) *
+        _roomEventIdentityScale(room, definition, aggressiveChoice);
+    final rewards = definition.choices.isEmpty
+        ? definition.rewards
+        : (aggressiveChoice && definition.choices.length > 1
+            ? definition.choices.last.rewards
+            : definition.choices.first.rewards);
+
+    for (final reward in rewards) {
+      switch (reward.type) {
+        case EventRewardType.instantCurrency:
+          final amount = GameNumber.fromDouble(
+            math.max(
+              reward.value * 12,
+              productionPerSecond.toDouble() * (0.45 + reward.value * 0.11),
+            ) *
+                rewardScale,
+          );
+          updated = updated.copyWith(
+            coins: updated.coins + amount,
+            totalCoinsEarned: updated.totalCoinsEarned + amount,
+          );
+          break;
+        case EventRewardType.temporaryBuff:
+          final tapBias = _roomTapBuffBias(room, definition);
+          final productionBias = _roomProductionBuffBias(room, definition);
+          final tapFactor =
+              1 + reward.value * (aggressiveChoice ? 0.015 : 0.01) * tapBias;
+          final productionFactor =
+              1 +
+                  reward.value *
+                      (aggressiveChoice ? 0.018 : 0.012) *
+                      productionBias;
+          updated = updated.copyWith(
+            tapMultiplier:
+                updated.tapMultiplier * GameNumber.fromDouble(tapFactor),
+            productionMultiplier: updated.productionMultiplier *
+                GameNumber.fromDouble(productionFactor),
+          );
+          break;
+        case EventRewardType.comboAmplification:
+          final comboGain =
+              reward.value.round() + _roomComboReward(room, definition);
+          updated = updated.copyWith(
+            tapCombo: updated.tapCombo + comboGain,
+            strongestCombo: math.max(
+              updated.strongestCombo,
+              updated.tapCombo + comboGain,
+            ),
+          );
+          break;
+        case EventRewardType.cooldownChange:
+          final cooldownChange =
+              reward.value + _roomCooldownReward(room, definition);
+          updated = updated.copyWith(
+            abilities: updated.abilities.map(
+              (key, value) => MapEntry(
+                key,
+                value.copyWith(
+                  cooldownRemaining: math.max(
+                    0,
+                    value.cooldownRemaining - cooldownChange,
+                  ),
+                ),
+              ),
+            ),
+          );
+          break;
+        case EventRewardType.rareResource:
+        case EventRewardType.relicFragment:
+          final meta = _awardEventFragment(definition, reward, updated.metaProgression);
+          updated = updated.copyWith(
+            metaProgression: meta,
+            branchRespecTokens: updated.branchRespecTokens +
+                _roomFragmentBranchBonus(room, runtimeEvent.rarity),
+          );
+          break;
+        case EventRewardType.secretClue:
+          _discoverFirstHiddenRoomSecret();
+          break;
+        case EventRewardType.hiddenBranchProgress:
+        case EventRewardType.routeReward:
+          updated = updated.copyWith(
+            branchRespecTokens: updated.branchRespecTokens +
+                1 +
+                _roomRouteRewardBonus(room, definition),
+          );
+          break;
+        case EventRewardType.guideAffinity:
+          updated = updated.copyWith(
+            guideAffinity:
+                updated.guideAffinity + reward.value + _roomGuideRewardBonus(room),
+          );
+          break;
+        case EventRewardType.codexEntry:
+          updated = updated.copyWith(
+            codex: _upsertCodexEntry(
+              updated.codex,
+              CodexEntry(
+                id: 'event_entry_${definition.id}',
+                title: definition.title,
+                content: reward.description,
+                type: CodexEntryType.eventArchive,
+                category: definition.category.name,
+                roomId: definition.roomId,
+                discovered: true,
+                icon: 'event',
+                rarity: definition.rarity,
+              ),
+            ),
+          );
+          break;
+        case EventRewardType.environmentTrigger:
+          triggerTransformation = true;
+          break;
+      }
+    }
+
+    updated = _applyRoomEventIdentityBonus(
+      updated,
+      room: room,
+      definition: definition,
+      rewardScale: rewardScale,
+      aggressiveChoice: aggressiveChoice,
+      rarity: runtimeEvent.rarity,
+    );
+
+    updated = updated.copyWith(
+      activeEvent: null,
+      totalEventsClicked: updated.totalEventsClicked + 1,
+      currentEventChain: updated.currentEventChain + 1,
+      bestEventChain:
+          math.max(updated.bestEventChain, updated.currentEventChain + 1),
+      rareEventsFound: updated.rareEventsFound +
+          (runtimeEvent.rarity.index >= EventRarity.rare.index ? 1 : 0),
+      riskyChoicesTaken:
+          updated.riskyChoicesTaken + (aggressiveChoice ? 1 : 0),
+      eventPityCounter: 0,
+      missedEventCharges: math.max(0, updated.missedEventCharges - 1),
+      playstyleTendencies: _bumpTendency(
+        aggressiveChoice
+            ? _bumpTendency(updated.playstyleTendencies, 'risky', 0.9)
+            : updated.playstyleTendencies,
+        'event_hunter',
+        1 + definition.chainBonus,
+      ),
+      guideAffinity: updated.guideAffinity +
+          (definition.category == SceneEventCategory.guideAdvisory ? 0.6 : 0.35),
+    );
+    _state = updated;
+
+    if (triggerTransformation) {
+      advanceTransformationStage();
+    }
+    if (definition.category == SceneEventCategory.secretTrigger ||
+        definition.category == SceneEventCategory.hiddenGlitch) {
+      _discoverFirstHiddenRoomSecret();
+    }
+    if (definition.category == SceneEventCategory.guideAdvisory) {
+      recordGuideMemory(
+        id: 'guide_event_${definition.id}',
+        title: definition.title,
+        content: definition.flavorText.isEmpty
+            ? definition.description
+            : definition.flavorText,
+        messageType: 'event',
+      );
+    }
+    _syncGuideMilestones();
+    _updateChallengeProgress();
+    _checkSceneBadges();
+    _checkMilestones();
+    _refreshGuidance();
+    return true;
+  }
+
+  double _roomEventIdentityScale(
+    RoomScene? room,
+    SceneEventDefinition definition,
+    bool aggressiveChoice,
+  ) {
+    if (room == null) return 1;
+    final stageFactor = 1 + (currentRoomState.currentTransformationStage * 0.025);
+    final riskyFactor = aggressiveChoice && room.mechanicEmphasis == RoomMechanicEmphasis.heat
+        ? 1.12
+        : 1.0;
+    final categoryFactor = switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.tap =>
+        definition.category == SceneEventCategory.instant ? 1.08 : 1.0,
+      RoomMechanicEmphasis.hybrid =>
+        definition.category == SceneEventCategory.shortChoice ? 1.05 : 1.0,
+      RoomMechanicEmphasis.combo =>
+        definition.category == SceneEventCategory.timedChain ? 1.1 : 1.02,
+      RoomMechanicEmphasis.automation =>
+        definition.category == SceneEventCategory.utility ? 1.08 : 1.03,
+      RoomMechanicEmphasis.signal =>
+        definition.category == SceneEventCategory.guideAdvisory ? 1.1 : 1.02,
+      RoomMechanicEmphasis.heat =>
+        definition.category == SceneEventCategory.warningRisk ? 1.12 : 1.03,
+      RoomMechanicEmphasis.maintenance =>
+        definition.category == SceneEventCategory.utility ? 1.1 : 1.02,
+      RoomMechanicEmphasis.event =>
+        definition.category == SceneEventCategory.legendaryAnomaly ? 1.1 : 1.04,
+      RoomMechanicEmphasis.temporal =>
+        definition.category == SceneEventCategory.hiddenGlitch ? 1.12 : 1.04,
+      RoomMechanicEmphasis.synthesis =>
+        definition.category == SceneEventCategory.miniBoss ? 1.12 : 1.05,
+    };
+    return stageFactor * riskyFactor * categoryFactor;
+  }
+
+  double _roomTapBuffBias(RoomScene? room, SceneEventDefinition definition) {
+    if (room == null) return 1;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.tap => 1.22,
+      RoomMechanicEmphasis.combo => 1.18,
+      RoomMechanicEmphasis.hybrid => 1.08,
+      RoomMechanicEmphasis.signal when
+          definition.category == SceneEventCategory.guideAdvisory =>
+        1.06,
+      _ => 1.0,
+    };
+  }
+
+  double _roomProductionBuffBias(
+    RoomScene? room,
+    SceneEventDefinition definition,
+  ) {
+    if (room == null) return 1;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.automation => 1.24,
+      RoomMechanicEmphasis.maintenance => 1.18,
+      RoomMechanicEmphasis.synthesis => 1.14,
+      RoomMechanicEmphasis.temporal when
+          definition.category == SceneEventCategory.hiddenGlitch =>
+        1.12,
+      _ => 1.0,
+    };
+  }
+
+  int _roomComboReward(RoomScene? room, SceneEventDefinition definition) {
+    if (room == null) return 0;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.combo => 2,
+      RoomMechanicEmphasis.tap => 1,
+      RoomMechanicEmphasis.event when
+          definition.category == SceneEventCategory.timedChain =>
+        1,
+      _ => 0,
+    };
+  }
+
+  double _roomCooldownReward(RoomScene? room, SceneEventDefinition definition) {
+    if (room == null) return 0;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.temporal => 0.8,
+      RoomMechanicEmphasis.maintenance => 0.55,
+      RoomMechanicEmphasis.signal when
+          definition.category == SceneEventCategory.guideAdvisory =>
+        0.35,
+      _ => 0,
+    };
+  }
+
+  int _roomFragmentBranchBonus(RoomScene? room, EventRarity rarity) {
+    if (room == null || rarity.index < EventRarity.epic.index) return 0;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.temporal ||
+      RoomMechanicEmphasis.signal ||
+      RoomMechanicEmphasis.event =>
+        1,
+      _ => 0,
+    };
+  }
+
+  int _roomRouteRewardBonus(RoomScene? room, SceneEventDefinition definition) {
+    if (room == null) return 0;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.hybrid => 1,
+      RoomMechanicEmphasis.signal => 1,
+      RoomMechanicEmphasis.event when
+          definition.category == SceneEventCategory.legendaryAnomaly =>
+        1,
+      _ => 0,
+    };
+  }
+
+  double _roomGuideRewardBonus(RoomScene? room) {
+    if (room == null) return 0;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.signal => 0.45,
+      RoomMechanicEmphasis.event => 0.35,
+      RoomMechanicEmphasis.synthesis => 0.2,
+      _ => 0.0,
+    };
+  }
+
+  GameState _applyRoomEventIdentityBonus(
+    GameState state, {
+    required RoomScene? room,
+    required SceneEventDefinition definition,
+    required double rewardScale,
+    required bool aggressiveChoice,
+    required EventRarity rarity,
+  }) {
+    if (room == null) return state;
+    return switch (room.mechanicEmphasis) {
+      RoomMechanicEmphasis.tap => state.copyWith(
+          tapCombo: state.tapCombo + 1,
+          strongestCombo: math.max(state.strongestCombo, state.tapCombo + 1),
+        ),
+      RoomMechanicEmphasis.hybrid => state.copyWith(
+          purchaseMomentum: (state.purchaseMomentum + 0.75).clamp(0, 12),
+          automationCharge: (state.automationCharge + 5).clamp(0, 100),
+        ),
+      RoomMechanicEmphasis.combo => state.copyWith(
+          tapCombo: state.tapCombo + 2,
+          strongestCombo: math.max(state.strongestCombo, state.tapCombo + 2),
+        ),
+      RoomMechanicEmphasis.automation => state.copyWith(
+          automationCharge: (state.automationCharge + 8).clamp(0, 100),
+          productionMultiplier: state.productionMultiplier *
+              GameNumber.fromDouble(1 + rewardScale * 0.006),
+        ),
+      RoomMechanicEmphasis.signal => state.copyWith(
+          missedEventCharges: math.min(5, state.missedEventCharges + 1),
+          guideAffinity: state.guideAffinity + 0.25,
+        ),
+      RoomMechanicEmphasis.heat => state.copyWith(
+          purchaseMomentum:
+              (state.purchaseMomentum + (aggressiveChoice ? 1.2 : 0.45))
+                  .clamp(0, 12),
+          coins: aggressiveChoice
+              ? state.coins +
+                  GameNumber.fromDouble(
+                    productionPerSecond.toDouble() * 0.06 * rewardScale,
+                  )
+              : state.coins,
+          totalCoinsEarned: aggressiveChoice
+              ? state.totalCoinsEarned +
+                  GameNumber.fromDouble(
+                    productionPerSecond.toDouble() * 0.06 * rewardScale,
+                  )
+              : state.totalCoinsEarned,
+        ),
+      RoomMechanicEmphasis.maintenance => state.copyWith(
+          missedEventCharges: math.min(5, state.missedEventCharges + 1),
+          purchaseMomentum: (state.purchaseMomentum + 0.4).clamp(0, 12),
+        ),
+      RoomMechanicEmphasis.event => state.copyWith(
+          currentEventChain: state.currentEventChain + 1,
+          bestEventChain:
+              math.max(state.bestEventChain, state.currentEventChain + 1),
+          missedEventCharges:
+              math.min(5, state.missedEventCharges + (rarity.index >= EventRarity.rare.index ? 1 : 0)),
+        ),
+      RoomMechanicEmphasis.temporal => state.copyWith(
+          branchRespecTokens: state.branchRespecTokens +
+              (definition.category == SceneEventCategory.hiddenGlitch ? 1 : 0),
+          abilities: state.abilities.map(
+            (key, value) => MapEntry(
+              key,
+              value.copyWith(
+                cooldownRemaining:
+                    math.max(0, value.cooldownRemaining - 0.5),
+              ),
+            ),
+          ),
+        ),
+      RoomMechanicEmphasis.synthesis => state.copyWith(
+          tapMultiplier:
+              state.tapMultiplier * GameNumber.fromDouble(1 + rewardScale * 0.004),
+          productionMultiplier: state.productionMultiplier *
+              GameNumber.fromDouble(1 + rewardScale * 0.005),
+        ),
+    };
+  }
+
+  void _discoverFirstHiddenRoomSecret() {
+    final room = currentRoom;
+    if (room == null) return;
+    for (final secret in room.secrets) {
+      if (!currentRoomState.secretsDiscovered.contains(secret.id)) {
+        discoverRoomSecret(secret.id);
+        return;
+      }
+    }
+  }
+
+  GameEventType _eventTypeForSceneEvent(SceneEventCategory category) {
+    return switch (category) {
+      SceneEventCategory.instant => GameEventType.powerSurge,
+      SceneEventCategory.shortChoice => GameEventType.aiIdea,
+      SceneEventCategory.timedChain => GameEventType.marketSpike,
+      SceneEventCategory.utility => GameEventType.hardwareMalfunction,
+      SceneEventCategory.secretTrigger => GameEventType.mysteryCache,
+      SceneEventCategory.legendaryAnomaly => GameEventType.breachFragment,
+      SceneEventCategory.warningRisk => GameEventType.hardwareMalfunction,
+      SceneEventCategory.miniBoss => GameEventType.breachFragment,
+      SceneEventCategory.guideAdvisory => GameEventType.aiIdea,
+      SceneEventCategory.hiddenGlitch => GameEventType.dataCorruption,
+    };
+  }
+
+  EventRarity _eventRarityFromScene(String rarity) {
+    return switch (rarity) {
+      'legendary' => EventRarity.legendary,
+      'corrupted' => EventRarity.corrupted,
+      'epic' => EventRarity.epic,
+      'rare' => EventRarity.rare,
+      _ => EventRarity.common,
+    };
+  }
+
+  int _sceneEventRarityRank(String rarity) {
+    return _eventRarityFromScene(rarity).index;
+  }
+
+  void _recordSceneEventArchive(SceneEventDefinition definition) {
+    _state = _state.copyWith(
+      codex: _upsertCodexEntry(
+        _state.codex,
+        CodexEntry(
+          id: 'event_${definition.id}',
+          title: definition.title,
+          content:
+              '${definition.description}\n\n${definition.flavorText}'.trim(),
+          type: CodexEntryType.eventArchive,
+          category: definition.category.name,
+          roomId: definition.roomId,
+          discovered: true,
+          icon: 'event',
+          rarity: definition.rarity,
+        ),
+      ),
+    );
+  }
+
+  MetaProgressionState _awardEventFragment(
+    SceneEventDefinition definition,
+    SceneEventReward reward,
+    MetaProgressionState meta,
+  ) {
+    final shardId = 'fragment_${definition.id}';
+    if (meta.blueprintShards.any((item) => item.id == shardId)) {
+      return meta;
+    }
+    return meta.copyWith(
+      blueprintShards: [
+        ...meta.blueprintShards,
+        BlueprintShard(
+          id: shardId,
+          name: definition.title,
+          description: reward.description,
+          roomId: definition.roomId,
+          category: definition.category.name,
+          shardsRequired: 1,
+          shardsCollected: 1,
+          completed: true,
+        ),
+      ],
+    );
+  }
+
   ChallengeState? _challengeByPeriod(ChallengePeriod period) {
     for (final challenge in _state.challenges) {
       if (challenge.period == period) return challenge;
     }
     return null;
+  }
+
+  MetaProgressionState _awardRoomCompletionMeta(
+    RoomScene room,
+    MetaProgressionState meta,
+  ) {
+    final relicId = 'relic_${room.id}';
+    final heirloomId = 'heirloom_${room.id}';
+    final memoryId = 'memory_${room.id}';
+    return meta.copyWith(
+      relics: meta.relics.any((item) => item.id == relicId)
+          ? meta.relics
+          : [
+              ...meta.relics,
+              Relic(
+                id: relicId,
+                name: '${room.name} Relic',
+                description: room.subtitle,
+                rarity: room.order >= 15
+                    ? RelicRarity.legendary
+                    : room.order >= 10
+                        ? RelicRarity.epic
+                        : room.order >= 5
+                            ? RelicRarity.rare
+                            : RelicRarity.uncommon,
+                effects: [
+                  RelicEffect(
+                    effectType: room.mechanicEmphasis.name,
+                    targetSystem: room.currency,
+                    magnitude: 0.02 + (room.order * 0.003),
+                    description:
+                        'Improves ${room.currency.toLowerCase()} efficiency in future runs.',
+                  ),
+                ],
+                acquired: true,
+                sourceDescription: 'Awarded for completing ${room.name}.',
+              ),
+            ],
+      memoryFragments: meta.memoryFragments.any((item) => item.id == memoryId)
+          ? meta.memoryFragments
+          : [
+              ...meta.memoryFragments,
+              MemoryFragment(
+                id: memoryId,
+                title: '${room.name} Memory',
+                content: room.completionText,
+                sourceRoomId: room.id,
+                sourceType: 'room_completion',
+                acquiredAt: _timeProvider.now(),
+                acquired: true,
+              ),
+            ],
+      sceneHeirlooms: meta.sceneHeirlooms.any((item) => item.id == heirloomId)
+          ? meta.sceneHeirlooms
+          : [
+              ...meta.sceneHeirlooms,
+              SceneHeirloom(
+                id: heirloomId,
+                roomId: room.id,
+                name: '${room.name} Heirloom',
+                description: room.guideIntroLine,
+                effectDescription:
+                    'Carries the solved patterns of ${room.name} into later rooms.',
+                unlocked: true,
+              ),
+            ],
+    );
+  }
+
+  MetaProgressionState _awardSecretMeta(
+    RoomScene room,
+    RoomSecret secret,
+    MetaProgressionState meta,
+  ) {
+    final memoryId = 'secret_memory_${secret.id}';
+    final shardId = 'secret_shard_${secret.id}';
+    return meta.copyWith(
+      memoryFragments: meta.memoryFragments.any((item) => item.id == memoryId)
+          ? meta.memoryFragments
+          : [
+              ...meta.memoryFragments,
+              MemoryFragment(
+                id: memoryId,
+                title: secret.title,
+                content: secret.description,
+                sourceRoomId: room.id,
+                sourceType: 'secret',
+                acquiredAt: _timeProvider.now(),
+                acquired: true,
+              ),
+            ],
+      blueprintShards: meta.blueprintShards.any((item) => item.id == shardId)
+          ? meta.blueprintShards
+          : [
+              ...meta.blueprintShards,
+              BlueprintShard(
+                id: shardId,
+                name: secret.title,
+                description: secret.rewardType,
+                roomId: room.id,
+                category: 'secret',
+                shardsRequired: 1,
+                shardsCollected: 1,
+                completed: true,
+              ),
+            ],
+    );
+  }
+
+  MetaProgressionState _awardChallengeBlueprint(
+    ChallengeState challenge,
+    MetaProgressionState meta,
+  ) {
+    final shardId = 'challenge_${challenge.id}';
+    if (meta.blueprintShards.any((item) => item.id == shardId)) {
+      return meta;
+    }
+    return meta.copyWith(
+      blueprintShards: [
+        ...meta.blueprintShards,
+        BlueprintShard(
+          id: shardId,
+          name: challenge.title,
+          description: challenge.description,
+          roomId: _state.currentRoomId,
+          category: 'challenge',
+          shardsRequired: 1,
+          shardsCollected: 1,
+          completed: true,
+        ),
+      ],
+    );
+  }
+
+  CodexState _recordRoomCompletionArchives(RoomScene room, CodexState codex) {
+    return _upsertCodexEntry(
+      codex,
+      CodexEntry(
+        id: 'relic_${room.id}',
+        title: '${room.name} Completion Relic',
+        content:
+            '${room.completionText}\n\nHeirloom effect: Carries ${room.currency} mastery into future runs.',
+        type: CodexEntryType.relicArchive,
+        category: room.mechanicEmphasis.name,
+        roomId: room.id,
+        discovered: true,
+        icon: 'relic',
+        rarity: room.order >= 10 ? 'epic' : 'rare',
+      ),
+    );
+  }
+
+  CodexState _recordSecretRewardArchive(
+    RoomScene room,
+    RoomSecret secret,
+    CodexState codex,
+  ) {
+    return _upsertCodexEntry(
+      codex,
+      CodexEntry(
+        id: 'secret_reward_${secret.id}',
+        title: secret.title,
+        content:
+            '${secret.description}\n\nHint: ${secret.hint}\nReward: ${secret.rewardType} ${secret.rewardValue}',
+        type: CodexEntryType.secretArchive,
+        category: secret.clueSource,
+        roomId: room.id,
+        discovered: true,
+        icon: 'secret',
+        rarity: 'rare',
+      ),
+    );
+  }
+
+  CodexState _recordChallengeArchive(
+    ChallengeState challenge,
+    CodexState codex,
+  ) {
+    return _upsertCodexEntry(
+      codex,
+      CodexEntry(
+        id: 'challenge_${challenge.id}',
+        title: challenge.title,
+        content:
+            '${challenge.description}\n\nSeason: ${challenge.seasonKey}\nTarget: ${challenge.target.toStringAsFixed(0)}',
+        type: CodexEntryType.challengeArchive,
+        category: challenge.period.name,
+        roomId: _state.currentRoomId,
+        discovered: true,
+        icon: 'challenge',
+        rarity: challenge.period == ChallengePeriod.weekly ? 'epic' : 'uncommon',
+      ),
+    );
+  }
+
+  void _recordTransformationArchive(
+    RoomScene room,
+    TransformationStage stage,
+    int stageIndex,
+  ) {
+    _state = _state.copyWith(
+      codex: _upsertCodexEntry(
+        _state.codex,
+        CodexEntry(
+          id: 'transform_${room.id}_$stageIndex',
+          title: stage.name,
+          content:
+              '${stage.description}\n\n${stage.environmentChanges.join('\n')}',
+          type: CodexEntryType.transformationArchive,
+          category: room.mechanicEmphasis.name,
+          roomId: room.id,
+          discovered: true,
+          icon: 'transform',
+          rarity: stageIndex >= 3 ? 'epic' : 'uncommon',
+        ),
+      ),
+    );
+  }
+
+  void _recordTwistArchive(RoomScene room) {
+    final twist = room.midSceneTwist;
+    if (twist == null) return;
+    _state = _state.copyWith(
+      codex: _upsertCodexEntry(
+        _state.codex,
+        CodexEntry(
+          id: 'twist_${room.id}',
+          title: twist.title,
+          content: '${twist.description}\n\n${twist.effectDescription}',
+          type: CodexEntryType.transformationArchive,
+          category: 'twist',
+          roomId: room.id,
+          discovered: true,
+          icon: 'twist',
+          rarity: 'epic',
+        ),
+      ),
+    );
+  }
+
+  CodexState _upsertCodexEntry(CodexState codex, CodexEntry entry) {
+    final entries = List<CodexEntry>.from(codex.entries);
+    final index = entries.indexWhere((item) => item.id == entry.id);
+    if (index >= 0) {
+      entries[index] = entry;
+    } else {
+      entries.add(entry);
+    }
+    return codex.copyWith(entries: entries);
+  }
+
+  void _syncRouteArchive({
+    String? branchId,
+    String? completedRoomId,
+  }) {
+    final codex = _state.codex;
+    final branches = <String>{
+      ..._state.chosenBranches,
+      if (branchId != null) branchId,
+    }.toList()
+      ..sort();
+    final routeId = _state.routeSignature.isEmpty ? 'unassigned' : _state.routeSignature;
+    final archive = List<RouteArchiveEntry>.from(codex.routeArchive);
+    final index = archive.indexWhere((item) => item.routeId == routeId);
+    final roomsVisited = <String>{
+      _state.currentRoomId,
+      if (completedRoomId != null) completedRoomId,
+      if (index >= 0) ...archive[index].roomsVisited,
+    }.toList()
+      ..sort();
+    final title = branches.isEmpty ? 'Unaligned Route' : '${branches.join(' / ')} Route';
+    final entry = RouteArchiveEntry(
+      id: 'route_$routeId',
+      routeId: routeId,
+      title: title,
+      description: 'A long-form record of how this intelligence was shaped.',
+      roomsVisited: roomsVisited,
+      branchesChosen: branches,
+      completionPercentage: totalRooms <= 0
+          ? 0
+          : (roomsVisited.length / totalRooms) * 100,
+      endingReached: roomsCompleted >= totalRooms ? 'room_mastery' : null,
+    );
+    if (index >= 0) {
+      archive[index] = entry;
+    } else {
+      archive.add(entry);
+    }
+    _state = _state.copyWith(codex: codex.copyWith(routeArchive: archive));
+  }
+
+  void _syncGuideMilestones() {
+    final reached = <String>{..._state.metaProgression.guideMilestones};
+    var meta = _state.metaProgression;
+    var codex = _state.codex;
+    var changed = false;
+    for (var tier = 2; tier <= guideTier; tier++) {
+      final id = 'guide_tier_$tier';
+      if (reached.contains(id)) continue;
+      reached.add(id);
+      changed = true;
+      final fragmentId = 'guide_fragment_$tier';
+      meta = meta.copyWith(
+        guideMilestones: reached,
+        memoryFragments: meta.memoryFragments.any((item) => item.id == fragmentId)
+            ? meta.memoryFragments
+            : [
+                ...meta.memoryFragments,
+                MemoryFragment(
+                  id: fragmentId,
+                  title: 'Guide Tier $tier',
+                  content:
+                      'The guide reached a new level of trust and opened deeper analysis.',
+                  sourceRoomId: _state.currentRoomId,
+                  sourceType: 'guide',
+                  acquiredAt: _timeProvider.now(),
+                  acquired: true,
+                ),
+              ],
+      );
+      codex = _upsertCodexEntry(
+        codex,
+        CodexEntry(
+          id: id,
+          title: 'Guide Tier $tier',
+          content:
+              'Trust increased to tier $tier. The guide now offers deeper hints and stronger archival insight.',
+          type: CodexEntryType.guideMemo,
+          category: 'guide',
+          roomId: _state.currentRoomId,
+          discovered: true,
+          icon: 'guide',
+          rarity: tier >= 4 ? 'epic' : 'uncommon',
+        ),
+      );
+    }
+    if (changed) {
+      _state = _state.copyWith(metaProgression: meta, codex: codex);
+    }
   }
 
   void _pushNarrativeBeat({

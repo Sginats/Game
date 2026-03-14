@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_10_stage_1",
-      "name": "Containment Loft \u2014 Bare Bones",
+      "name": "Containment Loft — Bare Bones",
       "description": "The room in its raw state. Containment Loft evolves as you progress.",
       "requiredUpgrades": 50,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_10_stage_2",
-      "name": "Containment Loft \u2014 First Light",
+      "name": "Containment Loft — First Light",
       "description": "Basic improvements visible. Containment Loft evolves as you progress.",
       "requiredUpgrades": 150,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_10_stage_3",
-      "name": "Containment Loft \u2014 Functional",
+      "name": "Containment Loft — Functional",
       "description": "A proper working space. Containment Loft evolves as you progress.",
       "requiredUpgrades": 300,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_10_stage_4",
-      "name": "Containment Loft \u2014 Advanced",
+      "name": "Containment Loft — Advanced",
       "description": "High-tech transformation. Containment Loft evolves as you progress.",
       "requiredUpgrades": 500,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_10_stage_5",
-      "name": "Containment Loft \u2014 Mastered",
+      "name": "Containment Loft — Mastered",
       "description": "The room at its peak. Containment Loft evolves as you progress.",
       "requiredUpgrades": 800,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_10_ambient",
-      "name": "containment ambience",
-      "assetPath": "assets/audio/rooms/room_10_ambient.ogg",
-      "volume": 0.6,
+      "name": "containment loft hush",
+      "assetPath": "assets/audio/rooms/room_10_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_10_active",
-      "name": "containment activity",
-      "assetPath": "assets/audio/rooms/room_10_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "containment loft drive",
+      "assetPath": "assets/audio/rooms/room_10_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_10_twist",
+      "name": "containment loft rupture",
+      "assetPath": "assets/audio/rooms/room_10_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_10_evt_1",
         "roomId": "room_10",
         "title": "Containment Breach",
-        "description": "Containment Breach \u2014 a common instant event in Containment Loft.",
+        "description": "Containment Breach — a common instant event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 25.0,
+            "value": 16.0,
             "description": "Gain Anomaly Sparks"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_10_evt_2",
         "roomId": "room_10",
         "title": "Anomaly Pulse",
-        "description": "Anomaly Pulse \u2014 a common shortChoice event in Containment Loft.",
+        "description": "Anomaly Pulse — a common shortChoice event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 6.0,
+                "type": "instantCurrency",
+                "value": 16.0,
                 "description": "Gain Anomaly Sparks"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 12.0,
-                "description": "Gain more Anomaly Sparks"
+                "type": "instantCurrency",
+                "value": 21.0,
+                "description": "Gain Anomaly Sparks"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_10_evt_3",
         "roomId": "room_10",
         "title": "Field Fluctuation",
-        "description": "Field Fluctuation \u2014 a common timedChain event in Containment Loft.",
+        "description": "Field Fluctuation — a common timedChain event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 25.0,
+            "value": 16.0,
             "description": "Gain Anomaly Sparks"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_10_evt_4",
         "roomId": "room_10",
         "title": "Specimen Activity",
-        "description": "Specimen Activity \u2014 a common utility event in Containment Loft.",
+        "description": "Specimen Activity — a common utility event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 25.0,
-            "description": "Gain Anomaly Sparks"
+            "type": "temporaryBuff",
+            "value": 3.0,
+            "description": "Stabilize output"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +258,7 @@
         "id": "room_10_evt_5",
         "roomId": "room_10",
         "title": "Lockdown Protocol",
-        "description": "Lockdown Protocol \u2014 a rare secretTrigger event in Containment Loft.",
+        "description": "Lockdown Protocol — a rare secretTrigger event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +266,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 25.0,
-            "description": "Gain Anomaly Sparks"
+            "type": "guideAffinity",
+            "value": 0.75,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +285,7 @@
         "id": "room_10_evt_6",
         "roomId": "room_10",
         "title": "Energy Leak",
-        "description": "Energy Leak \u2014 a rare legendaryAnomaly event in Containment Loft.",
+        "description": "Energy Leak — a rare legendaryAnomaly event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +293,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 25.0,
-            "description": "Gain Anomaly Sparks"
+            "type": "guideAffinity",
+            "value": 0.75,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +312,7 @@
         "id": "room_10_evt_7",
         "roomId": "room_10",
         "title": "Unknown Signal",
-        "description": "Unknown Signal \u2014 a epic warningRisk event in Containment Loft.",
+        "description": "Unknown Signal — a epic warningRisk event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +320,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 25.0,
-            "description": "Gain Anomaly Sparks"
+            "type": "temporaryBuff",
+            "value": 3.0,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +339,7 @@
         "id": "room_10_evt_8",
         "roomId": "room_10",
         "title": "Barrier Stress",
-        "description": "Barrier Stress \u2014 a corrupted miniBoss event in Containment Loft.",
+        "description": "Barrier Stress — a corrupted miniBoss event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +347,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 25.0,
-            "description": "Gain Anomaly Sparks"
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,7 +366,7 @@
         "id": "room_10_evt_9",
         "roomId": "room_10",
         "title": "Emergency Seal",
-        "description": "Emergency Seal \u2014 a legendary guideAdvisory event in Containment Loft.",
+        "description": "Emergency Seal — a legendary guideAdvisory event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -341,9 +374,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 25.0,
-            "description": "Gain Anomaly Sparks"
+            "type": "guideAffinity",
+            "value": 0.75,
+            "description": "Strengthen guide trust"
           }
         ],
         "chainBonus": 0.9,
@@ -355,7 +388,7 @@
         "id": "room_10_evt_10",
         "roomId": "room_10",
         "title": "Anomaly Evolution",
-        "description": "Anomaly Evolution \u2014 a common hiddenGlitch event in Containment Loft.",
+        "description": "Anomaly Evolution — a common hiddenGlitch event in Containment Loft.",
         "flavorText": "The containment environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +397,18 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 25.0,
+            "value": 16.0,
             "description": "Gain Anomaly Sparks"
+          },
+          {
+            "type": "guideAffinity",
+            "value": 0.75,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +433,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "environmentTrigger",
+            "type": "guideAffinity",
+            "value": 0.75,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "relicFragment",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 1.0,

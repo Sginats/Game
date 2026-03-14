@@ -1,4 +1,3 @@
-import 'package:ai_evolution/core/math/game_number.dart';
 import 'package:ai_evolution/domain/models/codex.dart';
 import 'package:ai_evolution/domain/models/game_state.dart';
 import 'package:ai_evolution/domain/models/meta_progression.dart';
@@ -7,9 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('MetaProgressionState serializes and deserializes', () {
-    final state = MetaProgressionState(
+    const state = MetaProgressionState(
       relics: [
-        const Relic(
+        Relic(
           id: 'relic_1',
           name: 'Ancient Circuit',
           description: 'A relic from the first room.',
@@ -27,7 +26,7 @@ void main() {
         ),
       ],
       memoryFragments: [
-        const MemoryFragment(
+        MemoryFragment(
           id: 'mem_1',
           title: 'First Boot',
           content: 'The system remembers waking up.',
@@ -147,16 +146,16 @@ void main() {
   });
 
   test('CodexState computed properties work', () {
-    final state = CodexState(
+    const state = CodexState(
       entries: [
-        const CodexEntry(
+        CodexEntry(
           id: 'e1',
           title: 'E1',
           content: 'C1',
           type: CodexEntryType.glossary,
           discovered: true,
         ),
-        const CodexEntry(
+        CodexEntry(
           id: 'e2',
           title: 'E2',
           content: 'C2',
@@ -165,7 +164,7 @@ void main() {
         ),
       ],
       secretArchive: [
-        const SecretArchiveEntry(
+        SecretArchiveEntry(
           id: 's1',
           roomId: 'room_01',
           title: 'S1',
@@ -174,7 +173,7 @@ void main() {
         ),
       ],
       sceneLore: [
-        const SceneLoreEntry(
+        SceneLoreEntry(
           id: 'l1',
           roomId: 'room_01',
           title: 'L1',

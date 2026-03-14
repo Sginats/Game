@@ -8,12 +8,15 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'application/controllers/game_controller.dart';
 import 'application/services/app_settings_service.dart';
 import 'application/services/app_strings.dart';
+import 'application/services/app_update_service.dart';
 import 'application/services/config_service.dart';
 import 'application/services/game_audio_service.dart';
 import 'application/services/leaderboard_service.dart';
 import 'application/services/era_content_manager.dart';
 import 'application/services/room_content_generator.dart';
 import 'application/services/leaderboard_session_service.dart';
+import 'application/services/room_scene_asset_loader.dart';
+import 'application/services/room_scene_service.dart';
 import 'core/math/game_number.dart';
 import 'core/time/time_provider.dart';
 import 'data/repositories/game_repository.dart';
@@ -93,6 +96,7 @@ class _GameLoaderState extends State<GameLoader> {
   ConfigService? _config;
   AppSettings _settings = const AppSettings();
   late final AppSettingsService _settingsService;
+  late AppUpdateService _updateService;
   late final GameAudioService _audioService;
   late final LeaderboardSessionService _leaderboardSessionService;
   LeaderboardService? _leaderboardService;
@@ -102,6 +106,7 @@ class _GameLoaderState extends State<GameLoader> {
   void initState() {
     super.initState();
     _settingsService = AppSettingsService();
+    _updateService = AppUpdateService(config: const AppUpdateConfig());
     _audioService = GameAudioService();
     _leaderboardSessionService = LeaderboardSessionService();
     _loadGame();
@@ -123,6 +128,19 @@ class _GameLoaderState extends State<GameLoader> {
           await rootBundle.loadString('assets/config/progression_config.json');
       final progressionConfig =
           json.decode(progressionConfigStr) as Map<String, dynamic>;
+      AppUpdateConfig updateConfig = const AppUpdateConfig();
+      try {
+        final updateConfigStr =
+            await rootBundle.loadString('assets/config/update_config.json');
+        updateConfig = AppUpdateConfig.fromJson(
+          json.decode(updateConfigStr) as Map<String, dynamic>,
+        );
+      } catch (_) {
+        updateConfig = const AppUpdateConfig();
+      }
+      final roomSceneService = RoomSceneService(
+        roomJsonList: await const RoomSceneAssetLoader().loadAll(),
+      );
 
       final baseGenerators = (economyConfig['generators'] as List<dynamic>)
           .map((item) => GeneratorDefinition.fromJson(item as Map<String, dynamic>))
@@ -209,6 +227,7 @@ class _GameLoaderState extends State<GameLoader> {
         config: config,
         timeProvider: SystemTimeProvider(),
         repository: GameRepository(SharedPrefsSaveManager()),
+        roomSceneService: roomSceneService,
       );
       final leaderboardService = LeaderboardService(
         sessionProvider: _leaderboardSessionService,
@@ -236,6 +255,14 @@ class _GameLoaderState extends State<GameLoader> {
       _audioService.configureVolumes(
         musicVolume: settings.musicVolume,
         sfxVolume: settings.sfxVolume,
+      );
+      final currentRoom = controller.currentRoom;
+      if (currentRoom != null) {
+        _audioService.setRoomAudioProfile(currentRoom.id);
+      }
+      _updateService = AppUpdateService(config: updateConfig);
+      await _updateService.initialize(
+        autoCheckEnabled: settings.autoCheckUpdates,
       );
       if (!mounted) return;
       setState(() {
@@ -326,6 +353,7 @@ class _GameLoaderState extends State<GameLoader> {
       settings: _settings,
       strings: strings,
       audioService: _audioService,
+      updateService: _updateService,
       leaderboardService: _leaderboardService!,
       leaderboardSessionService: _leaderboardSessionService,
       onSettingsChanged: _updateSettings,

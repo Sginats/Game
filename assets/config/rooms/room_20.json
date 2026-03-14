@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_20_stage_1",
-      "name": "Quiet Singularity \u2014 Bare Bones",
+      "name": "Quiet Singularity — Bare Bones",
       "description": "The room in its raw state. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 100,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_20_stage_2",
-      "name": "Quiet Singularity \u2014 First Light",
+      "name": "Quiet Singularity — First Light",
       "description": "Basic improvements visible. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 300,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_20_stage_3",
-      "name": "Quiet Singularity \u2014 Functional",
+      "name": "Quiet Singularity — Functional",
       "description": "A proper working space. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 600,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_20_stage_4",
-      "name": "Quiet Singularity \u2014 Advanced",
+      "name": "Quiet Singularity — Advanced",
       "description": "High-tech transformation. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 1000,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_20_stage_5",
-      "name": "Quiet Singularity \u2014 Mastered",
+      "name": "Quiet Singularity — Mastered",
       "description": "The room at its peak. Quiet Singularity evolves as you progress.",
       "requiredUpgrades": 1600,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_20_ambient",
-      "name": "singularity ambience",
-      "assetPath": "assets/audio/rooms/room_20_ambient.ogg",
-      "volume": 0.6,
+      "name": "quiet singularity hush",
+      "assetPath": "assets/audio/rooms/room_20_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_20_active",
-      "name": "singularity activity",
-      "assetPath": "assets/audio/rooms/room_20_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "quiet singularity drive",
+      "assetPath": "assets/audio/rooms/room_20_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_20_twist",
+      "name": "quiet singularity rupture",
+      "assetPath": "assets/audio/rooms/room_20_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_20_evt_1",
         "roomId": "room_20",
         "title": "Final Convergence",
-        "description": "Final Convergence \u2014 a common instant event in Quiet Singularity.",
+        "description": "Final Convergence — a common instant event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 45.0,
+            "value": 27.0,
             "description": "Gain Final Sparks"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_20_evt_2",
         "roomId": "room_20",
         "title": "Quiet Pulse",
-        "description": "Quiet Pulse \u2014 a common shortChoice event in Quiet Singularity.",
+        "description": "Quiet Pulse — a common shortChoice event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 11.0,
+                "type": "instantCurrency",
+                "value": 27.0,
                 "description": "Gain Final Sparks"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 22.0,
-                "description": "Gain more Final Sparks"
+                "type": "instantCurrency",
+                "value": 37.0,
+                "description": "Gain Final Sparks"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_20_evt_3",
         "roomId": "room_20",
         "title": "Everything Wave",
-        "description": "Everything Wave \u2014 a common timedChain event in Quiet Singularity.",
+        "description": "Everything Wave — a common timedChain event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 45.0,
+            "value": 27.0,
             "description": "Gain Final Sparks"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_20_evt_4",
         "roomId": "room_20",
         "title": "Nothing Moment",
-        "description": "Nothing Moment \u2014 a common utility event in Quiet Singularity.",
+        "description": "Nothing Moment — a common utility event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 45.0,
-            "description": "Gain Final Sparks"
+            "type": "temporaryBuff",
+            "value": 4.8,
+            "description": "Stabilize output"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +258,7 @@
         "id": "room_20_evt_5",
         "roomId": "room_20",
         "title": "Last Question",
-        "description": "Last Question \u2014 a rare secretTrigger event in Quiet Singularity.",
+        "description": "Last Question — a rare secretTrigger event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +266,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 45.0,
-            "description": "Gain Final Sparks"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +280,7 @@
         "id": "room_20_evt_6",
         "roomId": "room_20",
         "title": "Eternal Return",
-        "description": "Eternal Return \u2014 a rare legendaryAnomaly event in Quiet Singularity.",
+        "description": "Eternal Return — a rare legendaryAnomaly event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +288,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 45.0,
-            "description": "Gain Final Sparks"
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +307,7 @@
         "id": "room_20_evt_7",
         "roomId": "room_20",
         "title": "Silence Break",
-        "description": "Silence Break \u2014 a epic warningRisk event in Quiet Singularity.",
+        "description": "Silence Break — a epic warningRisk event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +315,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 45.0,
-            "description": "Gain Final Sparks"
+            "type": "temporaryBuff",
+            "value": 4.8,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +334,7 @@
         "id": "room_20_evt_8",
         "roomId": "room_20",
         "title": "Unity Fragment",
-        "description": "Unity Fragment \u2014 a corrupted miniBoss event in Quiet Singularity.",
+        "description": "Unity Fragment — a corrupted miniBoss event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +342,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 45.0,
-            "description": "Gain Final Sparks"
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.8,
@@ -333,19 +366,13 @@
         "id": "room_20_evt_9",
         "roomId": "room_20",
         "title": "Beyond Signal",
-        "description": "Beyond Signal \u2014 a legendary guideAdvisory event in Quiet Singularity.",
+        "description": "Beyond Signal — a legendary guideAdvisory event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
         "durationSeconds": 24.0,
         "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 45.0,
-            "description": "Gain Final Sparks"
-          }
-        ],
+        "rewards": [],
         "chainBonus": 0.9,
         "requiredTwistActive": true,
         "requiredUpgradeCount": 24,
@@ -355,7 +382,7 @@
         "id": "room_20_evt_10",
         "roomId": "room_20",
         "title": "Singularity Breath",
-        "description": "Singularity Breath \u2014 a common hiddenGlitch event in Quiet Singularity.",
+        "description": "Singularity Breath — a common hiddenGlitch event in Quiet Singularity.",
         "flavorText": "The singularity environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +391,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 45.0,
+            "value": 27.0,
             "description": "Gain Final Sparks"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +422,14 @@
         "choices": [],
         "rewards": [
           {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
             "type": "environmentTrigger",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 1.0,

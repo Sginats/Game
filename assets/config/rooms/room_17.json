@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_17_stage_1",
-      "name": "Planetary Systems Forge \u2014 Bare Bones",
+      "name": "Planetary Systems Forge — Bare Bones",
       "description": "The room in its raw state. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 85,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_17_stage_2",
-      "name": "Planetary Systems Forge \u2014 First Light",
+      "name": "Planetary Systems Forge — First Light",
       "description": "Basic improvements visible. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 255,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_17_stage_3",
-      "name": "Planetary Systems Forge \u2014 Functional",
+      "name": "Planetary Systems Forge — Functional",
       "description": "A proper working space. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 510,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_17_stage_4",
-      "name": "Planetary Systems Forge \u2014 Advanced",
+      "name": "Planetary Systems Forge — Advanced",
       "description": "High-tech transformation. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 850,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_17_stage_5",
-      "name": "Planetary Systems Forge \u2014 Mastered",
+      "name": "Planetary Systems Forge — Mastered",
       "description": "The room at its peak. Planetary Systems Forge evolves as you progress.",
       "requiredUpgrades": 1360,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_17_ambient",
-      "name": "planetary ambience",
-      "assetPath": "assets/audio/rooms/room_17_ambient.ogg",
-      "volume": 0.6,
+      "name": "planetary systems forge hush",
+      "assetPath": "assets/audio/rooms/room_17_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_17_active",
-      "name": "planetary activity",
-      "assetPath": "assets/audio/rooms/room_17_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "planetary systems forge drive",
+      "assetPath": "assets/audio/rooms/room_17_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_17_twist",
+      "name": "planetary systems forge rupture",
+      "assetPath": "assets/audio/rooms/room_17_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_17_evt_1",
         "roomId": "room_17",
         "title": "Tectonic Shift",
-        "description": "Tectonic Shift \u2014 a common instant event in Planetary Systems Forge.",
+        "description": "Tectonic Shift — a common instant event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 39.0,
+            "value": 23.7,
             "description": "Gain Planetary Cores"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_17_evt_2",
         "roomId": "room_17",
         "title": "Core Tap",
-        "description": "Core Tap \u2014 a common shortChoice event in Planetary Systems Forge.",
+        "description": "Core Tap — a common shortChoice event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 9.5,
+                "type": "instantCurrency",
+                "value": 23.7,
                 "description": "Gain Planetary Cores"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 19.0,
-                "description": "Gain more Planetary Cores"
+                "type": "instantCurrency",
+                "value": 32.2,
+                "description": "Gain Planetary Cores"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_17_evt_3",
         "roomId": "room_17",
         "title": "Atmosphere Build",
-        "description": "Atmosphere Build \u2014 a common timedChain event in Planetary Systems Forge.",
+        "description": "Atmosphere Build — a common timedChain event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 39.0,
+            "value": 23.7,
             "description": "Gain Planetary Cores"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_17_evt_4",
         "roomId": "room_17",
         "title": "Ocean Formation",
-        "description": "Ocean Formation \u2014 a common utility event in Planetary Systems Forge.",
+        "description": "Ocean Formation — a common utility event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 39.0,
-            "description": "Gain Planetary Cores"
+            "type": "temporaryBuff",
+            "value": 4.26,
+            "description": "Stabilize output"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +258,7 @@
         "id": "room_17_evt_5",
         "roomId": "room_17",
         "title": "Continent Drift",
-        "description": "Continent Drift \u2014 a rare secretTrigger event in Planetary Systems Forge.",
+        "description": "Continent Drift — a rare secretTrigger event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +266,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 39.0,
-            "description": "Gain Planetary Cores"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +280,7 @@
         "id": "room_17_evt_6",
         "roomId": "room_17",
         "title": "Magnetic Reversal",
-        "description": "Magnetic Reversal \u2014 a rare legendaryAnomaly event in Planetary Systems Forge.",
+        "description": "Magnetic Reversal — a rare legendaryAnomaly event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +288,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 39.0,
-            "description": "Gain Planetary Cores"
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +307,7 @@
         "id": "room_17_evt_7",
         "roomId": "room_17",
         "title": "Life Spark",
-        "description": "Life Spark \u2014 a epic warningRisk event in Planetary Systems Forge.",
+        "description": "Life Spark — a epic warningRisk event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +315,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 39.0,
-            "description": "Gain Planetary Cores"
+            "type": "temporaryBuff",
+            "value": 4.26,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +334,7 @@
         "id": "room_17_evt_8",
         "roomId": "room_17",
         "title": "Weather System",
-        "description": "Weather System \u2014 a corrupted miniBoss event in Planetary Systems Forge.",
+        "description": "Weather System — a corrupted miniBoss event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +342,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 39.0,
-            "description": "Gain Planetary Cores"
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.8,
@@ -333,19 +366,13 @@
         "id": "room_17_evt_9",
         "roomId": "room_17",
         "title": "Resource Deposit",
-        "description": "Resource Deposit \u2014 a legendary guideAdvisory event in Planetary Systems Forge.",
+        "description": "Resource Deposit — a legendary guideAdvisory event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
         "durationSeconds": 24.0,
         "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 39.0,
-            "description": "Gain Planetary Cores"
-          }
-        ],
+        "rewards": [],
         "chainBonus": 0.9,
         "requiredTwistActive": true,
         "requiredUpgradeCount": 24,
@@ -355,7 +382,7 @@
         "id": "room_17_evt_10",
         "roomId": "room_17",
         "title": "World Complete",
-        "description": "World Complete \u2014 a common hiddenGlitch event in Planetary Systems Forge.",
+        "description": "World Complete — a common hiddenGlitch event in Planetary Systems Forge.",
         "flavorText": "The planetary environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +391,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 39.0,
+            "value": 23.7,
             "description": "Gain Planetary Cores"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +422,14 @@
         "choices": [],
         "rewards": [
           {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
             "type": "environmentTrigger",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 1.0,

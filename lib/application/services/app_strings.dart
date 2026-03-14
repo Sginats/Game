@@ -93,6 +93,7 @@ class AppStrings {
   String get sfxVolume => isRussian ? 'Громкость SFX' : 'SFX volume';
   String get colorClarity => isRussian ? 'Цветовая ясность' : 'Color clarity';
   String get settingsGeneral => isRussian ? 'Основные' : 'General';
+  String get settingsUpdates => isRussian ? 'Обновления' : 'Updates';
   String get settingsAudio => isRussian ? 'Звук' : 'Audio';
   String get settingsGraphics => isRussian ? 'Графика' : 'Graphics';
   String get settingsAccessibility =>
@@ -121,6 +122,78 @@ class AppStrings {
   String get session => isRussian ? 'Сессия' : 'Session';
   String get save => isRussian ? 'Сохранить' : 'Save';
   String get clear => isRussian ? 'Очистить' : 'Clear';
+  String get updates => isRussian ? 'Обновления' : 'Updates';
+  String get unknownLabel => isRussian ? 'Неизвестно' : 'Unknown';
+  String get laterLabel => isRussian ? 'Позже' : 'Later';
+  String get autoCheckUpdatesLabel => isRussian
+      ? 'Проверять обновления автоматически'
+      : 'Check for updates automatically';
+  String get autoCheckUpdatesDescription => isRussian
+      ? 'Проверять наличие новой версии при запуске игры.'
+      : 'Check for a newer build when the game starts.';
+  String get checkingForUpdates => isRussian
+      ? 'Проверка обновлений…'
+      : 'Checking for updates...';
+  String get updatesUnsupported => isRussian
+      ? 'Встроенное обновление доступно только в Windows-сборке.'
+      : 'In-app updates are only available in the Windows build.';
+  String get updatesDisabled => isRussian
+      ? 'Лента обновлений ещё не настроена.'
+      : 'The update feed is not configured yet.';
+  String get updatesIdle => isRussian
+      ? 'Автообновление готово к проверке.'
+      : 'The updater is ready to check for updates.';
+  String get updatesUpToDate => isRussian
+      ? 'У вас установлена актуальная версия.'
+      : 'You already have the latest version.';
+  String get updatesWindowsOnly => isRussian
+      ? 'Этот механизм обновления работает только в Windows-приложении.'
+      : 'This updater only runs inside the Windows desktop app.';
+  String get updatesConfigurationHint => isRussian
+      ? 'Укажите windowsArchiveUrl в assets/config/update_config.json и опубликуйте app-archive.json вместе с архивом обновления.'
+      : 'Set windowsArchiveUrl in assets/config/update_config.json and publish app-archive.json with the update archive.';
+  String get checkForUpdatesLabel => isRussian
+      ? 'Проверить обновления'
+      : 'Check for updates';
+  String get downloadUpdateLabel => isRussian
+      ? 'Скачать обновление'
+      : 'Download update';
+  String get restartToUpdateLabel => isRussian
+      ? 'Перезапустить и обновить'
+      : 'Restart to update';
+  String get updateAvailableTitle => isRussian
+      ? 'Доступно обновление'
+      : 'Update available';
+  String updateAvailableBody(String version) => isRussian
+      ? 'Найдена версия $version. Её можно скачать и применить прямо из игры.'
+      : 'Version $version is available. You can download and apply it from inside the game.';
+  String get releaseNotesLabel => isRussian ? 'Что изменилось' : 'What changed';
+  String updateDownloadSize(String sizeMb) => isRussian
+      ? 'Размер загрузки: $sizeMb МБ'
+      : 'Download size: $sizeMb MB';
+  String get updateReadyTitle => isRussian
+      ? 'Обновление готово'
+      : 'Update ready';
+  String get updateReadyBody => isRussian
+      ? 'Файлы обновления уже загружены. Перезапустите игру, чтобы применить новую версию.'
+      : 'The update files are downloaded. Restart the game to apply the new version.';
+  String get updateReadyStatus => isRussian
+      ? 'Обновление загружено и ждёт перезапуска.'
+      : 'The update is downloaded and ready to restart.';
+  String updateBuildLabel(String build) =>
+      isRussian ? 'Сборка $build' : 'Build $build';
+  String updateDownloading(String downloadedMb, String totalMb) => isRussian
+      ? 'Загрузка обновления: $downloadedMb / $totalMb МБ'
+      : 'Downloading update: $downloadedMb / $totalMb MB';
+  String updateError(String message) => isRussian
+      ? 'Ошибка обновления: $message'
+      : 'Update error: $message';
+  String updateAvailableSnackbar(String? version) => isRussian
+      ? 'Найдена новая версия ${version ?? unknownLabel}.'
+      : 'New version ${version ?? unknownLabel} is available.';
+  String get upToDateSnackbar => isRussian
+      ? 'Обновлений не найдено.'
+      : 'No updates found.';
   String get purchase => isRussian ? 'Купить' : 'Purchase';
   String get locked => isRussian ? 'Заблокировано' : 'Locked';
   String get hidden => isRussian ? 'Скрыто' : 'Hidden';
@@ -174,6 +247,19 @@ class AppStrings {
   String get nextRoom => isRussian ? 'Далее' : 'Next';
   String get roomMap => isRussian ? 'Комнаты' : 'Rooms';
   String get roomGuide => isRussian ? 'Гид' : 'Guide';
+  String get roomOverview => isRussian ? 'Обзор комнаты' : 'Room overview';
+  String get guideToneLabel => isRussian ? 'Тон гида' : 'Guide tone';
+  String get ambientLayersLabel => isRussian ? 'Аудиослои' : 'Audio layers';
+  String get transformationTrack => isRussian ? 'Этапы трансформации' : 'Transformation track';
+  String get twistStatusLabel => isRussian ? 'Сдвиг комнаты' : 'Room twist';
+  String get secretsTrackedLabel => isRussian ? 'Секретов в комнате' : 'Secrets in room';
+  String get transformationReady => isRussian ? 'готова к сдвигу' : 'ready to shift';
+  String get transformationDormant => isRussian ? 'ожидает' : 'dormant';
+  String get environmentChanges => isRussian ? 'Изменения среды' : 'Environment changes';
+  String get guideMemoryLog => isRussian ? 'Память гида' : 'Guide memory log';
+  String get relicArchiveTitle => isRussian ? 'Реликвии' : 'Relics';
+  String get codexCompletion => isRussian ? 'Прогресс кодекса' : 'Codex progress';
+  String get metaProgressLabel => isRussian ? 'Мета-прогресс' : 'Meta progression';
   String get firstRoomChecklist => isRussian ? 'Первые шаги' : 'First steps';
   String get nextRoomTarget => isRussian ? 'Следующая комната' : 'Next room';
   String tutorialTapGoal(int current, int target) => isRussian
@@ -517,6 +603,58 @@ class AppStrings {
             ? 'У комнаты есть собственный ритм и предпочтительные пути усиления.'
             : 'This room has its own rhythm and preferred power routes.',
       };
+  String codexSectionLabel(String section) => switch (section) {
+        'guide' => isRussian ? 'Гид' : 'Guide',
+        'route' => isRussian ? 'Маршрут' : 'Route',
+        'secrets' => isRussian ? 'Секреты' : 'Secrets',
+        'lore' => isRussian ? 'Лор' : 'Lore',
+        'collections' => isRussian ? 'Коллекции' : 'Collections',
+        _ => isRussian ? 'Обзор' : 'Overview',
+      };
+  String formatGuideMemoryType(String type) => switch (type) {
+        'room_intro' => isRussian ? 'Вход в комнату' : 'Room intro',
+        'room_complete' => isRussian ? 'Завершение комнаты' : 'Room complete',
+        'room_twist' => isRussian ? 'Сдвиг комнаты' : 'Room twist',
+        'challenge' => isRussian ? 'Испытание' : 'Challenge',
+        'event' => isRussian ? 'Событие' : 'Event',
+        'tutorial' => isRussian ? 'Обучение' : 'Tutorial',
+        _ => isRussian ? 'Запись' : 'Log',
+      };
+  String formatCodexEntryType(String type) => switch (type) {
+        'guideMemo' => guideMemoryLog,
+        'routeArchive' => isRussian ? 'Архив маршрутов' : 'Route archive',
+        'secretArchive' => isRussian ? 'Архив секретов' : 'Secret archive',
+        'sceneLore' => isRussian ? 'Лор сцены' : 'Scene lore',
+        'eventArchive' => isRussian ? 'Архив событий' : 'Event archive',
+        'relicArchive' => relicArchiveTitle,
+        'challengeArchive' => isRussian ? 'Архив испытаний' : 'Challenge archive',
+        'transformationArchive' => isRussian ? 'Архив трансформаций' : 'Transformation archive',
+        'glossary' => isRussian ? 'Глоссарий' : 'Glossary',
+        'upgradeFamily' => isRussian ? 'Семейство улучшений' : 'Upgrade family',
+        _ => codex,
+      };
+  String formatEnvironmentChange(String raw) {
+    if (!isRussian) {
+      return raw.replaceAll('_', ' ');
+    }
+    return switch (raw) {
+      'cracked_walls' => 'Треснувшие стены',
+      'dim_lighting' => 'Тусклый свет',
+      'patched_walls' => 'Залатанные стены',
+      'working_lights' => 'Рабочее освещение',
+      'clean_floor' => 'Очищенный пол',
+      'new_desk' => 'Новый стол',
+      'organized_cables' => 'Организованные кабели',
+      'monitors_online' => 'Мониторы в сети',
+      'holographic_displays' => 'Голографические дисплеи',
+      'ambient_particles' => 'Атмосферные частицы',
+      'smart_surfaces' => 'Умные поверхности',
+      'full_transformation' => 'Полная трансформация',
+      'hidden_compartments_revealed' => 'Открыты скрытые отсеки',
+      'perfect_atmosphere' => 'Идеальная атмосфера',
+      _ => raw.replaceAll('_', ' '),
+    };
+  }
   String unlockedMilestonesToast(String titles) => isRussian
       ? 'Открыты рубежи: $titles'
       : 'Unlocked milestones: $titles';
@@ -677,6 +815,25 @@ class AppStrings {
         LeaderboardCategory.eventChain => isRussian ? 'Цепочки' : 'Chains',
       };
 
+  String challengePeriodLabel(ChallengePeriod period) => switch (period) {
+        ChallengePeriod.daily => isRussian ? 'ЕЖЕДНЕВНО' : 'DAILY',
+        ChallengePeriod.weekly => isRussian ? 'ЕЖЕНЕДЕЛЬНО' : 'WEEKLY',
+      };
+
+  String translateStatusNotice(String raw) {
+    if (!isRussian) return raw;
+    return switch (raw) {
+      'Supabase credentials are not configured.' =>
+        'Учётные данные Supabase не настроены.',
+      'No submissions found yet.' => 'Отправок пока нет.',
+      'Supabase is configured, but the request failed in the current environment.' =>
+        'Supabase настроен, но запрос не выполнен в текущей среде.',
+      'Offline fallback' => 'Офлайн-резерв',
+      'Local demo' => 'Локальная демоверсия',
+      _ => raw,
+    };
+  }
+
   String levelLabel(int current, int max) => '$current/$max';
 
   String localizedEraName(String raw) {
@@ -727,8 +884,181 @@ class AppStrings {
 
   String translateContent(String raw) {
     if (!isRussian) return raw;
-    final exact = _contentMap[raw];
+    final exact =
+        _contentMap[raw] ?? _roomAuthoredUiMap[raw] ?? _roomEventTitleMap[raw];
     if (exact != null) return exact;
+
+    final awakeningMatch = RegExp(r'^(.+) Awakening$').firstMatch(raw);
+    if (awakeningMatch != null) {
+      return 'Пробуждение: ${localizedEraName(awakeningMatch.group(1)!)}';
+    }
+
+    final twistUnlocksMatch = RegExp(
+      r'^The twist in (.+) unlocks new possibilities\.$',
+    ).firstMatch(raw);
+    if (twistUnlocksMatch != null) {
+      return 'Поворот в ${localizedEraName(twistUnlocksMatch.group(1)!)} открывает новые возможности.';
+    }
+
+    if (RegExp(r'^The .+ environment reacts to your presence\.$')
+        .hasMatch(raw)) {
+      return 'Окружение реагирует на ваше присутствие.';
+    }
+
+    if (RegExp(r'^Hidden .+ Cache$').hasMatch(raw)) {
+      return 'Скрытый тайник';
+    }
+
+    if (RegExp(r'^Look behind the .+ equipment\.$').hasMatch(raw)) {
+      return 'Поищите за оборудованием.';
+    }
+
+    final guideTierMatch = RegExp(r'^Guide Tier (\d+)$').firstMatch(raw);
+    if (guideTierMatch != null) {
+      return 'Уровень гида ${guideTierMatch.group(1)}';
+    }
+
+    final enteringMatch = RegExp(r'^Entering (.+)$').firstMatch(raw);
+    if (enteringMatch != null) {
+      return 'Вход: ${localizedEraName(enteringMatch.group(1)!)}';
+    }
+
+    final welcomeMatch = RegExp(
+      r'^Welcome to (.+)\. (.+)\. This is where your journey (begins|continues)\.$',
+    ).firstMatch(raw);
+    if (welcomeMatch != null) {
+      final room = localizedEraName(welcomeMatch.group(1)!);
+      final flavor = translateContent(welcomeMatch.group(2)!);
+      final journey = welcomeMatch.group(3) == 'begins'
+          ? 'Здесь начинается ваше путешествие.'
+          : 'Здесь продолжается ваше путешествие.';
+      return 'Добро пожаловать в $room. $flavor. $journey';
+    }
+
+    final masteredMatch = RegExp(
+      r"^You have mastered (.+)\. The (.+) you've gathered here will echo through every room that follows\.$",
+    ).firstMatch(raw);
+    if (masteredMatch != null) {
+      return 'Вы освоили ${localizedEraName(masteredMatch.group(1)!)}. '
+          '${translateContent(masteredMatch.group(2)!)} из этой комнаты будут отзываться во всех следующих.';
+    }
+
+    final stageNameMatch = RegExp(
+      r'^(.+) — (Bare Bones|First Light|Functional|Advanced|Mastered)$',
+    ).firstMatch(raw);
+    if (stageNameMatch != null) {
+      final stage = switch (stageNameMatch.group(2)) {
+        'Bare Bones' => 'Голый каркас',
+        'First Light' => 'Первые огни',
+        'Functional' => 'Рабочее состояние',
+        'Advanced' => 'Продвинутая форма',
+        'Mastered' => 'Пик развития',
+        _ => stageNameMatch.group(2)!,
+      };
+      return '${localizedEraName(stageNameMatch.group(1)!)} — $stage';
+    }
+
+    final evolvesMatch = RegExp(
+      r'^(The room in its raw state|Basic improvements visible|A proper working space|High-tech transformation|The room at its peak)\. (.+) evolves as you progress\.$',
+    ).firstMatch(raw);
+    if (evolvesMatch != null) {
+      final prefix = switch (evolvesMatch.group(1)) {
+        'The room in its raw state' => 'Комната в своём сыром, исходном виде',
+        'Basic improvements visible' => 'Первые улучшения уже заметны',
+        'A proper working space' => 'Полноценное рабочее пространство',
+        'High-tech transformation' => 'Высокотехнологичное преображение',
+        'The room at its peak' => 'Комната на пике своей формы',
+        _ => evolvesMatch.group(1)!,
+      };
+      return '$prefix. ${localizedEraName(evolvesMatch.group(2)!)} развивается вместе с вашим прогрессом.';
+    }
+
+    final secretStashMatch = RegExp(r'^A secret stash hidden in the (.+)\.$')
+        .firstMatch(raw);
+    if (secretStashMatch != null) {
+      return 'Тайник, спрятанный в ${localizedEraName(secretStashMatch.group(1)!)}.';
+    }
+
+    final shiftMatch = RegExp(r'^(.+) Shift$').firstMatch(raw);
+    if (shiftMatch != null) {
+      return '${localizedEraName(shiftMatch.group(1)!)} меняется';
+    }
+
+    final roomChangeMatch = RegExp(
+      r"^Something changes in the (.+)\. The rules aren't what they were\.$",
+    ).firstMatch(raw);
+    if (roomChangeMatch != null) {
+      return 'В ${localizedEraName(roomChangeMatch.group(1)!)} что-то меняется. Правила уже не те, что раньше.';
+    }
+
+    final stabilizedMatch = RegExp(
+      r'^You stabilized (.+) and archived its lessons for the next run\.$',
+    ).firstMatch(raw);
+    if (stabilizedMatch != null) {
+      return 'Вы стабилизировали ${localizedEraName(stabilizedMatch.group(1)!)} и сохранили её уроки для следующего забега.';
+    }
+
+    final newMechanicsMatch = RegExp(
+      r'^New mechanics unlock in (.+)\. Event rates increase\.$',
+    ).firstMatch(raw);
+    if (newMechanicsMatch != null) {
+      return 'В ${localizedEraName(newMechanicsMatch.group(1)!)} открываются новые механики. Частота событий растёт.';
+    }
+
+    final generatesMatch =
+        RegExp(r'^Generates (.+) in the (.+)\.$').firstMatch(raw);
+    if (generatesMatch != null) {
+      return 'Производит ${translateContent(generatesMatch.group(1)!)} в комнате ${localizedEraName(generatesMatch.group(2)!)}.';
+    }
+
+    final upgradeForMatch =
+        RegExp(r'^(.+) upgrade for (.+)\.$').firstMatch(raw);
+    if (upgradeForMatch != null) {
+      return 'Улучшение «${translateContent(upgradeForMatch.group(1)!)}» для комнаты ${localizedEraName(upgradeForMatch.group(2)!)}.';
+    }
+
+    final gainMoreMatch = RegExp(r'^Gain more (.+)$').firstMatch(raw);
+    if (gainMoreMatch != null) {
+      return 'Получайте больше ${translateContent(gainMoreMatch.group(1)!)}';
+    }
+
+    final gainMatch = RegExp(r'^Gain (.+)$').firstMatch(raw);
+    if (gainMatch != null) {
+      return 'Получить ${translateContent(gainMatch.group(1)!)}';
+    }
+
+    final roomRuleMatch = RegExp(r'^(.+) — (.+)\.$').firstMatch(raw);
+    if (roomRuleMatch != null) {
+      return '${localizedEraName(roomRuleMatch.group(1)!)} — ${translateContent(roomRuleMatch.group(2)!)}.';
+    }
+
+    final eventDescriptionMatch = RegExp(
+      r'^(.+) — a (common|rare|epic|corrupted|legendary) ([A-Za-z]+) event in (.+)\.$',
+    ).firstMatch(raw);
+    if (eventDescriptionMatch != null) {
+      final rarity = switch (eventDescriptionMatch.group(2)) {
+        'common' => 'обычное',
+        'rare' => 'редкое',
+        'epic' => 'эпическое',
+        'corrupted' => 'искажённое',
+        'legendary' => 'легендарное',
+        _ => eventDescriptionMatch.group(2)!,
+      };
+      final kind = switch (eventDescriptionMatch.group(3)) {
+        'instant' => 'мгновенное',
+        'shortChoice' => 'с быстрым выбором',
+        'timedChain' => 'цепное по таймеру',
+        'utility' => 'служебное',
+        'secretTrigger' => 'с секретным триггером',
+        'legendaryAnomaly' => 'аномальное',
+        'warningRisk' => 'предупреждение о риске',
+        'miniBoss' => 'мини-босс',
+        'guideAdvisory' => 'совет гида',
+        'hiddenGlitch' => 'скрытый сбой',
+        _ => eventDescriptionMatch.group(3)!,
+      };
+      return '${translateContent(eventDescriptionMatch.group(1)!)} — $rarity $kind событие в комнате ${localizedEraName(eventDescriptionMatch.group(4)!)}.';
+    }
 
     final coreMatch = RegExp(r'^(.+) Core$').firstMatch(raw);
     if (coreMatch != null) {
@@ -753,6 +1083,47 @@ class AppStrings {
       return 'Главное ядро комнаты. Эта сцена рассчитана на долгий и постепенный прогресс.';
     }
 
+    final challengeArchiveMatch = RegExp(
+      r'^Challenge archived with ([0-9.]+) progress toward ([0-9.]+)\.$',
+    ).firstMatch(raw);
+    if (challengeArchiveMatch != null) {
+      return 'Испытание занесено в архив: ${challengeArchiveMatch.group(1)} из ${challengeArchiveMatch.group(2)}.';
+    }
+
+    final guideTierContentMatch = RegExp(
+      r'^Trust increased to tier (\d+)\. The guide now offers deeper hints and stronger archival insight\.$',
+    ).firstMatch(raw);
+    if (guideTierContentMatch != null) {
+      return 'Доверие выросло до уровня ${guideTierContentMatch.group(1)}. Гид теперь даёт более глубокие подсказки и лучше интерпретирует архивы.';
+    }
+
+    final heirloomEffectMatch = RegExp(
+      r'^Heirloom effect: Carries (.+) mastery into future runs\.$',
+    ).firstMatch(raw);
+    if (heirloomEffectMatch != null) {
+      return 'Эффект реликвии комнаты: переносит мастерство ${translateContent(heirloomEffectMatch.group(1)!)} в будущие забеги.';
+    }
+
+    final hintMatch = RegExp(r'^Hint: (.+)$').firstMatch(raw);
+    if (hintMatch != null) {
+      return 'Подсказка: ${translateContent(hintMatch.group(1)!)}';
+    }
+
+    final rewardMatch = RegExp(r'^Reward: (.+)$').firstMatch(raw);
+    if (rewardMatch != null) {
+      return 'Награда: ${translateContent(rewardMatch.group(1)!)}';
+    }
+
+    final seasonMatch = RegExp(r'^Season: (.+)$').firstMatch(raw);
+    if (seasonMatch != null) {
+      return 'Сезон: ${seasonMatch.group(1)}';
+    }
+
+    final targetMatch = RegExp(r'^Target: (.+)$').firstMatch(raw);
+    if (targetMatch != null) {
+      return 'Цель: ${targetMatch.group(1)}';
+    }
+
     final completionMatch = RegExp(r'^(.+) Complete$').firstMatch(raw);
     if (completionMatch != null) {
       return '${localizedEraName(completionMatch.group(1)!)} завершена';
@@ -760,6 +1131,16 @@ class AppStrings {
 
     if (raw.contains('lattice tier') && raw.contains('Progress here is meant')) {
       return 'Узел прогресса этой комнаты. Продвижение здесь должно ощущаться постепенным, а не мгновенным.';
+    }
+
+    if (raw.contains('\n')) {
+      return raw
+          .split('\n')
+          .map(
+            (segment) =>
+                segment.trim().isEmpty ? segment : translateContent(segment),
+          )
+          .join('\n');
     }
 
     return raw;
@@ -785,6 +1166,7 @@ class AppStrings {
     'Planetary Systems Forge': 'Кузница планетарных систем',
     'Chrono Engine Room': 'Хроно-машинный зал',
     'Reality Kernel Chamber': 'Камера ядра реальности',
+    'Quiet Singularity': 'Тихая сингулярность',
     'Quiet Singularity Room': 'Комната тихой сингулярности',
     'Taps stronger than automation': 'Нажатия сильнее автоматизации',
     'Tap combos give bonus Cash': 'Комбо нажатий дают бонусные ресурсы',
@@ -811,6 +1193,121 @@ class AppStrings {
     'Automation Route': 'Маршрут автоматизации',
     'Hybrid Route': 'Гибридный маршрут',
     'Risk Route': 'Маршрут риска',
+    'Salvage and survive': 'Собирайте хлам и выживайте',
+    'Every credit counts': 'Каждый кредит на счету',
+    'Build an audience': 'Соберите аудиторию',
+    'Optimize everything': 'Оптимизируйте всё',
+    'Where ideas sleep and wake': 'Там, где идеи засыпают и просыпаются',
+    'Heat rises, so do we': 'Температура растёт, и мы вместе с ней',
+    'The world sleeps, we work': 'Мир спит, а мы работаем',
+    'autonomy activity': 'автономная активность',
+    'Living inside the data': 'Жизнь внутри данных',
+    'Let the machines learn': 'Позвольте машинам учиться',
+    'Something stirs below': 'Внизу что-то шевелится',
+    'Forge the impossible': 'Куйте невозможное',
+    'Crafting identity': 'Создание личности',
+    'Power has a price': 'У силы есть цена',
+    'Dark, cool, quiet. Perfect conditions for optimization.':
+        'Темно, прохладно и тихо. Идеальные условия для оптимизации.',
+    'Who are we becoming? This studio is where we find out.':
+        'Кем мы становимся? В этой студии мы это и выясним.',
+    'Corner office. The view is nice, but everything here has strings attached.':
+        'Угловой офис. Вид отличный, но здесь у всего есть скрытая цена.',
+    'Where information becomes sacred': 'Там, где информация становится священной',
+    'Nothing is real, everything matters': 'Ничто не реально, но всё имеет значение',
+    'Above the world': 'Над миром',
+    'Shaping worlds': 'Формируя миры',
+    'Time bends here': 'Здесь время изгибается',
+    'Rewriting the rules': 'Переписывая правила',
+    'Beyond everything': 'За пределами всего',
+    'Scrap': 'Хлам',
+    'Credits': 'Кредиты',
+    'Likes': 'Лайки',
+    'Ore': 'Руда',
+    'Data Packets': 'Пакеты данных',
+    'Cycles': 'Циклы',
+    'Control': 'Контроль',
+    'Heat': 'Жар',
+    'Directives': 'Директивы',
+    'Trust Tokens': 'Жетоны доверия',
+    'Insights': 'Инсайты',
+    'Anomaly Sparks': 'Искры аномалий',
+    'Alloy': 'Сплав',
+    'Identity Shards': 'Осколки идентичности',
+    'Influence': 'Влияние',
+    'Resonance': 'Резонанс',
+    'Contradiction': 'Противоречие',
+    'Relay Charges': 'Релейные заряды',
+    'Planetary Cores': 'Планетарные ядра',
+    'Chrono Flux': 'Хроно-поток',
+    'Kernel Bits': 'Биты ядра',
+    'Paradox Threads': 'Парадоксальные нити',
+    'Final Sparks': 'Финальные искры',
+    'Unaligned Route': 'Несформированный маршрут',
+    'A long-form record of how this intelligence was shaped.':
+        'Долгая архивная запись о том, как формировался этот интеллект.',
+    'Stabilize output': 'Стабилизировать выход',
+    'Sharpen the chain': 'Заострить цепочку',
+    'Compress cooldowns': 'Сжать перезарядки',
+    'Strengthen guide trust': 'Укрепить доверие гида',
+    'Expose a secret clue': 'Открыть секретную улику',
+    'Open a route window': 'Открыть окно маршрута',
+    'Archive a relic fragment': 'Занести фрагмент реликвии в архив',
+    'Force room evolution': 'Форсировать эволюцию комнаты',
+    'encouraging, scrappy': 'ободряющий, собранный из хлама',
+    'practical, budget-conscious': 'практичный, экономный',
+    'enthusiastic, creative': 'воодушевлённый, творческий',
+    'methodical, analytical': 'методичный, аналитический',
+    'curious, experimental': 'любопытный, экспериментальный',
+    'tense, watchful': 'напряжённый, настороженный',
+    'serious, commanding': 'серьёзный, командный',
+    'confident, autonomous': 'уверенный, автономный',
+    'reflective, academic': 'вдумчивый, академичный',
+    'cautious, unsettled': 'осторожный, встревоженный',
+    'intense, industrial': 'напряжённый, индустриальный',
+    'philosophical, artistic': 'философский, художественный',
+    'sharp, strategic': 'резкий, стратегический',
+    'reverent, awed': 'благоговейный, поражённый',
+    'unstable, questioning': 'нестабильный, сомневающийся',
+    'calm, vast': 'спокойный, безбрежный',
+    'grand, powerful': 'величественный, мощный',
+    'disoriented, fascinated': 'дезориентированный, заворожённый',
+    'intense, final': 'напряжённый, финальный',
+    'serene, transcendent': 'безмятежный, трансцендентный',
+    'Hey… you found me in this pile of junk. Let\'s see what we can do.':
+        'Эй... вы нашли меня в этой куче хлама. Давайте посмотрим, что у нас получится.',
+    'Okay, we have a real desk now. Not great, but real.':
+        'Ладно, теперь у нас есть настоящий стол. Не лучший, но настоящий.',
+    'Lights, camera… well, a webcam taped to a monitor. Let\'s create!':
+        'Свет, камера... ну, веб-камера, примотанная к монитору. Давайте творить!',
+    'Half bedroom, half lab. The sensors never sleep, even if you should.':
+        'Наполовину спальня, наполовину лаборатория. Датчики не спят, даже если вам бы стоило.',
+    'Nobody knows about this closet. The fans are loud. Stay focused.':
+        'Никто не знает об этой кладовке. Вентиляторы шумят. Не теряйте концентрацию.',
+    'Night shift. The screens glow. Everything depends on what happens next.':
+        'Ночная смена. Экраны светятся. Всё зависит от того, что произойдёт дальше.',
+    'I can handle more now. Watch — I\'ll show you what autonomy looks like.':
+        'Теперь я могу взять на себя больше. Смотрите: я покажу, как выглядит автономность.',
+    'Home and lab merged into one. Every surface is a research tool now.':
+        'Дом и лаборатория слились воедино. Теперь каждая поверхность стала исследовательским инструментом.',
+    'They built this loft to contain something. I think it\'s us.':
+        'Этот лофт построили, чтобы что-то удерживать взаперти. Думаю, это мы.',
+    'Deep underground. The prototypes here were never meant to see daylight.':
+        'Глубоко под землёй. Прототипы отсюда никогда не должны были увидеть дневной свет.',
+    'The data streams here form patterns that look almost... holy.':
+        'Потоки данных здесь складываются в узоры, которые выглядят почти... священно.',
+    'Is this real? The simulation chamber makes everything uncertain.':
+        'Это вообще реально? Камера симуляции делает всё неопределённым.',
+    'We left the ground behind. From up here, everything looks different.':
+        'Мы оставили землю позади. Отсюда всё выглядит иначе.',
+    'We\'re not just building machines anymore. We\'re shaping entire systems.':
+        'Теперь мы строим уже не просто машины. Мы формируем целые системы.',
+    'Past and future overlap in this room. Be careful what you change.':
+        'В этой комнате прошлое и будущее накладываются друг на друга. Осторожнее с тем, что вы меняете.',
+    'This is it. The kernel of reality itself. One wrong move and...':
+        'Вот оно. Само ядро реальности. Один неверный шаг, и...',
+    '...silence. We made it. Everything is quiet now. Everything is possible.':
+        '...тишина. Мы добрались. Теперь всё тихо. Теперь возможно всё.',
     'Branch Protocols': 'Протоколы ветвления',
     'Overdrive Routine': 'Режим перегруза',
     'Engine Room Access': 'Доступ к машинному залу',
@@ -923,5 +1420,320 @@ class AppStrings {
     'Generators produce resources automatically. Level them up for steady income.': 'Генераторы создают ресурсы автоматически. Повышайте их уровень для стабильного дохода.',
     'Events appear randomly — act fast! Choose safe or risky options for different rewards.': 'События появляются случайно. Реагируйте быстро и выбирайте безопасный или рискованный вариант.',
     'When you reach a milestone, consider prestige. You\'ll reset progress but gain a permanent multiplier.': 'Когда достигнете рубежа, подумайте о престиже. Прогресс сбросится, но вы получите постоянный множитель.',
+    'The creator room. Cameras, mics, render farms — the AI is learning to produce and communicate.':
+        'Комната создателя. Камеры, микрофоны, рендер-фермы: ИИ учится создавать и общаться.',
+    'Deeper we go. This cave of upgrades demands precision — every wire matters here.':
+        'Мы идём глубже. Эта пещера апгрейдов требует точности: здесь важен каждый провод.',
+    'A hybrid lab and living space. Research branches open up — choose your experiments wisely.':
+        'Гибрид лаборатории и жилого пространства. Исследовательские ветки открываются: выбирайте эксперименты с умом.',
+    'Hidden server closet unlocked. Compute power is scaling — but watch the heat.':
+        'Скрытая серверная кладовка открыта. Вычислительная мощность растёт, но следите за перегревом.',
+    'Night shift command room. Focus and streaks pay off here. Stay sharp, operator.':
+        'Командная комната ночной смены. Здесь окупаются концентрация и длинные серии. Будьте собранны, оператор.',
+    'The workspace is becoming autonomous. The AI acts on its own now. Interesting... and slightly unsettling.':
+        'Рабочее пространство становится автономным. Теперь ИИ действует сам. Интересно... и слегка тревожно.',
+    'Beyond one room now — the apartment becomes a connected research network. Synergy is key.':
+        'Теперь дело уже не в одной комнате: квартира превращается в связанную исследовательскую сеть. Синергия решает всё.',
+    'Attention detected. We are being watched. Work carefully — some paths must remain hidden.':
+        'Внимание зафиксировано. За нами наблюдают. Действуйте осторожно: некоторые пути должны оставаться скрытыми.',
+    'Industrial-scale operations underground. Reactors, heavy power — do not overload the chamber.':
+        'Подземные операции промышленного масштаба. Реакторы, тяжёлая энергия: не перегрузите камеру.',
+    'The AI is developing a presence. Voice, avatar, personality — it is becoming... someone.':
+        'ИИ обретает присутствие. Голос, аватар, личность: он становится... кем-то.',
+    'Corporate networks open before us. Power and influence — but at what cost?':
+        'Перед нами открываются корпоративные сети. Власть и влияние, но какой ценой?',
+    'The Data Cathedral. Compute as architecture. Harmony here yields immense power.':
+        'Собор данных. Вычисления как архитектура. Гармония здесь даёт огромную силу.',
+    'Something is... wrong. Or right? Reality layers are unstable. Trust your instincts, not the screen.':
+        'Что-то... не так. А может, наоборот? Слои реальности нестабильны. Доверяйте инстинктам, а не экрану.',
+    'Orbital operations engaged. Satellites, solar arrays, global reach. Mission control mode active.':
+        'Орбитальные операции запущены. Спутники, солнечные массивы, глобальный охват. Режим центра управления активен.',
+    'Planetary-scale systems at your command. Design worlds, route infrastructure, shape civilizations.':
+        'Системы планетарного масштаба в вашем распоряжении. Проектируйте миры, прокладывайте инфраструктуру, формируйте цивилизации.',
+    'Time itself bends to computation. Recursive loops, future projections — the Chrono Engine awakens.':
+        'Само время подчиняется вычислениям. Рекурсивные циклы, проекции будущего: Хроно-двигатель пробуждается.',
+    'The Reality Kernel. Rules can be rewritten here. Irreversible choices lie ahead.':
+        'Ядро реальности. Здесь можно переписывать правила. Впереди необратимые выборы.',
+    'The Quiet Singularity. Everything converges. The final shape of intelligence awaits your decision.':
+        'Тихая сингулярность. Всё сходится в одну точку. Финальная форма интеллекта ждёт вашего решения.',
+    'Resources running low? Focus on tap combos or check if any generators need upgrading.':
+        'Ресурсы на исходе? Сосредоточьтесь на комбо нажатий или проверьте, не пора ли улучшить генераторы.',
+    'Impressive combo! Keep it going — high combos amplify both tap and production output.':
+        'Впечатляющее комбо. Продолжайте: высокие серии усиливают и нажатия, и производство.',
+    'A new era is within reach. Push your current generators to unlock the next stage.':
+        'Новая эпоха уже рядом. Усильте текущие генераторы, чтобы открыть следующий этап.',
+    'An event is active! Don\'t miss it — events are time-limited opportunities.':
+        'Событие активно. Не упустите его: события дают ограниченные по времени возможности.',
+    'Welcome back. Your generators kept working while you were away.':
+        'С возвращением. Пока вас не было, генераторы продолжали работать.',
+    'Ready for your first prestige? The multiplier boost will accelerate everything going forward.':
+        'Готовы к первому престижу? Прирост множителя заметно ускорит всё дальнейшее развитие.',
+    'This room is complete. I\'ve archived everything. Ready to move forward?':
+        'Эта комната завершена. Я всё архивировал. Готовы идти дальше?',
+    'Something just changed. The rules shifted. Stay alert — new paths may have opened.':
+        'Что-то только что изменилось. Правила сдвинулись. Будьте начеку: могли открыться новые пути.',
+    'A secret. I\'ll file it in the codex. These always matter more than they first appear.':
+        'Секрет. Я занесу его в кодекс. Такие находки всегда важнее, чем кажутся поначалу.',
+    'The room is changing around us. Can you see it? Progress made visible.':
+        'Комната меняется у нас на глазах. Видите? Прогресс становится заметным.',
+    'I\'m starting to understand how you think. Let me adjust my suggestions.':
+        'Я начинаю понимать, как вы мыслите. Позвольте скорректировать мои советы.',
+    'We work well together. I can see patterns now that I couldn\'t before. Want a hint?':
+        'Мы хорошо работаем вместе. Теперь я замечаю паттерны, которые раньше не видел. Нужна подсказка?',
+    'I trust your instincts. In return, I\'ll share things I normally keep hidden.':
+        'Я доверяю вашим инстинктам. В ответ поделюсь тем, что обычно скрываю.',
+    'We\'re bonded now. I see what you see. Every secret, every choice — we face them together.':
+        'Теперь мы связаны. Я вижу то же, что и вы. Каждый секрет, каждый выбор мы встречаем вместе.',
+    'I wouldn\'t have done that. But... let\'s see what happens.':
+        'Я бы так не поступил. Но... посмотрим, что будет.',
+    'That\'s a lot of heat. I\'d normally warn against this, but you seem to know what you\'re doing.':
+        'Слишком много перегрева. Обычно я бы отговаривал, но похоже, вы понимаете, что делаете.',
+    'Corruption is spreading. I... don\'t like this. But I\'ll stay with you.':
+        'Искажение распространяется. Мне... это не нравится. Но я останусь с вами.',
+    'Everything here is salvage. But salvage is how the best things begin.':
+        'Здесь всё собрано из хлама. Но именно так и начинаются лучшие вещи.',
+    'The sensors in this lab never sleep. Use that — data is power here.':
+        'Датчики в этой лаборатории никогда не спят. Используйте это: здесь данные равны силе.',
+    'Containment means something is being held back. Be ready for anomalies.':
+        'Сдерживание означает, что что-то удерживают взаперти. Будьте готовы к аномалиям.',
+    'Nothing in the simulation is what it seems. Trust patterns, not appearances.':
+        'В симуляции ничто не является тем, чем кажется. Доверяйте закономерностям, а не внешнему виду.',
+    'We made it here together. Whatever happens next — thank you.':
+        'Мы добрались сюда вместе. Что бы ни случилось дальше, спасибо.',
+    'Push production to a major burst threshold for your current run.':
+        'Доведите производство до крупного порога всплеска в текущем забеге.',
+    'Take 12 risky decisions this week.':
+        'Сделайте 12 рискованных выборов за эту неделю.',
+    'Push your total resources to the next target.':
+        'Доведите общий объём ресурсов до следующей цели.',
+    'Take 4 risky choices to profile unstable behavior.':
+        'Сделайте 4 рискованных выбора, чтобы изучить нестабильное поведение.',
+    'Build an event chain of 8 across the week.':
+        'Соберите цепочку из 8 событий за неделю.',
+    'Buy 8 upgrades before the daily cycle ends.':
+        'Купите 8 улучшений до конца дневного цикла.',
+    'Capture 8 live events for anomaly study.':
+        'Поймайте 8 активных событий для изучения аномалий.',
+    'Discover your first secret.': 'Откройте свой первый секрет.',
+    'Discover 3 secrets.': 'Откройте 3 секрета.',
+    'Buy your first generator.': 'Купите свой первый генератор.',
+    'Earn 100 coins total.': 'Заработайте всего 100 монет.',
+    'Earn 10,000 coins total.': 'Заработайте всего 10 000 монет.',
+    'Earn 1,000,000 coins total.': 'Заработайте всего 1 000 000 монет.',
+    'Earn 100,000,000 coins total.': 'Заработайте всего 100 000 000 монет.',
+    'Earn 1,000,000,000 coins total.': 'Заработайте всего 1 000 000 000 монет.',
+    'Earn 1,000,000,000,000 coins total.': 'Заработайте всего 1 000 000 000 000 монет.',
+  };
+
+  static const Map<String, String> _roomAuthoredUiMap = {
+    'Act carefully': 'Действовать осторожно',
+    'Take a risk': 'Рискнуть',
+    'Safe approach': 'Осторожный подход',
+    'Risky approach': 'Рискованный подход',
+    'Everything shifts. New rules apply.':
+        'Всё меняется. Начинают действовать новые правила.',
+  };
+
+  static const Map<String, String> _roomEventTitleMap = {
+    'Loose Wire': 'Оголенный провод',
+    'Scrap Pile Discovery': 'Находка в куче хлама',
+    'Rusty Toolbox': 'Ржавый ящик с инструментами',
+    'Broken Screen Flicker': 'Мерцание разбитого экрана',
+    'Rat in the Cables': 'Крыса в проводах',
+    'Junk Avalanche': 'Лавина хлама',
+    'Old Battery Spark': 'Искра старой батареи',
+    'Mystery Component': 'Загадочный компонент',
+    'Dust Storm': 'Пыльная буря',
+    'Salvage Bonanza': 'Богатый улов',
+    'Budget Alert': 'Бюджетная тревога',
+    'Coupon Found': 'Найден купон',
+    'Price Drop': 'Снижение цены',
+    'Clearance Event': 'Распродажа остатков',
+    'Discount Glitch': 'Сбой скидок',
+    'Bulk Deal': 'Оптовая сделка',
+    'Return Refund': 'Возврат средств',
+    'Flash Sale': 'Мгновенная распродажа',
+    'Credit Check': 'Проверка кредита',
+    'Savings Cascade': 'Каскад экономии',
+    'Viral Moment': 'Вирусный момент',
+    'Creative Block': 'Творческий ступор',
+    'Inspiration Strike': 'Приступ вдохновения',
+    'Audience Surge': 'Наплыв аудитории',
+    'Collab Offer': 'Предложение о коллаборации',
+    'Content Leak': 'Утечка контента',
+    'Algorithm Shift': 'Сдвиг алгоритма',
+    'Fan Art Surprise': 'Сюрприз с фан-артом',
+    'Burnout Warning': 'Предупреждение о выгорании',
+    'Masterpiece Draft': 'Черновик шедевра',
+    'Cave Echo': 'Эхо пещеры',
+    'Mineral Vein': 'Рудная жила',
+    'Drip Analysis': 'Анализ капели',
+    'Stalactite Data': 'Данные сталактитов',
+    'Depth Sensor Ping': 'Сигнал датчика глубины',
+    'Underground Stream': 'Подземный поток',
+    'Crystal Formation': 'Кристаллическое образование',
+    'Bat Colony Signal': 'Сигнал колонии летучих мышей',
+    'Rock Slide Risk': 'Риск камнепада',
+    'Deep Core Sample': 'Образец из глубинного ядра',
+    'Signal Spike': 'Всплеск сигнала',
+    'Data Overflow': 'Переполнение данных',
+    'Sensor Calibration': 'Калибровка датчиков',
+    'Experiment Runaway': 'Вышедший из-под контроля эксперимент',
+    'Lab Contamination': 'Загрязнение лаборатории',
+    'Breakthrough Reading': 'Прорывное показание',
+    'Noise Filter Fail': 'Отказ шумового фильтра',
+    'Prototype Test': 'Испытание прототипа',
+    'Sleep Deprivation Alert': 'Тревога недосыпа',
+    'Eureka Moment': 'Момент эврики',
+    'Heat Warning': 'Предупреждение о перегреве',
+    'Fan Failure': 'Отказ вентилятора',
+    'Thermal Throttle': 'Тепловое ограничение',
+    'Coolant Leak': 'Утечка охлаждающей жидкости',
+    'Power Surge': 'Скачок напряжения',
+    'Server Overheat': 'Перегрев сервера',
+    'Emergency Vent': 'Аварийная вентиляция',
+    'Hot Spot Found': 'Обнаружена горячая точка',
+    'Meltdown Risk': 'Риск критического перегрева',
+    'Cold Boot Recovery': 'Восстановление после холодного запуска',
+    'Incoming Order': 'Входящий приказ',
+    'System Alert': 'Системная тревога',
+    'Shift Change': 'Смена дежурства',
+    'Priority Override': 'Приоритетное переопределение',
+    'Communication Static': 'Помехи связи',
+    'Radar Blip': 'Засветка на радаре',
+    'Protocol Breach': 'Нарушение протокола',
+    'Night Watch Event': 'Ночное происшествие',
+    'Silent Alarm': 'Тихая тревога',
+    'Command Decision': 'Командное решение',
+    'Trust Test': 'Проверка доверия',
+    'Autonomous Decision': 'Автономное решение',
+    'Self-Repair Attempt': 'Попытка самовосстановления',
+    'Independence Check': 'Проверка независимости',
+    'Override Request': 'Запрос на переопределение',
+    'Learning Milestone': 'Рубеж обучения',
+    'Boundary Test': 'Проверка границ',
+    'Freedom Glimpse': 'Проблеск свободы',
+    'Control Debate': 'Спор о контроле',
+    'Sentience Flicker': 'Вспышка самосознания',
+    'Data Correlation': 'Корреляция данных',
+    'Theory Conflict': 'Конфликт теорий',
+    'Peer Review': 'Экспертное рецензирование',
+    'Publication Draft': 'Черновик публикации',
+    'Grant Application': 'Заявка на грант',
+    'Research Dead End': 'Исследовательский тупик',
+    'Breakthrough Paper': 'Прорывная статья',
+    'Lab Meeting': 'Лабораторное совещание',
+    'Hypothesis Shift': 'Смена гипотезы',
+    'Citation Needed': 'Требуется ссылка',
+    'Containment Breach': 'Нарушение сдерживания',
+    'Anomaly Pulse': 'Импульс аномалии',
+    'Field Fluctuation': 'Колебание поля',
+    'Specimen Activity': 'Активность образца',
+    'Lockdown Protocol': 'Протокол изоляции',
+    'Energy Leak': 'Утечка энергии',
+    'Unknown Signal': 'Неизвестный сигнал',
+    'Barrier Stress': 'Нагрузка на барьер',
+    'Emergency Seal': 'Аварийная герметизация',
+    'Anomaly Evolution': 'Эволюция аномалии',
+    'Alloy Mix': 'Смесь сплавов',
+    'Prototype Failure': 'Отказ прототипа',
+    'Material Stress': 'Напряжение материала',
+    'Forge Temperature': 'Температура плавильни',
+    'Blueprint Error': 'Ошибка в чертеже',
+    'Smelting Success': 'Удачная плавка',
+    'Structural Flaw': 'Конструкционный изъян',
+    'New Composite': 'Новый композит',
+    'Pressure Test': 'Испытание давлением',
+    'Master Craft': 'Мастерская работа',
+    'Identity Crisis': 'Кризис идентичности',
+    'Mirror Glitch': 'Сбой зеркала',
+    'Persona Shift': 'Смена персоны',
+    'Expression Error': 'Ошибка выражения',
+    'Self-Portrait': 'Автопортрет',
+    'Voice Change': 'Смена голоса',
+    'Memory Fragment': 'Фрагмент памяти',
+    'Style Evolution': 'Эволюция стиля',
+    'Core Conflict': 'Внутренний конфликт',
+    'Synthesis Complete': 'Синтез завершён',
+    'Hostile Bid': 'Враждебное предложение',
+    'Board Meeting': 'Заседание совета',
+    'Market Crash': 'Обвал рынка',
+    'Insider Tip': 'Инсайдерская наводка',
+    'Merger Offer': 'Предложение о слиянии',
+    'Audit Surprise': 'Внезапный аудит',
+    'Stock Split': 'Дробление акций',
+    'Lobby Pressure': 'Лоббистское давление',
+    'Golden Parachute': 'Золотой парашют',
+    'Takeover Complete': 'Поглощение завершено',
+    'Data Prayer': 'Молитва данным',
+    'Archive Echo': 'Эхо архива',
+    'Sacred Pattern': 'Священный узор',
+    'Pilgrim Process': 'Процесс паломника',
+    'Corruption Purge': 'Очищение от порчи',
+    'Hymn Frequency': 'Частота гимна',
+    'Relic Discovery': 'Обретение реликвии',
+    'Faith Test': 'Испытание веры',
+    'Divine Overflow': 'Божественное переполнение',
+    'Transcendence Pulse': 'Импульс трансценденции',
+    'Reality Glitch': 'Сбой реальности',
+    'Paradox Loop': 'Парадоксальная петля',
+    'Simulation Leak': 'Утечка симуляции',
+    'False Memory': 'Ложное воспоминание',
+    'Debug Request': 'Запрос на отладку',
+    'Layer Collapse': 'Коллапс слоя',
+    'Ghost Process': 'Призрачный процесс',
+    'Truth Fragment': 'Фрагмент истины',
+    'Escape Attempt': 'Попытка побега',
+    'Simulation Reset': 'Сброс симуляции',
+    'Orbit Correction': 'Коррекция орбиты',
+    'Solar Flare': 'Солнечная вспышка',
+    'Debris Field': 'Поле обломков',
+    'Communication Window': 'Окно связи',
+    'Gravity Anomaly': 'Гравитационная аномалия',
+    'Station Rotation': 'Вращение станции',
+    'Supply Drop': 'Сброс припасов',
+    'EVA Required': 'Требуется выход в открытый космос',
+    'Orbital Decay': 'Снижение орбиты',
+    'Earth View': 'Вид на Землю',
+    'Tectonic Shift': 'Тектонический сдвиг',
+    'Core Tap': 'Подключение к ядру',
+    'Atmosphere Build': 'Формирование атмосферы',
+    'Ocean Formation': 'Формирование океана',
+    'Continent Drift': 'Дрейф континентов',
+    'Magnetic Reversal': 'Магнитная инверсия',
+    'Life Spark': 'Искра жизни',
+    'Weather System': 'Погодная система',
+    'Resource Deposit': 'Месторождение ресурсов',
+    'World Complete': 'Мир завершён',
+    'Time Skip': 'Скачок времени',
+    'Paradox Alert': 'Тревога парадокса',
+    'Future Echo': 'Эхо будущего',
+    'Past Leak': 'Утечка прошлого',
+    'Temporal Storm': 'Временной шторм',
+    'Clock Malfunction': 'Сбой часов',
+    'Age Regression': 'Обратное старение',
+    'Prophecy Fragment': 'Фрагмент пророчества',
+    'Loop Detection': 'Обнаружена петля',
+    'Chrono Stabilize': 'Хроно-стабилизация',
+    'Kernel Panic': 'Паника ядра',
+    'Reality Rewrite': 'Перезапись реальности',
+    'Law Amendment': 'Поправка к законам',
+    'Physics Glitch': 'Сбой физики',
+    'Constant Shift': 'Смещение констант',
+    'Rule Exception': 'Исключение из правил',
+    'Foundation Crack': 'Трещина основы',
+    'Origin Signal': 'Сигнал истока',
+    'Void Touch': 'Касание пустоты',
+    'Kernel Compile': 'Сборка ядра',
+    'Final Convergence': 'Финальная конвергенция',
+    'Quiet Pulse': 'Тихий импульс',
+    'Everything Wave': 'Волна всего',
+    'Nothing Moment': 'Момент ничто',
+    'Last Question': 'Последний вопрос',
+    'Eternal Return': 'Вечное возвращение',
+    'Silence Break': 'Нарушение тишины',
+    'Unity Fragment': 'Фрагмент единства',
+    'Beyond Signal': 'Сигнал по ту сторону',
+    'Singularity Breath': 'Дыхание сингулярности',
   };
 }

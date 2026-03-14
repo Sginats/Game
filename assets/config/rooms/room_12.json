@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_12_stage_1",
-      "name": "Synthetic Studio \u2014 Bare Bones",
+      "name": "Synthetic Studio — Bare Bones",
       "description": "The room in its raw state. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 60,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_12_stage_2",
-      "name": "Synthetic Studio \u2014 First Light",
+      "name": "Synthetic Studio — First Light",
       "description": "Basic improvements visible. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 180,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_12_stage_3",
-      "name": "Synthetic Studio \u2014 Functional",
+      "name": "Synthetic Studio — Functional",
       "description": "A proper working space. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 360,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_12_stage_4",
-      "name": "Synthetic Studio \u2014 Advanced",
+      "name": "Synthetic Studio — Advanced",
       "description": "High-tech transformation. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 600,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_12_stage_5",
-      "name": "Synthetic Studio \u2014 Mastered",
+      "name": "Synthetic Studio — Mastered",
       "description": "The room at its peak. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 960,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_12_ambient",
-      "name": "identity ambience",
-      "assetPath": "assets/audio/rooms/room_12_ambient.ogg",
-      "volume": 0.6,
+      "name": "synthetic studio hush",
+      "assetPath": "assets/audio/rooms/room_12_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_12_active",
-      "name": "identity activity",
-      "assetPath": "assets/audio/rooms/room_12_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "synthetic studio drive",
+      "assetPath": "assets/audio/rooms/room_12_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_12_twist",
+      "name": "synthetic studio rupture",
+      "assetPath": "assets/audio/rooms/room_12_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_12_evt_1",
         "roomId": "room_12",
         "title": "Identity Crisis",
-        "description": "Identity Crisis \u2014 a common instant event in Synthetic Studio.",
+        "description": "Identity Crisis — a common instant event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,8 +153,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 29.0,
+            "value": 18.2,
             "description": "Gain Identity Shards"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 3.0,
+            "description": "Sharpen the chain"
           }
         ],
         "chainBonus": 0.1,
@@ -158,7 +171,7 @@
         "id": "room_12_evt_2",
         "roomId": "room_12",
         "title": "Mirror Glitch",
-        "description": "Mirror Glitch \u2014 a common shortChoice event in Synthetic Studio.",
+        "description": "Mirror Glitch — a common shortChoice event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +183,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 7.0,
+                "type": "instantCurrency",
+                "value": 18.2,
                 "description": "Gain Identity Shards"
               }
             ],
@@ -183,9 +196,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 14.0,
-                "description": "Gain more Identity Shards"
+                "type": "instantCurrency",
+                "value": 24.2,
+                "description": "Gain Identity Shards"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +219,7 @@
         "id": "room_12_evt_3",
         "roomId": "room_12",
         "title": "Persona Shift",
-        "description": "Persona Shift \u2014 a common timedChain event in Synthetic Studio.",
+        "description": "Persona Shift — a common timedChain event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,8 +228,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 29.0,
+            "value": 18.2,
             "description": "Gain Identity Shards"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 3.0,
+            "description": "Sharpen the chain"
           }
         ],
         "chainBonus": 0.30000000000000004,
@@ -223,7 +246,7 @@
         "id": "room_12_evt_4",
         "roomId": "room_12",
         "title": "Expression Error",
-        "description": "Expression Error \u2014 a common utility event in Synthetic Studio.",
+        "description": "Expression Error — a common utility event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +254,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 29.0,
-            "description": "Gain Identity Shards"
+            "type": "temporaryBuff",
+            "value": 3.36,
+            "description": "Stabilize output"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +268,7 @@
         "id": "room_12_evt_5",
         "roomId": "room_12",
         "title": "Self-Portrait",
-        "description": "Self-Portrait \u2014 a rare secretTrigger event in Synthetic Studio.",
+        "description": "Self-Portrait — a rare secretTrigger event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +276,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 29.0,
-            "description": "Gain Identity Shards"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +290,7 @@
         "id": "room_12_evt_6",
         "roomId": "room_12",
         "title": "Voice Change",
-        "description": "Voice Change \u2014 a rare legendaryAnomaly event in Synthetic Studio.",
+        "description": "Voice Change — a rare legendaryAnomaly event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +298,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 29.0,
-            "description": "Gain Identity Shards"
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +312,7 @@
         "id": "room_12_evt_7",
         "roomId": "room_12",
         "title": "Memory Fragment",
-        "description": "Memory Fragment \u2014 a epic warningRisk event in Synthetic Studio.",
+        "description": "Memory Fragment — a epic warningRisk event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +320,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 29.0,
-            "description": "Gain Identity Shards"
+            "type": "temporaryBuff",
+            "value": 3.36,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +339,7 @@
         "id": "room_12_evt_8",
         "roomId": "room_12",
         "title": "Style Evolution",
-        "description": "Style Evolution \u2014 a corrupted miniBoss event in Synthetic Studio.",
+        "description": "Style Evolution — a corrupted miniBoss event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +347,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 29.0,
-            "description": "Gain Identity Shards"
+            "type": "comboAmplification",
+            "value": 3.0,
+            "description": "Sharpen the chain"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,19 +371,13 @@
         "id": "room_12_evt_9",
         "roomId": "room_12",
         "title": "Core Conflict",
-        "description": "Core Conflict \u2014 a legendary guideAdvisory event in Synthetic Studio.",
+        "description": "Core Conflict — a legendary guideAdvisory event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
         "durationSeconds": 24.0,
         "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 29.0,
-            "description": "Gain Identity Shards"
-          }
-        ],
+        "rewards": [],
         "chainBonus": 0.9,
         "requiredTwistActive": true,
         "requiredUpgradeCount": 24,
@@ -355,7 +387,7 @@
         "id": "room_12_evt_10",
         "roomId": "room_12",
         "title": "Synthesis Complete",
-        "description": "Synthesis Complete \u2014 a common hiddenGlitch event in Synthetic Studio.",
+        "description": "Synthesis Complete — a common hiddenGlitch event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +396,18 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 29.0,
+            "value": 18.2,
             "description": "Gain Identity Shards"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 3.0,
+            "description": "Sharpen the chain"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +432,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "environmentTrigger",
+            "type": "relicFragment",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 1.0,

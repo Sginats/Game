@@ -1,7 +1,7 @@
-/// Room/Scene domain models for the 20-room incremental game.
-///
-/// Each room represents a distinct environment with its own mechanics,
-/// visual theme, audio layers, secrets, and transformation stages.
+// Room/Scene domain models for the 20-room incremental game.
+//
+// Each room represents a distinct environment with its own mechanics,
+// visual theme, audio layers, secrets, and transformation stages.
 
 /// Mechanic emphasis that defines the primary gameplay style of a room.
 enum RoomMechanicEmphasis {

@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_07_stage_1",
-      "name": "Night Shift Command Room \u2014 Bare Bones",
+      "name": "Night Shift Command Room — Bare Bones",
       "description": "The room in its raw state. Night Shift Command Room evolves as you progress.",
       "requiredUpgrades": 35,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_07_stage_2",
-      "name": "Night Shift Command Room \u2014 First Light",
+      "name": "Night Shift Command Room — First Light",
       "description": "Basic improvements visible. Night Shift Command Room evolves as you progress.",
       "requiredUpgrades": 105,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_07_stage_3",
-      "name": "Night Shift Command Room \u2014 Functional",
+      "name": "Night Shift Command Room — Functional",
       "description": "A proper working space. Night Shift Command Room evolves as you progress.",
       "requiredUpgrades": 210,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_07_stage_4",
-      "name": "Night Shift Command Room \u2014 Advanced",
+      "name": "Night Shift Command Room — Advanced",
       "description": "High-tech transformation. Night Shift Command Room evolves as you progress.",
       "requiredUpgrades": 350,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_07_stage_5",
-      "name": "Night Shift Command Room \u2014 Mastered",
+      "name": "Night Shift Command Room — Mastered",
       "description": "The room at its peak. Night Shift Command Room evolves as you progress.",
       "requiredUpgrades": 560,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_07_ambient",
-      "name": "command ambience",
-      "assetPath": "assets/audio/rooms/room_07_ambient.ogg",
-      "volume": 0.6,
+      "name": "night shift command room hush",
+      "assetPath": "assets/audio/rooms/room_07_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_07_active",
-      "name": "command activity",
-      "assetPath": "assets/audio/rooms/room_07_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "night shift command room drive",
+      "assetPath": "assets/audio/rooms/room_07_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_07_twist",
+      "name": "night shift command room rupture",
+      "assetPath": "assets/audio/rooms/room_07_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_07_evt_1",
         "roomId": "room_07",
         "title": "Incoming Order",
-        "description": "Incoming Order \u2014 a common instant event in Night Shift Command Room.",
+        "description": "Incoming Order — a common instant event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 19.0,
+            "value": 12.7,
             "description": "Gain Directives"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_07_evt_2",
         "roomId": "room_07",
         "title": "System Alert",
-        "description": "System Alert \u2014 a common shortChoice event in Night Shift Command Room.",
+        "description": "System Alert — a common shortChoice event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 4.5,
+                "type": "instantCurrency",
+                "value": 12.7,
                 "description": "Gain Directives"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 9.0,
-                "description": "Gain more Directives"
+                "type": "instantCurrency",
+                "value": 16.2,
+                "description": "Gain Directives"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_07_evt_3",
         "roomId": "room_07",
         "title": "Shift Change",
-        "description": "Shift Change \u2014 a common timedChain event in Night Shift Command Room.",
+        "description": "Shift Change — a common timedChain event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 19.0,
+            "value": 12.7,
             "description": "Gain Directives"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_07_evt_4",
         "roomId": "room_07",
         "title": "Priority Override",
-        "description": "Priority Override \u2014 a common utility event in Night Shift Command Room.",
+        "description": "Priority Override — a common utility event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 19.0,
-            "description": "Gain Directives"
+            "type": "temporaryBuff",
+            "value": 2.46,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 1.26,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +263,7 @@
         "id": "room_07_evt_5",
         "roomId": "room_07",
         "title": "Communication Static",
-        "description": "Communication Static \u2014 a rare secretTrigger event in Night Shift Command Room.",
+        "description": "Communication Static — a rare secretTrigger event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +271,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 19.0,
-            "description": "Gain Directives"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +285,7 @@
         "id": "room_07_evt_6",
         "roomId": "room_07",
         "title": "Radar Blip",
-        "description": "Radar Blip \u2014 a rare legendaryAnomaly event in Night Shift Command Room.",
+        "description": "Radar Blip — a rare legendaryAnomaly event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +293,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 19.0,
-            "description": "Gain Directives"
+            "type": "rareResource",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +307,7 @@
         "id": "room_07_evt_7",
         "roomId": "room_07",
         "title": "Protocol Breach",
-        "description": "Protocol Breach \u2014 a epic warningRisk event in Night Shift Command Room.",
+        "description": "Protocol Breach — a epic warningRisk event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +315,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 19.0,
-            "description": "Gain Directives"
+            "type": "temporaryBuff",
+            "value": 2.46,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 1.26,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +339,7 @@
         "id": "room_07_evt_8",
         "roomId": "room_07",
         "title": "Night Watch Event",
-        "description": "Night Watch Event \u2014 a corrupted miniBoss event in Night Shift Command Room.",
+        "description": "Night Watch Event — a corrupted miniBoss event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +347,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 19.0,
-            "description": "Gain Directives"
+            "type": "cooldownChange",
+            "value": 1.26,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "rareResource",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,7 +371,7 @@
         "id": "room_07_evt_9",
         "roomId": "room_07",
         "title": "Silent Alarm",
-        "description": "Silent Alarm \u2014 a legendary guideAdvisory event in Night Shift Command Room.",
+        "description": "Silent Alarm — a legendary guideAdvisory event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -341,9 +379,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 19.0,
-            "description": "Gain Directives"
+            "type": "cooldownChange",
+            "value": 1.26,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.9,
@@ -355,7 +393,7 @@
         "id": "room_07_evt_10",
         "roomId": "room_07",
         "title": "Command Decision",
-        "description": "Command Decision \u2014 a common hiddenGlitch event in Night Shift Command Room.",
+        "description": "Command Decision — a common hiddenGlitch event in Night Shift Command Room.",
         "flavorText": "The command environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +402,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 19.0,
+            "value": 12.7,
             "description": "Gain Directives"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +433,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "environmentTrigger",
+            "type": "rareResource",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 1.0,

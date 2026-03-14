@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_05_stage_1",
-      "name": "Smart Lab Bedroom \u2014 Bare Bones",
+      "name": "Smart Lab Bedroom — Bare Bones",
       "description": "The room in its raw state. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 25,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_05_stage_2",
-      "name": "Smart Lab Bedroom \u2014 First Light",
+      "name": "Smart Lab Bedroom — First Light",
       "description": "Basic improvements visible. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 75,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_05_stage_3",
-      "name": "Smart Lab Bedroom \u2014 Functional",
+      "name": "Smart Lab Bedroom — Functional",
       "description": "A proper working space. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 150,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_05_stage_4",
-      "name": "Smart Lab Bedroom \u2014 Advanced",
+      "name": "Smart Lab Bedroom — Advanced",
       "description": "High-tech transformation. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 250,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_05_stage_5",
-      "name": "Smart Lab Bedroom \u2014 Mastered",
+      "name": "Smart Lab Bedroom — Mastered",
       "description": "The room at its peak. Smart Lab Bedroom evolves as you progress.",
       "requiredUpgrades": 400,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_05_ambient",
-      "name": "lab ambience",
-      "assetPath": "assets/audio/rooms/room_05_ambient.ogg",
-      "volume": 0.6,
+      "name": "smart lab bedroom hush",
+      "assetPath": "assets/audio/rooms/room_05_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_05_active",
-      "name": "lab activity",
-      "assetPath": "assets/audio/rooms/room_05_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "smart lab bedroom drive",
+      "assetPath": "assets/audio/rooms/room_05_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_05_twist",
+      "name": "smart lab bedroom rupture",
+      "assetPath": "assets/audio/rooms/room_05_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_05_evt_1",
         "roomId": "room_05",
         "title": "Signal Spike",
-        "description": "Signal Spike \u2014 a common instant event in Smart Lab Bedroom.",
+        "description": "Signal Spike — a common instant event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 15.0,
+            "value": 10.5,
             "description": "Gain Data Packets"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_05_evt_2",
         "roomId": "room_05",
         "title": "Data Overflow",
-        "description": "Data Overflow \u2014 a common shortChoice event in Smart Lab Bedroom.",
+        "description": "Data Overflow — a common shortChoice event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 3.5,
+                "type": "instantCurrency",
+                "value": 10.5,
                 "description": "Gain Data Packets"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 7.0,
-                "description": "Gain more Data Packets"
+                "type": "instantCurrency",
+                "value": 13.0,
+                "description": "Gain Data Packets"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_05_evt_3",
         "roomId": "room_05",
         "title": "Sensor Calibration",
-        "description": "Sensor Calibration \u2014 a common timedChain event in Smart Lab Bedroom.",
+        "description": "Sensor Calibration — a common timedChain event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 15.0,
+            "value": 10.5,
             "description": "Gain Data Packets"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_05_evt_4",
         "roomId": "room_05",
         "title": "Experiment Runaway",
-        "description": "Experiment Runaway \u2014 a common utility event in Smart Lab Bedroom.",
+        "description": "Experiment Runaway — a common utility event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 15.0,
-            "description": "Gain Data Packets"
+            "type": "temporaryBuff",
+            "value": 2.1,
+            "description": "Stabilize output"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +258,7 @@
         "id": "room_05_evt_5",
         "roomId": "room_05",
         "title": "Lab Contamination",
-        "description": "Lab Contamination \u2014 a rare secretTrigger event in Smart Lab Bedroom.",
+        "description": "Lab Contamination — a rare secretTrigger event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +266,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 15.0,
-            "description": "Gain Data Packets"
+            "type": "guideAffinity",
+            "value": 0.55,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +285,7 @@
         "id": "room_05_evt_6",
         "roomId": "room_05",
         "title": "Breakthrough Reading",
-        "description": "Breakthrough Reading \u2014 a rare legendaryAnomaly event in Smart Lab Bedroom.",
+        "description": "Breakthrough Reading — a rare legendaryAnomaly event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +293,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 15.0,
-            "description": "Gain Data Packets"
+            "type": "guideAffinity",
+            "value": 0.55,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "rareResource",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +312,7 @@
         "id": "room_05_evt_7",
         "roomId": "room_05",
         "title": "Noise Filter Fail",
-        "description": "Noise Filter Fail \u2014 a epic warningRisk event in Smart Lab Bedroom.",
+        "description": "Noise Filter Fail — a epic warningRisk event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +320,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 15.0,
-            "description": "Gain Data Packets"
+            "type": "temporaryBuff",
+            "value": 2.1,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +339,7 @@
         "id": "room_05_evt_8",
         "roomId": "room_05",
         "title": "Prototype Test",
-        "description": "Prototype Test \u2014 a corrupted miniBoss event in Smart Lab Bedroom.",
+        "description": "Prototype Test — a corrupted miniBoss event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +347,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 15.0,
-            "description": "Gain Data Packets"
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "rareResource",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,7 +366,7 @@
         "id": "room_05_evt_9",
         "roomId": "room_05",
         "title": "Sleep Deprivation Alert",
-        "description": "Sleep Deprivation Alert \u2014 a legendary guideAdvisory event in Smart Lab Bedroom.",
+        "description": "Sleep Deprivation Alert — a legendary guideAdvisory event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -341,9 +374,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 15.0,
-            "description": "Gain Data Packets"
+            "type": "guideAffinity",
+            "value": 0.55,
+            "description": "Strengthen guide trust"
           }
         ],
         "chainBonus": 0.9,
@@ -355,7 +388,7 @@
         "id": "room_05_evt_10",
         "roomId": "room_05",
         "title": "Eureka Moment",
-        "description": "Eureka Moment \u2014 a common hiddenGlitch event in Smart Lab Bedroom.",
+        "description": "Eureka Moment — a common hiddenGlitch event in Smart Lab Bedroom.",
         "flavorText": "The lab environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +397,18 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 15.0,
+            "value": 10.5,
             "description": "Gain Data Packets"
+          },
+          {
+            "type": "guideAffinity",
+            "value": 0.55,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +433,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "environmentTrigger",
+            "type": "guideAffinity",
+            "value": 0.55,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "rareResource",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 1.0,

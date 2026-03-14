@@ -1,6 +1,8 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import '../../domain/models/gameplay_extensions.dart';
+import '../../domain/models/room_scene.dart';
 import 'package:ffi/ffi.dart';
 import 'package:flutter/services.dart';
 
@@ -12,16 +14,24 @@ class GameAudioService {
   static const int _sndAsync = 0x0001;
   static const int _sndFilename = 0x00020000;
   static const int _sndNodefault = 0x0002;
+  static const String _ambientAlias = 'room_zero_ambient';
 
   bool _enabled;
   double _musicVolume;
   double _sfxVolume;
-  final _playSound = Platform.isWindows
-      ? DynamicLibrary.open('winmm.dll').lookupFunction<
-            Int32 Function(Pointer<Utf16>, IntPtr, Uint32),
-            int Function(Pointer<Utf16>, int, int)
-          >('PlaySoundW')
-      : null;
+  final DynamicLibrary? _winmm =
+      Platform.isWindows ? DynamicLibrary.open('winmm.dll') : null;
+  late final int Function(Pointer<Utf16>, int, int)? _playSound = _winmm
+      ?.lookupFunction<
+          Int32 Function(Pointer<Utf16>, IntPtr, Uint32),
+          int Function(Pointer<Utf16>, int, int)>('PlaySoundW');
+  late final int Function(Pointer<Utf16>, Pointer<Utf16>, int, int)?
+      _mciSendString = _winmm?.lookupFunction<
+          Int32 Function(Pointer<Utf16>, Pointer<Utf16>, Uint32, IntPtr),
+          int Function(Pointer<Utf16>, Pointer<Utf16>, int, int)>(
+        'mciSendStringW',
+      );
+  String? _activeAmbientPath;
 
   GameAudioService({
     bool enabled = true,
@@ -37,6 +47,9 @@ class GameAudioService {
 
   void setEnabled(bool value) {
     _enabled = value;
+    if (!_enabled) {
+      stopAmbientLoop();
+    }
   }
 
   void configureVolumes({
@@ -45,6 +58,9 @@ class GameAudioService {
   }) {
     _musicVolume = musicVolume ?? _musicVolume;
     _sfxVolume = sfxVolume ?? _sfxVolume;
+    if (_musicVolume <= 0.05 || !_enabled) {
+      stopAmbientLoop();
+    }
   }
 
   String get currentMusicLayer {
@@ -67,22 +83,102 @@ class GameAudioService {
     return null;
   }
 
-  Future<void> _playAsset(String assetName) async {
+  Future<void> _sendMci(String command) async {
+    if (_mciSendString == null) return;
+    final pointer = command.toNativeUtf16();
+    try {
+      _mciSendString!(pointer, nullptr, 0, 0);
+    } finally {
+      calloc.free(pointer);
+    }
+  }
+
+  String? _resolveAmbientAssetPath(
+    AmbientAudioLayer layer,
+    String roomId,
+    String fallbackSuffix,
+  ) {
+    final direct = layer.assetPath.replaceAll('assets/audio/', '');
+    final directResolved = _resolveAssetPath(direct);
+    if (directResolved != null) {
+      return directResolved;
+    }
+    return _resolveAssetPath('rooms/$roomId$fallbackSuffix.wav');
+  }
+
+  String _roomScopedId(String? roomId) {
+    final scoped = roomId ?? _currentRoomAudioProfile;
+    return scoped.isEmpty ? 'default' : scoped;
+  }
+
+  Future<void> _playResolvedPath(String path) async {
+    if (!_enabled || _sfxVolume <= 0.05 || _playSound == null) return;
+    final pointer = path.toNativeUtf16();
+    try {
+      _playSound!(
+        pointer,
+        0,
+        _sndAsync | _sndFilename | _sndNodefault,
+      );
+    } finally {
+      calloc.free(pointer);
+    }
+  }
+
+  Future<void> _playFirstAvailableAsset(List<String> assetNames) async {
     if (!_enabled || _sfxVolume <= 0.05) return;
-    final path = _resolveAssetPath(assetName);
-    if (path != null && _playSound != null) {
-      final pointer = path.toNativeUtf16();
-      try {
-        _playSound!(
-          pointer,
-          0,
-          _sndAsync | _sndFilename | _sndNodefault,
-        );
+    for (final assetName in assetNames) {
+      final path = _resolveAssetPath(assetName);
+      if (path != null) {
+        await _playResolvedPath(path);
         return;
-      } finally {
-        calloc.free(pointer);
       }
     }
+  }
+
+  Future<void> _playAsset(String assetName) async {
+    await _playFirstAvailableAsset([assetName]);
+  }
+
+  bool _ambientLayerMatches(
+    AmbientAudioLayer layer,
+    RoomSceneState roomState,
+  ) {
+    final trigger = layer.triggerCondition.trim().toLowerCase();
+    if (trigger.isEmpty || trigger == 'always') return true;
+    if (trigger.contains('twist')) return roomState.twistActivated;
+
+    final stageMatch = RegExp(r'stage\s*>=\s*(\d+)').firstMatch(trigger);
+    if (stageMatch != null) {
+      final required = int.tryParse(stageMatch.group(1) ?? '') ?? 0;
+      return (roomState.currentTransformationStage + 1) >= required;
+    }
+
+    final upgradeMatch = RegExp(
+      r'upgrades_purchased\s*>\s*(\d+)',
+    ).firstMatch(trigger);
+    if (upgradeMatch != null) {
+      final required = int.tryParse(upgradeMatch.group(1) ?? '') ?? 0;
+      return roomState.upgradesPurchased > required;
+    }
+
+    return false;
+  }
+
+  int _ambientLayerPriority(AmbientAudioLayer layer) {
+    final trigger = layer.triggerCondition.trim().toLowerCase();
+    if (trigger.contains('twist')) return 40;
+    final stageMatch = RegExp(r'stage\s*>=\s*(\d+)').firstMatch(trigger);
+    if (stageMatch != null) {
+      return 20 + (int.tryParse(stageMatch.group(1) ?? '') ?? 0);
+    }
+    final upgradeMatch = RegExp(
+      r'upgrades_purchased\s*>\s*(\d+)',
+    ).firstMatch(trigger);
+    if (upgradeMatch != null) {
+      return 10 + ((int.tryParse(upgradeMatch.group(1) ?? '') ?? 0) ~/ 10);
+    }
+    return 0;
   }
 
   Future<void> _playClick() async {
@@ -171,16 +267,24 @@ class GameAudioService {
   }
 
   /// Entering a new room/era — medium transition feel.
-  Future<void> playRoomEnter() async {
+  Future<void> playRoomEnter({String? roomId}) async {
     if (!_enabled || _sfxVolume <= 0.05) return;
-    await _playAsset('unlock.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_transition.wav',
+      'unlock.wav',
+    ]);
     await HapticFeedback.mediumImpact();
   }
 
   /// Completing a room/era — strong accomplishment.
-  Future<void> playRoomComplete() async {
+  Future<void> playRoomComplete({String? roomId}) async {
     if (!_enabled || _sfxVolume <= 0.05) return;
-    await _playAsset('milestone.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_complete.wav',
+      'milestone.wav',
+    ]);
     await HapticFeedback.heavyImpact();
     await Future.delayed(const Duration(milliseconds: 120));
     await HapticFeedback.mediumImpact();
@@ -189,23 +293,55 @@ class GameAudioService {
   }
 
   /// Event spawned — attention-grabbing pulse.
-  Future<void> playEventSpawn() async {
+  Future<void> playEventSpawn({
+    String? roomId,
+    EventRarity rarity = EventRarity.common,
+  }) async {
     if (!_enabled || _sfxVolume <= 0.05) return;
-    await _playAsset('alert.wav');
-    await HapticFeedback.heavyImpact();
-  }
-
-  /// Event resolved — resolution feedback.
-  Future<void> playEventResolve() async {
-    if (!_enabled || _sfxVolume <= 0.05) return;
-    await _playAsset('purchase.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_event_${rarity.name}.wav',
+      rarity.index >= EventRarity.rare.index ? 'alert.wav' : 'tap.wav',
+    ]);
+    if (rarity.index >= EventRarity.epic.index) {
+      await HapticFeedback.heavyImpact();
+      await Future.delayed(const Duration(milliseconds: 70));
+      await HapticFeedback.mediumImpact();
+      return;
+    }
+    if (rarity.index >= EventRarity.rare.index) {
+      await HapticFeedback.heavyImpact();
+      return;
+    }
     await HapticFeedback.mediumImpact();
   }
 
+  /// Event resolved — resolution feedback.
+  Future<void> playEventResolve({
+    String? roomId,
+    EventRarity rarity = EventRarity.common,
+  }) async {
+    if (!_enabled || _sfxVolume <= 0.05) return;
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_resolve.wav',
+      'purchase.wav',
+    ]);
+    await HapticFeedback.mediumImpact();
+    if (rarity.index >= EventRarity.epic.index) {
+      await Future.delayed(const Duration(milliseconds: 60));
+      await HapticFeedback.lightImpact();
+    }
+  }
+
   /// Secret discovered — mysterious subtle pulse.
-  Future<void> playSecretDiscovered() async {
+  Future<void> playSecretDiscovered({String? roomId}) async {
     if (!_enabled) return;
-    await _playAsset('unlock.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_secret.wav',
+      'unlock.wav',
+    ]);
     await HapticFeedback.lightImpact();
     await Future.delayed(const Duration(milliseconds: 150));
     await HapticFeedback.lightImpact();
@@ -251,10 +387,61 @@ class GameAudioService {
     _currentRoomAudioProfile = profile;
   }
 
+  Future<void> syncAmbientForRoom(
+    RoomScene? room,
+    RoomSceneState? roomState,
+  ) async {
+    if (room == null || roomState == null) {
+      await stopAmbientLoop();
+      return;
+    }
+    if (!_enabled || _musicVolume <= 0.05 || room.ambientAudioLayers.isEmpty) {
+      await stopAmbientLoop();
+      return;
+    }
+
+    AmbientAudioLayer? selected;
+    var selectedPriority = -1;
+    for (final layer in room.ambientAudioLayers) {
+      if (!_ambientLayerMatches(layer, roomState)) continue;
+      final priority = _ambientLayerPriority(layer);
+      if (priority >= selectedPriority) {
+        selected = layer;
+        selectedPriority = priority;
+      }
+    }
+    selected ??= room.ambientAudioLayers.first;
+
+    final suffix = selected.id.contains('twist')
+        ? '_twist'
+        : selected.id.contains('active')
+            ? '_active'
+            : '_ambient';
+    final path = _resolveAmbientAssetPath(selected, room.id, suffix);
+    if (path == null || path == _activeAmbientPath) return;
+
+    await stopAmbientLoop();
+    _activeAmbientPath = path;
+    final escaped = path.replaceAll('"', '""');
+    await _sendMci('open "$escaped" type waveaudio alias $_ambientAlias');
+    await _sendMci('play $_ambientAlias repeat');
+  }
+
+  Future<void> stopAmbientLoop() async {
+    if (_activeAmbientPath == null) return;
+    await _sendMci('stop $_ambientAlias');
+    await _sendMci('close $_ambientAlias');
+    _activeAmbientPath = null;
+  }
+
   /// Room transformation stage change — environment evolving.
-  Future<void> playTransformationAdvance() async {
+  Future<void> playTransformationAdvance({String? roomId}) async {
     if (!_enabled) return;
-    await _playAsset('unlock.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_transform.wav',
+      'unlock.wav',
+    ]);
     await HapticFeedback.mediumImpact();
     await Future.delayed(const Duration(milliseconds: 100));
     await HapticFeedback.lightImpact();
@@ -263,9 +450,13 @@ class GameAudioService {
   }
 
   /// Room mid-scene twist activation — dramatic shift.
-  Future<void> playRoomTwist() async {
+  Future<void> playRoomTwist({String? roomId}) async {
     if (!_enabled) return;
-    await _playAsset('alert.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_twist_cue.wav',
+      'alert.wav',
+    ]);
     await HapticFeedback.heavyImpact();
     await Future.delayed(const Duration(milliseconds: 150));
     await HapticFeedback.heavyImpact();
@@ -274,27 +465,29 @@ class GameAudioService {
   }
 
   /// Guide notification — subtle companion cue.
-  Future<void> playGuideNotification() async {
+  Future<void> playGuideNotification({String? roomId}) async {
     if (!_enabled || _sfxVolume <= 0.05) return;
-    await _playAsset('tap.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_guide.wav',
+      'tap.wav',
+    ]);
     await HapticFeedback.selectionClick();
   }
 
   /// Rare event spawn — distinctive attention pulse.
-  Future<void> playRareEventSpawn() async {
-    if (!_enabled) return;
-    await _playAsset('alert.wav');
-    await HapticFeedback.heavyImpact();
-    await Future.delayed(const Duration(milliseconds: 80));
-    await HapticFeedback.mediumImpact();
-    await Future.delayed(const Duration(milliseconds: 60));
-    await HapticFeedback.lightImpact();
+  Future<void> playRareEventSpawn({String? roomId}) async {
+    await playEventSpawn(roomId: roomId, rarity: EventRarity.rare);
   }
 
   /// Room transition cue — smooth crossfade feel.
-  Future<void> playRoomTransition() async {
+  Future<void> playRoomTransition({String? roomId}) async {
     if (!_enabled) return;
-    await _playAsset('unlock.wav');
+    final scopedRoomId = _roomScopedId(roomId);
+    await _playFirstAvailableAsset([
+      'rooms/${scopedRoomId}_transition.wav',
+      'unlock.wav',
+    ]);
     await HapticFeedback.lightImpact();
     await Future.delayed(const Duration(milliseconds: 200));
     await HapticFeedback.mediumImpact();

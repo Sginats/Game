@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_19_stage_1",
-      "name": "Reality Kernel Chamber \u2014 Bare Bones",
+      "name": "Reality Kernel Chamber — Bare Bones",
       "description": "The room in its raw state. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 95,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_19_stage_2",
-      "name": "Reality Kernel Chamber \u2014 First Light",
+      "name": "Reality Kernel Chamber — First Light",
       "description": "Basic improvements visible. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 285,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_19_stage_3",
-      "name": "Reality Kernel Chamber \u2014 Functional",
+      "name": "Reality Kernel Chamber — Functional",
       "description": "A proper working space. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 570,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_19_stage_4",
-      "name": "Reality Kernel Chamber \u2014 Advanced",
+      "name": "Reality Kernel Chamber — Advanced",
       "description": "High-tech transformation. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 950,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_19_stage_5",
-      "name": "Reality Kernel Chamber \u2014 Mastered",
+      "name": "Reality Kernel Chamber — Mastered",
       "description": "The room at its peak. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 1520,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_19_ambient",
-      "name": "kernel ambience",
-      "assetPath": "assets/audio/rooms/room_19_ambient.ogg",
-      "volume": 0.6,
+      "name": "reality kernel chamber hush",
+      "assetPath": "assets/audio/rooms/room_19_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_19_active",
-      "name": "kernel activity",
-      "assetPath": "assets/audio/rooms/room_19_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "reality kernel chamber drive",
+      "assetPath": "assets/audio/rooms/room_19_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_19_twist",
+      "name": "reality kernel chamber rupture",
+      "assetPath": "assets/audio/rooms/room_19_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_19_evt_1",
         "roomId": "room_19",
         "title": "Kernel Panic",
-        "description": "Kernel Panic \u2014 a common instant event in Reality Kernel Chamber.",
+        "description": "Kernel Panic — a common instant event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 43.0,
+            "value": 25.9,
             "description": "Gain Kernel Bits"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_19_evt_2",
         "roomId": "room_19",
         "title": "Reality Rewrite",
-        "description": "Reality Rewrite \u2014 a common shortChoice event in Reality Kernel Chamber.",
+        "description": "Reality Rewrite — a common shortChoice event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 10.5,
+                "type": "instantCurrency",
+                "value": 25.9,
                 "description": "Gain Kernel Bits"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 21.0,
-                "description": "Gain more Kernel Bits"
+                "type": "instantCurrency",
+                "value": 35.4,
+                "description": "Gain Kernel Bits"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_19_evt_3",
         "roomId": "room_19",
         "title": "Law Amendment",
-        "description": "Law Amendment \u2014 a common timedChain event in Reality Kernel Chamber.",
+        "description": "Law Amendment — a common timedChain event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 43.0,
+            "value": 25.9,
             "description": "Gain Kernel Bits"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_19_evt_4",
         "roomId": "room_19",
         "title": "Physics Glitch",
-        "description": "Physics Glitch \u2014 a common utility event in Reality Kernel Chamber.",
+        "description": "Physics Glitch — a common utility event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 43.0,
-            "description": "Gain Kernel Bits"
+            "type": "temporaryBuff",
+            "value": 4.62,
+            "description": "Stabilize output"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +258,7 @@
         "id": "room_19_evt_5",
         "roomId": "room_19",
         "title": "Constant Shift",
-        "description": "Constant Shift \u2014 a rare secretTrigger event in Reality Kernel Chamber.",
+        "description": "Constant Shift — a rare secretTrigger event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +266,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 43.0,
-            "description": "Gain Kernel Bits"
+            "type": "guideAffinity",
+            "value": 1.11,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +285,7 @@
         "id": "room_19_evt_6",
         "roomId": "room_19",
         "title": "Rule Exception",
-        "description": "Rule Exception \u2014 a rare legendaryAnomaly event in Reality Kernel Chamber.",
+        "description": "Rule Exception — a rare legendaryAnomaly event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +293,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 43.0,
-            "description": "Gain Kernel Bits"
+            "type": "guideAffinity",
+            "value": 1.11,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +312,7 @@
         "id": "room_19_evt_7",
         "roomId": "room_19",
         "title": "Foundation Crack",
-        "description": "Foundation Crack \u2014 a epic warningRisk event in Reality Kernel Chamber.",
+        "description": "Foundation Crack — a epic warningRisk event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +320,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 43.0,
-            "description": "Gain Kernel Bits"
+            "type": "temporaryBuff",
+            "value": 4.62,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +339,7 @@
         "id": "room_19_evt_8",
         "roomId": "room_19",
         "title": "Origin Signal",
-        "description": "Origin Signal \u2014 a corrupted miniBoss event in Reality Kernel Chamber.",
+        "description": "Origin Signal — a corrupted miniBoss event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +347,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 43.0,
-            "description": "Gain Kernel Bits"
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,7 +366,7 @@
         "id": "room_19_evt_9",
         "roomId": "room_19",
         "title": "Void Touch",
-        "description": "Void Touch \u2014 a legendary guideAdvisory event in Reality Kernel Chamber.",
+        "description": "Void Touch — a legendary guideAdvisory event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -341,9 +374,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 43.0,
-            "description": "Gain Kernel Bits"
+            "type": "guideAffinity",
+            "value": 1.11,
+            "description": "Strengthen guide trust"
           }
         ],
         "chainBonus": 0.9,
@@ -355,7 +388,7 @@
         "id": "room_19_evt_10",
         "roomId": "room_19",
         "title": "Kernel Compile",
-        "description": "Kernel Compile \u2014 a common hiddenGlitch event in Reality Kernel Chamber.",
+        "description": "Kernel Compile — a common hiddenGlitch event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +397,18 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 43.0,
+            "value": 25.9,
             "description": "Gain Kernel Bits"
+          },
+          {
+            "type": "guideAffinity",
+            "value": 1.11,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +433,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "environmentTrigger",
+            "type": "guideAffinity",
+            "value": 1.11,
+            "description": "Strengthen guide trust"
+          },
+          {
+            "type": "relicFragment",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 1.0,

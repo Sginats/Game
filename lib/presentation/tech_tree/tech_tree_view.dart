@@ -7,6 +7,7 @@ class TechTreeView extends StatelessWidget {
   final String? selectedNodeId;
   final String? hoveredNodeId;
   final TransformationController transformationController;
+  final Widget? backgroundLayer;
   final ValueChanged<TechTreeNodeData> onNodeTap;
   final ValueChanged<String?> onHoverChanged;
 
@@ -16,6 +17,7 @@ class TechTreeView extends StatelessWidget {
     required this.selectedNodeId,
     required this.hoveredNodeId,
     required this.transformationController,
+    this.backgroundLayer,
     required this.onNodeTap,
     required this.onHoverChanged,
   });
@@ -26,7 +28,7 @@ class TechTreeView extends StatelessWidget {
       borderRadius: BorderRadius.circular(18),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xDD08111D),
+          color: const Color(0x8A08111D),
           border: Border.all(color: Colors.white.withAlpha(12)),
           borderRadius: BorderRadius.circular(18),
         ),
@@ -43,6 +45,8 @@ class TechTreeView extends StatelessWidget {
             height: graph.worldSize.height,
             child: Stack(
               children: [
+                if (backgroundLayer != null)
+                  Positioned.fill(child: backgroundLayer!),
                 Positioned.fill(
                   child: CustomPaint(
                     painter: _ConnectionPainter(

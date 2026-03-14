@@ -1,6 +1,7 @@
 import 'package:ai_evolution/application/controllers/game_controller.dart';
 import 'package:ai_evolution/application/services/app_settings_service.dart';
 import 'package:ai_evolution/application/services/app_strings.dart';
+import 'package:ai_evolution/application/services/app_update_service.dart';
 import 'package:ai_evolution/application/services/config_service.dart';
 import 'package:ai_evolution/application/services/game_audio_service.dart';
 import 'package:ai_evolution/application/services/leaderboard_service.dart';
@@ -56,6 +57,7 @@ class _GameScreenHarnessState extends State<_GameScreenHarness> {
         settings: _settings,
         strings: AppStrings(_settings.language),
         audioService: GameAudioService(),
+        updateService: AppUpdateService.disabled(),
         leaderboardService: LeaderboardService(
           sessionProvider: widget.sessionService,
         ),
@@ -171,6 +173,7 @@ void main() {
           settings: const AppSettings(),
           strings: const AppStrings(AppLanguage.english),
           audioService: GameAudioService(),
+          updateService: AppUpdateService.disabled(),
           leaderboardService:
               LeaderboardService(sessionProvider: sessionService),
           leaderboardSessionService: sessionService,

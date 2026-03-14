@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_04_stage_1",
-      "name": "Upgrade Cave \u2014 Bare Bones",
+      "name": "Upgrade Cave — Bare Bones",
       "description": "The room in its raw state. Upgrade Cave evolves as you progress.",
       "requiredUpgrades": 20,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_04_stage_2",
-      "name": "Upgrade Cave \u2014 First Light",
+      "name": "Upgrade Cave — First Light",
       "description": "Basic improvements visible. Upgrade Cave evolves as you progress.",
       "requiredUpgrades": 60,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_04_stage_3",
-      "name": "Upgrade Cave \u2014 Functional",
+      "name": "Upgrade Cave — Functional",
       "description": "A proper working space. Upgrade Cave evolves as you progress.",
       "requiredUpgrades": 120,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_04_stage_4",
-      "name": "Upgrade Cave \u2014 Advanced",
+      "name": "Upgrade Cave — Advanced",
       "description": "High-tech transformation. Upgrade Cave evolves as you progress.",
       "requiredUpgrades": 200,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_04_stage_5",
-      "name": "Upgrade Cave \u2014 Mastered",
+      "name": "Upgrade Cave — Mastered",
       "description": "The room at its peak. Upgrade Cave evolves as you progress.",
       "requiredUpgrades": 320,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_04_ambient",
-      "name": "cave ambience",
-      "assetPath": "assets/audio/rooms/room_04_ambient.ogg",
-      "volume": 0.6,
+      "name": "upgrade cave hush",
+      "assetPath": "assets/audio/rooms/room_04_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_04_active",
-      "name": "cave activity",
-      "assetPath": "assets/audio/rooms/room_04_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "upgrade cave drive",
+      "assetPath": "assets/audio/rooms/room_04_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_04_twist",
+      "name": "upgrade cave rupture",
+      "assetPath": "assets/audio/rooms/room_04_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_04_evt_1",
         "roomId": "room_04",
         "title": "Cave Echo",
-        "description": "Cave Echo \u2014 a common instant event in Upgrade Cave.",
+        "description": "Cave Echo — a common instant event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 13.0,
+            "value": 9.4,
             "description": "Gain Ore"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_04_evt_2",
         "roomId": "room_04",
         "title": "Mineral Vein",
-        "description": "Mineral Vein \u2014 a common shortChoice event in Upgrade Cave.",
+        "description": "Mineral Vein — a common shortChoice event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 3.0,
+                "type": "instantCurrency",
+                "value": 9.4,
                 "description": "Gain Ore"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 6.0,
-                "description": "Gain more Ore"
+                "type": "instantCurrency",
+                "value": 11.4,
+                "description": "Gain Ore"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_04_evt_3",
         "roomId": "room_04",
         "title": "Drip Analysis",
-        "description": "Drip Analysis \u2014 a common timedChain event in Upgrade Cave.",
+        "description": "Drip Analysis — a common timedChain event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 13.0,
+            "value": 9.4,
             "description": "Gain Ore"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_04_evt_4",
         "roomId": "room_04",
         "title": "Stalactite Data",
-        "description": "Stalactite Data \u2014 a common utility event in Upgrade Cave.",
+        "description": "Stalactite Data — a common utility event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 13.0,
-            "description": "Gain Ore"
+            "type": "temporaryBuff",
+            "value": 1.92,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 1.02,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +263,7 @@
         "id": "room_04_evt_5",
         "roomId": "room_04",
         "title": "Depth Sensor Ping",
-        "description": "Depth Sensor Ping \u2014 a rare secretTrigger event in Upgrade Cave.",
+        "description": "Depth Sensor Ping — a rare secretTrigger event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +271,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 13.0,
-            "description": "Gain Ore"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +285,7 @@
         "id": "room_04_evt_6",
         "roomId": "room_04",
         "title": "Underground Stream",
-        "description": "Underground Stream \u2014 a rare legendaryAnomaly event in Upgrade Cave.",
+        "description": "Underground Stream — a rare legendaryAnomaly event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +293,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 13.0,
-            "description": "Gain Ore"
+            "type": "rareResource",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +307,7 @@
         "id": "room_04_evt_7",
         "roomId": "room_04",
         "title": "Crystal Formation",
-        "description": "Crystal Formation \u2014 a epic warningRisk event in Upgrade Cave.",
+        "description": "Crystal Formation — a epic warningRisk event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +315,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 13.0,
-            "description": "Gain Ore"
+            "type": "temporaryBuff",
+            "value": 1.92,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 1.02,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +339,7 @@
         "id": "room_04_evt_8",
         "roomId": "room_04",
         "title": "Bat Colony Signal",
-        "description": "Bat Colony Signal \u2014 a corrupted miniBoss event in Upgrade Cave.",
+        "description": "Bat Colony Signal — a corrupted miniBoss event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +347,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 13.0,
-            "description": "Gain Ore"
+            "type": "cooldownChange",
+            "value": 1.02,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "rareResource",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,7 +371,7 @@
         "id": "room_04_evt_9",
         "roomId": "room_04",
         "title": "Rock Slide Risk",
-        "description": "Rock Slide Risk \u2014 a legendary guideAdvisory event in Upgrade Cave.",
+        "description": "Rock Slide Risk — a legendary guideAdvisory event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -341,9 +379,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 13.0,
-            "description": "Gain Ore"
+            "type": "cooldownChange",
+            "value": 1.02,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.9,
@@ -355,7 +393,7 @@
         "id": "room_04_evt_10",
         "roomId": "room_04",
         "title": "Deep Core Sample",
-        "description": "Deep Core Sample \u2014 a common hiddenGlitch event in Upgrade Cave.",
+        "description": "Deep Core Sample — a common hiddenGlitch event in Upgrade Cave.",
         "flavorText": "The cave environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +402,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 13.0,
+            "value": 9.4,
             "description": "Gain Ore"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +433,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "environmentTrigger",
+            "type": "rareResource",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 1.0,

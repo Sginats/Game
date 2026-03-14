@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_14_stage_1",
-      "name": "Data Cathedral \u2014 Bare Bones",
+      "name": "Data Cathedral — Bare Bones",
       "description": "The room in its raw state. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 70,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_14_stage_2",
-      "name": "Data Cathedral \u2014 First Light",
+      "name": "Data Cathedral — First Light",
       "description": "Basic improvements visible. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 210,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_14_stage_3",
-      "name": "Data Cathedral \u2014 Functional",
+      "name": "Data Cathedral — Functional",
       "description": "A proper working space. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 420,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_14_stage_4",
-      "name": "Data Cathedral \u2014 Advanced",
+      "name": "Data Cathedral — Advanced",
       "description": "High-tech transformation. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 700,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_14_stage_5",
-      "name": "Data Cathedral \u2014 Mastered",
+      "name": "Data Cathedral — Mastered",
       "description": "The room at its peak. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 1120,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_14_ambient",
-      "name": "cathedral ambience",
-      "assetPath": "assets/audio/rooms/room_14_ambient.ogg",
-      "volume": 0.6,
+      "name": "data cathedral hush",
+      "assetPath": "assets/audio/rooms/room_14_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_14_active",
-      "name": "cathedral activity",
-      "assetPath": "assets/audio/rooms/room_14_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "data cathedral drive",
+      "assetPath": "assets/audio/rooms/room_14_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_14_twist",
+      "name": "data cathedral rupture",
+      "assetPath": "assets/audio/rooms/room_14_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_14_evt_1",
         "roomId": "room_14",
         "title": "Data Prayer",
-        "description": "Data Prayer \u2014 a common instant event in Data Cathedral.",
+        "description": "Data Prayer — a common instant event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 33.0,
+            "value": 20.4,
             "description": "Gain Resonance"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_14_evt_2",
         "roomId": "room_14",
         "title": "Archive Echo",
-        "description": "Archive Echo \u2014 a common shortChoice event in Data Cathedral.",
+        "description": "Archive Echo — a common shortChoice event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 8.0,
+                "type": "instantCurrency",
+                "value": 20.4,
                 "description": "Gain Resonance"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 16.0,
-                "description": "Gain more Resonance"
+                "type": "instantCurrency",
+                "value": 27.4,
+                "description": "Gain Resonance"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_14_evt_3",
         "roomId": "room_14",
         "title": "Sacred Pattern",
-        "description": "Sacred Pattern \u2014 a common timedChain event in Data Cathedral.",
+        "description": "Sacred Pattern — a common timedChain event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 33.0,
+            "value": 20.4,
             "description": "Gain Resonance"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_14_evt_4",
         "roomId": "room_14",
         "title": "Pilgrim Process",
-        "description": "Pilgrim Process \u2014 a common utility event in Data Cathedral.",
+        "description": "Pilgrim Process — a common utility event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 33.0,
-            "description": "Gain Resonance"
+            "type": "temporaryBuff",
+            "value": 3.72,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 1.82,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +263,7 @@
         "id": "room_14_evt_5",
         "roomId": "room_14",
         "title": "Corruption Purge",
-        "description": "Corruption Purge \u2014 a rare secretTrigger event in Data Cathedral.",
+        "description": "Corruption Purge — a rare secretTrigger event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +271,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 33.0,
-            "description": "Gain Resonance"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +285,7 @@
         "id": "room_14_evt_6",
         "roomId": "room_14",
         "title": "Hymn Frequency",
-        "description": "Hymn Frequency \u2014 a rare legendaryAnomaly event in Data Cathedral.",
+        "description": "Hymn Frequency — a rare legendaryAnomaly event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +293,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 33.0,
-            "description": "Gain Resonance"
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +312,7 @@
         "id": "room_14_evt_7",
         "roomId": "room_14",
         "title": "Relic Discovery",
-        "description": "Relic Discovery \u2014 a epic warningRisk event in Data Cathedral.",
+        "description": "Relic Discovery — a epic warningRisk event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +320,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 33.0,
-            "description": "Gain Resonance"
+            "type": "temporaryBuff",
+            "value": 3.72,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "cooldownChange",
+            "value": 1.82,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +344,7 @@
         "id": "room_14_evt_8",
         "roomId": "room_14",
         "title": "Faith Test",
-        "description": "Faith Test \u2014 a corrupted miniBoss event in Data Cathedral.",
+        "description": "Faith Test — a corrupted miniBoss event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +352,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 33.0,
-            "description": "Gain Resonance"
+            "type": "cooldownChange",
+            "value": 1.82,
+            "description": "Compress cooldowns"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
           }
         ],
         "chainBonus": 0.8,
@@ -333,7 +376,7 @@
         "id": "room_14_evt_9",
         "roomId": "room_14",
         "title": "Divine Overflow",
-        "description": "Divine Overflow \u2014 a legendary guideAdvisory event in Data Cathedral.",
+        "description": "Divine Overflow — a legendary guideAdvisory event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -341,9 +384,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 33.0,
-            "description": "Gain Resonance"
+            "type": "cooldownChange",
+            "value": 1.82,
+            "description": "Compress cooldowns"
           }
         ],
         "chainBonus": 0.9,
@@ -355,7 +398,7 @@
         "id": "room_14_evt_10",
         "roomId": "room_14",
         "title": "Transcendence Pulse",
-        "description": "Transcendence Pulse \u2014 a common hiddenGlitch event in Data Cathedral.",
+        "description": "Transcendence Pulse — a common hiddenGlitch event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +407,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 33.0,
+            "value": 20.4,
             "description": "Gain Resonance"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +438,14 @@
         "choices": [],
         "rewards": [
           {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
             "type": "environmentTrigger",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 1.0,

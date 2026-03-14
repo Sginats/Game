@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_11_stage_1",
-      "name": "Underground Prototype Chamber \u2014 Bare Bones",
+      "name": "Underground Prototype Chamber — Bare Bones",
       "description": "The room in its raw state. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 55,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_11_stage_2",
-      "name": "Underground Prototype Chamber \u2014 First Light",
+      "name": "Underground Prototype Chamber — First Light",
       "description": "Basic improvements visible. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 165,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_11_stage_3",
-      "name": "Underground Prototype Chamber \u2014 Functional",
+      "name": "Underground Prototype Chamber — Functional",
       "description": "A proper working space. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 330,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_11_stage_4",
-      "name": "Underground Prototype Chamber \u2014 Advanced",
+      "name": "Underground Prototype Chamber — Advanced",
       "description": "High-tech transformation. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 550,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_11_stage_5",
-      "name": "Underground Prototype Chamber \u2014 Mastered",
+      "name": "Underground Prototype Chamber — Mastered",
       "description": "The room at its peak. Underground Prototype Chamber evolves as you progress.",
       "requiredUpgrades": 880,
       "environmentChanges": [
@@ -78,18 +78,26 @@
   "ambientAudioLayers": [
     {
       "id": "room_11_ambient",
-      "name": "forge ambience",
-      "assetPath": "assets/audio/rooms/room_11_ambient.ogg",
-      "volume": 0.6,
+      "name": "underground prototype chamber hush",
+      "assetPath": "assets/audio/rooms/room_11_ambient.wav",
+      "volume": 0.56,
       "triggerCondition": "always",
       "looping": true
     },
     {
       "id": "room_11_active",
-      "name": "forge activity",
-      "assetPath": "assets/audio/rooms/room_11_active.ogg",
-      "volume": 0.4,
-      "triggerCondition": "upgrades_purchased > 10",
+      "name": "underground prototype chamber drive",
+      "assetPath": "assets/audio/rooms/room_11_active.wav",
+      "volume": 0.42,
+      "triggerCondition": "stage >= 3",
+      "looping": true
+    },
+    {
+      "id": "room_11_twist",
+      "name": "underground prototype chamber rupture",
+      "assetPath": "assets/audio/rooms/room_11_twist.wav",
+      "volume": 0.48,
+      "triggerCondition": "twist",
       "looping": true
     }
   ],
@@ -136,7 +144,7 @@
         "id": "room_11_evt_1",
         "roomId": "room_11",
         "title": "Alloy Mix",
-        "description": "Alloy Mix \u2014 a common instant event in Underground Prototype Chamber.",
+        "description": "Alloy Mix — a common instant event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -145,7 +153,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 27.0,
+            "value": 17.1,
             "description": "Gain Alloy"
           }
         ],
@@ -158,7 +166,7 @@
         "id": "room_11_evt_2",
         "roomId": "room_11",
         "title": "Prototype Failure",
-        "description": "Prototype Failure \u2014 a common shortChoice event in Underground Prototype Chamber.",
+        "description": "Prototype Failure — a common shortChoice event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -170,8 +178,8 @@
             "description": "Safe approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 6.5,
+                "type": "instantCurrency",
+                "value": 17.1,
                 "description": "Gain Alloy"
               }
             ],
@@ -183,9 +191,14 @@
             "description": "Risky approach",
             "rewards": [
               {
-                "type": "temporaryBuff",
-                "value": 13.0,
-                "description": "Gain more Alloy"
+                "type": "instantCurrency",
+                "value": 22.6,
+                "description": "Gain Alloy"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Open a route window"
               }
             ],
             "risk": 0.4
@@ -201,7 +214,7 @@
         "id": "room_11_evt_3",
         "roomId": "room_11",
         "title": "Material Stress",
-        "description": "Material Stress \u2014 a common timedChain event in Underground Prototype Chamber.",
+        "description": "Material Stress — a common timedChain event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -210,7 +223,7 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 27.0,
+            "value": 17.1,
             "description": "Gain Alloy"
           }
         ],
@@ -223,7 +236,7 @@
         "id": "room_11_evt_4",
         "roomId": "room_11",
         "title": "Forge Temperature",
-        "description": "Forge Temperature \u2014 a common utility event in Underground Prototype Chamber.",
+        "description": "Forge Temperature — a common utility event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -231,9 +244,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 27.0,
-            "description": "Gain Alloy"
+            "type": "temporaryBuff",
+            "value": 3.18,
+            "description": "Stabilize output"
           }
         ],
         "chainBonus": 0.4,
@@ -245,7 +258,7 @@
         "id": "room_11_evt_5",
         "roomId": "room_11",
         "title": "Blueprint Error",
-        "description": "Blueprint Error \u2014 a rare secretTrigger event in Underground Prototype Chamber.",
+        "description": "Blueprint Error — a rare secretTrigger event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -253,9 +266,9 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 27.0,
-            "description": "Gain Alloy"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 0.5,
@@ -267,7 +280,7 @@
         "id": "room_11_evt_6",
         "roomId": "room_11",
         "title": "Smelting Success",
-        "description": "Smelting Success \u2014 a rare legendaryAnomaly event in Underground Prototype Chamber.",
+        "description": "Smelting Success — a rare legendaryAnomaly event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -275,9 +288,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 27.0,
-            "description": "Gain Alloy"
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.6000000000000001,
@@ -289,7 +307,7 @@
         "id": "room_11_evt_7",
         "roomId": "room_11",
         "title": "Structural Flaw",
-        "description": "Structural Flaw \u2014 a epic warningRisk event in Underground Prototype Chamber.",
+        "description": "Structural Flaw — a epic warningRisk event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -297,9 +315,14 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 27.0,
-            "description": "Gain Alloy"
+            "type": "temporaryBuff",
+            "value": 3.18,
+            "description": "Stabilize output"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
           }
         ],
         "chainBonus": 0.7000000000000001,
@@ -311,7 +334,7 @@
         "id": "room_11_evt_8",
         "roomId": "room_11",
         "title": "New Composite",
-        "description": "New Composite \u2014 a corrupted miniBoss event in Underground Prototype Chamber.",
+        "description": "New Composite — a corrupted miniBoss event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -319,9 +342,19 @@
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 27.0,
-            "description": "Gain Alloy"
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Open a route window"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 0.8,
@@ -333,19 +366,13 @@
         "id": "room_11_evt_9",
         "roomId": "room_11",
         "title": "Pressure Test",
-        "description": "Pressure Test \u2014 a legendary guideAdvisory event in Underground Prototype Chamber.",
+        "description": "Pressure Test — a legendary guideAdvisory event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
         "durationSeconds": 24.0,
         "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 27.0,
-            "description": "Gain Alloy"
-          }
-        ],
+        "rewards": [],
         "chainBonus": 0.9,
         "requiredTwistActive": true,
         "requiredUpgradeCount": 24,
@@ -355,7 +382,7 @@
         "id": "room_11_evt_10",
         "roomId": "room_11",
         "title": "Master Craft",
-        "description": "Master Craft \u2014 a common hiddenGlitch event in Underground Prototype Chamber.",
+        "description": "Master Craft — a common hiddenGlitch event in Underground Prototype Chamber.",
         "flavorText": "The forge environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -364,8 +391,13 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 27.0,
+            "value": 17.1,
             "description": "Gain Alloy"
+          },
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Expose a secret clue"
           }
         ],
         "chainBonus": 1.0,
@@ -390,9 +422,14 @@
         "choices": [],
         "rewards": [
           {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Archive a relic fragment"
+          },
+          {
             "type": "environmentTrigger",
             "value": 1.0,
-            "description": "Room evolves"
+            "description": "Force room evolution"
           }
         ],
         "chainBonus": 1.0,

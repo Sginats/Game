@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import '../application/controllers/game_controller.dart';
 import '../application/services/app_settings_service.dart';
 import '../application/services/app_strings.dart';
+import '../application/services/app_update_service.dart';
 import '../application/services/config_service.dart';
 import '../application/services/game_audio_service.dart';
 import '../application/services/leaderboard_service.dart';
@@ -19,11 +20,14 @@ import '../domain/models/era.dart';
 import '../domain/models/game_systems.dart';
 import '../domain/models/gameplay_extensions.dart';
 import '../domain/models/generator.dart';
+import '../domain/models/codex.dart';
+import '../domain/models/room_scene.dart';
 import '../domain/systems/prestige_system.dart';
 import '../domain/systems/tap_system.dart';
 import 'tech_tree/tech_tree_builder.dart';
 import 'tech_tree/tech_tree_models.dart';
 import 'tech_tree/tech_tree_view.dart';
+import 'widgets/room_scene_backdrop.dart';
 
 class GameScreen extends StatefulWidget {
   final GameController controller;
@@ -31,6 +35,7 @@ class GameScreen extends StatefulWidget {
   final AppSettings settings;
   final AppStrings strings;
   final GameAudioService audioService;
+  final AppUpdateService updateService;
   final LeaderboardService leaderboardService;
   final LeaderboardSessionService leaderboardSessionService;
   final Future<void> Function(AppSettings settings) onSettingsChanged;
@@ -42,6 +47,7 @@ class GameScreen extends StatefulWidget {
     required this.settings,
     required this.strings,
     required this.audioService,
+    required this.updateService,
     required this.leaderboardService,
     required this.leaderboardSessionService,
     required this.onSettingsChanged,
@@ -66,6 +72,13 @@ class _GameScreenState extends State<GameScreen>
   late final int _frameTickMs;
   final Set<String> _queuedEraPreloads = {};
   String? _lastEventId;
+  int _lastRoomStage = -1;
+  bool _lastRoomTwist = false;
+  int _lastSecretCount = 0;
+  int _lastCompletedRooms = 0;
+  int _lastGuideMemoryCount = 0;
+  String? _lastPromptedUpdateVersion;
+  String? _lastRestartPromptVersion;
 
   // Cached tech tree graph — rebuilt only when state actually changes
   TechTreeGraph? _cachedGraph;
@@ -114,14 +127,27 @@ class _GameScreenState extends State<GameScreen>
         _handleFeedback();
       },
     );
+    widget.updateService.addListener(_handleUpdateServiceChanged);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showOffline();
       _syncEraWindow(_currentEra(_controller));
       _focusCurrentEra();
+      widget.audioService.setRoomAudioProfile(_controller.currentRoomId);
       // Initialize robot guide with current era
       final eraId = _currentEra(_controller);
       _robotGuide.onEraChanged(eraId);
+      _handleUpdateServiceChanged();
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant GameScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.updateService != widget.updateService) {
+      oldWidget.updateService.removeListener(_handleUpdateServiceChanged);
+      widget.updateService.addListener(_handleUpdateServiceChanged);
+      _handleUpdateServiceChanged();
+    }
   }
 
   @override
@@ -135,6 +161,7 @@ class _GameScreenState extends State<GameScreen>
 
   @override
   void dispose() {
+    widget.updateService.removeListener(_handleUpdateServiceChanged);
     WidgetsBinding.instance.removeObserver(this);
     _tickTimer?.cancel();
     _camera.dispose();
@@ -146,11 +173,18 @@ class _GameScreenState extends State<GameScreen>
   Widget build(BuildContext context) {
     final eraId = _currentEra(_controller);
     _syncEraWindow(eraId);
-    final accent = _eraAccent(eraId);
-    final gradient = _eraGradient(eraId);
+    final currentRoom = _controller.currentRoom;
+    final accent = _sceneAccent(currentRoom, eraId);
+    final gradient = _sceneGradient(currentRoom, eraId);
     final eraDef = widget.config.eras.firstWhere(
       (item) => item.id == eraId,
       orElse: () => widget.config.eras.first,
+    );
+    unawaited(
+      widget.audioService.syncAmbientForRoom(
+        _controller.currentRoom,
+        _controller.currentRoomState,
+      ),
     );
 
     // Cache the tech tree graph — only rebuild when state actually changes
@@ -379,6 +413,7 @@ class _GameScreenState extends State<GameScreen>
   }
 
   Widget _buildTreeArea(TechTreeGraph graph, Color accent, Era eraDef) {
+    final currentRoom = _controller.currentRoom;
     return Stack(
       children: [
         Positioned.fill(
@@ -387,6 +422,13 @@ class _GameScreenState extends State<GameScreen>
             selectedNodeId: _selectedNodeId,
             hoveredNodeId: _hoveredNodeId,
             transformationController: _camera,
+            backgroundLayer: currentRoom == null
+                ? null
+                : RoomSceneBackdrop(
+                    room: currentRoom,
+                    roomState: _controller.currentRoomState,
+                    reducedMotion: widget.settings.reducedMotion,
+                  ),
             onNodeTap: (value) {
               unawaited(widget.audioService.playNodeSelect());
               setState(() => _selectedNodeId = value.id);
@@ -722,6 +764,8 @@ class _GameScreenState extends State<GameScreen>
         children: [
           _buildGuideCard(),
           const SizedBox(height: 8),
+          _buildRoomOverviewCard(),
+          const SizedBox(height: 8),
           if (_controller.activeEvent != null) ...[
             _buildActiveEventCard(_controller.activeEvent!),
             const SizedBox(height: 8),
@@ -774,6 +818,8 @@ class _GameScreenState extends State<GameScreen>
     final guideMessage = _robotGuide.currentMessage;
     final recommendation = _controller.lastRecommendation;
     final aiLine = _controller.lastAiLine;
+    final recentMemories =
+        _controller.codexState.guideMemories.reversed.take(2).toList();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(14),
@@ -794,6 +840,27 @@ class _GameScreenState extends State<GameScreen>
                   ),
                 ),
               ),
+              if (guideMessage != null)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(8),
+                    borderRadius: BorderRadius.circular(999),
+                    border:
+                        Border.all(color: Colors.white.withAlpha(14)),
+                  ),
+                  child: Text(
+                    widget.strings
+                        .formatGuideMemoryType(guideMessage.type.name),
+                    style: const TextStyle(
+                      color: Colors.cyanAccent,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              if (guideMessage != null) const SizedBox(width: 6),
               if (guideMessage != null)
                 IconButton(
                   onPressed: () => setState(_robotGuide.dismiss),
@@ -865,6 +932,152 @@ class _GameScreenState extends State<GameScreen>
                   ),
                 ],
               ),
+            ),
+          ],
+          if (recentMemories.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Text(
+              widget.strings.guideMemoryLog,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 6),
+            ...recentMemories.map(
+              (memory) => Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Text(
+                  '${widget.strings.translateContent(memory.title)}: ${widget.strings.translateContent(memory.content)}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white54,
+                    fontSize: 11,
+                    height: 1.35,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRoomOverviewCard() {
+    final room = _controller.currentRoom;
+    final roomState = _controller.currentRoomState;
+    if (room == null) {
+      return const SizedBox.shrink();
+    }
+
+    final nextStageIndex = roomState.currentTransformationStage + 1;
+    final nextStage = nextStageIndex < room.transformationStages.length
+        ? room.transformationStages[nextStageIndex]
+        : null;
+    final currentStageIndex = room.transformationStages.isEmpty
+        ? 0
+        : roomState.currentTransformationStage.clamp(
+            0,
+            room.transformationStages.length - 1,
+          );
+    final currentStage = room.transformationStages.isEmpty
+        ? null
+        : room.transformationStages[currentStageIndex];
+    final stageProgress = room.transformationStages.isEmpty
+        ? 0.0
+        : ((roomState.currentTransformationStage + 1) /
+                room.transformationStages.length)
+            .clamp(0.0, 1.0);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: _glassBox(radius: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.strings.roomOverview,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.strings.translateContent(room.guideIntroLine),
+            style: const TextStyle(color: Colors.white70, height: 1.35),
+          ),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              _hudChip(
+                Icons.psychology_alt_rounded,
+                '${widget.strings.guideToneLabel}: ${widget.strings.translateContent(room.guideTone)}',
+              ),
+              _hudChip(
+                Icons.graphic_eq_rounded,
+                '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}',
+              ),
+              _hudChip(
+                Icons.auto_awesome_motion_rounded,
+                '${widget.strings.secretsTrackedLabel}: ${room.secrets.length}',
+              ),
+              _hudChip(
+                Icons.bolt_rounded,
+                '${widget.strings.twistStatusLabel}: ${roomState.twistActivated ? widget.strings.transformationReady : widget.strings.transformationDormant}',
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            widget.strings.transformationTrack,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 6),
+          LinearProgressIndicator(
+            value: stageProgress,
+            minHeight: 6,
+            backgroundColor: Colors.white.withAlpha(12),
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.cyanAccent),
+            borderRadius: BorderRadius.circular(999),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            nextStage == null
+                ? widget.strings.translateContent(room.completionText)
+                : '${widget.strings.translateContent(nextStage.name)}\n${widget.strings.translateContent(nextStage.description)}',
+            style: const TextStyle(color: Colors.white60, fontSize: 12, height: 1.35),
+          ),
+          if (currentStage != null) ...[
+            const SizedBox(height: 10),
+            Text(
+              widget.strings.environmentChanges,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: currentStage.environmentChanges
+                  .map(
+                    (change) => _hudChip(
+                      Icons.blur_on_rounded,
+                      widget.strings.formatEnvironmentChange(change),
+                    ),
+                  )
+                  .toList(),
             ),
           ],
         ],
@@ -1015,14 +1228,19 @@ class _GameScreenState extends State<GameScreen>
               Expanded(
                 child: FilledButton(
                   onPressed: () {
-                    final ok = _controller.resolveActiveEvent(
-                      aggressiveChoice: event.risky && !event.clickOnly,
-                    );
-                    if (!ok) return;
-                    unawaited(widget.audioService.playEventResolve());
-                    _handleFeedback();
-                    setState(() {});
-                  },
+        final ok = _controller.resolveActiveEvent(
+          aggressiveChoice: event.risky && !event.clickOnly,
+        );
+        if (!ok) return;
+        unawaited(
+          widget.audioService.playEventResolve(
+            roomId: _controller.currentRoomId,
+            rarity: event.rarity,
+          ),
+        );
+        _handleFeedback();
+        setState(() {});
+      },
                   child: Text(
                     event.clickOnly
                         ? widget.strings.takeChoice
@@ -1572,6 +1790,66 @@ class _GameScreenState extends State<GameScreen>
   }
 
   void _handleFeedback() {
+    final room = _controller.currentRoom;
+    final roomState = _controller.currentRoomState;
+    if (_lastRoomStage != roomState.currentTransformationStage) {
+      if (_lastRoomStage >= 0 &&
+          room != null &&
+          roomState.currentTransformationStage < room.transformationStages.length) {
+        final stage = room.transformationStages[roomState.currentTransformationStage];
+        _showToast(
+          widget.strings.translateContent(stage.name),
+          Colors.cyanAccent,
+        );
+        unawaited(
+          widget.audioService.playTransformationAdvance(
+            roomId: _controller.currentRoomId,
+          ),
+        );
+      }
+      _lastRoomStage = roomState.currentTransformationStage;
+    }
+    if (_lastRoomTwist != roomState.twistActivated) {
+      if (roomState.twistActivated && room?.midSceneTwist != null) {
+        _showToast(
+          widget.strings.translateContent(room!.midSceneTwist!.title),
+          Colors.deepOrangeAccent,
+        );
+        unawaited(
+          widget.audioService.playRoomTwist(roomId: _controller.currentRoomId),
+        );
+      }
+      _lastRoomTwist = roomState.twistActivated;
+    }
+    if (_lastSecretCount != _controller.state.discoveredSecrets.length) {
+      if (_lastSecretCount > 0 ||
+          _controller.state.discoveredSecrets.isNotEmpty) {
+        unawaited(
+          widget.audioService.playSecretDiscovered(
+            roomId: _controller.currentRoomId,
+          ),
+        );
+      }
+      _lastSecretCount = _controller.state.discoveredSecrets.length;
+    }
+    if (_lastCompletedRooms != _controller.roomsCompleted) {
+      if (_lastCompletedRooms > 0 || _controller.roomsCompleted > 0) {
+        unawaited(
+          widget.audioService.playRoomComplete(roomId: _controller.currentRoomId),
+        );
+      }
+      _lastCompletedRooms = _controller.roomsCompleted;
+    }
+    if (_lastGuideMemoryCount != _controller.codexState.guideMemories.length) {
+      if (_controller.codexState.guideMemories.isNotEmpty) {
+        unawaited(
+          widget.audioService.playGuideNotification(
+            roomId: _controller.currentRoomId,
+          ),
+        );
+      }
+      _lastGuideMemoryCount = _controller.codexState.guideMemories.length;
+    }
     final activeEvent = _controller.activeEvent;
     if (activeEvent?.id != _lastEventId) {
       _lastEventId = activeEvent?.id;
@@ -1580,7 +1858,12 @@ class _GameScreenState extends State<GameScreen>
           widget.strings.translateContent(activeEvent.title),
           Colors.deepPurpleAccent,
         );
-        unawaited(widget.audioService.playEventSpawn());
+        unawaited(
+          widget.audioService.playEventSpawn(
+            roomId: _controller.currentRoomId,
+            rarity: activeEvent.rarity,
+          ),
+        );
       }
     }
     if (_controller.lastUnlockedAchievements.isNotEmpty) {
@@ -1602,6 +1885,188 @@ class _GameScreenState extends State<GameScreen>
       unawaited(widget.audioService.playMilestone());
       _controller.lastUnlockedMilestones = [];
     }
+  }
+
+  void _handleUpdateServiceChanged() {
+    if (!mounted) return;
+    final updateService = widget.updateService;
+    if (updateService.phase == AppUpdatePhase.available &&
+        updateService.config.showPromptWhenAvailable &&
+        updateService.availableVersion != null &&
+        updateService.availableVersion != _lastPromptedUpdateVersion) {
+      _lastPromptedUpdateVersion = updateService.availableVersion;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _showUpdateAvailableDialog();
+      });
+    }
+    if (updateService.phase == AppUpdatePhase.readyToRestart &&
+        updateService.availableVersion != null &&
+        updateService.availableVersion != _lastRestartPromptVersion) {
+      _lastRestartPromptVersion = updateService.availableVersion;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _showRestartToApplyDialog();
+      });
+    }
+  }
+
+  Future<void> _runManualUpdateCheck() async {
+    final foundUpdate = await widget.updateService.checkForUpdates();
+    if (!mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    final strings = widget.strings;
+    messenger.hideCurrentSnackBar();
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(
+          foundUpdate
+              ? strings.updateAvailableSnackbar(widget.updateService.availableVersion)
+              : strings.upToDateSnackbar,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showUpdateAvailableDialog() async {
+    final updateService = widget.updateService;
+    if (!updateService.hasUpdate) return;
+    final strings = widget.strings;
+    final notes = updateService.releaseNotes;
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: !updateService.isMandatory,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF132332),
+        title: Text(
+          strings.updateAvailableTitle,
+          style: const TextStyle(color: Colors.white),
+        ),
+        content: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 420),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                strings.updateAvailableBody(
+                  updateService.availableVersion ?? strings.unknownLabel,
+                ),
+                style: const TextStyle(
+                  color: Colors.white70,
+                  height: 1.35,
+                ),
+              ),
+              if (notes.isNotEmpty) ...[
+                const SizedBox(height: 14),
+                Text(
+                  strings.releaseNotesLabel,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                ...notes.take(5).map(
+                  (note) => Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Text(
+                      '• ${note.message}',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        height: 1.3,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+              if (updateService.totalBytes > 0) ...[
+                const SizedBox(height: 12),
+                Text(
+                  strings.updateDownloadSize(
+                    updateService.totalMegabytes.toStringAsFixed(2),
+                  ),
+                  style: const TextStyle(
+                    color: Colors.cyanAccent,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        actions: [
+          if (!updateService.isMandatory)
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(strings.laterLabel),
+            ),
+          FilledButton.icon(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await widget.updateService.downloadUpdate();
+            },
+            icon: const Icon(Icons.download_rounded),
+            label: Text(strings.downloadUpdateLabel),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showRestartToApplyDialog() async {
+    final strings = widget.strings;
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF132332),
+        title: Text(
+          strings.updateReadyTitle,
+          style: const TextStyle(color: Colors.white),
+        ),
+        content: Text(
+          strings.updateReadyBody,
+          style: const TextStyle(color: Colors.white70, height: 1.35),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(strings.laterLabel),
+          ),
+          FilledButton.icon(
+            onPressed: () async {
+              await widget.updateService.restartToApply();
+            },
+            icon: const Icon(Icons.restart_alt_rounded),
+            label: Text(strings.restartToUpdateLabel),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _updateStatusLabel(AppUpdateService updateService) {
+    final strings = widget.strings;
+    return switch (updateService.phase) {
+      AppUpdatePhase.unsupported => strings.updatesUnsupported,
+      AppUpdatePhase.disabled => strings.updatesDisabled,
+      AppUpdatePhase.idle => strings.updatesIdle,
+      AppUpdatePhase.checking => strings.checkingForUpdates,
+      AppUpdatePhase.upToDate => strings.updatesUpToDate,
+      AppUpdatePhase.available => strings.updateAvailableSnackbar(
+          updateService.availableVersion,
+        ),
+      AppUpdatePhase.downloading => strings.updateDownloading(
+          updateService.downloadedMegabytes.toStringAsFixed(2),
+          updateService.totalMegabytes.toStringAsFixed(2),
+        ),
+      AppUpdatePhase.readyToRestart => strings.updateReadyStatus,
+      AppUpdatePhase.error => strings.updateError(
+          updateService.errorMessage ?? strings.unknownLabel,
+        ),
+    };
   }
 
   void _syncEraWindow(String eraId) {
@@ -1628,6 +2093,10 @@ class _GameScreenState extends State<GameScreen>
 
   void _switchEra(String eraId) {
     if (!_controller.setCurrentEra(eraId)) return;
+    widget.audioService.setRoomAudioProfile(_controller.currentRoomId);
+    unawaited(
+      widget.audioService.playRoomTransition(roomId: _controller.currentRoomId),
+    );
     _syncEraWindow(eraId);
     _selectedNodeId = null;
     _cachedGraph = null;
@@ -1774,8 +2243,13 @@ class _GameScreenState extends State<GameScreen>
   }
 
   Future<void> _showRoomMapSheet() async {
-    final ordered = widget.config.eras.toList()
-      ..sort((a, b) => a.order.compareTo(b.order));
+    final ordered = _controller.allRooms.isNotEmpty
+        ? _controller.allRooms
+        : widget.config.eras
+            .toList()
+            .map((era) => _controller.roomForEra(era.id))
+            .whereType<RoomScene>()
+            .toList();
     await showModalBottomSheet<void>(
       context: context,
       backgroundColor: const Color(0xFF121D28),
@@ -1793,9 +2267,17 @@ class _GameScreenState extends State<GameScreen>
               Flexible(
                 child: SingleChildScrollView(
                   child: Column(
-                    children: ordered.map((era) {
-                      final unlocked = _controller.state.unlockedEras.contains(era.id);
-                      final selected = _currentEra(_controller) == era.id;
+                    children: ordered.map((room) {
+                      final era = widget.config.eras.firstWhere(
+                        (item) => item.order == room.order,
+                        orElse: () => widget.config.eras.first,
+                      );
+                      final unlocked = _controller.metaProgression.roomsCompleted
+                              .contains(room.unlockRequirement) ||
+                          room.unlockRequirement == null;
+                      final selected = _controller.currentRoomId == room.id;
+                      final roomState = _controller.state.roomStates[room.id] ??
+                          RoomSceneState(roomId: room.id);
                       return Container(
                         margin: const EdgeInsets.only(bottom: 10),
                         padding: const EdgeInsets.all(12),
@@ -1817,7 +2299,7 @@ class _GameScreenState extends State<GameScreen>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                '${widget.strings.roomProgress(era.order, ordered.length)} • ${widget.strings.localizedEraName(era.name)}',
+                                    '${widget.strings.roomProgress(room.order, ordered.length)} • ${widget.strings.localizedEraName(room.name)}',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700,
@@ -1825,13 +2307,29 @@ class _GameScreenState extends State<GameScreen>
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    widget.strings.localizedEraDescription(era),
-                                    maxLines: 2,
+                                    '${widget.strings.translateContent(room.subtitle)}\n${widget.strings.translateContent(room.guideTone)}',
+                                    maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       color: Colors.white60,
                                       fontSize: 12,
                                     ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Wrap(
+                                    spacing: 6,
+                                    runSpacing: 6,
+                                    children: [
+                                      _hudChip(Icons.auto_awesome_motion_rounded,
+                                          widget.strings.roomUpgradeProgress(
+                                            roomState.upgradesPurchased,
+                                            room.transformationStages.isEmpty
+                                                ? 0
+                                                : room.transformationStages.last.requiredUpgrades,
+                                          )),
+                                      _hudChip(Icons.graphic_eq_rounded,
+                                          '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}'),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -2143,6 +2641,200 @@ class _GameScreenState extends State<GameScreen>
                 ),
 
                 const Divider(color: Colors.white10, height: 24),
+                _settingsSectionHeader(widget.strings.settingsUpdates),
+                ListenableBuilder(
+                  listenable: widget.updateService,
+                  builder: (context, _) {
+                    final updateService = widget.updateService;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SwitchListTile(
+                          secondary: const Icon(
+                            Icons.system_update_alt_rounded,
+                            color: Colors.white70,
+                            size: 20,
+                          ),
+                          value: widget.settings.autoCheckUpdates,
+                          title: Text(
+                            widget.strings.autoCheckUpdatesLabel,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          subtitle: Text(
+                            widget.strings.autoCheckUpdatesDescription,
+                            style: const TextStyle(color: Colors.white54),
+                          ),
+                          onChanged: (value) async {
+                            await widget.onSettingsChanged(
+                              widget.settings.copyWith(autoCheckUpdates: value),
+                            );
+                            if (!mounted) return;
+                            setState(() {});
+                            setSheetState(() {});
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(
+                            Icons.update_rounded,
+                            color: Colors.white70,
+                            size: 20,
+                          ),
+                          title: Text(
+                            widget.strings.updates,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          subtitle: Text(
+                            _updateStatusLabel(updateService),
+                            style: const TextStyle(color: Colors.white54),
+                          ),
+                          trailing: Text(
+                            updateService.currentBuild == null
+                                ? widget.strings.unknownLabel
+                                : widget.strings.updateBuildLabel(
+                                    updateService.currentBuild!,
+                                  ),
+                            style: const TextStyle(
+                              color: Colors.cyanAccent,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        if (!updateService.isSupported)
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              bottom: 8,
+                            ),
+                            child: Text(
+                              widget.strings.updatesWindowsOnly,
+                              style: const TextStyle(
+                                color: Colors.white38,
+                                fontSize: 12,
+                              ),
+                            ),
+                          )
+                        else if (!updateService.config.isConfigured)
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              bottom: 8,
+                            ),
+                            child: Text(
+                              widget.strings.updatesConfigurationHint,
+                              style: const TextStyle(
+                                color: Colors.white38,
+                                fontSize: 12,
+                                height: 1.35,
+                              ),
+                            ),
+                          ),
+                        if (updateService.isDownloading)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                LinearProgressIndicator(
+                                  value: updateService.downloadProgress == 0
+                                      ? null
+                                      : updateService.downloadProgress,
+                                  minHeight: 8,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  widget.strings.updateDownloading(
+                                    updateService.downloadedMegabytes
+                                        .toStringAsFixed(2),
+                                    updateService.totalMegabytes
+                                        .toStringAsFixed(2),
+                                  ),
+                                  style: const TextStyle(
+                                    color: Colors.white60,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (updateService.hasUpdate &&
+                            updateService.releaseNotes.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.strings.releaseNotesLabel,
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                ...updateService.releaseNotes.take(4).map(
+                                  (note) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 4),
+                                    child: Text(
+                                      '• ${note.message}',
+                                      style: const TextStyle(
+                                        color: Colors.white54,
+                                        fontSize: 12,
+                                        height: 1.3,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                          child: Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              OutlinedButton.icon(
+                                onPressed: updateService.isEnabled &&
+                                        updateService.phase !=
+                                            AppUpdatePhase.checking
+                                    ? _runManualUpdateCheck
+                                    : null,
+                                icon: const Icon(Icons.refresh_rounded),
+                                label: Text(widget.strings.checkForUpdatesLabel),
+                              ),
+                              if (updateService.hasUpdate &&
+                                  !updateService.isDownloading &&
+                                  !updateService.readyToRestart)
+                                FilledButton.icon(
+                                  onPressed: () async {
+                                    await updateService.downloadUpdate();
+                                  },
+                                  icon: const Icon(Icons.download_rounded),
+                                  label:
+                                      Text(widget.strings.downloadUpdateLabel),
+                                ),
+                              if (updateService.readyToRestart)
+                                FilledButton.icon(
+                                  onPressed: () async {
+                                    await updateService.restartToApply();
+                                  },
+                                  icon: const Icon(Icons.restart_alt_rounded),
+                                  label:
+                                      Text(widget.strings.restartToUpdateLabel),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+
+                const Divider(color: Colors.white10, height: 24),
                 _settingsSectionHeader(widget.strings.settingsAudio),
                 SwitchListTile(
                   secondary: const Icon(
@@ -2343,151 +3035,279 @@ class _GameScreenState extends State<GameScreen>
       widget.config.ensureEraContent(era.id);
     }
     final seenEvents = _controller.seenEventTemplates;
-    await _simpleSheet(
-      widget.strings.codex,
-      SizedBox(
-        height: 420,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _statLine(
-                widget.strings.sceneArchive,
-                widget.strings.sceneArchiveProgress(
-                  _controller.completedSceneBadges.length,
-                  orderedEras.length,
-                ),
-              ),
-              _statLine(
-                widget.strings.eventCodex,
-                widget.strings.eventArchiveProgress(
-                  seenEvents.length,
-                  widget.config.progression.events.length,
-                ),
-              ),
-              _statLine(
-                widget.strings.seenSecrets,
-                '${_controller.state.discoveredSecrets.length}',
-              ),
-              _statLine(
-                widget.strings.guideAffinityLabel,
-                _controller.guideAffinity.toStringAsFixed(1),
-              ),
-              _statLine(
-                widget.strings.guideTierLabel,
-                widget.strings.formatGuideTier(_controller.guideTier),
-              ),
-              const SizedBox(height: 14),
-              Text(
-                widget.strings.routeSummary,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '${widget.strings.playstyle}: ${widget.strings.formatPlaystyle(_controller.dominantPlaystyle)}\n${widget.strings.route}: ${_controller.state.chosenBranches.isEmpty ? widget.strings.hidden : _controller.state.chosenBranches.map(_branchLabel).join(' / ')}',
-                style: const TextStyle(color: Colors.white70, height: 1.35),
-              ),
-              const SizedBox(height: 14),
-              Text(
-                widget.strings.sceneArchive,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 8),
-              ...orderedEras.map((era) {
-                final bought = _roomUpgradeCount(era.id);
-                final total = _roomUpgradeTotal(era.id);
-                final completed =
-                    _controller.completedSceneBadges.contains(era.id);
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withAlpha(6),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: Colors.white.withAlpha(12)),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.strings.localizedEraName(era.name),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
+    const sections = [
+      'overview',
+      'guide',
+      'route',
+      'secrets',
+      'lore',
+      'collections',
+    ];
+    var section = sections.first;
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: const Color(0xFF121D28),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setModalState) => DraggableScrollableSheet(
+          initialChildSize: 0.76,
+          maxChildSize: 0.94,
+          minChildSize: 0.48,
+          expand: false,
+          builder: (context, scrollController) => SingleChildScrollView(
+            controller: scrollController,
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _sheetTitle(widget.strings.codex),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: sections
+                      .map(
+                        (item) => ChoiceChip(
+                          selected: section == item,
+                          onSelected: (_) => setModalState(() => section = item),
+                          label: Text(widget.strings.codexSectionLabel(item)),
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          completed
-                              ? widget.strings.sceneCompleted
-                              : widget.strings.notYetCompleted,
-                          style: TextStyle(
-                            color: completed ? Colors.greenAccent : Colors.white54,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        LinearProgressIndicator(
-                          value: total <= 0 ? 0 : (bought / total).clamp(0, 1),
-                          minHeight: 5,
-                          backgroundColor: Colors.white.withAlpha(16),
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            completed ? Colors.greenAccent : Colors.cyanAccent,
-                          ),
-                          borderRadius: BorderRadius.circular(999),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }),
-              const SizedBox(height: 14),
-              Text(
-                widget.strings.eventCodex,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
+                      )
+                      .toList(),
                 ),
-              ),
-              const SizedBox(height: 8),
-              ...widget.config.progression.events.map((event) {
-                final seen = seenEvents.contains(event.id);
-                return ListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  leading: Icon(
-                    seen ? Icons.bolt_rounded : Icons.lock_outline_rounded,
-                    color: seen ? Colors.amberAccent : Colors.white24,
-                  ),
-                  title: Text(
-                    widget.strings.translateContent(event.title),
-                    style: TextStyle(
-                      color: seen ? Colors.white : Colors.white54,
-                    ),
-                  ),
-                  subtitle: Text(
-                    seen
-                        ? widget.strings.translateContent(event.description)
-                        : widget.strings.hidden,
-                    style: const TextStyle(color: Colors.white54),
-                  ),
-                  trailing: Text(
-                    widget.strings.eventRarityLabel(event.minimumRarity),
-                    style: const TextStyle(color: Colors.white38, fontSize: 11),
-                  ),
-                );
-              }),
-            ],
+                const SizedBox(height: 14),
+                _buildCodexSection(
+                  section,
+                  orderedEras: orderedEras,
+                  seenEvents: seenEvents,
+                ),
+              ],
+            ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCodexSection(
+    String section, {
+    required List<Era> orderedEras,
+    required Set<String> seenEvents,
+  }) {
+    final codex = _controller.codexState;
+    return switch (section) {
+      'guide' => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _statLine(
+              widget.strings.guideAffinityLabel,
+              _controller.guideAffinity.toStringAsFixed(1),
+            ),
+            _statLine(
+              widget.strings.guideTierLabel,
+              widget.strings.formatGuideTier(_controller.guideTier),
+            ),
+            const SizedBox(height: 10),
+            ...codex.guideMemories.reversed.map(
+              (memory) => _archiveCard(
+                title: widget.strings.translateContent(memory.title),
+                subtitle: widget.strings.formatGuideMemoryType(memory.messageType),
+                body: widget.strings.translateContent(memory.content),
+                icon: Icons.smart_toy_rounded,
+              ),
+            ),
+          ],
+        ),
+      'route' => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${widget.strings.playstyle}: ${widget.strings.formatPlaystyle(_controller.dominantPlaystyle)}\n${widget.strings.route}: ${_controller.state.chosenBranches.isEmpty ? widget.strings.hidden : _controller.state.chosenBranches.map(_branchLabel).join(' / ')}',
+              style: const TextStyle(color: Colors.white70, height: 1.35),
+            ),
+            const SizedBox(height: 12),
+            ...codex.routeArchive.map(
+              (entry) => _archiveCard(
+                title: _routeArchiveTitle(entry),
+                subtitle:
+                    '${entry.completionPercentage.toStringAsFixed(0)}% · ${entry.roomsVisited.length}/${_controller.totalRooms}',
+                body:
+                    '${widget.strings.translateContent(entry.description)}\n${entry.branchesChosen.isEmpty ? widget.strings.hidden : entry.branchesChosen.map(_branchLabel).join(' / ')}',
+                icon: Icons.route_rounded,
+              ),
+            ),
+          ],
+        ),
+      'secrets' => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _statLine(
+              widget.strings.seenSecrets,
+              '${_controller.state.discoveredSecrets.length}',
+            ),
+            const SizedBox(height: 10),
+            ...codex.secretArchive.map(
+              (secret) => _archiveCard(
+                title: widget.strings.translateContent(secret.title),
+                subtitle: secret.discovered
+                    ? widget.strings.discovered
+                    : widget.strings.hidden,
+                body: secret.discovered
+                    ? '${widget.strings.translateContent(secret.description)}\n${widget.strings.translateContent(secret.hint)}'
+                    : widget.strings.hiddenRouteHint,
+                icon: Icons.visibility_rounded,
+              ),
+            ),
+          ],
+        ),
+      'lore' => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ...codex.sceneLore.map(
+              (entry) => _archiveCard(
+                title: widget.strings.translateContent(entry.title),
+                subtitle: '${widget.strings.currentRoom}: ${_roomLabel(entry.roomId)}',
+                body: widget.strings.translateContent(entry.content),
+                icon: Icons.menu_book_rounded,
+              ),
+            ),
+          ],
+        ),
+      'collections' => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _statLine(
+              widget.strings.codexCompletion,
+              '${codex.totalDiscovered}/${codex.totalAvailable}',
+            ),
+            _statLine(
+              widget.strings.metaProgressLabel,
+              '${_controller.metaProgression.relics.length} ${widget.strings.relicArchiveTitle} · ${_controller.metaProgression.memoryFragments.length} ${widget.strings.guideMemoryLog}',
+            ),
+            const SizedBox(height: 10),
+            ...codex.entries.map(
+              (entry) => _archiveCard(
+                title: widget.strings.translateContent(entry.title),
+                subtitle: widget.strings.formatCodexEntryType(entry.type.name),
+                body: widget.strings.translateContent(entry.content),
+                icon: Icons.auto_stories_rounded,
+              ),
+            ),
+          ],
+        ),
+      _ => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _statLine(
+              widget.strings.sceneArchive,
+              widget.strings.sceneArchiveProgress(
+                _controller.completedSceneBadges.length,
+                orderedEras.length,
+              ),
+            ),
+            _statLine(
+              widget.strings.eventCodex,
+              widget.strings.eventArchiveProgress(
+                seenEvents.length,
+                widget.config.progression.events.length,
+              ),
+            ),
+            _statLine(
+              widget.strings.codexCompletion,
+              '${codex.totalDiscovered}/${codex.totalAvailable}',
+            ),
+            const SizedBox(height: 12),
+            ...orderedEras.map((era) {
+              final bought = _roomUpgradeCount(era.id);
+              final total = _roomUpgradeTotal(era.id);
+              final completed = _controller.completedSceneBadges.contains(era.id);
+              return _archiveCard(
+                title: widget.strings.localizedEraName(era.name),
+                subtitle: completed
+                    ? widget.strings.sceneCompleted
+                    : widget.strings.notYetCompleted,
+                body:
+                    '${widget.strings.roomUpgradeProgress(bought, total)}\n${widget.strings.localizedEraDescription(era)}',
+                icon: Icons.meeting_room_rounded,
+                progress: total <= 0 ? 0 : (bought / total).clamp(0, 1),
+              );
+            }),
+          ],
+        ),
+    };
+  }
+
+  Widget _archiveCard({
+    required String title,
+    required String subtitle,
+    required String body,
+    required IconData icon,
+    double? progress,
+  }) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha(6),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white.withAlpha(12)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(icon, color: Colors.cyanAccent, size: 18),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        color: Colors.white54,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          if (progress != null) ...[
+            const SizedBox(height: 8),
+            LinearProgressIndicator(
+              value: progress,
+              minHeight: 5,
+              backgroundColor: Colors.white.withAlpha(12),
+              valueColor:
+                  const AlwaysStoppedAnimation<Color>(Colors.cyanAccent),
+              borderRadius: BorderRadius.circular(999),
+            ),
+          ],
+          const SizedBox(height: 8),
+          Text(
+            body,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              height: 1.35,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -2637,7 +3457,7 @@ class _GameScreenState extends State<GameScreen>
             children: [
               Expanded(
                 child: Text(
-                  challenge.title,
+                  widget.strings.translateContent(challenge.title),
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
@@ -2645,13 +3465,16 @@ class _GameScreenState extends State<GameScreen>
                 ),
               ),
               Text(
-                challenge.period.name.toUpperCase(),
+                widget.strings.challengePeriodLabel(challenge.period),
                 style: const TextStyle(color: Colors.white54, fontSize: 11),
               ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(challenge.description, style: const TextStyle(color: Colors.white70)),
+          Text(
+            widget.strings.translateContent(challenge.description),
+            style: const TextStyle(color: Colors.white70),
+          ),
           const SizedBox(height: 10),
           LinearProgressIndicator(value: ratio.clamp(0.0, 1.0)),
           const SizedBox(height: 8),
@@ -2776,7 +3599,10 @@ class _GameScreenState extends State<GameScreen>
                   ),
                 ),
                 const SizedBox(height: 12),
-                _statLine(widget.strings.source, snapshot.sourceLabel),
+                _statLine(
+                  widget.strings.source,
+                  widget.strings.translateStatusNotice(snapshot.sourceLabel),
+                ),
                 _statLine(widget.strings.online,
                     snapshot.onlineEnabled
                         ? widget.strings.configured
@@ -2818,7 +3644,7 @@ class _GameScreenState extends State<GameScreen>
                 if (status.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   Text(
-                    status,
+                    widget.strings.translateStatusNotice(status),
                     style: const TextStyle(color: Colors.white60, fontSize: 12),
                   ),
                 ],
@@ -3240,6 +4066,22 @@ class _GameScreenState extends State<GameScreen>
     return branchId;
   }
 
+  String _routeArchiveTitle(RouteArchiveEntry entry) {
+    if (entry.branchesChosen.isEmpty) {
+      return widget.strings.translateContent(entry.title);
+    }
+    return entry.branchesChosen.map(_branchLabel).join(' / ');
+  }
+
+  String _roomLabel(String roomId) {
+    for (final room in _controller.allRooms) {
+      if (room.id == roomId) {
+        return widget.strings.localizedEraName(room.name);
+      }
+    }
+    return widget.strings.translateContent(roomId);
+  }
+
   Widget _sessionField({
     required TextEditingController controller,
     required String label,
@@ -3482,6 +4324,30 @@ Color _eraAccent(String eraId) =>
               Color(0xFF90A4AE),
             ))
         .accent;
+
+List<Color> _sceneGradient(RoomScene? room, String eraId) {
+  if (room == null) return _eraGradient(eraId);
+  final background = _sceneColor(room.themeColors.background);
+  final primary = _sceneColor(room.themeColors.primary);
+  final accent = _sceneColor(room.themeColors.accent);
+  return [
+    Color.lerp(background, primary, 0.72)!,
+    Color.lerp(background, accent, 0.28)!,
+  ];
+}
+
+Color _sceneAccent(RoomScene? room, String eraId) {
+  if (room == null) return _eraAccent(eraId);
+  return _sceneColor(room.themeColors.accent);
+}
+
+Color _sceneColor(String hex) {
+  final normalized = hex.replaceAll('#', '');
+  final buffer = StringBuffer();
+  if (normalized.length == 6) buffer.write('ff');
+  buffer.write(normalized);
+  return Color(int.parse(buffer.toString(), radix: 16));
+}
 
 String _currentEra(GameController controller) {
   return controller.currentEraId;

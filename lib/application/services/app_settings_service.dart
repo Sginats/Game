@@ -21,6 +21,7 @@ class AppSettings {
   final AppLanguage language;
   final bool languageConfirmed;
   final bool soundEnabled;
+  final bool autoCheckUpdates;
   final bool reducedMotion;
   final bool screenShake;
   final double uiScale;
@@ -32,6 +33,7 @@ class AppSettings {
     this.language = AppLanguage.english,
     this.languageConfirmed = false,
     this.soundEnabled = true,
+    this.autoCheckUpdates = true,
     this.reducedMotion = false,
     this.screenShake = true,
     this.uiScale = 1,
@@ -44,6 +46,7 @@ class AppSettings {
     AppLanguage? language,
     bool? languageConfirmed,
     bool? soundEnabled,
+    bool? autoCheckUpdates,
     bool? reducedMotion,
     bool? screenShake,
     double? uiScale,
@@ -55,6 +58,7 @@ class AppSettings {
       language: language ?? this.language,
       languageConfirmed: languageConfirmed ?? this.languageConfirmed,
       soundEnabled: soundEnabled ?? this.soundEnabled,
+      autoCheckUpdates: autoCheckUpdates ?? this.autoCheckUpdates,
       reducedMotion: reducedMotion ?? this.reducedMotion,
       screenShake: screenShake ?? this.screenShake,
       uiScale: uiScale ?? this.uiScale,
@@ -69,6 +73,7 @@ class AppSettingsService {
   static const _languageKey = 'app_language';
   static const _languageConfirmedKey = 'language_confirmed';
   static const _soundEnabledKey = 'sound_enabled';
+  static const _autoCheckUpdatesKey = 'auto_check_updates';
   static const _reducedMotionKey = 'reduced_motion';
   static const _uiScaleKey = 'ui_scale';
   static const _musicVolumeKey = 'music_volume';
@@ -82,6 +87,7 @@ class AppSettingsService {
       language: AppLanguage.fromCode(prefs.getString(_languageKey)),
       languageConfirmed: prefs.getBool(_languageConfirmedKey) ?? false,
       soundEnabled: prefs.getBool(_soundEnabledKey) ?? true,
+      autoCheckUpdates: prefs.getBool(_autoCheckUpdatesKey) ?? true,
       reducedMotion: prefs.getBool(_reducedMotionKey) ?? false,
       screenShake: prefs.getBool(_screenShakeKey) ?? true,
       uiScale: prefs.getDouble(_uiScaleKey) ?? 1,
@@ -99,6 +105,7 @@ class AppSettingsService {
     await prefs.setString(_languageKey, settings.language.code);
     await prefs.setBool(_languageConfirmedKey, settings.languageConfirmed);
     await prefs.setBool(_soundEnabledKey, settings.soundEnabled);
+    await prefs.setBool(_autoCheckUpdatesKey, settings.autoCheckUpdates);
     await prefs.setBool(_reducedMotionKey, settings.reducedMotion);
     await prefs.setBool(_screenShakeKey, settings.screenShake);
     await prefs.setDouble(_uiScaleKey, settings.uiScale);

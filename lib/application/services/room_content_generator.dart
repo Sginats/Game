@@ -223,8 +223,13 @@ class RoomContentGenerator {
           UpgradeDefinition(
             id: 'upg_${era.id}_${branch.id}_$tier',
             name: _upgradeName(era.id, themeToken, branch, tier, milestone),
-            description:
-                '${profile.roomFlavor} ${branch.branchName.toLowerCase()} lattice tier $tier for ${era.name}. ${era.rule} Progress here is meant to be deliberate, not instant.',
+            description: _upgradeDescription(
+              era: era,
+              profile: profile,
+              branch: branch,
+              tier: tier,
+              milestone: milestone,
+            ),
             type: type,
             category: category,
             eraId: era.id,
@@ -321,14 +326,182 @@ class RoomContentGenerator {
     final prefixMap = _eraBranchPrefixes[eraId];
     final prefixSeed = prefixMap?[branch.id];
     if (prefixSeed != null) {
-      return milestone ? '$prefixSeed Keystone $tier' : '$prefixSeed Module $tier';
+      final suffixPool = milestone
+          ? _milestoneTitles[branch.id] ?? const ['Keystone']
+          : _branchSuffixes[branch.id] ?? const ['Module'];
+      final suffix = suffixPool[(tier - 1) % suffixPool.length];
+      return '$prefixSeed $suffix';
     }
     final prefix = milestone ? 'Milestone' : branch.branchName;
     return '$themeToken $prefix Tier $tier';
   }
 
+  String _upgradeDescription({
+    required Era era,
+    required _EraProfile profile,
+    required _BranchTemplate branch,
+    required int tier,
+    required bool milestone,
+  }) {
+    final branchPlan = switch (branch.id) {
+      'tap' => 'sharpens manual bursts, click rhythm, and operator tempo',
+      'automation' => 'stabilizes autonomous throughput and unattended routing',
+      'room' => 'changes the physical room shell and strengthens its core layout',
+      'ai' => 'teaches the machine to react smarter and exploit new patterns',
+      _ => 'opens high-risk niche tech with stronger downstream synergy',
+    };
+    final flavorHook = switch (profile.roomFlavor) {
+      'repair' => 'Built from salvage, it rewards persistence over polish.',
+      'budget' => 'It squeezes efficiency out of every limited part.',
+      'creator' => 'It turns attention, rhythm, and output into momentum.',
+      'optimization' => 'It favors precision routing and deliberate timing.',
+      'research' => 'It nudges the run toward experiments and hidden reads.',
+      'thermal' => 'It converts pressure and instability into stronger windows.',
+      'focus' => 'It rewards clean streaks and disciplined sequences.',
+      'autonomy' => 'It lets the machine shoulder more of the room alone.',
+      'apartment' => 'It spreads value across a denser, lived-in network.',
+      'containment' => 'It pushes dangerous systems while keeping them barely controlled.',
+      'industrial' => 'It scales heavy infrastructure and prototype mass.',
+      'identity' => 'It makes expression and self-image part of the build.',
+      'corporate' => 'It trades cleanliness for leverage and raw influence.',
+      'cathedral' => 'It rewards harmony, spacing, and resonance.',
+      'simulation' => 'It destabilizes assumptions and pays off pattern reading.',
+      'orbital' => 'It extends the room upward into relay and orbit lanes.',
+      'planetary' => 'It spreads progress into larger, slower systems.',
+      'chrono' => 'It pays off planning, recursion, and delayed release.',
+      'kernel' => 'It rewrites old systems into stronger composite rules.',
+      'singularity' => 'It compresses the run into fewer, heavier choices.',
+      _ => 'It reinforces the room identity instead of generic scaling.',
+    };
+    final milestoneHook = milestone
+        ? ' This milestone tier changes the room cadence and opens a stronger ${branch.branchName.toLowerCase()} breakpoint.'
+        : '';
+    return '$branchPlan in ${era.name}. ${era.rule} $flavorHook$milestoneHook';
+  }
+
   _EraProfile _profileFor(String eraId) =>
       _profiles[eraId] ?? const _EraProfile(roomFlavor: 'system');
+
+  static const Map<String, List<String>> _branchSuffixes = {
+    'tap': [
+      'Trigger',
+      'Impulse',
+      'Pulse',
+      'Cadence',
+      'Arc',
+      'Strike',
+      'Thread',
+      'Snap',
+      'Vector',
+      'Surge',
+      'Rhythm',
+      'Burst',
+      'Signal',
+      'Reflex',
+      'Latch',
+      'Drive',
+      'Tempo',
+      'Beat',
+      'Spark',
+      'Finish',
+    ],
+    'automation': [
+      'Loop',
+      'Relay',
+      'Scheduler',
+      'Spindle',
+      'Queue',
+      'Drift',
+      'Conduit',
+      'Servo',
+      'Latch',
+      'Network',
+      'Harness',
+      'Pipeline',
+      'Daemon',
+      'Spinner',
+      'Mesh',
+      'Switch',
+      'Loom',
+      'Factory',
+      'Backbone',
+      'Cascade',
+    ],
+    'room': [
+      'Frame',
+      'Deck',
+      'Wall',
+      'Spine',
+      'Grid',
+      'Anchor',
+      'Shell',
+      'Corridor',
+      'Pillar',
+      'Lattice',
+      'Viewport',
+      'Floor',
+      'Panel',
+      'Array',
+      'Chassis',
+      'Vault',
+      'Span',
+      'Surface',
+      'Atrium',
+      'Platform',
+    ],
+    'ai': [
+      'Kernel',
+      'Inference',
+      'Echo',
+      'Parser',
+      'Model',
+      'Forecast',
+      'Ghost',
+      'Memory',
+      'Pattern',
+      'Logic',
+      'Dream',
+      'Trace',
+      'Persona',
+      'Override',
+      'Insight',
+      'Mirror',
+      'Forecast',
+      'Cipher',
+      'Signal',
+      'Awakening',
+    ],
+    'special': [
+      'Relic',
+      'Cipher',
+      'Catalyst',
+      'Anomaly',
+      'Shard',
+      'Vault',
+      'Shadow',
+      'Sigil',
+      'Fold',
+      'Echo',
+      'Ghost',
+      'Spark',
+      'Glitch',
+      'Relic',
+      'Wager',
+      'Pressure',
+      'Oracle',
+      'Shift',
+      'Paradox',
+      'Crown',
+    ],
+  };
+
+  static const Map<String, List<String>> _milestoneTitles = {
+    'tap': ['Keystone', 'Spine', 'Breakpoint', 'Crown'],
+    'automation': ['Framework', 'Backbone', 'Engine', 'Ascension'],
+    'room': ['Anchor', 'Expansion', 'Sanctum', 'Mastery'],
+    'ai': ['Awakening', 'Intuition', 'Consensus', 'Transcendence'],
+    'special': ['Catalyst', 'Threshold', 'Rupture', 'Finale'],
+  };
 
   // Era-specific upgrade name tables for richer content identity
   static const Map<String, Map<String, List<String>>> _eraUpgradeNames = {

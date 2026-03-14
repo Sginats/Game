@@ -5,7 +5,8 @@ import 'package:ai_evolution/core/math/game_number.dart';
 import 'package:ai_evolution/core/time/time_provider.dart';
 import 'package:ai_evolution/domain/models/game_state.dart';
 import 'package:ai_evolution/domain/models/generator.dart';
-import 'package:ai_evolution/domain/models/room_scene.dart';
+import 'package:ai_evolution/domain/models/era.dart';
+import 'package:ai_evolution/domain/models/gameplay_extensions.dart';
 import 'package:ai_evolution/domain/models/upgrade.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -156,6 +157,46 @@ void main() {
     expect(controller.currentRoomId, 'room_01');
   });
 
+  test('setCurrentEra synchronizes current room when era order is available', () {
+    final syncedConfig = ConfigService(
+      baseTapValue: GameNumber.fromDouble(1),
+      baseTapMultiplier: GameNumber.fromDouble(1),
+      generators: {'gen_1': genDef},
+      upgrades: {'upg_tap': tapUpgrade},
+      eras: const [
+        Era(
+          id: 'era_1',
+          name: 'Room 1',
+          description: 'Test',
+          order: 1,
+          currency: 'Coins',
+          rule: 'Rule',
+        ),
+        Era(
+          id: 'era_2',
+          name: 'Room 2',
+          description: 'Test',
+          order: 2,
+          currency: 'Coins',
+          rule: 'Rule',
+        ),
+      ],
+      maxOfflineHours: 8,
+      autoSaveIntervalSeconds: 30,
+      tickRateMs: 100,
+    );
+    final state = GameState.initial().copyWith(unlockedEras: {'era_1', 'era_2'});
+    final controller = GameController(
+      config: syncedConfig,
+      timeProvider: time,
+      initialState: state,
+      roomSceneService: roomService,
+    );
+
+    expect(controller.setCurrentEra('era_2'), isTrue);
+    expect(controller.currentRoomId, 'room_02');
+  });
+
   test('currentRoom returns room data from service', () {
     final controller = GameController(
       config: config,
@@ -234,17 +275,46 @@ void main() {
     expect(controller.metaProgression.totalPrestigeTokens, 1);
   });
 
+  test('completeCurrentRoom grants relic, heirloom, memory, and archive entry', () {
+    final controller = GameController(
+      config: config,
+      timeProvider: time,
+      roomSceneService: roomService,
+    );
+
+    expect(controller.completeCurrentRoom(), isTrue);
+    expect(
+      controller.metaProgression.relics.any((item) => item.id == 'relic_room_01'),
+      isTrue,
+    );
+    expect(
+      controller.metaProgression.sceneHeirlooms.any(
+        (item) => item.id == 'heirloom_room_01',
+      ),
+      isTrue,
+    );
+    expect(
+      controller.metaProgression.memoryFragments.any(
+        (item) => item.id == 'memory_room_01',
+      ),
+      isTrue,
+    );
+    expect(
+      controller.codexState.entries.any((item) => item.id == 'relic_room_01'),
+      isTrue,
+    );
+  });
+
   test('completeCurrentRoom adds codex lore entry', () {
     final controller = GameController(
       config: config,
       timeProvider: time,
       roomSceneService: roomService,
     );
-    expect(controller.codexState.sceneLore, isEmpty);
+    final baselineLoreCount = controller.codexState.sceneLore.length;
     controller.completeCurrentRoom();
-    expect(controller.codexState.sceneLore.length, 1);
-    expect(
-        controller.codexState.sceneLore.first.id, 'lore_complete_room_01');
+    expect(controller.codexState.sceneLore.length, baselineLoreCount + 1);
+    expect(controller.codexState.sceneLore.last.id, 'lore_complete_room_01');
   });
 
   test('roomsCompleted increments with each room completion', () {
@@ -282,12 +352,45 @@ void main() {
       timeProvider: time,
       roomSceneService: roomService,
     );
+    final baselineSecretCount = controller.codexState.secretArchive.length;
     controller.discoverRoomSecret('room_01_secret_1');
     expect(
       controller.metaProgression.secretsArchived,
       contains('room_01_secret_1'),
     );
-    expect(controller.codexState.secretArchive.length, 1);
+    expect(controller.codexState.secretArchive.length, baselineSecretCount);
+    final archived = controller.codexState.secretArchive.firstWhere(
+      (entry) => entry.id == 'room_01_secret_1',
+    );
+    expect(archived.discovered, isTrue);
+  });
+
+  test('discoverRoomSecret grants memory, shard, and reward archive entry', () {
+    final controller = GameController(
+      config: config,
+      timeProvider: time,
+      roomSceneService: roomService,
+    );
+
+    expect(controller.discoverRoomSecret('room_01_secret_1'), isTrue);
+    expect(
+      controller.metaProgression.memoryFragments.any(
+        (item) => item.id == 'secret_memory_room_01_secret_1',
+      ),
+      isTrue,
+    );
+    expect(
+      controller.metaProgression.blueprintShards.any(
+        (item) => item.id == 'secret_shard_room_01_secret_1',
+      ),
+      isTrue,
+    );
+    expect(
+      controller.codexState.entries.any(
+        (item) => item.id == 'secret_reward_room_01_secret_1',
+      ),
+      isTrue,
+    );
   });
 
   test('activateRoomTwist activates twist', () {
@@ -334,14 +437,14 @@ void main() {
       timeProvider: time,
       roomSceneService: roomService,
     );
-    expect(controller.codexState.guideMemories, isEmpty);
+    final baselineMemories = controller.codexState.guideMemories.length;
     controller.recordGuideMemory(
       id: 'mem_test',
       title: 'Test Memory',
       content: 'A test guide memory.',
     );
-    expect(controller.codexState.guideMemories.length, 1);
-    expect(controller.codexState.guideMemories.first.id, 'mem_test');
+    expect(controller.codexState.guideMemories.length, baselineMemories + 1);
+    expect(controller.codexState.guideMemories.last.id, 'mem_test');
   });
 
   test('recordGuideMemory avoids duplicates', () {
@@ -404,6 +507,51 @@ void main() {
     expect(controller.guideAffinity, greaterThan(initialAffinity));
   });
 
+  test('claimChallengeReward updates meta, codex, and claim state', () {
+    const challenge = ChallengeState(
+      id: 'weekly_room_mastery',
+      period: ChallengePeriod.weekly,
+      metric: ChallengeMetric.upgradesBought,
+      title: 'Weekly Room Mastery',
+      description: 'Complete a weekly mastery pass.',
+      target: 10,
+      progress: 10,
+      completed: true,
+      seasonKey: '2026-W01',
+    );
+    final seeded = GameState.initial().copyWith(
+      totalCoinsEarned: GameNumber.fromDouble(10000),
+      challenges: [challenge],
+    );
+    final controller = GameController(
+      config: config,
+      timeProvider: time,
+      initialState: seeded,
+      roomSceneService: roomService,
+    );
+
+    expect(controller.claimChallengeReward('weekly_room_mastery'), isTrue);
+    expect(controller.metaProgression.challengesCleared, 1);
+    expect(
+      controller.metaProgression.blueprintShards.any(
+        (item) => item.id == 'challenge_weekly_room_mastery',
+      ),
+      isTrue,
+    );
+    expect(
+      controller.codexState.entries.any(
+        (item) => item.id == 'challenge_weekly_room_mastery',
+      ),
+      isTrue,
+    );
+    expect(
+      controller.challenges
+          .firstWhere((item) => item.id == 'weekly_room_mastery')
+          .claimed,
+      isTrue,
+    );
+  });
+
   test('prestige preserves meta-progression and codex', () {
     // Start with enough coins for prestige
     final rich = GameState.initial().copyWith(
@@ -429,5 +577,17 @@ void main() {
       expect(controller.metaProgression.roomsCompleted, metaBefore.roomsCompleted);
       expect(controller.codexState.sceneLore.length, codexBefore.sceneLore.length);
     }
+  });
+
+  test('bootstraps room collections from room service', () {
+    final controller = GameController(
+      config: config,
+      timeProvider: time,
+      roomSceneService: roomService,
+    );
+
+    expect(controller.codexState.secretArchive.length, 3);
+    expect(controller.codexState.sceneLore.length, 3);
+    expect(controller.codexState.entries.length, 3);
   });
 }
