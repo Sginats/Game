@@ -21,6 +21,10 @@ enum SideActivityType {
   orbitalTiming,
   contradictionPuzzle,
   roomRestore,
+  fabricationSequencing,
+  memoryDefrag,
+  cableRouting,
+  coolingAlignment,
 }
 
 // ─── Value Classes ──────────────────────────────────────────────────
