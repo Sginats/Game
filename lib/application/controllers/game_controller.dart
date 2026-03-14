@@ -6,11 +6,14 @@ import '../../data/repositories/game_repository.dart';
 import '../../domain/mechanics/cost_calculator.dart';
 import '../../domain/mechanics/offline_progression.dart';
 import '../../domain/models/achievement.dart';
+import '../../domain/models/codex.dart';
 import '../../domain/models/era.dart';
 import '../../domain/models/game_state.dart';
 import '../../domain/models/gameplay_extensions.dart';
+import '../../domain/models/meta_progression.dart';
 import '../../domain/models/progression_content.dart';
 import '../../domain/models/generator.dart';
+import '../../domain/models/room_scene.dart';
 import '../../domain/models/upgrade.dart';
 import '../../domain/systems/achievement_system.dart';
 import '../../domain/systems/generator_system.dart';
@@ -18,6 +21,7 @@ import '../../domain/systems/prestige_system.dart';
 import '../../domain/systems/tap_system.dart';
 import '../../domain/systems/upgrade_system.dart';
 import '../services/config_service.dart';
+import '../services/room_scene_service.dart';
 
 /// Main game controller that orchestrates all game logic.
 /// Pure Dart — no Flutter imports.
@@ -27,6 +31,7 @@ class GameController {
   final ConfigService _config;
   final TimeProvider _timeProvider;
   final GameRepository? _repository;
+  final RoomSceneService? _roomSceneService;
   final math.Random _random;
   GameState _state;
   double _autoSaveAccumulator = 0;
@@ -47,14 +52,17 @@ class GameController {
     required TimeProvider timeProvider,
     GameState? initialState,
     GameRepository? repository,
+    RoomSceneService? roomSceneService,
     math.Random? random,
   })  : _config = config,
         _timeProvider = timeProvider,
         _repository = repository,
+        _roomSceneService = roomSceneService,
         _random = random ?? math.Random(),
         _state = initialState ?? GameState.initial() {
     _checkEraUnlocks();
     _checkSceneBadges();
+    _checkRoomProgression();
     _ensureQuest();
     _ensureChallenges();
     _refreshGuidance();
@@ -83,6 +91,53 @@ class GameController {
   Set<String> get completedSceneBadges => _state.completedSceneBadges;
   double get guideAffinity => _state.guideAffinity;
   int get guideTier => 1 + (_state.guideAffinity ~/ 6).clamp(0, 4);
+
+  /// Guide trust level label based on affinity tiers.
+  String get guideTrustLevel {
+    final tier = guideTier;
+    if (tier >= 5) return 'Bonded';
+    if (tier >= 4) return 'Trusted';
+    if (tier >= 3) return 'Friendly';
+    if (tier >= 2) return 'Familiar';
+    return 'Cautious';
+  }
+
+  // ─── Room progression accessors ─────────────────────────────────────
+
+  /// Current room ID from the state.
+  String get currentRoomId => _state.currentRoomId;
+
+  /// Current room scene data, if the RoomSceneService is available.
+  RoomScene? get currentRoom =>
+      _roomSceneService?.getRoomById(_state.currentRoomId);
+
+  /// Next room after the current one.
+  RoomScene? get nextRoom =>
+      _roomSceneService?.getNextRoom(_state.currentRoomId);
+
+  /// Room state for the current room.
+  RoomSceneState get currentRoomState =>
+      _state.roomStates[_state.currentRoomId] ??
+      RoomSceneState(roomId: _state.currentRoomId);
+
+  /// Total rooms completed.
+  int get roomsCompleted => _state.metaProgression.roomsCompleted.length;
+
+  /// Total rooms available.
+  int get totalRooms => _roomSceneService?.totalRooms ?? 20;
+
+  /// MetaProgression state accessor.
+  MetaProgressionState get metaProgression => _state.metaProgression;
+
+  /// Codex state accessor.
+  CodexState get codexState => _state.codex;
+
+  /// Transformation stage for the current room (0-based index).
+  int get currentTransformationStage =>
+      currentRoomState.currentTransformationStage;
+
+  /// Whether the current room's mid-scene twist has activated.
+  bool get twistActivated => currentRoomState.twistActivated;
   ChallengeState? get dailyChallenge => _challengeByPeriod(ChallengePeriod.daily);
   ChallengeState? get weeklyChallenge => _challengeByPeriod(ChallengePeriod.weekly);
   NarrativeBeat? get activeNarrativeBeat {
@@ -357,6 +412,224 @@ class GameController {
     _state = _state.copyWith(currentEraId: eraId);
     _refreshGuidance();
     return true;
+  }
+
+  // ─── Room progression ───────────────────────────────────────────────
+
+  /// Transition to a specific room by ID. Returns false if room is locked.
+  bool transitionToRoom(String roomId) {
+    if (_roomSceneService == null) return false;
+    final completedRooms = _state.metaProgression.roomsCompleted;
+    if (!_roomSceneService!.isRoomUnlocked(roomId, completedRooms)) {
+      return false;
+    }
+    final room = _roomSceneService!.getRoomById(roomId);
+    if (room == null) return false;
+
+    // Initialize room state if not already tracked
+    final roomStates = Map<String, RoomSceneState>.from(_state.roomStates);
+    if (!roomStates.containsKey(roomId)) {
+      roomStates[roomId] = RoomSceneState(roomId: roomId);
+    }
+
+    _state = _state.copyWith(
+      currentRoomId: roomId,
+      roomStates: roomStates,
+      guideAffinity: _state.guideAffinity + 0.3,
+    );
+
+    _pushNarrativeBeat(
+      id: 'room_enter_$roomId',
+      title: 'Entering ${room.name}',
+      body: room.introText,
+    );
+    _refreshGuidance();
+    return true;
+  }
+
+  /// Mark the current room as completed and award meta-progression.
+  bool completeCurrentRoom() {
+    final roomId = _state.currentRoomId;
+    final roomState = currentRoomState;
+    if (roomState.completed) return false;
+
+    final updatedRoomStates =
+        Map<String, RoomSceneState>.from(_state.roomStates);
+    updatedRoomStates[roomId] = roomState.copyWith(completed: true);
+
+    final meta = _state.metaProgression;
+    final updatedMeta = meta.copyWith(
+      roomsCompleted: {...meta.roomsCompleted, roomId},
+      totalPrestigeTokens: meta.totalPrestigeTokens + 1,
+      lifetimePrestigeTokens: meta.lifetimePrestigeTokens + 1,
+    );
+
+    final room = _roomSceneService?.getRoomById(roomId);
+
+    // Add scene lore entry to codex
+    final codex = _state.codex;
+    final updatedCodex = codex.copyWith(
+      sceneLore: [
+        ...codex.sceneLore,
+        SceneLoreEntry(
+          id: 'lore_complete_$roomId',
+          roomId: roomId,
+          title: '${room?.name ?? roomId} Mastered',
+          content: room?.completionText ?? 'Room completed.',
+          loreCategory: 'completion',
+          chapter: updatedMeta.roomsCompleted.length,
+          discovered: true,
+        ),
+      ],
+    );
+
+    _state = _state.copyWith(
+      roomStates: updatedRoomStates,
+      metaProgression: updatedMeta,
+      codex: updatedCodex,
+      guideAffinity: _state.guideAffinity + 2.0,
+    );
+
+    _pushNarrativeBeat(
+      id: 'room_complete_$roomId',
+      title: '${room?.name ?? roomId} Complete',
+      body: room?.completionText ??
+          'The room has been mastered. New possibilities open ahead.',
+    );
+    _checkRoomProgression();
+    _refreshGuidance();
+    return true;
+  }
+
+  /// Advance the transformation stage for the current room.
+  bool advanceTransformationStage() {
+    final roomId = _state.currentRoomId;
+    final roomState = currentRoomState;
+    final room = _roomSceneService?.getRoomById(roomId);
+    if (room == null) return false;
+
+    final nextStage = roomState.currentTransformationStage + 1;
+    if (nextStage >= room.transformationStages.length) return false;
+
+    final stageData = room.transformationStages[nextStage];
+    if (roomState.upgradesPurchased < stageData.requiredUpgrades) {
+      return false;
+    }
+
+    final updatedRoomStates =
+        Map<String, RoomSceneState>.from(_state.roomStates);
+    updatedRoomStates[roomId] = roomState.copyWith(
+      currentTransformationStage: nextStage,
+    );
+
+    _state = _state.copyWith(
+      roomStates: updatedRoomStates,
+      guideAffinity: _state.guideAffinity + 0.5,
+    );
+
+    _pushNarrativeBeat(
+      id: 'transform_${roomId}_$nextStage',
+      title: stageData.name,
+      body: stageData.description,
+    );
+    _refreshGuidance();
+    return true;
+  }
+
+  /// Discover a secret in the current room.
+  bool discoverRoomSecret(String secretId) {
+    final roomId = _state.currentRoomId;
+    final roomState = currentRoomState;
+    if (roomState.secretsDiscovered.contains(secretId)) return false;
+
+    final updatedRoomStates =
+        Map<String, RoomSceneState>.from(_state.roomStates);
+    updatedRoomStates[roomId] = roomState.copyWith(
+      secretsDiscovered: {...roomState.secretsDiscovered, secretId},
+    );
+
+    final meta = _state.metaProgression;
+    final updatedMeta = meta.copyWith(
+      secretsArchived: {...meta.secretsArchived, secretId},
+    );
+
+    final codex = _state.codex;
+    final updatedCodex = codex.copyWith(
+      secretArchive: [
+        ...codex.secretArchive,
+        SecretArchiveEntry(
+          id: secretId,
+          roomId: roomId,
+          title: 'Secret: $secretId',
+          description: 'A hidden discovery in $roomId.',
+          discovered: true,
+        ),
+      ],
+    );
+
+    _state = _state.copyWith(
+      roomStates: updatedRoomStates,
+      metaProgression: updatedMeta,
+      codex: updatedCodex,
+      discoveredSecrets: {..._state.discoveredSecrets, secretId},
+      guideAffinity: _state.guideAffinity + 1.0,
+    );
+    _refreshGuidance();
+    return true;
+  }
+
+  /// Activate the mid-scene twist for the current room.
+  bool activateRoomTwist() {
+    final roomId = _state.currentRoomId;
+    final roomState = currentRoomState;
+    if (roomState.twistActivated) return false;
+
+    final room = _roomSceneService?.getRoomById(roomId);
+    if (room?.midSceneTwist == null) return false;
+
+    final updatedRoomStates =
+        Map<String, RoomSceneState>.from(_state.roomStates);
+    updatedRoomStates[roomId] = roomState.copyWith(twistActivated: true);
+
+    _state = _state.copyWith(
+      roomStates: updatedRoomStates,
+      guideAffinity: _state.guideAffinity + 0.8,
+    );
+
+    _pushNarrativeBeat(
+      id: 'twist_$roomId',
+      title: room!.midSceneTwist!.title,
+      body: room.midSceneTwist!.effectDescription,
+    );
+    _refreshGuidance();
+    return true;
+  }
+
+  /// Record a guide memory entry to the codex.
+  void recordGuideMemory({
+    required String id,
+    required String title,
+    required String content,
+    String messageType = 'general',
+  }) {
+    final codex = _state.codex;
+    // Avoid duplicates
+    if (codex.guideMemories.any((m) => m.id == id)) return;
+    final updatedCodex = codex.copyWith(
+      guideMemories: [
+        ...codex.guideMemories,
+        GuideMemoryLog(
+          id: id,
+          roomId: _state.currentRoomId,
+          title: title,
+          content: content,
+          timestamp: _timeProvider.now(),
+          guideAffinity: _state.guideAffinity,
+          messageType: messageType,
+        ),
+      ],
+    );
+    _state = _state.copyWith(codex: updatedCodex);
   }
 
   bool applyLoadoutPreset(String presetId) {
@@ -824,6 +1097,7 @@ class GameController {
     _updateChallengeProgress();
     _checkEraUnlocks();
     _checkSceneBadges();
+    _checkRoomProgression();
     _checkMilestones();
     _checkAchievements();
     _refreshGuidance();
@@ -872,6 +1146,7 @@ class GameController {
     _state = state;
     _checkEraUnlocks();
     _checkSceneBadges();
+    _checkRoomProgression();
     _ensureQuest();
     _ensureChallenges();
     _refreshGuidance();
@@ -919,6 +1194,10 @@ class GameController {
     final preservedAbilities = _state.abilities.map(
       (k, v) => MapEntry(k, v.copyWith(cooldownRemaining: 0, activeRemaining: 0)),
     );
+    final preservedMeta = _state.metaProgression;
+    final preservedCodex = _state.codex;
+    final preservedRoomStates = _state.roomStates;
+    final preservedCurrentRoomId = _state.currentRoomId;
 
     _state = PrestigeSystem.performPrestige(_state).copyWith(
       unlockedMilestones: preservedMilestones,
@@ -930,6 +1209,10 @@ class GameController {
       guideAffinity: _state.guideAffinity,
       routeSignature:
           '${_state.routeSignature}|prestige${_state.prestigeCount + 1}',
+      metaProgression: preservedMeta,
+      codex: preservedCodex,
+      roomStates: preservedRoomStates,
+      currentRoomId: preservedCurrentRoomId,
     );
     saveGame();
     _refreshGuidance();
@@ -1312,6 +1595,58 @@ class GameController {
     }
   }
 
+  void _checkRoomProgression() {
+    if (_roomSceneService == null) return;
+
+    final roomId = _state.currentRoomId;
+    final roomState = currentRoomState;
+
+    // Update upgrade count in room state based on current era upgrades
+    final eraUpgrades = _config.upgrades.values
+        .where((item) => item.eraId == _currentEraId)
+        .toList();
+    final bought =
+        eraUpgrades.where((item) => (_state.upgrades[item.id]?.level ?? 0) > 0).length;
+
+    if (bought != roomState.upgradesPurchased) {
+      final updatedStates =
+          Map<String, RoomSceneState>.from(_state.roomStates);
+      updatedStates[roomId] = roomState.copyWith(upgradesPurchased: bought);
+      _state = _state.copyWith(roomStates: updatedStates);
+    }
+
+    // Auto-advance transformation stages
+    final room = _roomSceneService!.getRoomById(roomId);
+    if (room != null) {
+      final rs = _state.roomStates[roomId] ??
+          RoomSceneState(roomId: roomId);
+      for (var i = rs.currentTransformationStage + 1;
+          i < room.transformationStages.length;
+          i++) {
+        if (rs.upgradesPurchased >=
+            room.transformationStages[i].requiredUpgrades) {
+          advanceTransformationStage();
+        } else {
+          break;
+        }
+      }
+    }
+
+    // Auto-detect room twist activation
+    if (room?.midSceneTwist != null && !currentRoomState.twistActivated) {
+      final twist = room!.midSceneTwist!;
+      // Simple trigger: check if enough upgrades purchased
+      final match =
+          RegExp(r'upgrades.*>=?\s*(\d+)').firstMatch(twist.triggerCondition);
+      if (match != null) {
+        final threshold = int.tryParse(match.group(1)!) ?? 999999;
+        if (currentRoomState.upgradesPurchased >= threshold) {
+          activateRoomTwist();
+        }
+      }
+    }
+  }
+
   void _updateQuestProgress() {
     _ensureQuest();
     final quest = _state.activeQuest;
@@ -1560,6 +1895,12 @@ class GameController {
       ChallengeMetric.combo => _state.tapCombo.toDouble(),
       ChallengeMetric.riskyChoices => _state.riskyChoicesTaken.toDouble(),
       ChallengeMetric.productionBurst => productionPerSecond.toDouble(),
+      ChallengeMetric.roomSecretsFound =>
+        _state.metaProgression.secretsArchived.length.toDouble(),
+      ChallengeMetric.roomTransformations =>
+        _state.roomStates.values
+            .fold<int>(0, (sum, rs) => sum + rs.currentTransformationStage)
+            .toDouble(),
     };
   }
 
@@ -1664,7 +2005,9 @@ class GameController {
       ChallengeMetric.totalTaps ||
       ChallengeMetric.eventClicks ||
       ChallengeMetric.upgradesBought ||
-      ChallengeMetric.riskyChoices =>
+      ChallengeMetric.riskyChoices ||
+      ChallengeMetric.roomSecretsFound ||
+      ChallengeMetric.roomTransformations =>
         _challengeMetricValue(metric),
       ChallengeMetric.bestEventChain ||
       ChallengeMetric.combo ||
@@ -1679,7 +2022,9 @@ class GameController {
       ChallengeMetric.totalTaps ||
       ChallengeMetric.eventClicks ||
       ChallengeMetric.upgradesBought ||
-      ChallengeMetric.riskyChoices =>
+      ChallengeMetric.riskyChoices ||
+      ChallengeMetric.roomSecretsFound ||
+      ChallengeMetric.roomTransformations =>
         current - challenge.startValue,
       ChallengeMetric.bestEventChain ||
       ChallengeMetric.combo ||

@@ -1,6 +1,9 @@
 import '../../core/math/game_number.dart';
+import 'codex.dart';
 import 'gameplay_extensions.dart';
 import 'generator.dart';
+import 'meta_progression.dart';
+import 'room_scene.dart';
 import 'upgrade.dart';
 
 /// Complete game state — immutable, updated via [copyWith].
@@ -59,6 +62,10 @@ class GameState {
   final Set<String> completedSceneBadges;
   final double guideAffinity;
   final int economyRevision;
+  final MetaProgressionState metaProgression;
+  final CodexState codex;
+  final String currentRoomId;
+  final Map<String, RoomSceneState> roomStates;
 
   GameState({
     required this.coins,
@@ -113,6 +120,10 @@ class GameState {
     this.completedSceneBadges = const {},
     this.guideAffinity = 0,
     this.economyRevision = currentEconomyRevision,
+    this.metaProgression = const MetaProgressionState(),
+    this.codex = const CodexState(),
+    this.currentRoomId = 'room_01',
+    this.roomStates = const {},
   }) : prestigeMultiplier =
             prestigeMultiplier ?? GameNumber.fromDouble(1);
 
@@ -208,6 +219,10 @@ class GameState {
     Set<String>? completedSceneBadges,
     double? guideAffinity,
     int? economyRevision,
+    MetaProgressionState? metaProgression,
+    CodexState? codex,
+    String? currentRoomId,
+    Map<String, RoomSceneState>? roomStates,
   }) {
     return GameState(
       coins: coins ?? this.coins,
@@ -266,6 +281,10 @@ class GameState {
       completedSceneBadges: completedSceneBadges ?? this.completedSceneBadges,
       guideAffinity: guideAffinity ?? this.guideAffinity,
       economyRevision: economyRevision ?? this.economyRevision,
+      metaProgression: metaProgression ?? this.metaProgression,
+      codex: codex ?? this.codex,
+      currentRoomId: currentRoomId ?? this.currentRoomId,
+      roomStates: roomStates ?? this.roomStates,
     );
   }
 
@@ -322,6 +341,10 @@ class GameState {
         'completedSceneBadges': completedSceneBadges.toList(),
         'guideAffinity': guideAffinity,
         'economyRevision': economyRevision,
+        'metaProgression': metaProgression.toJson(),
+        'codex': codex.toJson(),
+        'currentRoomId': currentRoomId,
+        'roomStates': roomStates.map((k, v) => MapEntry(k, v.toJson())),
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -475,6 +498,20 @@ class GameState {
       guideAffinity: (json['guideAffinity'] as num?)?.toDouble() ?? 0,
       economyRevision:
           json['economyRevision'] as int? ?? currentEconomyRevision,
+      metaProgression: json['metaProgression'] != null
+          ? MetaProgressionState.fromJson(
+              json['metaProgression'] as Map<String, dynamic>)
+          : const MetaProgressionState(),
+      codex: json['codex'] != null
+          ? CodexState.fromJson(json['codex'] as Map<String, dynamic>)
+          : const CodexState(),
+      currentRoomId: json['currentRoomId'] as String? ?? 'room_01',
+      roomStates: json['roomStates'] != null
+          ? (json['roomStates'] as Map<String, dynamic>).map(
+              (k, v) =>
+                  MapEntry(k, RoomSceneState.fromJson(v as Map<String, dynamic>)),
+            )
+          : const {},
     );
   }
 }

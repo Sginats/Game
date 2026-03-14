@@ -20,14 +20,18 @@ jobs:
         run: |
           dart run test/core/math/game_number_test.dart
           dart run test/domain/models/domain_models_test.dart
+          dart run test/domain/models/meta_codex_integration_test.dart
           dart run test/domain/mechanics/cost_calculator_test.dart
           dart run test/domain/mechanics/offline_progression_test.dart
           dart run test/domain/systems/tap_system_test.dart
           dart run test/domain/systems/generator_system_test.dart
           dart run test/domain/systems/upgrade_system_test.dart
           dart run test/application/game_controller_test.dart
+          dart run test/application/game_controller_room_test.dart
           dart run test/application/robot_guide_service_test.dart
+          dart run test/application/robot_guide_trust_test.dart
           dart run test/application/era_content_manager_test.dart
+          dart run test/application/room_scene_service_test.dart
 
   analyze:
     name: Analyze

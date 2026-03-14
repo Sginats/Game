@@ -1,0 +1,405 @@
+{
+  "id": "room_18",
+  "name": "Chrono Engine Room",
+  "subtitle": "Time bends here",
+  "order": 18,
+  "introText": "Welcome to Chrono Engine Room. Time bends here. This is where your journey continues.",
+  "completionText": "You have mastered Chrono Engine Room. The Chrono Flux you've gathered here will echo through every room that follows.",
+  "guideTone": "disoriented, fascinated",
+  "guideIntroLine": "Past and future overlap in this room. Be careful what you change.",
+  "currency": "Chrono Flux",
+  "mechanicEmphasis": "temporal",
+  "themeColors": {
+    "primary": "#006064",
+    "accent": "#4DD0E1",
+    "background": "#04080A"
+  },
+  "transformationStages": [
+    {
+      "id": "room_18_stage_1",
+      "name": "Chrono Engine Room \u2014 Bare Bones",
+      "description": "The room in its raw state. Chrono Engine Room evolves as you progress.",
+      "requiredUpgrades": 90,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_18_stage_2",
+      "name": "Chrono Engine Room \u2014 First Light",
+      "description": "Basic improvements visible. Chrono Engine Room evolves as you progress.",
+      "requiredUpgrades": 270,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_18_stage_3",
+      "name": "Chrono Engine Room \u2014 Functional",
+      "description": "A proper working space. Chrono Engine Room evolves as you progress.",
+      "requiredUpgrades": 540,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_18_stage_4",
+      "name": "Chrono Engine Room \u2014 Advanced",
+      "description": "High-tech transformation. Chrono Engine Room evolves as you progress.",
+      "requiredUpgrades": 900,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_18_stage_5",
+      "name": "Chrono Engine Room \u2014 Mastered",
+      "description": "The room at its peak. Chrono Engine Room evolves as you progress.",
+      "requiredUpgrades": 1440,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_18_ambient",
+      "name": "chrono ambience",
+      "assetPath": "assets/audio/rooms/room_18_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_18_active",
+      "name": "chrono activity",
+      "assetPath": "assets/audio/rooms/room_18_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_18_secret_1",
+      "title": "Hidden Chrono Cache",
+      "description": "A secret stash hidden in the Chrono Engine Room.",
+      "hint": "Look behind the chrono equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_18_twist",
+    "title": "Chrono Engine Room Shift",
+    "description": "Something changes in the Chrono Engine Room. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 450",
+    "effectDescription": "New mechanics unlock in Chrono Engine Room. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_18",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_18_lore_1",
+    "room_18_lore_2",
+    "room_18_lore_3"
+  ],
+  "unlockRequirement": "room_17",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_18",
+    "events": [
+      {
+        "id": "room_18_evt_1",
+        "roomId": "room_18",
+        "title": "Time Skip",
+        "description": "Time Skip \u2014 a common instant event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_18_evt_2",
+        "roomId": "room_18",
+        "title": "Paradox Alert",
+        "description": "Paradox Alert \u2014 a common shortChoice event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_18_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 10.0,
+                "description": "Gain Chrono Flux"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_18_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 20.0,
+                "description": "Gain more Chrono Flux"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_18_evt_3",
+        "roomId": "room_18",
+        "title": "Future Echo",
+        "description": "Future Echo \u2014 a common timedChain event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_18_evt_4",
+        "roomId": "room_18",
+        "title": "Past Leak",
+        "description": "Past Leak \u2014 a common utility event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_18_evt_5",
+        "roomId": "room_18",
+        "title": "Temporal Storm",
+        "description": "Temporal Storm \u2014 a rare secretTrigger event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_18_evt_6",
+        "roomId": "room_18",
+        "title": "Clock Malfunction",
+        "description": "Clock Malfunction \u2014 a rare legendaryAnomaly event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_18_evt_7",
+        "roomId": "room_18",
+        "title": "Age Regression",
+        "description": "Age Regression \u2014 a epic warningRisk event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_18_evt_8",
+        "roomId": "room_18",
+        "title": "Prophecy Fragment",
+        "description": "Prophecy Fragment \u2014 a corrupted miniBoss event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_18_evt_9",
+        "roomId": "room_18",
+        "title": "Loop Detection",
+        "description": "Loop Detection \u2014 a legendary guideAdvisory event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_18_evt_10",
+        "roomId": "room_18",
+        "title": "Chrono Stabilize",
+        "description": "Chrono Stabilize \u2014 a common hiddenGlitch event in Chrono Engine Room.",
+        "flavorText": "The chrono environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 41.0,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.9,
+    "pityThreshold": 26,
+    "spawnRateMultiplier": 1.3599999999999999,
+    "midTwistEvents": [
+      {
+        "id": "room_18_twist_evt_1",
+        "roomId": "room_18",
+        "title": "Chrono Engine Room Awakening",
+        "description": "The twist in Chrono Engine Room unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

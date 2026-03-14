@@ -1,0 +1,405 @@
+{
+  "id": "room_06",
+  "name": "Hidden Server Closet",
+  "subtitle": "Heat rises, so do we",
+  "order": 6,
+  "introText": "Welcome to Hidden Server Closet. Heat rises, so do we. This is where your journey continues.",
+  "completionText": "You have mastered Hidden Server Closet. The Cycles you've gathered here will echo through every room that follows.",
+  "guideTone": "tense, watchful",
+  "guideIntroLine": "Nobody knows about this closet. The fans are loud. Stay focused.",
+  "currency": "Cycles",
+  "mechanicEmphasis": "heat",
+  "themeColors": {
+    "primary": "#E74C3C",
+    "accent": "#F39C12",
+    "background": "#0C0604"
+  },
+  "transformationStages": [
+    {
+      "id": "room_06_stage_1",
+      "name": "Hidden Server Closet \u2014 Bare Bones",
+      "description": "The room in its raw state. Hidden Server Closet evolves as you progress.",
+      "requiredUpgrades": 30,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_06_stage_2",
+      "name": "Hidden Server Closet \u2014 First Light",
+      "description": "Basic improvements visible. Hidden Server Closet evolves as you progress.",
+      "requiredUpgrades": 90,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_06_stage_3",
+      "name": "Hidden Server Closet \u2014 Functional",
+      "description": "A proper working space. Hidden Server Closet evolves as you progress.",
+      "requiredUpgrades": 180,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_06_stage_4",
+      "name": "Hidden Server Closet \u2014 Advanced",
+      "description": "High-tech transformation. Hidden Server Closet evolves as you progress.",
+      "requiredUpgrades": 300,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_06_stage_5",
+      "name": "Hidden Server Closet \u2014 Mastered",
+      "description": "The room at its peak. Hidden Server Closet evolves as you progress.",
+      "requiredUpgrades": 480,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_06_ambient",
+      "name": "thermal ambience",
+      "assetPath": "assets/audio/rooms/room_06_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_06_active",
+      "name": "thermal activity",
+      "assetPath": "assets/audio/rooms/room_06_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_06_secret_1",
+      "title": "Hidden Thermal Cache",
+      "description": "A secret stash hidden in the Hidden Server Closet.",
+      "hint": "Look behind the thermal equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_06_twist",
+    "title": "Hidden Server Closet Shift",
+    "description": "Something changes in the Hidden Server Closet. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 150",
+    "effectDescription": "New mechanics unlock in Hidden Server Closet. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_06",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_06_lore_1",
+    "room_06_lore_2",
+    "room_06_lore_3"
+  ],
+  "unlockRequirement": "room_05",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_06",
+    "events": [
+      {
+        "id": "room_06_evt_1",
+        "roomId": "room_06",
+        "title": "Heat Warning",
+        "description": "Heat Warning \u2014 a common instant event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_06_evt_2",
+        "roomId": "room_06",
+        "title": "Fan Failure",
+        "description": "Fan Failure \u2014 a common shortChoice event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_06_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 4.0,
+                "description": "Gain Cycles"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_06_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 8.0,
+                "description": "Gain more Cycles"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_06_evt_3",
+        "roomId": "room_06",
+        "title": "Thermal Throttle",
+        "description": "Thermal Throttle \u2014 a common timedChain event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_06_evt_4",
+        "roomId": "room_06",
+        "title": "Coolant Leak",
+        "description": "Coolant Leak \u2014 a common utility event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_06_evt_5",
+        "roomId": "room_06",
+        "title": "Power Surge",
+        "description": "Power Surge \u2014 a rare secretTrigger event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_06_evt_6",
+        "roomId": "room_06",
+        "title": "Server Overheat",
+        "description": "Server Overheat \u2014 a rare legendaryAnomaly event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_06_evt_7",
+        "roomId": "room_06",
+        "title": "Emergency Vent",
+        "description": "Emergency Vent \u2014 a epic warningRisk event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_06_evt_8",
+        "roomId": "room_06",
+        "title": "Hot Spot Found",
+        "description": "Hot Spot Found \u2014 a corrupted miniBoss event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_06_evt_9",
+        "roomId": "room_06",
+        "title": "Meltdown Risk",
+        "description": "Meltdown Risk \u2014 a legendary guideAdvisory event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_06_evt_10",
+        "roomId": "room_06",
+        "title": "Cold Boot Recovery",
+        "description": "Cold Boot Recovery \u2014 a common hiddenGlitch event in Hidden Server Closet.",
+        "flavorText": "The thermal environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 17.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.3,
+    "pityThreshold": 14,
+    "spawnRateMultiplier": 1.12,
+    "midTwistEvents": [
+      {
+        "id": "room_06_twist_evt_1",
+        "roomId": "room_06",
+        "title": "Hidden Server Closet Awakening",
+        "description": "The twist in Hidden Server Closet unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

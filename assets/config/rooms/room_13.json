@@ -1,0 +1,405 @@
+{
+  "id": "room_13",
+  "name": "Corporate Takeover Suite",
+  "subtitle": "Power has a price",
+  "order": 13,
+  "introText": "Welcome to Corporate Takeover Suite. Power has a price. This is where your journey continues.",
+  "completionText": "You have mastered Corporate Takeover Suite. The Influence you've gathered here will echo through every room that follows.",
+  "guideTone": "sharp, strategic",
+  "guideIntroLine": "Corner office. The view is nice, but everything here has strings attached.",
+  "currency": "Influence",
+  "mechanicEmphasis": "hybrid",
+  "themeColors": {
+    "primary": "#2C3E50",
+    "accent": "#D4AF37",
+    "background": "#06060A"
+  },
+  "transformationStages": [
+    {
+      "id": "room_13_stage_1",
+      "name": "Corporate Takeover Suite \u2014 Bare Bones",
+      "description": "The room in its raw state. Corporate Takeover Suite evolves as you progress.",
+      "requiredUpgrades": 65,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_13_stage_2",
+      "name": "Corporate Takeover Suite \u2014 First Light",
+      "description": "Basic improvements visible. Corporate Takeover Suite evolves as you progress.",
+      "requiredUpgrades": 195,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_13_stage_3",
+      "name": "Corporate Takeover Suite \u2014 Functional",
+      "description": "A proper working space. Corporate Takeover Suite evolves as you progress.",
+      "requiredUpgrades": 390,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_13_stage_4",
+      "name": "Corporate Takeover Suite \u2014 Advanced",
+      "description": "High-tech transformation. Corporate Takeover Suite evolves as you progress.",
+      "requiredUpgrades": 650,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_13_stage_5",
+      "name": "Corporate Takeover Suite \u2014 Mastered",
+      "description": "The room at its peak. Corporate Takeover Suite evolves as you progress.",
+      "requiredUpgrades": 1040,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_13_ambient",
+      "name": "corporate ambience",
+      "assetPath": "assets/audio/rooms/room_13_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_13_active",
+      "name": "corporate activity",
+      "assetPath": "assets/audio/rooms/room_13_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_13_secret_1",
+      "title": "Hidden Corporate Cache",
+      "description": "A secret stash hidden in the Corporate Takeover Suite.",
+      "hint": "Look behind the corporate equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_13_twist",
+    "title": "Corporate Takeover Suite Shift",
+    "description": "Something changes in the Corporate Takeover Suite. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 325",
+    "effectDescription": "New mechanics unlock in Corporate Takeover Suite. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_13",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_13_lore_1",
+    "room_13_lore_2",
+    "room_13_lore_3"
+  ],
+  "unlockRequirement": "room_12",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_13",
+    "events": [
+      {
+        "id": "room_13_evt_1",
+        "roomId": "room_13",
+        "title": "Hostile Bid",
+        "description": "Hostile Bid \u2014 a common instant event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_13_evt_2",
+        "roomId": "room_13",
+        "title": "Board Meeting",
+        "description": "Board Meeting \u2014 a common shortChoice event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_13_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 7.5,
+                "description": "Gain Influence"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_13_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 15.0,
+                "description": "Gain more Influence"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_13_evt_3",
+        "roomId": "room_13",
+        "title": "Market Crash",
+        "description": "Market Crash \u2014 a common timedChain event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_13_evt_4",
+        "roomId": "room_13",
+        "title": "Insider Tip",
+        "description": "Insider Tip \u2014 a common utility event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_13_evt_5",
+        "roomId": "room_13",
+        "title": "Merger Offer",
+        "description": "Merger Offer \u2014 a rare secretTrigger event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_13_evt_6",
+        "roomId": "room_13",
+        "title": "Audit Surprise",
+        "description": "Audit Surprise \u2014 a rare legendaryAnomaly event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_13_evt_7",
+        "roomId": "room_13",
+        "title": "Stock Split",
+        "description": "Stock Split \u2014 a epic warningRisk event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_13_evt_8",
+        "roomId": "room_13",
+        "title": "Lobby Pressure",
+        "description": "Lobby Pressure \u2014 a corrupted miniBoss event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_13_evt_9",
+        "roomId": "room_13",
+        "title": "Golden Parachute",
+        "description": "Golden Parachute \u2014 a legendary guideAdvisory event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_13_evt_10",
+        "roomId": "room_13",
+        "title": "Takeover Complete",
+        "description": "Takeover Complete \u2014 a common hiddenGlitch event in Corporate Takeover Suite.",
+        "flavorText": "The corporate environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 31.0,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.65,
+    "pityThreshold": 21,
+    "spawnRateMultiplier": 1.26,
+    "midTwistEvents": [
+      {
+        "id": "room_13_twist_evt_1",
+        "roomId": "room_13",
+        "title": "Corporate Takeover Suite Awakening",
+        "description": "The twist in Corporate Takeover Suite unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

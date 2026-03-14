@@ -1,0 +1,405 @@
+{
+  "id": "room_09",
+  "name": "Research Apartment",
+  "subtitle": "Living inside the data",
+  "order": 9,
+  "introText": "Welcome to Research Apartment. Living inside the data. This is where your journey continues.",
+  "completionText": "You have mastered Research Apartment. The Insights you've gathered here will echo through every room that follows.",
+  "guideTone": "reflective, academic",
+  "guideIntroLine": "Home and lab merged into one. Every surface is a research tool now.",
+  "currency": "Insights",
+  "mechanicEmphasis": "signal",
+  "themeColors": {
+    "primary": "#6C5CE7",
+    "accent": "#A29BFE",
+    "background": "#08060E"
+  },
+  "transformationStages": [
+    {
+      "id": "room_09_stage_1",
+      "name": "Research Apartment \u2014 Bare Bones",
+      "description": "The room in its raw state. Research Apartment evolves as you progress.",
+      "requiredUpgrades": 45,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_09_stage_2",
+      "name": "Research Apartment \u2014 First Light",
+      "description": "Basic improvements visible. Research Apartment evolves as you progress.",
+      "requiredUpgrades": 135,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_09_stage_3",
+      "name": "Research Apartment \u2014 Functional",
+      "description": "A proper working space. Research Apartment evolves as you progress.",
+      "requiredUpgrades": 270,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_09_stage_4",
+      "name": "Research Apartment \u2014 Advanced",
+      "description": "High-tech transformation. Research Apartment evolves as you progress.",
+      "requiredUpgrades": 450,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_09_stage_5",
+      "name": "Research Apartment \u2014 Mastered",
+      "description": "The room at its peak. Research Apartment evolves as you progress.",
+      "requiredUpgrades": 720,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_09_ambient",
+      "name": "research ambience",
+      "assetPath": "assets/audio/rooms/room_09_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_09_active",
+      "name": "research activity",
+      "assetPath": "assets/audio/rooms/room_09_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_09_secret_1",
+      "title": "Hidden Research Cache",
+      "description": "A secret stash hidden in the Research Apartment.",
+      "hint": "Look behind the research equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_09_twist",
+    "title": "Research Apartment Shift",
+    "description": "Something changes in the Research Apartment. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 225",
+    "effectDescription": "New mechanics unlock in Research Apartment. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_09",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_09_lore_1",
+    "room_09_lore_2",
+    "room_09_lore_3"
+  ],
+  "unlockRequirement": "room_08",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_09",
+    "events": [
+      {
+        "id": "room_09_evt_1",
+        "roomId": "room_09",
+        "title": "Data Correlation",
+        "description": "Data Correlation \u2014 a common instant event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_09_evt_2",
+        "roomId": "room_09",
+        "title": "Theory Conflict",
+        "description": "Theory Conflict \u2014 a common shortChoice event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_09_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 5.5,
+                "description": "Gain Insights"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_09_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 11.0,
+                "description": "Gain more Insights"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_09_evt_3",
+        "roomId": "room_09",
+        "title": "Peer Review",
+        "description": "Peer Review \u2014 a common timedChain event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_09_evt_4",
+        "roomId": "room_09",
+        "title": "Publication Draft",
+        "description": "Publication Draft \u2014 a common utility event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_09_evt_5",
+        "roomId": "room_09",
+        "title": "Grant Application",
+        "description": "Grant Application \u2014 a rare secretTrigger event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_09_evt_6",
+        "roomId": "room_09",
+        "title": "Research Dead End",
+        "description": "Research Dead End \u2014 a rare legendaryAnomaly event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_09_evt_7",
+        "roomId": "room_09",
+        "title": "Breakthrough Paper",
+        "description": "Breakthrough Paper \u2014 a epic warningRisk event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_09_evt_8",
+        "roomId": "room_09",
+        "title": "Lab Meeting",
+        "description": "Lab Meeting \u2014 a corrupted miniBoss event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_09_evt_9",
+        "roomId": "room_09",
+        "title": "Hypothesis Shift",
+        "description": "Hypothesis Shift \u2014 a legendary guideAdvisory event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_09_evt_10",
+        "roomId": "room_09",
+        "title": "Citation Needed",
+        "description": "Citation Needed \u2014 a common hiddenGlitch event in Research Apartment.",
+        "flavorText": "The research environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 23.0,
+            "description": "Gain Insights"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.45,
+    "pityThreshold": 17,
+    "spawnRateMultiplier": 1.18,
+    "midTwistEvents": [
+      {
+        "id": "room_09_twist_evt_1",
+        "roomId": "room_09",
+        "title": "Research Apartment Awakening",
+        "description": "The twist in Research Apartment unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

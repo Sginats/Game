@@ -1,0 +1,405 @@
+{
+  "id": "room_01",
+  "name": "Junk Corner",
+  "subtitle": "Salvage and survive",
+  "order": 1,
+  "introText": "Welcome to Junk Corner. Salvage and survive. This is where your journey begins.",
+  "completionText": "You have mastered Junk Corner. The Scrap you've gathered here will echo through every room that follows.",
+  "guideTone": "encouraging, scrappy",
+  "guideIntroLine": "Hey\u2026 you found me in this pile of junk. Let's see what we can do.",
+  "currency": "Scrap",
+  "mechanicEmphasis": "tap",
+  "themeColors": {
+    "primary": "#8B7355",
+    "accent": "#D4A574",
+    "background": "#0A0806"
+  },
+  "transformationStages": [
+    {
+      "id": "room_01_stage_1",
+      "name": "Junk Corner \u2014 Bare Bones",
+      "description": "The room in its raw state. Junk Corner evolves as you progress.",
+      "requiredUpgrades": 5,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_01_stage_2",
+      "name": "Junk Corner \u2014 First Light",
+      "description": "Basic improvements visible. Junk Corner evolves as you progress.",
+      "requiredUpgrades": 15,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_01_stage_3",
+      "name": "Junk Corner \u2014 Functional",
+      "description": "A proper working space. Junk Corner evolves as you progress.",
+      "requiredUpgrades": 30,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_01_stage_4",
+      "name": "Junk Corner \u2014 Advanced",
+      "description": "High-tech transformation. Junk Corner evolves as you progress.",
+      "requiredUpgrades": 50,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_01_stage_5",
+      "name": "Junk Corner \u2014 Mastered",
+      "description": "The room at its peak. Junk Corner evolves as you progress.",
+      "requiredUpgrades": 80,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_01_ambient",
+      "name": "salvage ambience",
+      "assetPath": "assets/audio/rooms/room_01_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_01_active",
+      "name": "salvage activity",
+      "assetPath": "assets/audio/rooms/room_01_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_01_secret_1",
+      "title": "Hidden Salvage Cache",
+      "description": "A secret stash hidden in the Junk Corner.",
+      "hint": "Look behind the salvage equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_01_twist",
+    "title": "Junk Corner Shift",
+    "description": "Something changes in the Junk Corner. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "New mechanics unlock in Junk Corner. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_01",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_01_lore_1",
+    "room_01_lore_2",
+    "room_01_lore_3"
+  ],
+  "unlockRequirement": null,
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_01",
+    "events": [
+      {
+        "id": "room_01_evt_1",
+        "roomId": "room_01",
+        "title": "Loose Wire",
+        "description": "Loose Wire \u2014 a common instant event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_01_evt_2",
+        "roomId": "room_01",
+        "title": "Scrap Pile Discovery",
+        "description": "Scrap Pile Discovery \u2014 a common shortChoice event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_01_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 1.5,
+                "description": "Gain Scrap"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_01_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 3.0,
+                "description": "Gain more Scrap"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_01_evt_3",
+        "roomId": "room_01",
+        "title": "Rusty Toolbox",
+        "description": "Rusty Toolbox \u2014 a common timedChain event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_01_evt_4",
+        "roomId": "room_01",
+        "title": "Broken Screen Flicker",
+        "description": "Broken Screen Flicker \u2014 a common utility event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_01_evt_5",
+        "roomId": "room_01",
+        "title": "Rat in the Cables",
+        "description": "Rat in the Cables \u2014 a rare secretTrigger event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_01_evt_6",
+        "roomId": "room_01",
+        "title": "Junk Avalanche",
+        "description": "Junk Avalanche \u2014 a rare legendaryAnomaly event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_01_evt_7",
+        "roomId": "room_01",
+        "title": "Old Battery Spark",
+        "description": "Old Battery Spark \u2014 a epic warningRisk event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_01_evt_8",
+        "roomId": "room_01",
+        "title": "Mystery Component",
+        "description": "Mystery Component \u2014 a corrupted miniBoss event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_01_evt_9",
+        "roomId": "room_01",
+        "title": "Dust Storm",
+        "description": "Dust Storm \u2014 a legendary guideAdvisory event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_01_evt_10",
+        "roomId": "room_01",
+        "title": "Salvage Bonanza",
+        "description": "Salvage Bonanza \u2014 a common hiddenGlitch event in Junk Corner.",
+        "flavorText": "The salvage environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.05,
+    "pityThreshold": 9,
+    "spawnRateMultiplier": 1.02,
+    "midTwistEvents": [
+      {
+        "id": "room_01_twist_evt_1",
+        "roomId": "room_01",
+        "title": "Junk Corner Awakening",
+        "description": "The twist in Junk Corner unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}

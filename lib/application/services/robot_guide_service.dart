@@ -7,6 +7,8 @@ class RobotGuideService {
   final List<RobotGuideMessage> _messageQueue = [];
   RobotGuideMessage? _currentMessage;
   String _lastEraId = '';
+  String _lastRoomId = '';
+  int _lastTrustTier = 0;
   int _tutorialIndex = 0;
   double _messageTimer = 0;
 
@@ -33,6 +35,80 @@ class RobotGuideService {
     }
   }
 
+  /// Called when the player enters a new room.
+  void onRoomChanged(String roomId, {int trustTier = 1}) {
+    if (roomId == _lastRoomId) return;
+    _lastRoomId = roomId;
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[roomId] ?? const [];
+    for (final msg in roomLines) {
+      if (!_shownMessageIds.contains(msg.id) &&
+          trustTier >= msg.minTrustTier) {
+        _enqueue(msg);
+      }
+    }
+  }
+
+  /// Called when trust tier changes.
+  void onTrustTierChanged(int trustTier) {
+    if (trustTier == _lastTrustTier) return;
+    final previousTier = _lastTrustTier;
+    _lastTrustTier = trustTier;
+    // Show trust unlock messages for any newly reached tiers
+    for (var tier = previousTier + 1; tier <= trustTier; tier++) {
+      final messages = RobotGuideDialogue.trustTierMessages[tier] ?? const [];
+      for (final msg in messages) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+        }
+      }
+    }
+  }
+
+  /// Called when the player takes a risky or unusual action.
+  void onDisagreement({int trustTier = 1}) {
+    for (final msg in RobotGuideDialogue.disagreementLines) {
+      if (!_shownMessageIds.contains(msg.id) &&
+          trustTier >= msg.minTrustTier) {
+        _enqueue(msg);
+        return; // Only one disagreement at a time
+      }
+    }
+  }
+
+  /// Called when a room twist activates.
+  void onRoomTwist() {
+    final tips = RobotGuideDialogue.contextualTips['room_twist'] ?? const [];
+    for (final msg in tips) {
+      if (!_shownMessageIds.contains(msg.id)) {
+        _enqueue(msg);
+        return;
+      }
+    }
+  }
+
+  /// Called when a secret is found.
+  void onSecretFound() {
+    final tips = RobotGuideDialogue.contextualTips['secret_found'] ?? const [];
+    for (final msg in tips) {
+      if (!_shownMessageIds.contains(msg.id)) {
+        _enqueue(msg);
+        return;
+      }
+    }
+  }
+
+  /// Called when a room transformation stage advances.
+  void onTransformation() {
+    final tips = RobotGuideDialogue.contextualTips['transformation'] ?? const [];
+    for (final msg in tips) {
+      if (!_shownMessageIds.contains(msg.id)) {
+        _enqueue(msg);
+        return;
+      }
+    }
+  }
+
   /// Called each game tick to update timers and advance tutorials.
   void tick(double deltaSeconds, {
     required int totalTaps,
@@ -41,6 +117,7 @@ class RobotGuideService {
     required int prestigeCount,
     required double coins,
     required int highestEraOrder,
+    int trustTier = 1,
   }) {
     _messageTimer -= deltaSeconds;
     _tipTimer -= deltaSeconds;
@@ -69,6 +146,9 @@ class RobotGuideService {
       }
     }
 
+    // Trust-tier check
+    onTrustTierChanged(trustTier);
+
     // Contextual tips
     if (_currentMessage == null && _tipTimer <= 0) {
       final tip = _selectContextualTip(
@@ -78,6 +158,7 @@ class RobotGuideService {
         prestigeCount: prestigeCount,
         coins: coins,
         highestEraOrder: highestEraOrder,
+        trustTier: trustTier,
       );
       if (tip != null) {
         _enqueue(tip);
@@ -142,6 +223,7 @@ class RobotGuideService {
     required int prestigeCount,
     required double coins,
     required int highestEraOrder,
+    int trustTier = 1,
   }) {
     if (eventActive) {
       return _firstUnshown(RobotGuideDialogue.contextualTips['event_active']);
@@ -152,6 +234,14 @@ class RobotGuideService {
     if (prestigeCount == 0 && totalTaps > _prestigeHintMinTaps && coins > _prestigeHintMinCoins) {
       return _firstUnshown(RobotGuideDialogue.contextualTips['first_prestige']);
     }
+    // At higher trust, provide room-specific hints
+    if (trustTier >= 3 && _lastRoomId.isNotEmpty) {
+      final roomHints = RobotGuideDialogue.roomSpecificLines[_lastRoomId];
+      if (roomHints != null) {
+        final hint = _firstUnshownWithTrust(roomHints, trustTier);
+        if (hint != null) return hint;
+      }
+    }
     return null;
   }
 
@@ -159,6 +249,19 @@ class RobotGuideService {
     if (messages == null) return null;
     for (final msg in messages) {
       if (!_shownMessageIds.contains(msg.id)) return msg;
+    }
+    return null;
+  }
+
+  RobotGuideMessage? _firstUnshownWithTrust(
+    List<RobotGuideMessage> messages,
+    int trustTier,
+  ) {
+    for (final msg in messages) {
+      if (!_shownMessageIds.contains(msg.id) &&
+          trustTier >= msg.minTrustTier) {
+        return msg;
+      }
     }
     return null;
   }

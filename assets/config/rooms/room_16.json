@@ -1,0 +1,405 @@
+{
+  "id": "room_16",
+  "name": "Orbital Control Habitat",
+  "subtitle": "Above the world",
+  "order": 16,
+  "introText": "Welcome to Orbital Control Habitat. Above the world. This is where your journey continues.",
+  "completionText": "You have mastered Orbital Control Habitat. The Relay Charges you've gathered here will echo through every room that follows.",
+  "guideTone": "calm, vast",
+  "guideIntroLine": "We left the ground behind. From up here, everything looks different.",
+  "currency": "Relay Charges",
+  "mechanicEmphasis": "automation",
+  "themeColors": {
+    "primary": "#1A237E",
+    "accent": "#42A5F5",
+    "background": "#040410"
+  },
+  "transformationStages": [
+    {
+      "id": "room_16_stage_1",
+      "name": "Orbital Control Habitat \u2014 Bare Bones",
+      "description": "The room in its raw state. Orbital Control Habitat evolves as you progress.",
+      "requiredUpgrades": 80,
+      "environmentChanges": [
+        "cracked_walls",
+        "dim_lighting"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_16_stage_2",
+      "name": "Orbital Control Habitat \u2014 First Light",
+      "description": "Basic improvements visible. Orbital Control Habitat evolves as you progress.",
+      "requiredUpgrades": 240,
+      "environmentChanges": [
+        "patched_walls",
+        "working_lights",
+        "clean_floor"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_16_stage_3",
+      "name": "Orbital Control Habitat \u2014 Functional",
+      "description": "A proper working space. Orbital Control Habitat evolves as you progress.",
+      "requiredUpgrades": 480,
+      "environmentChanges": [
+        "new_desk",
+        "organized_cables",
+        "monitors_online"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_16_stage_4",
+      "name": "Orbital Control Habitat \u2014 Advanced",
+      "description": "High-tech transformation. Orbital Control Habitat evolves as you progress.",
+      "requiredUpgrades": 800,
+      "environmentChanges": [
+        "holographic_displays",
+        "ambient_particles",
+        "smart_surfaces"
+      ],
+      "unlocked": false
+    },
+    {
+      "id": "room_16_stage_5",
+      "name": "Orbital Control Habitat \u2014 Mastered",
+      "description": "The room at its peak. Orbital Control Habitat evolves as you progress.",
+      "requiredUpgrades": 1280,
+      "environmentChanges": [
+        "full_transformation",
+        "hidden_compartments_revealed",
+        "perfect_atmosphere"
+      ],
+      "unlocked": false
+    }
+  ],
+  "ambientAudioLayers": [
+    {
+      "id": "room_16_ambient",
+      "name": "orbital ambience",
+      "assetPath": "assets/audio/rooms/room_16_ambient.ogg",
+      "volume": 0.6,
+      "triggerCondition": "always",
+      "looping": true
+    },
+    {
+      "id": "room_16_active",
+      "name": "orbital activity",
+      "assetPath": "assets/audio/rooms/room_16_active.ogg",
+      "volume": 0.4,
+      "triggerCondition": "upgrades_purchased > 10",
+      "looping": true
+    }
+  ],
+  "secrets": [
+    {
+      "id": "room_16_secret_1",
+      "title": "Hidden Orbital Cache",
+      "description": "A secret stash hidden in the Orbital Control Habitat.",
+      "hint": "Look behind the orbital equipment.",
+      "clueSource": "environment",
+      "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    }
+  ],
+  "midSceneTwist": {
+    "id": "room_16_twist",
+    "title": "Orbital Control Habitat Shift",
+    "description": "Something changes in the Orbital Control Habitat. The rules aren't what they were.",
+    "triggerCondition": "upgrades_purchased >= 400",
+    "effectDescription": "New mechanics unlock in Orbital Control Habitat. Event rates increase.",
+    "activated": false
+  },
+  "eventPoolId": "pool_room_16",
+  "upgradeCategories": [
+    "tap",
+    "automation",
+    "room",
+    "ai",
+    "special"
+  ],
+  "loreEntries": [
+    "room_16_lore_1",
+    "room_16_lore_2",
+    "room_16_lore_3"
+  ],
+  "unlockRequirement": "room_15",
+  "completed": false,
+  "currentTransformationStage": 0,
+  "eventPool": {
+    "roomId": "room_16",
+    "events": [
+      {
+        "id": "room_16_evt_1",
+        "roomId": "room_16",
+        "title": "Orbit Correction",
+        "description": "Orbit Correction \u2014 a common instant event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_16_evt_2",
+        "roomId": "room_16",
+        "title": "Solar Flare",
+        "description": "Solar Flare \u2014 a common shortChoice event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_16_evt_2_c1",
+            "text": "Act carefully",
+            "description": "Safe approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 9.0,
+                "description": "Gain Relay Charges"
+              }
+            ],
+            "risk": 0.1
+          },
+          {
+            "id": "room_16_evt_2_c2",
+            "text": "Take a risk",
+            "description": "Risky approach",
+            "rewards": [
+              {
+                "type": "temporaryBuff",
+                "value": 18.0,
+                "description": "Gain more Relay Charges"
+              }
+            ],
+            "risk": 0.4
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_16_evt_3",
+        "roomId": "room_16",
+        "title": "Debris Field",
+        "description": "Debris Field \u2014 a common timedChain event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "timedChain",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.30000000000000004,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 6,
+        "weight": 8
+      },
+      {
+        "id": "room_16_evt_4",
+        "roomId": "room_16",
+        "title": "Communication Window",
+        "description": "Communication Window \u2014 a common utility event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 14.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.4,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 9,
+        "weight": 7
+      },
+      {
+        "id": "room_16_evt_5",
+        "roomId": "room_16",
+        "title": "Gravity Anomaly",
+        "description": "Gravity Anomaly \u2014 a rare secretTrigger event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 16.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.5,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 12,
+        "weight": 6
+      },
+      {
+        "id": "room_16_evt_6",
+        "roomId": "room_16",
+        "title": "Station Rotation",
+        "description": "Station Rotation \u2014 a rare legendaryAnomaly event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 18.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.6000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 2
+      },
+      {
+        "id": "room_16_evt_7",
+        "roomId": "room_16",
+        "title": "Supply Drop",
+        "description": "Supply Drop \u2014 a epic warningRisk event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "warningRisk",
+        "rarity": "epic",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.7000000000000001,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 18,
+        "weight": 2
+      },
+      {
+        "id": "room_16_evt_8",
+        "roomId": "room_16",
+        "title": "EVA Required",
+        "description": "EVA Required \u2014 a corrupted miniBoss event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "miniBoss",
+        "rarity": "corrupted",
+        "durationSeconds": 22.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.8,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 21,
+        "weight": 2
+      },
+      {
+        "id": "room_16_evt_9",
+        "roomId": "room_16",
+        "title": "Orbital Decay",
+        "description": "Orbital Decay \u2014 a legendary guideAdvisory event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "guideAdvisory",
+        "rarity": "legendary",
+        "durationSeconds": 24.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.9,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 24,
+        "weight": 2
+      },
+      {
+        "id": "room_16_evt_10",
+        "roomId": "room_16",
+        "title": "Earth View",
+        "description": "Earth View \u2014 a common hiddenGlitch event in Orbital Control Habitat.",
+        "flavorText": "The orbital environment reacts to your presence.",
+        "category": "hiddenGlitch",
+        "rarity": "common",
+        "durationSeconds": 26.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 37.0,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 27,
+        "weight": 2
+      }
+    ],
+    "chainBonusMultiplier": 1.8,
+    "pityThreshold": 24,
+    "spawnRateMultiplier": 1.32,
+    "midTwistEvents": [
+      {
+        "id": "room_16_twist_evt_1",
+        "roomId": "room_16",
+        "title": "Orbital Control Habitat Awakening",
+        "description": "The twist in Orbital Control Habitat unlocks new possibilities.",
+        "flavorText": "Everything shifts. New rules apply.",
+        "category": "legendaryAnomaly",
+        "rarity": "epic",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "environmentTrigger",
+            "value": 1.0,
+            "description": "Room evolves"
+          }
+        ],
+        "chainBonus": 1.0,
+        "requiredTwistActive": true,
+        "requiredUpgradeCount": 0,
+        "weight": 5
+      }
+    ]
+  }
+}
