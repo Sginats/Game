@@ -22,6 +22,16 @@ enum UpgradeCategory {
   room,
   ai,
   special,
+  companion,
+  event,
+  sideActivity,
+  route,
+  guide,
+  anomaly,
+  quality,
+  transformation,
+  secret,
+  relic,
 }
 
 /// Definition of an upgrade loaded from configuration.

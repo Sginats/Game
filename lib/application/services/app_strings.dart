@@ -453,6 +453,16 @@ class AppStrings {
         UpgradeCategory.room => isRussian ? 'комната' : 'room',
         UpgradeCategory.ai => isRussian ? 'ИИ' : 'ai',
         UpgradeCategory.special => isRussian ? 'особое' : 'special',
+        UpgradeCategory.companion => isRussian ? 'спутник' : 'companion',
+        UpgradeCategory.event => isRussian ? 'событие' : 'event',
+        UpgradeCategory.sideActivity => isRussian ? 'активность' : 'activity',
+        UpgradeCategory.route => isRussian ? 'маршрут' : 'route',
+        UpgradeCategory.guide => isRussian ? 'гид' : 'guide',
+        UpgradeCategory.anomaly => isRussian ? 'аномалия' : 'anomaly',
+        UpgradeCategory.quality => isRussian ? 'качество' : 'quality',
+        UpgradeCategory.transformation => isRussian ? 'трансформация' : 'transformation',
+        UpgradeCategory.secret => isRussian ? 'секрет' : 'secret',
+        UpgradeCategory.relic => isRussian ? 'реликт' : 'relic',
       };
   String get roomInteraction => isRussian ? 'Комнатные действия' : 'Room actions';
   String get aiHints => isRussian ? 'Подсказки ИИ' : 'AI hints';
@@ -862,6 +872,16 @@ class AppStrings {
       UpgradeCategory.room => 'Комнатный модуль',
       UpgradeCategory.ai => 'ИИ-модуль',
       UpgradeCategory.special => 'Особый модуль',
+      UpgradeCategory.companion => 'Модуль спутника',
+      UpgradeCategory.event => 'Модуль событий',
+      UpgradeCategory.sideActivity => 'Модуль активности',
+      UpgradeCategory.route => 'Модуль маршрута',
+      UpgradeCategory.guide => 'Модуль гида',
+      UpgradeCategory.anomaly => 'Модуль аномалий',
+      UpgradeCategory.quality => 'Модуль качества',
+      UpgradeCategory.transformation => 'Модуль трансформации',
+      UpgradeCategory.secret => 'Секретный модуль',
+      UpgradeCategory.relic => 'Модуль реликта',
     };
     return '$category $tier';
   }
@@ -879,6 +899,7 @@ class AppStrings {
         'Открывает более умные реакции ИИ и повышает эффективность решений.',
       UpgradeCategory.special =>
         'Редкий модуль с более сильным, но узким эффектом.',
+      _ => upgrade.description,
     };
   }
 

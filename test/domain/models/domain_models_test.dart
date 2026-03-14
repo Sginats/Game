@@ -98,6 +98,6 @@ void main() {
       'name': 'Mercy',
       'description': 'The AI chooses compassion.',
     }).name, 'Mercy');
-    expect(UpgradeCategory.values.length, 5);
+    expect(UpgradeCategory.values.length, 15);
   });
 }

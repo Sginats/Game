@@ -468,6 +468,16 @@ class TechTreeBuilder {
       UpgradeCategory.room => '⬢',
       UpgradeCategory.ai => '◌',
       UpgradeCategory.special => '★',
+      UpgradeCategory.companion => '🤖',
+      UpgradeCategory.event => '⚡',
+      UpgradeCategory.sideActivity => '🎯',
+      UpgradeCategory.route => '🧭',
+      UpgradeCategory.guide => '💡',
+      UpgradeCategory.anomaly => '⊘',
+      UpgradeCategory.quality => '✧',
+      UpgradeCategory.transformation => '◈',
+      UpgradeCategory.secret => '🔮',
+      UpgradeCategory.relic => '🏺',
     };
   }
 
@@ -526,6 +536,7 @@ class TechTreeBuilder {
       UpgradeCategory.room => 'room',
       UpgradeCategory.ai => 'ai',
       UpgradeCategory.special => 'special',
+      _ => upgrade.category.name,
     };
   }
 
