@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_14_stage_1",
-      "name": "Data Cathedral — Bare Bones",
+      "name": "Data Cathedral \u2014 Bare Bones",
       "description": "The room in its raw state. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 70,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_14_stage_2",
-      "name": "Data Cathedral — First Light",
+      "name": "Data Cathedral \u2014 First Light",
       "description": "Basic improvements visible. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 210,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_14_stage_3",
-      "name": "Data Cathedral — Functional",
+      "name": "Data Cathedral \u2014 Functional",
       "description": "A proper working space. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 420,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_14_stage_4",
-      "name": "Data Cathedral — Advanced",
+      "name": "Data Cathedral \u2014 Advanced",
       "description": "High-tech transformation. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 700,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_14_stage_5",
-      "name": "Data Cathedral — Mastered",
+      "name": "Data Cathedral \u2014 Mastered",
       "description": "The room at its peak. Data Cathedral evolves as you progress.",
       "requiredUpgrades": 1120,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_14_evt_1",
         "roomId": "room_14",
         "title": "Data Prayer",
-        "description": "Data Prayer — a common instant event in Data Cathedral.",
+        "description": "Data Prayer \u2014 a common instant event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_14_evt_2",
         "roomId": "room_14",
         "title": "Archive Echo",
-        "description": "Archive Echo — a common shortChoice event in Data Cathedral.",
+        "description": "Archive Echo \u2014 a common shortChoice event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_14_evt_3",
         "roomId": "room_14",
         "title": "Sacred Pattern",
-        "description": "Sacred Pattern — a common timedChain event in Data Cathedral.",
+        "description": "Sacred Pattern \u2014 a common timedChain event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_14_evt_4",
         "roomId": "room_14",
         "title": "Pilgrim Process",
-        "description": "Pilgrim Process — a common utility event in Data Cathedral.",
+        "description": "Pilgrim Process \u2014 a common utility event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -263,7 +263,7 @@
         "id": "room_14_evt_5",
         "roomId": "room_14",
         "title": "Corruption Purge",
-        "description": "Corruption Purge — a rare secretTrigger event in Data Cathedral.",
+        "description": "Corruption Purge \u2014 a rare secretTrigger event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_14_evt_6",
         "roomId": "room_14",
         "title": "Hymn Frequency",
-        "description": "Hymn Frequency — a rare legendaryAnomaly event in Data Cathedral.",
+        "description": "Hymn Frequency \u2014 a rare legendaryAnomaly event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_14_evt_7",
         "roomId": "room_14",
         "title": "Relic Discovery",
-        "description": "Relic Discovery — a epic warningRisk event in Data Cathedral.",
+        "description": "Relic Discovery \u2014 a epic warningRisk event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -344,7 +344,7 @@
         "id": "room_14_evt_8",
         "roomId": "room_14",
         "title": "Faith Test",
-        "description": "Faith Test — a corrupted miniBoss event in Data Cathedral.",
+        "description": "Faith Test \u2014 a corrupted miniBoss event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -376,7 +376,7 @@
         "id": "room_14_evt_9",
         "roomId": "room_14",
         "title": "Divine Overflow",
-        "description": "Divine Overflow — a legendary guideAdvisory event in Data Cathedral.",
+        "description": "Divine Overflow \u2014 a legendary guideAdvisory event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -398,7 +398,7 @@
         "id": "room_14_evt_10",
         "roomId": "room_14",
         "title": "Transcendence Pulse",
-        "description": "Transcendence Pulse — a common hiddenGlitch event in Data Cathedral.",
+        "description": "Transcendence Pulse \u2014 a common hiddenGlitch event in Data Cathedral.",
         "flavorText": "The cathedral environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -454,5 +454,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_routing_14",
+  "companionAffinityIds": [
+    "comp_data_construct",
+    "comp_cathedral_ai"
+  ],
+  "routeBonus": "research"
 }

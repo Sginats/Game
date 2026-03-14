@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_18_stage_1",
-      "name": "Chrono Engine Room — Bare Bones",
+      "name": "Chrono Engine Room \u2014 Bare Bones",
       "description": "The room in its raw state. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 90,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_18_stage_2",
-      "name": "Chrono Engine Room — First Light",
+      "name": "Chrono Engine Room \u2014 First Light",
       "description": "Basic improvements visible. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 270,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_18_stage_3",
-      "name": "Chrono Engine Room — Functional",
+      "name": "Chrono Engine Room \u2014 Functional",
       "description": "A proper working space. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 540,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_18_stage_4",
-      "name": "Chrono Engine Room — Advanced",
+      "name": "Chrono Engine Room \u2014 Advanced",
       "description": "High-tech transformation. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 900,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_18_stage_5",
-      "name": "Chrono Engine Room — Mastered",
+      "name": "Chrono Engine Room \u2014 Mastered",
       "description": "The room at its peak. Chrono Engine Room evolves as you progress.",
       "requiredUpgrades": 1440,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_18_evt_1",
         "roomId": "room_18",
         "title": "Time Skip",
-        "description": "Time Skip — a common instant event in Chrono Engine Room.",
+        "description": "Time Skip \u2014 a common instant event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_18_evt_2",
         "roomId": "room_18",
         "title": "Paradox Alert",
-        "description": "Paradox Alert — a common shortChoice event in Chrono Engine Room.",
+        "description": "Paradox Alert \u2014 a common shortChoice event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_18_evt_3",
         "roomId": "room_18",
         "title": "Future Echo",
-        "description": "Future Echo — a common timedChain event in Chrono Engine Room.",
+        "description": "Future Echo \u2014 a common timedChain event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_18_evt_4",
         "roomId": "room_18",
         "title": "Past Leak",
-        "description": "Past Leak — a common utility event in Chrono Engine Room.",
+        "description": "Past Leak \u2014 a common utility event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -263,7 +263,7 @@
         "id": "room_18_evt_5",
         "roomId": "room_18",
         "title": "Temporal Storm",
-        "description": "Temporal Storm — a rare secretTrigger event in Chrono Engine Room.",
+        "description": "Temporal Storm \u2014 a rare secretTrigger event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_18_evt_6",
         "roomId": "room_18",
         "title": "Clock Malfunction",
-        "description": "Clock Malfunction — a rare legendaryAnomaly event in Chrono Engine Room.",
+        "description": "Clock Malfunction \u2014 a rare legendaryAnomaly event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_18_evt_7",
         "roomId": "room_18",
         "title": "Age Regression",
-        "description": "Age Regression — a epic warningRisk event in Chrono Engine Room.",
+        "description": "Age Regression \u2014 a epic warningRisk event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -344,7 +344,7 @@
         "id": "room_18_evt_8",
         "roomId": "room_18",
         "title": "Prophecy Fragment",
-        "description": "Prophecy Fragment — a corrupted miniBoss event in Chrono Engine Room.",
+        "description": "Prophecy Fragment \u2014 a corrupted miniBoss event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -376,7 +376,7 @@
         "id": "room_18_evt_9",
         "roomId": "room_18",
         "title": "Loop Detection",
-        "description": "Loop Detection — a legendary guideAdvisory event in Chrono Engine Room.",
+        "description": "Loop Detection \u2014 a legendary guideAdvisory event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -398,7 +398,7 @@
         "id": "room_18_evt_10",
         "roomId": "room_18",
         "title": "Chrono Stabilize",
-        "description": "Chrono Stabilize — a common hiddenGlitch event in Chrono Engine Room.",
+        "description": "Chrono Stabilize \u2014 a common hiddenGlitch event in Chrono Engine Room.",
         "flavorText": "The chrono environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -454,5 +454,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_temporal_18",
+  "companionAffinityIds": [
+    "comp_chrono_daemon",
+    "comp_engine_bot"
+  ],
+  "routeBonus": "transcendence"
 }

@@ -6,7 +6,7 @@
   "introText": "Welcome to Creator Room. Build an audience. This is where your journey continues.",
   "completionText": "You have mastered Creator Room. The Likes you've gathered here will echo through every room that follows.",
   "guideTone": "enthusiastic, creative",
-  "guideIntroLine": "Lights, camera… well, a webcam taped to a monitor. Let's create!",
+  "guideIntroLine": "Lights, camera\u2026 well, a webcam taped to a monitor. Let's create!",
   "currency": "Likes",
   "mechanicEmphasis": "combo",
   "themeColors": {
@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_03_stage_1",
-      "name": "Creator Room — Bare Bones",
+      "name": "Creator Room \u2014 Bare Bones",
       "description": "The room in its raw state. Creator Room evolves as you progress.",
       "requiredUpgrades": 15,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_03_stage_2",
-      "name": "Creator Room — First Light",
+      "name": "Creator Room \u2014 First Light",
       "description": "Basic improvements visible. Creator Room evolves as you progress.",
       "requiredUpgrades": 45,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_03_stage_3",
-      "name": "Creator Room — Functional",
+      "name": "Creator Room \u2014 Functional",
       "description": "A proper working space. Creator Room evolves as you progress.",
       "requiredUpgrades": 90,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_03_stage_4",
-      "name": "Creator Room — Advanced",
+      "name": "Creator Room \u2014 Advanced",
       "description": "High-tech transformation. Creator Room evolves as you progress.",
       "requiredUpgrades": 150,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_03_stage_5",
-      "name": "Creator Room — Mastered",
+      "name": "Creator Room \u2014 Mastered",
       "description": "The room at its peak. Creator Room evolves as you progress.",
       "requiredUpgrades": 240,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_03_evt_1",
         "roomId": "room_03",
         "title": "Viral Moment",
-        "description": "Viral Moment — a common instant event in Creator Room.",
+        "description": "Viral Moment \u2014 a common instant event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -171,7 +171,7 @@
         "id": "room_03_evt_2",
         "roomId": "room_03",
         "title": "Creative Block",
-        "description": "Creative Block — a common shortChoice event in Creator Room.",
+        "description": "Creative Block \u2014 a common shortChoice event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -219,7 +219,7 @@
         "id": "room_03_evt_3",
         "roomId": "room_03",
         "title": "Inspiration Strike",
-        "description": "Inspiration Strike — a common timedChain event in Creator Room.",
+        "description": "Inspiration Strike \u2014 a common timedChain event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -246,7 +246,7 @@
         "id": "room_03_evt_4",
         "roomId": "room_03",
         "title": "Audience Surge",
-        "description": "Audience Surge — a common utility event in Creator Room.",
+        "description": "Audience Surge \u2014 a common utility event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -268,7 +268,7 @@
         "id": "room_03_evt_5",
         "roomId": "room_03",
         "title": "Collab Offer",
-        "description": "Collab Offer — a rare secretTrigger event in Creator Room.",
+        "description": "Collab Offer \u2014 a rare secretTrigger event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -290,7 +290,7 @@
         "id": "room_03_evt_6",
         "roomId": "room_03",
         "title": "Content Leak",
-        "description": "Content Leak — a rare legendaryAnomaly event in Creator Room.",
+        "description": "Content Leak \u2014 a rare legendaryAnomaly event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_03_evt_7",
         "roomId": "room_03",
         "title": "Algorithm Shift",
-        "description": "Algorithm Shift — a epic warningRisk event in Creator Room.",
+        "description": "Algorithm Shift \u2014 a epic warningRisk event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_03_evt_8",
         "roomId": "room_03",
         "title": "Fan Art Surprise",
-        "description": "Fan Art Surprise — a corrupted miniBoss event in Creator Room.",
+        "description": "Fan Art Surprise \u2014 a corrupted miniBoss event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -371,7 +371,7 @@
         "id": "room_03_evt_9",
         "roomId": "room_03",
         "title": "Burnout Warning",
-        "description": "Burnout Warning — a legendary guideAdvisory event in Creator Room.",
+        "description": "Burnout Warning \u2014 a legendary guideAdvisory event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -387,7 +387,7 @@
         "id": "room_03_evt_10",
         "roomId": "room_03",
         "title": "Masterpiece Draft",
-        "description": "Masterpiece Draft — a common hiddenGlitch event in Creator Room.",
+        "description": "Masterpiece Draft \u2014 a common hiddenGlitch event in Creator Room.",
         "flavorText": "The creative environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -443,5 +443,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_craft_03",
+  "companionAffinityIds": [
+    "comp_creator_ai",
+    "comp_blueprint_drone"
+  ],
+  "routeBonus": "research"
 }

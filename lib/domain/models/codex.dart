@@ -10,6 +10,8 @@ enum CodexEntryType {
   transformationArchive,
   glossary,
   upgradeFamily,
+  companionArchive,
+  sideActivityArchive,
 }
 
 /// A single entry in the player's codex/collection.

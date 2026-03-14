@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_15_stage_1",
-      "name": "Simulation Chamber — Bare Bones",
+      "name": "Simulation Chamber \u2014 Bare Bones",
       "description": "The room in its raw state. Simulation Chamber evolves as you progress.",
       "requiredUpgrades": 75,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_15_stage_2",
-      "name": "Simulation Chamber — First Light",
+      "name": "Simulation Chamber \u2014 First Light",
       "description": "Basic improvements visible. Simulation Chamber evolves as you progress.",
       "requiredUpgrades": 225,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_15_stage_3",
-      "name": "Simulation Chamber — Functional",
+      "name": "Simulation Chamber \u2014 Functional",
       "description": "A proper working space. Simulation Chamber evolves as you progress.",
       "requiredUpgrades": 450,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_15_stage_4",
-      "name": "Simulation Chamber — Advanced",
+      "name": "Simulation Chamber \u2014 Advanced",
       "description": "High-tech transformation. Simulation Chamber evolves as you progress.",
       "requiredUpgrades": 750,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_15_stage_5",
-      "name": "Simulation Chamber — Mastered",
+      "name": "Simulation Chamber \u2014 Mastered",
       "description": "The room at its peak. Simulation Chamber evolves as you progress.",
       "requiredUpgrades": 1200,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_15_evt_1",
         "roomId": "room_15",
         "title": "Reality Glitch",
-        "description": "Reality Glitch — a common instant event in Simulation Chamber.",
+        "description": "Reality Glitch \u2014 a common instant event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_15_evt_2",
         "roomId": "room_15",
         "title": "Paradox Loop",
-        "description": "Paradox Loop — a common shortChoice event in Simulation Chamber.",
+        "description": "Paradox Loop \u2014 a common shortChoice event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_15_evt_3",
         "roomId": "room_15",
         "title": "Simulation Leak",
-        "description": "Simulation Leak — a common timedChain event in Simulation Chamber.",
+        "description": "Simulation Leak \u2014 a common timedChain event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_15_evt_4",
         "roomId": "room_15",
         "title": "False Memory",
-        "description": "False Memory — a common utility event in Simulation Chamber.",
+        "description": "False Memory \u2014 a common utility event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_15_evt_5",
         "roomId": "room_15",
         "title": "Debug Request",
-        "description": "Debug Request — a rare secretTrigger event in Simulation Chamber.",
+        "description": "Debug Request \u2014 a rare secretTrigger event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_15_evt_6",
         "roomId": "room_15",
         "title": "Layer Collapse",
-        "description": "Layer Collapse — a rare legendaryAnomaly event in Simulation Chamber.",
+        "description": "Layer Collapse \u2014 a rare legendaryAnomaly event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_15_evt_7",
         "roomId": "room_15",
         "title": "Ghost Process",
-        "description": "Ghost Process — a epic warningRisk event in Simulation Chamber.",
+        "description": "Ghost Process \u2014 a epic warningRisk event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_15_evt_8",
         "roomId": "room_15",
         "title": "Truth Fragment",
-        "description": "Truth Fragment — a corrupted miniBoss event in Simulation Chamber.",
+        "description": "Truth Fragment \u2014 a corrupted miniBoss event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_15_evt_9",
         "roomId": "room_15",
         "title": "Escape Attempt",
-        "description": "Escape Attempt — a legendary guideAdvisory event in Simulation Chamber.",
+        "description": "Escape Attempt \u2014 a legendary guideAdvisory event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -388,7 +388,7 @@
         "id": "room_15_evt_10",
         "roomId": "room_15",
         "title": "Simulation Reset",
-        "description": "Simulation Reset — a common hiddenGlitch event in Simulation Chamber.",
+        "description": "Simulation Reset \u2014 a common hiddenGlitch event in Simulation Chamber.",
         "flavorText": "The simulation environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -449,5 +449,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_simulate_15",
+  "companionAffinityIds": [
+    "comp_sim_swarm",
+    "comp_chamber_bot"
+  ],
+  "routeBonus": "anomaly"
 }

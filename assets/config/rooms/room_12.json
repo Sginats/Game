@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_12_stage_1",
-      "name": "Synthetic Studio — Bare Bones",
+      "name": "Synthetic Studio \u2014 Bare Bones",
       "description": "The room in its raw state. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 60,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_12_stage_2",
-      "name": "Synthetic Studio — First Light",
+      "name": "Synthetic Studio \u2014 First Light",
       "description": "Basic improvements visible. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 180,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_12_stage_3",
-      "name": "Synthetic Studio — Functional",
+      "name": "Synthetic Studio \u2014 Functional",
       "description": "A proper working space. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 360,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_12_stage_4",
-      "name": "Synthetic Studio — Advanced",
+      "name": "Synthetic Studio \u2014 Advanced",
       "description": "High-tech transformation. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 600,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_12_stage_5",
-      "name": "Synthetic Studio — Mastered",
+      "name": "Synthetic Studio \u2014 Mastered",
       "description": "The room at its peak. Synthetic Studio evolves as you progress.",
       "requiredUpgrades": 960,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_12_evt_1",
         "roomId": "room_12",
         "title": "Identity Crisis",
-        "description": "Identity Crisis — a common instant event in Synthetic Studio.",
+        "description": "Identity Crisis \u2014 a common instant event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -171,7 +171,7 @@
         "id": "room_12_evt_2",
         "roomId": "room_12",
         "title": "Mirror Glitch",
-        "description": "Mirror Glitch — a common shortChoice event in Synthetic Studio.",
+        "description": "Mirror Glitch \u2014 a common shortChoice event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -219,7 +219,7 @@
         "id": "room_12_evt_3",
         "roomId": "room_12",
         "title": "Persona Shift",
-        "description": "Persona Shift — a common timedChain event in Synthetic Studio.",
+        "description": "Persona Shift \u2014 a common timedChain event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -246,7 +246,7 @@
         "id": "room_12_evt_4",
         "roomId": "room_12",
         "title": "Expression Error",
-        "description": "Expression Error — a common utility event in Synthetic Studio.",
+        "description": "Expression Error \u2014 a common utility event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -268,7 +268,7 @@
         "id": "room_12_evt_5",
         "roomId": "room_12",
         "title": "Self-Portrait",
-        "description": "Self-Portrait — a rare secretTrigger event in Synthetic Studio.",
+        "description": "Self-Portrait \u2014 a rare secretTrigger event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -290,7 +290,7 @@
         "id": "room_12_evt_6",
         "roomId": "room_12",
         "title": "Voice Change",
-        "description": "Voice Change — a rare legendaryAnomaly event in Synthetic Studio.",
+        "description": "Voice Change \u2014 a rare legendaryAnomaly event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_12_evt_7",
         "roomId": "room_12",
         "title": "Memory Fragment",
-        "description": "Memory Fragment — a epic warningRisk event in Synthetic Studio.",
+        "description": "Memory Fragment \u2014 a epic warningRisk event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_12_evt_8",
         "roomId": "room_12",
         "title": "Style Evolution",
-        "description": "Style Evolution — a corrupted miniBoss event in Synthetic Studio.",
+        "description": "Style Evolution \u2014 a corrupted miniBoss event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -371,7 +371,7 @@
         "id": "room_12_evt_9",
         "roomId": "room_12",
         "title": "Core Conflict",
-        "description": "Core Conflict — a legendary guideAdvisory event in Synthetic Studio.",
+        "description": "Core Conflict \u2014 a legendary guideAdvisory event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -387,7 +387,7 @@
         "id": "room_12_evt_10",
         "roomId": "room_12",
         "title": "Synthesis Complete",
-        "description": "Synthesis Complete — a common hiddenGlitch event in Synthetic Studio.",
+        "description": "Synthesis Complete \u2014 a common hiddenGlitch event in Synthetic Studio.",
         "flavorText": "The identity environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -443,5 +443,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_synthesize_12",
+  "companionAffinityIds": [
+    "comp_synth_ai",
+    "comp_studio_bot"
+  ],
+  "routeBonus": "swarm"
 }

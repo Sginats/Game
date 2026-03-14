@@ -1,5 +1,6 @@
 export 'achievement.dart';
 export 'codex.dart';
+export 'companion.dart';
 export 'era.dart';
 export 'game_state.dart';
 export 'gameplay_extensions.dart';
@@ -8,5 +9,7 @@ export 'meta_progression.dart';
 export 'progression_content.dart';
 export 'robot_guide.dart';
 export 'room_scene.dart';
+export 'route_faction.dart';
 export 'scene_event.dart';
+export 'side_activity.dart';
 export 'upgrade.dart';

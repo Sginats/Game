@@ -1,6 +1,7 @@
 export 'controllers/game_controller.dart';
 export 'services/app_settings_service.dart';
 export 'services/app_strings.dart';
+export 'services/companion_service.dart';
 export 'services/config_service.dart';
 export 'services/era_content_manager.dart';
 export 'services/game_audio_service.dart';
@@ -10,3 +11,5 @@ export 'services/leaderboard_session_service.dart';
 export 'services/leaderboard_transport.dart';
 export 'services/robot_guide_service.dart';
 export 'services/room_content_generator.dart';
+export 'services/route_service.dart';
+export 'services/side_activity_service.dart';

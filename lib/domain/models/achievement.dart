@@ -16,6 +16,18 @@ enum AchievementType {
   discoveredSecrets,
   riskyChoicesTaken,
   totalCriticalClicks,
+  roomsCompleted,
+  companionsOwned,
+  companionEvolutions,
+  sideActivitiesCompleted,
+  questsCompleted,
+  codexCompletion,
+  routeTiersReached,
+  bestEventChain,
+  roomMasteryRank,
+  totalTokensGenerated,
+  collectionBonusesFulfilled,
+  relicsAcquired,
 }
 
 /// Definition of an achievement loaded from configuration.

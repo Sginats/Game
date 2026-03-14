@@ -1,9 +1,12 @@
 import '../../core/math/game_number.dart';
 import 'codex.dart';
+import 'companion.dart';
 import 'gameplay_extensions.dart';
 import 'generator.dart';
 import 'meta_progression.dart';
 import 'room_scene.dart';
+import 'route_faction.dart';
+import 'side_activity.dart';
 import 'upgrade.dart';
 
 /// Complete game state — immutable, updated via [copyWith].
@@ -66,6 +69,12 @@ class GameState {
   final CodexState codex;
   final String currentRoomId;
   final Map<String, RoomSceneState> roomStates;
+  final CompanionSystemState companionSystem;
+  final RouteState routeState;
+  final SideActivityState sideActivityState;
+  final List<QuestState> activeQuests;
+  final int roomMasteryRank;
+  final Map<String, int> sceneMasteryRanks;
 
   GameState({
     required this.coins,
@@ -124,6 +133,12 @@ class GameState {
     this.codex = const CodexState(),
     this.currentRoomId = 'room_01',
     this.roomStates = const {},
+    this.companionSystem = const CompanionSystemState(),
+    this.routeState = const RouteState(),
+    this.sideActivityState = const SideActivityState(),
+    this.activeQuests = const [],
+    this.roomMasteryRank = 0,
+    this.sceneMasteryRanks = const {},
   }) : prestigeMultiplier =
             prestigeMultiplier ?? GameNumber.fromDouble(1);
 
@@ -223,6 +238,12 @@ class GameState {
     CodexState? codex,
     String? currentRoomId,
     Map<String, RoomSceneState>? roomStates,
+    CompanionSystemState? companionSystem,
+    RouteState? routeState,
+    SideActivityState? sideActivityState,
+    List<QuestState>? activeQuests,
+    int? roomMasteryRank,
+    Map<String, int>? sceneMasteryRanks,
   }) {
     return GameState(
       coins: coins ?? this.coins,
@@ -285,6 +306,12 @@ class GameState {
       codex: codex ?? this.codex,
       currentRoomId: currentRoomId ?? this.currentRoomId,
       roomStates: roomStates ?? this.roomStates,
+      companionSystem: companionSystem ?? this.companionSystem,
+      routeState: routeState ?? this.routeState,
+      sideActivityState: sideActivityState ?? this.sideActivityState,
+      activeQuests: activeQuests ?? this.activeQuests,
+      roomMasteryRank: roomMasteryRank ?? this.roomMasteryRank,
+      sceneMasteryRanks: sceneMasteryRanks ?? this.sceneMasteryRanks,
     );
   }
 
@@ -345,6 +372,12 @@ class GameState {
         'codex': codex.toJson(),
         'currentRoomId': currentRoomId,
         'roomStates': roomStates.map((k, v) => MapEntry(k, v.toJson())),
+        'companionSystem': companionSystem.toJson(),
+        'routeState': routeState.toJson(),
+        'sideActivityState': sideActivityState.toJson(),
+        'activeQuests': activeQuests.map((e) => e.toJson()).toList(),
+        'roomMasteryRank': roomMasteryRank,
+        'sceneMasteryRanks': sceneMasteryRanks,
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -511,6 +544,27 @@ class GameState {
               (k, v) =>
                   MapEntry(k, RoomSceneState.fromJson(v as Map<String, dynamic>)),
             )
+          : const {},
+      companionSystem: json['companionSystem'] != null
+          ? CompanionSystemState.fromJson(
+              json['companionSystem'] as Map<String, dynamic>)
+          : const CompanionSystemState(),
+      routeState: json['routeState'] != null
+          ? RouteState.fromJson(json['routeState'] as Map<String, dynamic>)
+          : const RouteState(),
+      sideActivityState: json['sideActivityState'] != null
+          ? SideActivityState.fromJson(
+              json['sideActivityState'] as Map<String, dynamic>)
+          : const SideActivityState(),
+      activeQuests: json['activeQuests'] != null
+          ? (json['activeQuests'] as List<dynamic>)
+              .map((e) => QuestState.fromJson(e as Map<String, dynamic>))
+              .toList()
+          : const [],
+      roomMasteryRank: json['roomMasteryRank'] as int? ?? 0,
+      sceneMasteryRanks: json['sceneMasteryRanks'] != null
+          ? (json['sceneMasteryRanks'] as Map<String, dynamic>)
+              .map((k, v) => MapEntry(k, v as int))
           : const {},
     );
   }

@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_09_stage_1",
-      "name": "Research Apartment — Bare Bones",
+      "name": "Research Apartment \u2014 Bare Bones",
       "description": "The room in its raw state. Research Apartment evolves as you progress.",
       "requiredUpgrades": 45,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_09_stage_2",
-      "name": "Research Apartment — First Light",
+      "name": "Research Apartment \u2014 First Light",
       "description": "Basic improvements visible. Research Apartment evolves as you progress.",
       "requiredUpgrades": 135,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_09_stage_3",
-      "name": "Research Apartment — Functional",
+      "name": "Research Apartment \u2014 Functional",
       "description": "A proper working space. Research Apartment evolves as you progress.",
       "requiredUpgrades": 270,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_09_stage_4",
-      "name": "Research Apartment — Advanced",
+      "name": "Research Apartment \u2014 Advanced",
       "description": "High-tech transformation. Research Apartment evolves as you progress.",
       "requiredUpgrades": 450,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_09_stage_5",
-      "name": "Research Apartment — Mastered",
+      "name": "Research Apartment \u2014 Mastered",
       "description": "The room at its peak. Research Apartment evolves as you progress.",
       "requiredUpgrades": 720,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_09_evt_1",
         "roomId": "room_09",
         "title": "Data Correlation",
-        "description": "Data Correlation — a common instant event in Research Apartment.",
+        "description": "Data Correlation \u2014 a common instant event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_09_evt_2",
         "roomId": "room_09",
         "title": "Theory Conflict",
-        "description": "Theory Conflict — a common shortChoice event in Research Apartment.",
+        "description": "Theory Conflict \u2014 a common shortChoice event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_09_evt_3",
         "roomId": "room_09",
         "title": "Peer Review",
-        "description": "Peer Review — a common timedChain event in Research Apartment.",
+        "description": "Peer Review \u2014 a common timedChain event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_09_evt_4",
         "roomId": "room_09",
         "title": "Publication Draft",
-        "description": "Publication Draft — a common utility event in Research Apartment.",
+        "description": "Publication Draft \u2014 a common utility event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_09_evt_5",
         "roomId": "room_09",
         "title": "Grant Application",
-        "description": "Grant Application — a rare secretTrigger event in Research Apartment.",
+        "description": "Grant Application \u2014 a rare secretTrigger event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_09_evt_6",
         "roomId": "room_09",
         "title": "Research Dead End",
-        "description": "Research Dead End — a rare legendaryAnomaly event in Research Apartment.",
+        "description": "Research Dead End \u2014 a rare legendaryAnomaly event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_09_evt_7",
         "roomId": "room_09",
         "title": "Breakthrough Paper",
-        "description": "Breakthrough Paper — a epic warningRisk event in Research Apartment.",
+        "description": "Breakthrough Paper \u2014 a epic warningRisk event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_09_evt_8",
         "roomId": "room_09",
         "title": "Lab Meeting",
-        "description": "Lab Meeting — a corrupted miniBoss event in Research Apartment.",
+        "description": "Lab Meeting \u2014 a corrupted miniBoss event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_09_evt_9",
         "roomId": "room_09",
         "title": "Hypothesis Shift",
-        "description": "Hypothesis Shift — a legendary guideAdvisory event in Research Apartment.",
+        "description": "Hypothesis Shift \u2014 a legendary guideAdvisory event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -388,7 +388,7 @@
         "id": "room_09_evt_10",
         "roomId": "room_09",
         "title": "Citation Needed",
-        "description": "Citation Needed — a common hiddenGlitch event in Research Apartment.",
+        "description": "Citation Needed \u2014 a common hiddenGlitch event in Research Apartment.",
         "flavorText": "The research environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -449,5 +449,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_puzzle_09",
+  "companionAffinityIds": [
+    "comp_research_daemon",
+    "comp_analysis_drone"
+  ],
+  "routeBonus": "research"
 }

@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_16_stage_1",
-      "name": "Orbital Control Habitat — Bare Bones",
+      "name": "Orbital Control Habitat \u2014 Bare Bones",
       "description": "The room in its raw state. Orbital Control Habitat evolves as you progress.",
       "requiredUpgrades": 80,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_16_stage_2",
-      "name": "Orbital Control Habitat — First Light",
+      "name": "Orbital Control Habitat \u2014 First Light",
       "description": "Basic improvements visible. Orbital Control Habitat evolves as you progress.",
       "requiredUpgrades": 240,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_16_stage_3",
-      "name": "Orbital Control Habitat — Functional",
+      "name": "Orbital Control Habitat \u2014 Functional",
       "description": "A proper working space. Orbital Control Habitat evolves as you progress.",
       "requiredUpgrades": 480,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_16_stage_4",
-      "name": "Orbital Control Habitat — Advanced",
+      "name": "Orbital Control Habitat \u2014 Advanced",
       "description": "High-tech transformation. Orbital Control Habitat evolves as you progress.",
       "requiredUpgrades": 800,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_16_stage_5",
-      "name": "Orbital Control Habitat — Mastered",
+      "name": "Orbital Control Habitat \u2014 Mastered",
       "description": "The room at its peak. Orbital Control Habitat evolves as you progress.",
       "requiredUpgrades": 1280,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_16_evt_1",
         "roomId": "room_16",
         "title": "Orbit Correction",
-        "description": "Orbit Correction — a common instant event in Orbital Control Habitat.",
+        "description": "Orbit Correction \u2014 a common instant event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_16_evt_2",
         "roomId": "room_16",
         "title": "Solar Flare",
-        "description": "Solar Flare — a common shortChoice event in Orbital Control Habitat.",
+        "description": "Solar Flare \u2014 a common shortChoice event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_16_evt_3",
         "roomId": "room_16",
         "title": "Debris Field",
-        "description": "Debris Field — a common timedChain event in Orbital Control Habitat.",
+        "description": "Debris Field \u2014 a common timedChain event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_16_evt_4",
         "roomId": "room_16",
         "title": "Communication Window",
-        "description": "Communication Window — a common utility event in Orbital Control Habitat.",
+        "description": "Communication Window \u2014 a common utility event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -263,7 +263,7 @@
         "id": "room_16_evt_5",
         "roomId": "room_16",
         "title": "Gravity Anomaly",
-        "description": "Gravity Anomaly — a rare secretTrigger event in Orbital Control Habitat.",
+        "description": "Gravity Anomaly \u2014 a rare secretTrigger event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_16_evt_6",
         "roomId": "room_16",
         "title": "Station Rotation",
-        "description": "Station Rotation — a rare legendaryAnomaly event in Orbital Control Habitat.",
+        "description": "Station Rotation \u2014 a rare legendaryAnomaly event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -307,7 +307,7 @@
         "id": "room_16_evt_7",
         "roomId": "room_16",
         "title": "Supply Drop",
-        "description": "Supply Drop — a epic warningRisk event in Orbital Control Habitat.",
+        "description": "Supply Drop \u2014 a epic warningRisk event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_16_evt_8",
         "roomId": "room_16",
         "title": "EVA Required",
-        "description": "EVA Required — a corrupted miniBoss event in Orbital Control Habitat.",
+        "description": "EVA Required \u2014 a corrupted miniBoss event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -371,7 +371,7 @@
         "id": "room_16_evt_9",
         "roomId": "room_16",
         "title": "Orbital Decay",
-        "description": "Orbital Decay — a legendary guideAdvisory event in Orbital Control Habitat.",
+        "description": "Orbital Decay \u2014 a legendary guideAdvisory event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -393,7 +393,7 @@
         "id": "room_16_evt_10",
         "roomId": "room_16",
         "title": "Earth View",
-        "description": "Earth View — a common hiddenGlitch event in Orbital Control Habitat.",
+        "description": "Earth View \u2014 a common hiddenGlitch event in Orbital Control Habitat.",
         "flavorText": "The orbital environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -444,5 +444,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_orbital_16",
+  "companionAffinityIds": [
+    "comp_orbital_drone",
+    "comp_habitat_ai"
+  ],
+  "routeBonus": "operator"
 }

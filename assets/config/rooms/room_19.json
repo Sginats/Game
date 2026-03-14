@@ -17,7 +17,7 @@
   "transformationStages": [
     {
       "id": "room_19_stage_1",
-      "name": "Reality Kernel Chamber — Bare Bones",
+      "name": "Reality Kernel Chamber \u2014 Bare Bones",
       "description": "The room in its raw state. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 95,
       "environmentChanges": [
@@ -28,7 +28,7 @@
     },
     {
       "id": "room_19_stage_2",
-      "name": "Reality Kernel Chamber — First Light",
+      "name": "Reality Kernel Chamber \u2014 First Light",
       "description": "Basic improvements visible. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 285,
       "environmentChanges": [
@@ -40,7 +40,7 @@
     },
     {
       "id": "room_19_stage_3",
-      "name": "Reality Kernel Chamber — Functional",
+      "name": "Reality Kernel Chamber \u2014 Functional",
       "description": "A proper working space. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 570,
       "environmentChanges": [
@@ -52,7 +52,7 @@
     },
     {
       "id": "room_19_stage_4",
-      "name": "Reality Kernel Chamber — Advanced",
+      "name": "Reality Kernel Chamber \u2014 Advanced",
       "description": "High-tech transformation. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 950,
       "environmentChanges": [
@@ -64,7 +64,7 @@
     },
     {
       "id": "room_19_stage_5",
-      "name": "Reality Kernel Chamber — Mastered",
+      "name": "Reality Kernel Chamber \u2014 Mastered",
       "description": "The room at its peak. Reality Kernel Chamber evolves as you progress.",
       "requiredUpgrades": 1520,
       "environmentChanges": [
@@ -144,7 +144,7 @@
         "id": "room_19_evt_1",
         "roomId": "room_19",
         "title": "Kernel Panic",
-        "description": "Kernel Panic — a common instant event in Reality Kernel Chamber.",
+        "description": "Kernel Panic \u2014 a common instant event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "instant",
         "rarity": "common",
@@ -166,7 +166,7 @@
         "id": "room_19_evt_2",
         "roomId": "room_19",
         "title": "Reality Rewrite",
-        "description": "Reality Rewrite — a common shortChoice event in Reality Kernel Chamber.",
+        "description": "Reality Rewrite \u2014 a common shortChoice event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "shortChoice",
         "rarity": "common",
@@ -214,7 +214,7 @@
         "id": "room_19_evt_3",
         "roomId": "room_19",
         "title": "Law Amendment",
-        "description": "Law Amendment — a common timedChain event in Reality Kernel Chamber.",
+        "description": "Law Amendment \u2014 a common timedChain event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "timedChain",
         "rarity": "common",
@@ -236,7 +236,7 @@
         "id": "room_19_evt_4",
         "roomId": "room_19",
         "title": "Physics Glitch",
-        "description": "Physics Glitch — a common utility event in Reality Kernel Chamber.",
+        "description": "Physics Glitch \u2014 a common utility event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "utility",
         "rarity": "common",
@@ -258,7 +258,7 @@
         "id": "room_19_evt_5",
         "roomId": "room_19",
         "title": "Constant Shift",
-        "description": "Constant Shift — a rare secretTrigger event in Reality Kernel Chamber.",
+        "description": "Constant Shift \u2014 a rare secretTrigger event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "secretTrigger",
         "rarity": "rare",
@@ -285,7 +285,7 @@
         "id": "room_19_evt_6",
         "roomId": "room_19",
         "title": "Rule Exception",
-        "description": "Rule Exception — a rare legendaryAnomaly event in Reality Kernel Chamber.",
+        "description": "Rule Exception \u2014 a rare legendaryAnomaly event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "legendaryAnomaly",
         "rarity": "rare",
@@ -312,7 +312,7 @@
         "id": "room_19_evt_7",
         "roomId": "room_19",
         "title": "Foundation Crack",
-        "description": "Foundation Crack — a epic warningRisk event in Reality Kernel Chamber.",
+        "description": "Foundation Crack \u2014 a epic warningRisk event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "warningRisk",
         "rarity": "epic",
@@ -339,7 +339,7 @@
         "id": "room_19_evt_8",
         "roomId": "room_19",
         "title": "Origin Signal",
-        "description": "Origin Signal — a corrupted miniBoss event in Reality Kernel Chamber.",
+        "description": "Origin Signal \u2014 a corrupted miniBoss event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "miniBoss",
         "rarity": "corrupted",
@@ -366,7 +366,7 @@
         "id": "room_19_evt_9",
         "roomId": "room_19",
         "title": "Void Touch",
-        "description": "Void Touch — a legendary guideAdvisory event in Reality Kernel Chamber.",
+        "description": "Void Touch \u2014 a legendary guideAdvisory event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "guideAdvisory",
         "rarity": "legendary",
@@ -388,7 +388,7 @@
         "id": "room_19_evt_10",
         "roomId": "room_19",
         "title": "Kernel Compile",
-        "description": "Kernel Compile — a common hiddenGlitch event in Reality Kernel Chamber.",
+        "description": "Kernel Compile \u2014 a common hiddenGlitch event in Reality Kernel Chamber.",
         "flavorText": "The kernel environment reacts to your presence.",
         "category": "hiddenGlitch",
         "rarity": "common",
@@ -449,5 +449,11 @@
         "weight": 5
       }
     ]
-  }
+  },
+  "sideActivityId": "sa_contradiction_19",
+  "companionAffinityIds": [
+    "comp_kernel_ai",
+    "comp_reality_construct"
+  ],
+  "routeBonus": "anomaly"
 }

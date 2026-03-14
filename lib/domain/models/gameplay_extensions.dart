@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 enum ActiveAbilityType { overclock, focus, surge, sync }
 
-enum EventRarity { common, rare, epic, corrupted, legendary }
+enum EventRarity { common, uncommon, rare, epic, corrupted, legendary }
 
 enum ChallengePeriod { daily, weekly }
 
@@ -163,6 +163,19 @@ class GameEventState {
   }
 }
 
+/// Category of quest for filtering and display purposes.
+enum QuestCategory {
+  room,
+  global,
+  route,
+  event,
+  guide,
+  secret,
+  challenge,
+  companion,
+  sideActivity,
+}
+
 class QuestState {
   final String id;
   final String title;
@@ -171,6 +184,9 @@ class QuestState {
   final double progress;
   final bool completed;
   final bool claimed;
+  final QuestCategory category;
+  final String? roomId;
+  final String? routeId;
 
   const QuestState({
     required this.id,
@@ -180,6 +196,9 @@ class QuestState {
     this.progress = 0,
     this.completed = false,
     this.claimed = false,
+    this.category = QuestCategory.global,
+    this.roomId,
+    this.routeId,
   });
 
   QuestState copyWith({
@@ -190,6 +209,9 @@ class QuestState {
     double? progress,
     bool? completed,
     bool? claimed,
+    QuestCategory? category,
+    String? roomId,
+    String? routeId,
   }) {
     return QuestState(
       id: id ?? this.id,
@@ -199,6 +221,9 @@ class QuestState {
       progress: progress ?? this.progress,
       completed: completed ?? this.completed,
       claimed: claimed ?? this.claimed,
+      category: category ?? this.category,
+      roomId: roomId ?? this.roomId,
+      routeId: routeId ?? this.routeId,
     );
   }
 
@@ -210,6 +235,9 @@ class QuestState {
         'progress': progress,
         'completed': completed,
         'claimed': claimed,
+        'category': category.name,
+        'roomId': roomId,
+        'routeId': routeId,
       };
 
   factory QuestState.fromJson(Map<String, dynamic> json) {
@@ -221,6 +249,14 @@ class QuestState {
       progress: (json['progress'] as num?)?.toDouble() ?? 0,
       completed: json['completed'] as bool? ?? false,
       claimed: json['claimed'] as bool? ?? false,
+      category: json['category'] != null
+          ? QuestCategory.values.firstWhere(
+              (v) => v.name == json['category'],
+              orElse: () => QuestCategory.global,
+            )
+          : QuestCategory.global,
+      roomId: json['roomId'] as String?,
+      routeId: json['routeId'] as String?,
     );
   }
 }
