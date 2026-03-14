@@ -292,6 +292,9 @@ class RoomScene {
   final String? unlockRequirement;
   final bool completed;
   final int currentTransformationStage;
+  final String? sideActivityId;
+  final List<String> companionAffinityIds;
+  final String? routeBonus;
 
   const RoomScene({
     required this.id,
@@ -315,6 +318,9 @@ class RoomScene {
     this.unlockRequirement,
     this.completed = false,
     this.currentTransformationStage = 0,
+    this.sideActivityId,
+    this.companionAffinityIds = const [],
+    this.routeBonus,
   });
 
   RoomScene copyWith({
@@ -339,6 +345,9 @@ class RoomScene {
     String? unlockRequirement,
     bool? completed,
     int? currentTransformationStage,
+    String? sideActivityId,
+    List<String>? companionAffinityIds,
+    String? routeBonus,
   }) {
     return RoomScene(
       id: id ?? this.id,
@@ -364,6 +373,9 @@ class RoomScene {
       completed: completed ?? this.completed,
       currentTransformationStage:
           currentTransformationStage ?? this.currentTransformationStage,
+      sideActivityId: sideActivityId ?? this.sideActivityId,
+      companionAffinityIds: companionAffinityIds ?? this.companionAffinityIds,
+      routeBonus: routeBonus ?? this.routeBonus,
     );
   }
 
@@ -391,6 +403,9 @@ class RoomScene {
         'unlockRequirement': unlockRequirement,
         'completed': completed,
         'currentTransformationStage': currentTransformationStage,
+        'sideActivityId': sideActivityId,
+        'companionAffinityIds': companionAffinityIds,
+        'routeBonus': routeBonus,
       };
 
   factory RoomScene.fromJson(Map<String, dynamic> json) {
@@ -441,6 +456,12 @@ class RoomScene {
       completed: json['completed'] as bool? ?? false,
       currentTransformationStage:
           json['currentTransformationStage'] as int? ?? 0,
+      sideActivityId: json['sideActivityId'] as String?,
+      companionAffinityIds:
+          (json['companionAffinityIds'] as List<dynamic>? ?? const [])
+              .map((e) => e as String)
+              .toList(),
+      routeBonus: json['routeBonus'] as String?,
     );
   }
 }
@@ -455,6 +476,10 @@ class RoomSceneState {
   final int upgradesPurchased;
   final int eventsCompleted;
   final int bestChain;
+  final int masteryRank;
+  final int sideActivityCompletions;
+  final int companionTokensEarned;
+  final Set<String> questsCompleted;
 
   const RoomSceneState({
     required this.roomId,
@@ -465,6 +490,10 @@ class RoomSceneState {
     this.upgradesPurchased = 0,
     this.eventsCompleted = 0,
     this.bestChain = 0,
+    this.masteryRank = 0,
+    this.sideActivityCompletions = 0,
+    this.companionTokensEarned = 0,
+    this.questsCompleted = const {},
   });
 
   RoomSceneState copyWith({
@@ -476,6 +505,10 @@ class RoomSceneState {
     int? upgradesPurchased,
     int? eventsCompleted,
     int? bestChain,
+    int? masteryRank,
+    int? sideActivityCompletions,
+    int? companionTokensEarned,
+    Set<String>? questsCompleted,
   }) {
     return RoomSceneState(
       roomId: roomId ?? this.roomId,
@@ -487,6 +520,12 @@ class RoomSceneState {
       upgradesPurchased: upgradesPurchased ?? this.upgradesPurchased,
       eventsCompleted: eventsCompleted ?? this.eventsCompleted,
       bestChain: bestChain ?? this.bestChain,
+      masteryRank: masteryRank ?? this.masteryRank,
+      sideActivityCompletions:
+          sideActivityCompletions ?? this.sideActivityCompletions,
+      companionTokensEarned:
+          companionTokensEarned ?? this.companionTokensEarned,
+      questsCompleted: questsCompleted ?? this.questsCompleted,
     );
   }
 
@@ -499,6 +538,10 @@ class RoomSceneState {
         'upgradesPurchased': upgradesPurchased,
         'eventsCompleted': eventsCompleted,
         'bestChain': bestChain,
+        'masteryRank': masteryRank,
+        'sideActivityCompletions': sideActivityCompletions,
+        'companionTokensEarned': companionTokensEarned,
+        'questsCompleted': questsCompleted.toList(),
       };
 
   factory RoomSceneState.fromJson(Map<String, dynamic> json) {
@@ -515,6 +558,15 @@ class RoomSceneState {
       upgradesPurchased: json['upgradesPurchased'] as int? ?? 0,
       eventsCompleted: json['eventsCompleted'] as int? ?? 0,
       bestChain: json['bestChain'] as int? ?? 0,
+      masteryRank: json['masteryRank'] as int? ?? 0,
+      sideActivityCompletions:
+          json['sideActivityCompletions'] as int? ?? 0,
+      companionTokensEarned:
+          json['companionTokensEarned'] as int? ?? 0,
+      questsCompleted:
+          (json['questsCompleted'] as List<dynamic>? ?? const [])
+              .map((e) => e as String)
+              .toSet(),
     );
   }
 }
