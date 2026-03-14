@@ -14,11 +14,23 @@ enum ChallengeMetric {
   combo,
   riskyChoices,
   productionBurst,
+  roomSecretsFound,
+  roomTransformations,
 }
 
 enum ColorblindMode { off, deuteranopia, protanopia, tritanopia }
 
-enum MutatorType { eventStorm, overheating, noAutomation, unstableEconomy }
+enum MutatorType {
+  eventStorm,
+  overheating,
+  noAutomation,
+  unstableEconomy,
+  fragileHardware,
+  guideSilence,
+  heatWave,
+  signalFog,
+  temporalDrift,
+}
 
 class ActiveAbilityState {
   final ActiveAbilityType type;
