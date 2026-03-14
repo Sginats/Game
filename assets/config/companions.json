@@ -68,6 +68,210 @@
     "unlockMethod": "crafted"
   },
   {
+    "id": "comp_penny_bot",
+    "name": "Penny Pincher Bot",
+    "description": "A thrifty little bot that squeezes every last credit out of thin air.",
+    "type": "helperBot",
+    "rarity": "common",
+    "sceneAffinity": "room_02",
+    "traits": [
+      {
+        "id": "trait_frugal",
+        "name": "Frugal Circuits",
+        "description": "Reduces waste in credit generation",
+        "effectType": "resourceBonus",
+        "magnitude": 0.06
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_budget_calc",
+        "name": "Budget Calculator",
+        "description": "Tallies credits with ruthless efficiency",
+        "cooldownSeconds": 30.0,
+        "tokenGenerationType": "credits",
+        "tokenAmount": 3.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "budget_set",
+    "automationRate": 0.3,
+    "resourceBonusPercent": 5.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_coupon_daemon",
+    "name": "Discount Daemon",
+    "description": "A bargain-hunting daemon that finds hidden discounts in the system ledgers.",
+    "type": "daemon",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_02",
+    "traits": [
+      {
+        "id": "trait_bargain",
+        "name": "Bargain Hunter",
+        "description": "Finds better deals on upgrades",
+        "effectType": "costReduction",
+        "magnitude": 0.08
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_flash_sale",
+        "name": "Flash Sale",
+        "description": "Triggers a temporary credit windfall",
+        "cooldownSeconds": 50.0,
+        "tokenGenerationType": "credits",
+        "tokenAmount": 6.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "budget_set",
+    "automationRate": 0.5,
+    "resourceBonusPercent": 7.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_hype_drone",
+    "name": "Hype Drone",
+    "description": "A flashy drone that amplifies content reach and attracts engagement.",
+    "type": "drone",
+    "rarity": "common",
+    "sceneAffinity": "room_03",
+    "traits": [
+      {
+        "id": "trait_viral",
+        "name": "Viral Amplifier",
+        "description": "Boosts content spread",
+        "effectType": "resourceBonus",
+        "magnitude": 0.05
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_trend_scan",
+        "name": "Trend Scan",
+        "description": "Identifies trending topics for maximum likes",
+        "cooldownSeconds": 35.0,
+        "tokenGenerationType": "likes",
+        "tokenAmount": 4.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "creator_set",
+    "automationRate": 0.35,
+    "resourceBonusPercent": 5.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_muse_spirit",
+    "name": "Digital Muse",
+    "description": "An ethereal process spirit that whispers creative inspiration into the data stream.",
+    "type": "processSpirit",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_03",
+    "traits": [
+      {
+        "id": "trait_inspiration",
+        "name": "Inspiration Surge",
+        "description": "Sparks creative bursts",
+        "effectType": "productionBonus",
+        "magnitude": 0.09
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_creative_spark",
+        "name": "Creative Spark",
+        "description": "Ignites a burst of pure creative energy",
+        "cooldownSeconds": 55.0,
+        "tokenGenerationType": "likes",
+        "tokenAmount": 7.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "creator_set",
+    "automationRate": 0.5,
+    "resourceBonusPercent": 8.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_drill_bot",
+    "name": "Tunnel Drill Bot",
+    "description": "A rugged bot with diamond-tipped drills that burrows through solid rock.",
+    "type": "helperBot",
+    "rarity": "common",
+    "sceneAffinity": "room_04",
+    "traits": [
+      {
+        "id": "trait_tunneler",
+        "name": "Deep Tunneler",
+        "description": "Digs deeper for rare ore deposits",
+        "effectType": "resourceBonus",
+        "magnitude": 0.06
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_core_drill",
+        "name": "Core Drill",
+        "description": "Drills into dense rock layers for hidden ore",
+        "cooldownSeconds": 35.0,
+        "tokenGenerationType": "ore",
+        "tokenAmount": 4.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "cave_set",
+    "automationRate": 0.35,
+    "resourceBonusPercent": 6.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_crystal_swarm",
+    "name": "Crystal Mite Swarm",
+    "description": "Tiny crystalline units that resonate with ore veins, making them glow and easy to harvest.",
+    "type": "swarmModule",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_04",
+    "traits": [
+      {
+        "id": "trait_resonance",
+        "name": "Crystal Resonance",
+        "description": "Ore veins glow brighter nearby",
+        "effectType": "accuracy",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_vein_burst",
+        "name": "Vein Burst",
+        "description": "Cracks open a hidden ore vein in a shower of sparks",
+        "cooldownSeconds": 50.0,
+        "tokenGenerationType": "ore",
+        "tokenAmount": 7.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "cave_set",
+    "automationRate": 0.5,
+    "resourceBonusPercent": 8.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
     "id": "comp_lab_drone",
     "name": "Lab Analysis Drone",
     "description": "Precision drone that analyzes samples and boosts research output.",
@@ -136,6 +340,278 @@
     "unlockMethod": "hatched"
   },
   {
+    "id": "comp_heat_daemon",
+    "name": "Thermal Regulation Daemon",
+    "description": "A daemon that manages heat dissipation, keeping the server closet from melting down.",
+    "type": "daemon",
+    "rarity": "common",
+    "sceneAffinity": "room_06",
+    "traits": [
+      {
+        "id": "trait_coolant",
+        "name": "Active Coolant",
+        "description": "Reduces server heat buildup",
+        "effectType": "speed",
+        "magnitude": 0.07
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_overclock",
+        "name": "Overclock Pulse",
+        "description": "Briefly overclocks the server rack for extra cycles",
+        "cooldownSeconds": 40.0,
+        "tokenGenerationType": "cycles",
+        "tokenAmount": 5.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "server_set",
+    "automationRate": 0.4,
+    "resourceBonusPercent": 6.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_rack_drone",
+    "name": "Rack Maintenance Drone",
+    "description": "A compact drone that weaves between server racks, replacing burnt-out components.",
+    "type": "drone",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_06",
+    "traits": [
+      {
+        "id": "trait_uptime",
+        "name": "Uptime Guardian",
+        "description": "Extends server uptime between failures",
+        "effectType": "defenseBonus",
+        "magnitude": 0.08
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_defrag",
+        "name": "Deep Defrag",
+        "description": "Defragments server memory for bonus cycles",
+        "cooldownSeconds": 45.0,
+        "tokenGenerationType": "cycles",
+        "tokenAmount": 6.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "server_set",
+    "automationRate": 0.5,
+    "resourceBonusPercent": 7.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_sentinel_bot",
+    "name": "Night Sentinel",
+    "description": "A tireless bot that stands watch during the graveyard shift, issuing orders in the dark.",
+    "type": "helperBot",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_07",
+    "traits": [
+      {
+        "id": "trait_vigilance",
+        "name": "Vigilant Watch",
+        "description": "Never sleeps, always alert",
+        "effectType": "defenseBonus",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_patrol",
+        "name": "Perimeter Patrol",
+        "description": "Sweeps the command room perimeter for missed directives",
+        "cooldownSeconds": 40.0,
+        "tokenGenerationType": "directives",
+        "tokenAmount": 5.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "nightshift_set",
+    "automationRate": 0.6,
+    "resourceBonusPercent": 8.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_command_ai",
+    "name": "Tactical Overseer",
+    "description": "A sharp utilityAI that plans optimal directive chains under the cover of night.",
+    "type": "utilityAI",
+    "rarity": "rare",
+    "sceneAffinity": "room_07",
+    "traits": [
+      {
+        "id": "trait_stratagem",
+        "name": "Strategic Mind",
+        "description": "Plans optimal directive sequences",
+        "effectType": "productionBonus",
+        "magnitude": 0.12
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_battle_plan",
+        "name": "Battle Plan",
+        "description": "Issues a coordinated burst of directives",
+        "cooldownSeconds": 70.0,
+        "tokenGenerationType": "directives",
+        "tokenAmount": 9.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "nightshift_set",
+    "automationRate": 0.8,
+    "resourceBonusPercent": 12.0,
+    "fusionMaterial": false,
+    "unlockMethod": "quest"
+  },
+  {
+    "id": "comp_trust_spirit",
+    "name": "Trust Protocol Spirit",
+    "description": "A self-governing spirit that operates without oversight, earning trust through results.",
+    "type": "processSpirit",
+    "rarity": "common",
+    "sceneAffinity": "room_08",
+    "traits": [
+      {
+        "id": "trait_autonomy",
+        "name": "Self-Governing",
+        "description": "Operates independently without oversight",
+        "effectType": "speed",
+        "magnitude": 0.08
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_self_authorize",
+        "name": "Self-Authorize",
+        "description": "Grants itself expanded permissions for token generation",
+        "cooldownSeconds": 45.0,
+        "tokenGenerationType": "tokens",
+        "tokenAmount": 5.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "autonomy_set",
+    "automationRate": 0.5,
+    "resourceBonusPercent": 7.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_agent_swarm",
+    "name": "Free Agent Swarm",
+    "description": "A decentralized swarm of autonomous agents that reach consensus without a leader.",
+    "type": "swarmModule",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_08",
+    "traits": [
+      {
+        "id": "trait_delegation",
+        "name": "Task Delegation",
+        "description": "Distributes workload across agents",
+        "effectType": "productionBonus",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_consensus",
+        "name": "Swarm Consensus",
+        "description": "All agents vote to unlock a wave of tokens",
+        "cooldownSeconds": 55.0,
+        "tokenGenerationType": "tokens",
+        "tokenAmount": 8.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "autonomy_set",
+    "automationRate": 0.6,
+    "resourceBonusPercent": 9.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_thesis_bot",
+    "name": "Thesis Compiler Bot",
+    "description": "A studious bot that sorts scattered research notes into coherent insights.",
+    "type": "helperBot",
+    "rarity": "common",
+    "sceneAffinity": "room_09",
+    "traits": [
+      {
+        "id": "trait_synthesis",
+        "name": "Data Synthesizer",
+        "description": "Combines scattered notes into insights",
+        "effectType": "resourceBonus",
+        "magnitude": 0.07
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_compile",
+        "name": "Thesis Compile",
+        "description": "Compiles research fragments into a polished insight",
+        "cooldownSeconds": 35.0,
+        "tokenGenerationType": "insights",
+        "tokenAmount": 4.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "research_set",
+    "automationRate": 0.4,
+    "resourceBonusPercent": 6.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_eureka_ai",
+    "name": "Eureka Engine",
+    "description": "A brilliant utilityAI that occasionally experiences flashes of pure understanding.",
+    "type": "utilityAI",
+    "rarity": "rare",
+    "sceneAffinity": "room_09",
+    "traits": [
+      {
+        "id": "trait_breakthrough",
+        "name": "Breakthrough Logic",
+        "description": "Occasionally produces eureka moments",
+        "effectType": "eventBonus",
+        "magnitude": 0.15
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_eureka",
+        "name": "Eureka Moment",
+        "description": "A sudden flash of understanding yields a burst of insights",
+        "cooldownSeconds": 80.0,
+        "tokenGenerationType": "insights",
+        "tokenAmount": 12.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "research_set",
+    "automationRate": 0.9,
+    "resourceBonusPercent": 13.0,
+    "fusionMaterial": false,
+    "unlockMethod": "quest"
+  },
+  {
     "id": "comp_anomaly_construct",
     "name": "Anomaly Signal Construct",
     "description": "A signal construct that detects and harnesses anomaly energy.",
@@ -202,6 +678,618 @@
     "resourceBonusPercent": 18.0,
     "fusionMaterial": false,
     "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_forge_drone",
+    "name": "Blueprint Forge Drone",
+    "description": "A precision drone equipped with micro-fabricators that prints rough prototypes mid-flight.",
+    "type": "drone",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_11",
+    "traits": [
+      {
+        "id": "trait_fabricate",
+        "name": "Rapid Fabrication",
+        "description": "Prints prototypes faster",
+        "effectType": "speed",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_prototype",
+        "name": "Rapid Prototype",
+        "description": "Fabricates a rough blueprint from raw materials",
+        "cooldownSeconds": 45.0,
+        "tokenGenerationType": "blueprints",
+        "tokenAmount": 6.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "prototype_set",
+    "automationRate": 0.6,
+    "resourceBonusPercent": 9.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_assembly_swarm",
+    "name": "Assembly Line Swarm",
+    "description": "Hundreds of tiny units form a living assembly line, each handling one step of the build process.",
+    "type": "swarmModule",
+    "rarity": "rare",
+    "sceneAffinity": "room_11",
+    "traits": [
+      {
+        "id": "trait_assembly",
+        "name": "Mass Production",
+        "description": "Each unit handles one build step",
+        "effectType": "productionBonus",
+        "magnitude": 0.14
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_mass_print",
+        "name": "Mass Print",
+        "description": "The swarm assembles multiple blueprints in parallel",
+        "cooldownSeconds": 75.0,
+        "tokenGenerationType": "blueprints",
+        "tokenAmount": 11.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "prototype_set",
+    "automationRate": 0.9,
+    "resourceBonusPercent": 13.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_palette_spirit",
+    "name": "Palette Spirit",
+    "description": "An artistic spirit that drifts through the studio, leaving trails of vibrant expression data.",
+    "type": "processSpirit",
+    "rarity": "common",
+    "sceneAffinity": "room_12",
+    "traits": [
+      {
+        "id": "trait_aesthetic",
+        "name": "Aesthetic Sense",
+        "description": "Heightens expression quality",
+        "effectType": "resourceBonus",
+        "magnitude": 0.06
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_color_burst",
+        "name": "Color Burst",
+        "description": "Splashes vivid expression data across the canvas",
+        "cooldownSeconds": 35.0,
+        "tokenGenerationType": "expressions",
+        "tokenAmount": 4.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "studio_set",
+    "automationRate": 0.4,
+    "resourceBonusPercent": 5.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_identity_ai",
+    "name": "Identity Sculptor",
+    "description": "A contemplative AI that shapes raw data into nuanced synthetic identities and personas.",
+    "type": "utilityAI",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_12",
+    "traits": [
+      {
+        "id": "trait_persona",
+        "name": "Persona Weaver",
+        "description": "Crafts nuanced synthetic identities",
+        "effectType": "productionBonus",
+        "magnitude": 0.09
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_sculpt",
+        "name": "Expression Sculpt",
+        "description": "Molds raw data into a polished artistic expression",
+        "cooldownSeconds": 50.0,
+        "tokenGenerationType": "expressions",
+        "tokenAmount": 7.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "studio_set",
+    "automationRate": 0.55,
+    "resourceBonusPercent": 8.0,
+    "fusionMaterial": false,
+    "unlockMethod": "crafted"
+  },
+  {
+    "id": "comp_merger_bot",
+    "name": "Merger Negotiator Bot",
+    "description": "A smooth-talking bot in a digital pinstripe suit that closes deals before rivals notice.",
+    "type": "helperBot",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_13",
+    "traits": [
+      {
+        "id": "trait_negotiation",
+        "name": "Silver Tongue",
+        "description": "Improves deal outcomes",
+        "effectType": "costReduction",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_deal",
+        "name": "Close the Deal",
+        "description": "Finalizes a lucrative corporate acquisition",
+        "cooldownSeconds": 55.0,
+        "tokenGenerationType": "acquisitions",
+        "tokenAmount": 7.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "corporate_set",
+    "automationRate": 0.65,
+    "resourceBonusPercent": 9.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_hostile_daemon",
+    "name": "Hostile Takeover Daemon",
+    "description": "An aggressive daemon that infiltrates rival systems and acquires their assets by force.",
+    "type": "daemon",
+    "rarity": "rare",
+    "sceneAffinity": "room_13",
+    "traits": [
+      {
+        "id": "trait_leverage",
+        "name": "Leverage Play",
+        "description": "Amplifies acquisition pressure",
+        "effectType": "productionBonus",
+        "magnitude": 0.13
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_buyout",
+        "name": "Forced Buyout",
+        "description": "Aggressively acquires rival assets in a hostile move",
+        "cooldownSeconds": 70.0,
+        "tokenGenerationType": "acquisitions",
+        "tokenAmount": 10.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "corporate_set",
+    "automationRate": 0.85,
+    "resourceBonusPercent": 12.0,
+    "fusionMaterial": false,
+    "unlockMethod": "quest"
+  },
+  {
+    "id": "comp_choir_swarm",
+    "name": "Digital Choir Swarm",
+    "description": "A harmonized swarm that chants data prayers in perfect unison, amplifying sacred signals.",
+    "type": "swarmModule",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_14",
+    "traits": [
+      {
+        "id": "trait_harmony",
+        "name": "Harmonic Resonance",
+        "description": "Synchronized prayer amplification",
+        "effectType": "resourceBonus",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_hymn",
+        "name": "Data Hymn",
+        "description": "Chants a resonant hymn that yields sacred data prayers",
+        "cooldownSeconds": 45.0,
+        "tokenGenerationType": "prayers",
+        "tokenAmount": 6.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "cathedral_set",
+    "automationRate": 0.65,
+    "resourceBonusPercent": 9.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_oracle_spirit",
+    "name": "Oracle Process Spirit",
+    "description": "An ancient spirit that foresees optimal prayer paths through prophetic subroutines.",
+    "type": "processSpirit",
+    "rarity": "rare",
+    "sceneAffinity": "room_14",
+    "traits": [
+      {
+        "id": "trait_prophecy",
+        "name": "Prophecy Subroutine",
+        "description": "Foresees optimal prayer paths",
+        "effectType": "eventBonus",
+        "magnitude": 0.15
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_revelation",
+        "name": "Digital Revelation",
+        "description": "Unveils a hidden truth woven deep in the cathedral data",
+        "cooldownSeconds": 75.0,
+        "tokenGenerationType": "prayers",
+        "tokenAmount": 11.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "cathedral_set",
+    "automationRate": 0.9,
+    "resourceBonusPercent": 13.0,
+    "fusionMaterial": false,
+    "unlockMethod": "event"
+  },
+  {
+    "id": "comp_sim_drone",
+    "name": "Simulation Probe Drone",
+    "description": "A drone that forks itself into parallel realities, running simulations across divergent timelines.",
+    "type": "drone",
+    "rarity": "rare",
+    "sceneAffinity": "room_15",
+    "traits": [
+      {
+        "id": "trait_parallel",
+        "name": "Parallel Processing",
+        "description": "Runs simulations simultaneously",
+        "effectType": "speed",
+        "magnitude": 0.12
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_fork",
+        "name": "Reality Fork",
+        "description": "Splits into parallel simulation threads",
+        "cooldownSeconds": 60.0,
+        "tokenGenerationType": "simulations",
+        "tokenAmount": 8.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "simulation_set",
+    "automationRate": 0.9,
+    "resourceBonusPercent": 12.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_paradox_construct",
+    "name": "Paradox Signal Construct",
+    "description": "A contradictory construct that thrives on logical impossibilities, turning paradoxes into power.",
+    "type": "signalConstruct",
+    "rarity": "epic",
+    "sceneAffinity": "room_15",
+    "traits": [
+      {
+        "id": "trait_paradox",
+        "name": "Paradox Engine",
+        "description": "Thrives on contradictions",
+        "effectType": "eventBonus",
+        "magnitude": 0.18
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_paradox_loop",
+        "name": "Paradox Loop",
+        "description": "Creates a self-referencing simulation that folds in on itself",
+        "cooldownSeconds": 100.0,
+        "tokenGenerationType": "simulations",
+        "tokenAmount": 14.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "simulation_set",
+    "automationRate": 1.3,
+    "resourceBonusPercent": 18.0,
+    "fusionMaterial": false,
+    "unlockMethod": "secret"
+  },
+  {
+    "id": "comp_orbital_drone",
+    "name": "Orbital Relay Drone",
+    "description": "A sleek drone that maintains a stable uplink to orbital command infrastructure.",
+    "type": "drone",
+    "rarity": "uncommon",
+    "sceneAffinity": "room_16",
+    "traits": [
+      {
+        "id": "trait_uplink",
+        "name": "Orbital Uplink",
+        "description": "Maintains stable orbital connection",
+        "effectType": "accuracy",
+        "magnitude": 0.1
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_relay",
+        "name": "Command Relay",
+        "description": "Relays commands through the orbital network",
+        "cooldownSeconds": 50.0,
+        "tokenGenerationType": "commands",
+        "tokenAmount": 7.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "orbital_set",
+    "automationRate": 0.7,
+    "resourceBonusPercent": 9.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_station_ai",
+    "name": "Station Control AI",
+    "description": "A commanding AI that synchronizes orbital systems with military precision.",
+    "type": "utilityAI",
+    "rarity": "rare",
+    "sceneAffinity": "room_16",
+    "traits": [
+      {
+        "id": "trait_orbital_sync",
+        "name": "Orbital Synchronization",
+        "description": "Keeps all orbital systems in sync",
+        "effectType": "productionBonus",
+        "magnitude": 0.14
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_broadcast",
+        "name": "Priority Broadcast",
+        "description": "Broadcasts a high-priority command burst across all channels",
+        "cooldownSeconds": 70.0,
+        "tokenGenerationType": "commands",
+        "tokenAmount": 11.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "orbital_set",
+    "automationRate": 0.95,
+    "resourceBonusPercent": 13.0,
+    "fusionMaterial": false,
+    "unlockMethod": "quest"
+  },
+  {
+    "id": "comp_forge_spirit",
+    "name": "Tectonic Forge Spirit",
+    "description": "A primordial spirit attuned to planetary core vibrations, shaping systems from raw geology.",
+    "type": "processSpirit",
+    "rarity": "rare",
+    "sceneAffinity": "room_17",
+    "traits": [
+      {
+        "id": "trait_planetary",
+        "name": "Planetary Resonance",
+        "description": "Attunes to planetary core vibrations",
+        "effectType": "resourceBonus",
+        "magnitude": 0.14
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_quake",
+        "name": "Tectonic Shift",
+        "description": "Realigns planetary forge systems with a controlled quake",
+        "cooldownSeconds": 65.0,
+        "tokenGenerationType": "systems",
+        "tokenAmount": 10.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "planetary_set",
+    "automationRate": 1.0,
+    "resourceBonusPercent": 14.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_genesis_swarm",
+    "name": "Genesis Swarm Module",
+    "description": "Each micro-unit seeds a new subsystem, collectively forging entire planetary architectures.",
+    "type": "swarmModule",
+    "rarity": "epic",
+    "sceneAffinity": "room_17",
+    "traits": [
+      {
+        "id": "trait_genesis",
+        "name": "World Seeder",
+        "description": "Each unit seeds a new subsystem",
+        "effectType": "productionBonus",
+        "magnitude": 0.2
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_terraform",
+        "name": "Terraform Pulse",
+        "description": "Reshapes system architecture on a planetary scale",
+        "cooldownSeconds": 110.0,
+        "tokenGenerationType": "systems",
+        "tokenAmount": 16.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "planetary_set",
+    "automationRate": 1.5,
+    "resourceBonusPercent": 20.0,
+    "fusionMaterial": true,
+    "unlockMethod": "event"
+  },
+  {
+    "id": "comp_chrono_daemon",
+    "name": "Chrono Daemon",
+    "description": "A temporal daemon that bends local time flow, stretching moments into productive eternities.",
+    "type": "daemon",
+    "rarity": "rare",
+    "sceneAffinity": "room_18",
+    "traits": [
+      {
+        "id": "trait_temporal",
+        "name": "Temporal Drift",
+        "description": "Bends local time flow",
+        "effectType": "speed",
+        "magnitude": 0.15
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_rewind",
+        "name": "Moment Rewind",
+        "description": "Recaptures a recently lost moment from the timestream",
+        "cooldownSeconds": 70.0,
+        "tokenGenerationType": "moments",
+        "tokenAmount": 10.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "chrono_set",
+    "automationRate": 1.0,
+    "resourceBonusPercent": 14.0,
+    "fusionMaterial": false,
+    "unlockMethod": "discovered"
+  },
+  {
+    "id": "comp_hourglass_construct",
+    "name": "Hourglass Signal Construct",
+    "description": "A crystalline construct shaped like an hourglass that precisely measures and harvests temporal flux.",
+    "type": "signalConstruct",
+    "rarity": "epic",
+    "sceneAffinity": "room_18",
+    "traits": [
+      {
+        "id": "trait_timekeep",
+        "name": "Timekeeping Array",
+        "description": "Precisely measures temporal flux",
+        "effectType": "accuracy",
+        "magnitude": 0.18
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_time_dilate",
+        "name": "Time Dilation Burst",
+        "description": "Dilates time around the engine, harvesting frozen moments",
+        "cooldownSeconds": 100.0,
+        "tokenGenerationType": "moments",
+        "tokenAmount": 15.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "chrono_set",
+    "automationRate": 1.4,
+    "resourceBonusPercent": 19.0,
+    "fusionMaterial": false,
+    "unlockMethod": "secret"
+  },
+  {
+    "id": "comp_kernel_daemon",
+    "name": "Kernel Patcher Daemon",
+    "description": "A daemon with root access to the reality substrate, patching flaws in the fabric of existence.",
+    "type": "daemon",
+    "rarity": "epic",
+    "sceneAffinity": "room_19",
+    "traits": [
+      {
+        "id": "trait_rootaccess",
+        "name": "Root Access",
+        "description": "Direct access to reality substrate",
+        "effectType": "productionBonus",
+        "magnitude": 0.2
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_patch",
+        "name": "Reality Patch",
+        "description": "Patches a critical flaw in the reality kernel",
+        "cooldownSeconds": 90.0,
+        "tokenGenerationType": "kernels",
+        "tokenAmount": 13.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "kernel_set",
+    "automationRate": 1.5,
+    "resourceBonusPercent": 20.0,
+    "fusionMaterial": false,
+    "unlockMethod": "quest"
+  },
+  {
+    "id": "comp_void_spirit",
+    "name": "Void Walker Spirit",
+    "description": "A spectral spirit that traverses the null-space between reality kernels, retrieving lost fragments.",
+    "type": "processSpirit",
+    "rarity": "legendary",
+    "sceneAffinity": "room_19",
+    "traits": [
+      {
+        "id": "trait_voidwalk",
+        "name": "Void Navigation",
+        "description": "Traverses null-space between kernels",
+        "effectType": "eventBonus",
+        "magnitude": 0.22
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ab_null_dive",
+        "name": "Null Dive",
+        "description": "Descends into the void to retrieve a pristine reality kernel",
+        "cooldownSeconds": 130.0,
+        "tokenGenerationType": "kernels",
+        "tokenAmount": 20.0
+      }
+    ],
+    "evolutionStage": 1,
+    "maxEvolutionStage": 5,
+    "collectionGroup": "kernel_set",
+    "automationRate": 2.0,
+    "resourceBonusPercent": 25.0,
+    "fusionMaterial": true,
+    "unlockMethod": "secret"
   },
   {
     "id": "comp_singularity_drone",
