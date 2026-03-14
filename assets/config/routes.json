@@ -159,5 +159,74 @@
     "exclusiveSecretIds": [
       "secret_trans_hidden_singularity"
     ]
+  },
+  {
+    "id": "route_containment",
+    "name": "Containment Path",
+    "description": "Focus on stability and defense. Strengthen barriers and contain threats before they spread.",
+    "archetype": "containment",
+    "bonusType": "barrierStrength",
+    "bonusMagnitude": 1.4,
+    "specialUpgradeIds": [
+      "upg_cont_fortify",
+      "upg_cont_barrier",
+      "upg_cont_lockdown"
+    ],
+    "eventPoolModifiers": {
+      "common": 1.2,
+      "uncommon": 1.1,
+      "rare": 1.0
+    },
+    "dialogueVariant": "protective",
+    "prestigeRewardModifier": 1.15,
+    "exclusiveSecretIds": [
+      "secret_cont_sealed_vault"
+    ]
+  },
+  {
+    "id": "route_salvage",
+    "name": "Salvage Path",
+    "description": "Recover and recycle everything. Find hidden resources others overlook.",
+    "archetype": "salvage",
+    "bonusType": "resourceRecovery",
+    "bonusMagnitude": 1.5,
+    "specialUpgradeIds": [
+      "upg_salv_reclaim",
+      "upg_salv_extract",
+      "upg_salv_refine"
+    ],
+    "eventPoolModifiers": {
+      "common": 1.3,
+      "uncommon": 1.2,
+      "rare": 1.0
+    },
+    "dialogueVariant": "resourceful",
+    "prestigeRewardModifier": 1.1,
+    "exclusiveSecretIds": [
+      "secret_salv_buried_trove"
+    ]
+  },
+  {
+    "id": "route_stability",
+    "name": "Stability Path",
+    "description": "Slow and steady wins the race. Reliable, risk-free growth with bonus passive generation.",
+    "archetype": "stability",
+    "bonusType": "passiveGeneration",
+    "bonusMagnitude": 1.35,
+    "specialUpgradeIds": [
+      "upg_stab_anchor",
+      "upg_stab_equilibrium",
+      "upg_stab_foundation"
+    ],
+    "eventPoolModifiers": {
+      "common": 1.3,
+      "uncommon": 1.1,
+      "rare": 0.9
+    },
+    "dialogueVariant": "steady",
+    "prestigeRewardModifier": 1.2,
+    "exclusiveSecretIds": [
+      "secret_stab_bedrock_core"
+    ]
   }
 ]
