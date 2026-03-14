@@ -444,5 +444,38 @@
     "comp_singularity_drone",
     "comp_final_swarm"
   ],
-  "routeBonus": "transcendence"
+  "routeBonus": "transcendence",
+  "roomLaw": {
+    "id": "law_acceptance_20",
+    "name": "Law of Acceptance",
+    "description": "This room values acceptance",
+    "mechanic": "Releasing control of production boosts everything \u2014 less input means more output"
+  },
+  "landmark": {
+    "id": "lm_final_thought",
+    "name": "The Final Thought",
+    "description": "An empty space that evolves into pure light",
+    "evolutionStages": [
+      "An empty room with nothing but silence",
+      "A faint glow appears at the center of the void",
+      "The light takes shape, reflecting every room you have completed",
+      "Pure radiance fills the space with warmth and meaning",
+      "The Final Thought becomes everything and nothing simultaneously"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_existential_void_20",
+    "name": "Existential Void",
+    "description": "The singularity pulls resources into nothingness",
+    "triggerCondition": "Proximity to the singularity increases gravitational pull",
+    "penalty": "Resources are slowly consumed by the void at an accelerating rate"
+  },
+  "stabilizer": {
+    "id": "stab_meaning_anchor_20",
+    "name": "Meaning Anchor",
+    "description": "Connecting to past room memories resists the void",
+    "mechanic": "Anchoring to memories from completed rooms creates resistance against the void"
+  },
+  "completionCeremony": "Silence. Then everything begins again, but different."
 }

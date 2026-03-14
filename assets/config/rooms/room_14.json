@@ -460,5 +460,38 @@
     "comp_data_construct",
     "comp_cathedral_ai"
   ],
-  "routeBonus": "research"
+  "routeBonus": "research",
+  "roomLaw": {
+    "id": "law_silence_14",
+    "name": "Law of Silence",
+    "description": "This room improves with silence",
+    "mechanic": "Less clicking increases passive prayer generation exponentially"
+  },
+  "landmark": {
+    "id": "lm_altar_of_data",
+    "name": "The Altar of Data",
+    "description": "A server stack that evolves into a glowing digital shrine",
+    "evolutionStages": [
+      "A dusty server stack with a single blinking light",
+      "Candle-like LEDs illuminate organized data racks",
+      "Holographic data streams rise like incense smoke",
+      "A glowing digital shrine pulses with sacred frequencies",
+      "The Altar of Data channels prayers into pure computational grace"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_heresy_surge_14",
+    "name": "Heresy Surge",
+    "description": "Contradictory data corrupts prayer streams",
+    "triggerCondition": "Conflicting data inputs enter the prayer pipeline",
+    "penalty": "Prayer output inverts, draining instead of generating for a period"
+  },
+  "stabilizer": {
+    "id": "stab_purification_14",
+    "name": "Purification Ritual",
+    "description": "Clearing corrupted data restores prayer flow",
+    "mechanic": "Running data purification cycles removes contradictions and restores flow"
+  },
+  "completionCeremony": "The cathedral hums a frequency that resonates in every future room"
 }

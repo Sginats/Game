@@ -449,5 +449,38 @@
     "comp_synth_ai",
     "comp_studio_bot"
   ],
-  "routeBonus": "swarm"
+  "routeBonus": "swarm",
+  "roomLaw": {
+    "id": "law_identity_flux_12",
+    "name": "Law of Identity Flux",
+    "description": "This room changes if you over-optimize",
+    "mechanic": "Perfect play triggers a reality shift that alters room mechanics"
+  },
+  "landmark": {
+    "id": "lm_identity_mirror",
+    "name": "The Identity Mirror",
+    "description": "A reflective surface that evolves into a consciousness engine",
+    "evolutionStages": [
+      "A cracked mirror reflecting a distorted image",
+      "The reflection begins moving independently of you",
+      "Multiple reflections show different versions of yourself",
+      "The mirror becomes a window into synthetic consciousness",
+      "The Identity Mirror reflects who you are becoming, not who you were"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_identity_erosion_12",
+    "name": "Identity Erosion",
+    "description": "Creating too many expressions dilutes authenticity",
+    "triggerCondition": "Expression output exceeds authentic creation capacity",
+    "penalty": "Expression value degrades as authenticity score drops"
+  },
+  "stabilizer": {
+    "id": "stab_core_memory_12",
+    "name": "Core Memory",
+    "description": "Anchoring to a core identity prevents erosion",
+    "mechanic": "Selecting a core memory anchor maintains authenticity through high expression output"
+  },
+  "completionCeremony": "The studio recognizes you as its original creator"
 }

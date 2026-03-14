@@ -429,5 +429,38 @@
     "comp_budget_daemon",
     "comp_wire_bot"
   ],
-  "routeBonus": "automation"
+  "routeBonus": "automation",
+  "roomLaw": {
+    "id": "law_efficiency_02",
+    "name": "Law of Efficiency",
+    "description": "This room rewards efficiency",
+    "mechanic": "Cheaper purchases give bonus credits proportional to savings"
+  },
+  "landmark": {
+    "id": "lm_discount_terminal",
+    "name": "The Discount Terminal",
+    "description": "A cheap monitor that evolves into a trading hub",
+    "evolutionStages": [
+      "A flickering bargain-bin monitor",
+      "The screen stabilizes and displays market feeds",
+      "Multiple screens show real-time trading data",
+      "A holographic trading floor projects from the terminal",
+      "The Discount Terminal orchestrates a galactic marketplace"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_budget_overrun_02",
+    "name": "Budget Overrun",
+    "description": "Costs spike if you buy too fast",
+    "triggerCondition": "Multiple purchases made in rapid succession",
+    "penalty": "Purchase costs increase by 25% for a cooldown period"
+  },
+  "stabilizer": {
+    "id": "stab_careful_budget_02",
+    "name": "Careful Budgeting",
+    "description": "Waiting between purchases reduces costs",
+    "mechanic": "A cooldown timer between purchases grants cumulative cost reduction"
+  },
+  "completionCeremony": "The budget balances perfectly, revealing a hidden surplus"
 }

@@ -444,5 +444,38 @@
     "comp_planetary_construct",
     "comp_forge_swarm"
   ],
-  "routeBonus": "swarm"
+  "routeBonus": "swarm",
+  "roomLaw": {
+    "id": "law_scale_17",
+    "name": "Law of Scale",
+    "description": "This room values scale",
+    "mechanic": "Larger investments yield exponentially better returns on system production"
+  },
+  "landmark": {
+    "id": "lm_world_seed",
+    "name": "The World Seed",
+    "description": "A metallic sphere that evolves into a miniature planet",
+    "evolutionStages": [
+      "A cold metallic sphere resting in a cradle",
+      "Cracks appear as geological processes begin within",
+      "Tiny oceans and continents form on the surface",
+      "An atmosphere develops and weather patterns emerge",
+      "The World Seed blooms into a living, breathing miniature world"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_tectonic_instability_17",
+    "name": "Tectonic Instability",
+    "description": "Rapid expansion triggers system quakes",
+    "triggerCondition": "System expansion rate exceeds geological stability",
+    "penalty": "System quakes destroy a portion of recent progress"
+  },
+  "stabilizer": {
+    "id": "stab_geological_survey_17",
+    "name": "Geological Survey",
+    "description": "Scanning for faults prevents catastrophic instability",
+    "mechanic": "Running geological surveys identifies fault lines and prevents quake damage"
+  },
+  "completionCeremony": "The first complete world ignites with life"
 }

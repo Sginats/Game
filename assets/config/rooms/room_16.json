@@ -450,5 +450,38 @@
     "comp_orbital_drone",
     "comp_habitat_ai"
   ],
-  "routeBonus": "operator"
+  "routeBonus": "operator",
+  "roomLaw": {
+    "id": "law_precision_16",
+    "name": "Law of Precision",
+    "description": "This room rewards precision",
+    "mechanic": "Well-timed commands give multiplied output based on timing accuracy"
+  },
+  "landmark": {
+    "id": "lm_observation_dome",
+    "name": "The Observation Dome",
+    "description": "A viewport that evolves into a holographic star map",
+    "evolutionStages": [
+      "A small porthole showing distant stars",
+      "The viewport widens to reveal orbital mechanics",
+      "Star charts project across the curved ceiling",
+      "A holographic star map responds to gesture commands",
+      "The Observation Dome displays the entire observable universe in real time"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_orbital_decay_16",
+    "name": "Orbital Decay",
+    "description": "Systems slowly degrade without active command maintenance",
+    "triggerCondition": "Command input falls below required maintenance frequency",
+    "penalty": "Station systems degrade, reducing command output by 5% per cycle"
+  },
+  "stabilizer": {
+    "id": "stab_station_keeping_16",
+    "name": "Station Keeping",
+    "description": "Regular orbital corrections prevent decay",
+    "mechanic": "Issuing regular correction commands maintains orbital stability and output"
+  },
+  "completionCeremony": "The station achieves perfect orbit and the stars align"
 }

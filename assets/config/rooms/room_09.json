@@ -455,5 +455,38 @@
     "comp_research_daemon",
     "comp_analysis_drone"
   ],
-  "routeBonus": "research"
+  "routeBonus": "research",
+  "roomLaw": {
+    "id": "law_sustained_focus_09",
+    "name": "Law of Sustained Focus",
+    "description": "This room stores momentum",
+    "mechanic": "Insight production accelerates the longer you produce without interruption"
+  },
+  "landmark": {
+    "id": "lm_whiteboard_wall",
+    "name": "The Whiteboard Wall",
+    "description": "A cluttered wall that evolves into a living research map",
+    "evolutionStages": [
+      "A bare wall with a single sticky note",
+      "Diagrams and equations cover every surface",
+      "Notes rearrange themselves into connected clusters",
+      "A living map of knowledge pulses with new connections",
+      "The Whiteboard Wall displays the unified theory of everything"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_analysis_paralysis_09",
+    "name": "Analysis Paralysis",
+    "description": "Too many concurrent research threads stall progress",
+    "triggerCondition": "More than 3 research branches active simultaneously",
+    "penalty": "All insight production freezes until threads are consolidated"
+  },
+  "stabilizer": {
+    "id": "stab_focus_protocol_09",
+    "name": "Focus Protocol",
+    "description": "Prioritizing one research branch at a time clears paralysis",
+    "mechanic": "Selecting a single focus branch clears paralysis and grants a research speed bonus"
+  },
+  "completionCeremony": "Every note on the wall connects, forming a unified theory"
 }

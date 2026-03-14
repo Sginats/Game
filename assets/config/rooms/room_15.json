@@ -455,5 +455,38 @@
     "comp_sim_swarm",
     "comp_chamber_bot"
   ],
-  "routeBonus": "anomaly"
+  "routeBonus": "anomaly",
+  "roomLaw": {
+    "id": "law_deception_15",
+    "name": "Law of Deception",
+    "description": "This room lies",
+    "mechanic": "Reality and simulation blur \u2014 some upgrades have hidden effects that differ from descriptions"
+  },
+  "landmark": {
+    "id": "lm_reality_engine",
+    "name": "The Reality Engine",
+    "description": "A display that evolves into a window showing alternate timelines",
+    "evolutionStages": [
+      "A monitor showing a suspiciously perfect world",
+      "Glitches in the display reveal layers underneath",
+      "The screen becomes a portal to parallel simulations",
+      "Multiple timelines are visible simultaneously",
+      "The Reality Engine lets you choose which timeline is real"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_simulation_leak_15",
+    "name": "Simulation Leak",
+    "description": "Simulated resources bleed into real calculations",
+    "triggerCondition": "Simulation depth exceeds containment boundaries",
+    "penalty": "Resource counts become unreliable as simulated values contaminate totals"
+  },
+  "stabilizer": {
+    "id": "stab_reality_anchor_15",
+    "name": "Reality Anchor",
+    "description": "Grounding protocols separate real from simulated",
+    "mechanic": "Activating grounding protocols purges simulated values and restores accurate counts"
+  },
+  "completionCeremony": "You step outside the simulation \u2014 or do you?"
 }

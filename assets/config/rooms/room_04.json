@@ -450,5 +450,38 @@
     "comp_cave_swarm",
     "comp_upgrade_bot"
   ],
-  "routeBonus": "operator"
+  "routeBonus": "operator",
+  "roomLaw": {
+    "id": "law_depth_04",
+    "name": "Law of Depth",
+    "description": "This room rewards depth",
+    "mechanic": "Each upgrade tier unlocked boosts all ore production by a stacking percentage"
+  },
+  "landmark": {
+    "id": "lm_crystal_core",
+    "name": "The Crystal Core",
+    "description": "A glowing ore vein that evolves into a gemstone reactor",
+    "evolutionStages": [
+      "A dim crack in the cave wall leaking faint light",
+      "Crystalline formations sprout from exposed ore veins",
+      "A pulsing geode hums with raw mineral energy",
+      "Refined crystals orbit a central energy nexus",
+      "The Crystal Core powers an entire underground reactor grid"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_cavein_pressure_04",
+    "name": "Cave-In Pressure",
+    "description": "Too many upgrades at once causes structural instability",
+    "triggerCondition": "More than 3 upgrades purchased within a short window",
+    "penalty": "Cave instability halts all ore production for a recovery period"
+  },
+  "stabilizer": {
+    "id": "stab_reinforce_04",
+    "name": "Reinforcement Protocol",
+    "description": "Spacing upgrades stabilizes the cave",
+    "mechanic": "Waiting between upgrades builds structural integrity that prevents cave-ins"
+  },
+  "completionCeremony": "The cave opens into a vast underground cathedral of machines"
 }

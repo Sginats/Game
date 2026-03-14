@@ -449,5 +449,38 @@
     "comp_junk_drone",
     "comp_scrap_bot"
   ],
-  "routeBonus": "operator"
+  "routeBonus": "operator",
+  "roomLaw": {
+    "id": "law_patience_01",
+    "name": "Law of Patience",
+    "description": "This room rewards patience",
+    "mechanic": "Scrap production increases the longer you stay without prestiging"
+  },
+  "landmark": {
+    "id": "lm_scrap_throne",
+    "name": "The Scrap Throne",
+    "description": "A pile of junk that evolves into a throne of salvaged tech",
+    "evolutionStages": [
+      "A sad heap of rusty bolts",
+      "A recognizable chair shape emerges from the scrap",
+      "Wires and circuits weave into a functional seat",
+      "Salvaged tech hums with repurposed energy",
+      "The Scrap Throne radiates with improvised brilliance"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_rust_creep_01",
+    "name": "Rust Creep",
+    "description": "Components degrade over time if not maintained",
+    "triggerCondition": "Equipment left idle for extended periods",
+    "penalty": "Production efficiency decreases by 15% per decay cycle"
+  },
+  "stabilizer": {
+    "id": "stab_grease_grit_01",
+    "name": "Grease and Grit",
+    "description": "Manual maintenance taps stabilize equipment",
+    "mechanic": "Tapping maintenance actions resets decay timers and boosts output briefly"
+  },
+  "completionCeremony": "The junk reshapes itself into a gateway"
 }

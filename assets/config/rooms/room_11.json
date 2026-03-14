@@ -444,5 +444,38 @@
     "comp_proto_swarm",
     "comp_underground_drone"
   ],
-  "routeBonus": "stealth"
+  "routeBonus": "stealth",
+  "roomLaw": {
+    "id": "law_duplication_11",
+    "name": "Law of Duplication",
+    "description": "This room duplicates",
+    "mechanic": "Upgrades have a chance to apply twice, doubling their effect"
+  },
+  "landmark": {
+    "id": "lm_prototype_forge",
+    "name": "The Prototype Forge",
+    "description": "A rough workbench that evolves into a fabrication array",
+    "evolutionStages": [
+      "A splintered workbench covered in failed experiments",
+      "Tools organize themselves and the first prototype succeeds",
+      "Automated arms assist in rapid prototyping cycles",
+      "A fabrication array prints blueprints into physical form",
+      "The Prototype Forge manifests ideas directly from thought"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_blueprint_corrupt_11",
+    "name": "Blueprint Corruption",
+    "description": "Rapid prototyping can corrupt blueprint quality",
+    "triggerCondition": "Prototype speed exceeds quality assurance capacity",
+    "penalty": "Corrupted blueprints produce defective outputs for a time"
+  },
+  "stabilizer": {
+    "id": "stab_quality_check_11",
+    "name": "Quality Check",
+    "description": "Running verification passes prevents corruption",
+    "mechanic": "Initiating quality verification between prototypes prevents corruption buildup"
+  },
+  "completionCeremony": "The perfect prototype assembles itself from pure blueprint data"
 }

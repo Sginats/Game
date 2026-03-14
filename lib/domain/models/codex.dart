@@ -12,6 +12,10 @@ enum CodexEntryType {
   upgradeFamily,
   companionArchive,
   sideActivityArchive,
+  machineMoodArchive,
+  landmarkArchive,
+  weirdPhenomenaArchive,
+  roomLawArchive,
 }
 
 /// A single entry in the player's codex/collection.

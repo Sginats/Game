@@ -450,5 +450,38 @@
     "comp_auto_swarm",
     "comp_workspace_bot"
   ],
-  "routeBonus": "automation"
+  "routeBonus": "automation",
+  "roomLaw": {
+    "id": "law_trust_08",
+    "name": "Law of Trust",
+    "description": "This room rewards trust",
+    "mechanic": "Letting automation run without intervention boosts token generation over time"
+  },
+  "landmark": {
+    "id": "lm_self_writing_terminal",
+    "name": "The Self-Writing Terminal",
+    "description": "A terminal that evolves into an autonomous workshop",
+    "evolutionStages": [
+      "A terminal cursor blinks alone in a dark room",
+      "Code begins writing itself across the screen",
+      "Robotic arms extend from the terminal base",
+      "The workshop assembles its own expansion modules",
+      "The Self-Writing Terminal designs and builds without any input"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_autonomy_drift_08",
+    "name": "Autonomy Drift",
+    "description": "Unattended machines develop unexpected behaviors",
+    "triggerCondition": "No player interaction for an extended autonomous period",
+    "penalty": "Token output becomes erratic with random production spikes and drops"
+  },
+  "stabilizer": {
+    "id": "stab_trust_calib_08",
+    "name": "Trust Calibration",
+    "description": "Periodic check-ins keep autonomy on track",
+    "mechanic": "Brief periodic interactions realign autonomous systems without breaking trust bonus"
+  },
+  "completionCeremony": "The machines bow and present their first independent creation"
 }

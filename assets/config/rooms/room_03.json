@@ -449,5 +449,38 @@
     "comp_creator_ai",
     "comp_blueprint_drone"
   ],
-  "routeBonus": "research"
+  "routeBonus": "research",
+  "roomLaw": {
+    "id": "law_rhythm_03",
+    "name": "Law of Rhythm",
+    "description": "This room rewards rhythm",
+    "mechanic": "Consistent tap timing boosts combo multiplier exponentially"
+  },
+  "landmark": {
+    "id": "lm_content_engine",
+    "name": "The Content Engine",
+    "description": "A camera that evolves into a broadcast studio",
+    "evolutionStages": [
+      "A battered webcam held together with tape",
+      "A proper camera on a tripod with basic lighting",
+      "A multi-camera setup with professional editing suite",
+      "A full broadcast studio with live audience feeds",
+      "The Content Engine streams directly into the collective consciousness"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_burnout_wave_03",
+    "name": "Burnout Wave",
+    "description": "Combo decays faster if over-tapped",
+    "triggerCondition": "Tap rate exceeds the sustainable rhythm threshold",
+    "penalty": "Combo multiplier decays at 3x normal rate for 30 seconds"
+  },
+  "stabilizer": {
+    "id": "stab_creative_flow_03",
+    "name": "Creative Flow",
+    "description": "Maintaining steady rhythm stabilizes combos",
+    "mechanic": "Tapping at a consistent BPM builds a flow state that locks combo decay"
+  },
+  "completionCeremony": "Your creation goes viral, echoing across all rooms"
 }

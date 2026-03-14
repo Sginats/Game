@@ -455,5 +455,38 @@
     "comp_kernel_ai",
     "comp_reality_construct"
   ],
-  "routeBonus": "anomaly"
+  "routeBonus": "anomaly",
+  "roomLaw": {
+    "id": "law_metamorphosis_19",
+    "name": "Law of Metamorphosis",
+    "description": "This room changes if you over-optimize",
+    "mechanic": "Perfect optimization triggers kernel rewrites that alter room mechanics"
+  },
+  "landmark": {
+    "id": "lm_source_terminal",
+    "name": "The Source Terminal",
+    "description": "A command line that evolves into a reality editor",
+    "evolutionStages": [
+      "A blinking cursor on a black screen",
+      "The terminal responds to commands with cryptic output",
+      "System-level access reveals hidden parameters",
+      "The terminal can modify fundamental game constants",
+      "The Source Terminal rewrites reality with each keystroke"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_kernel_panic_19",
+    "name": "Kernel Panic",
+    "description": "Unstable modifications crash kernel production",
+    "triggerCondition": "Modification instability exceeds kernel tolerance",
+    "penalty": "Complete kernel production halt until system recovery"
+  },
+  "stabilizer": {
+    "id": "stab_safe_mode_19",
+    "name": "Safe Mode",
+    "description": "Rolling back to a stable state prevents kernel panics",
+    "mechanic": "Activating safe mode rolls back unstable changes and prevents crash events"
+  },
+  "completionCeremony": "You rewrite the fundamental law \u2014 the game remembers"
 }

@@ -455,5 +455,38 @@
     "comp_lab_drone",
     "comp_smart_daemon"
   ],
-  "routeBonus": "research"
+  "routeBonus": "research",
+  "roomLaw": {
+    "id": "law_signal_clarity_05",
+    "name": "Law of Signal Clarity",
+    "description": "This room values signal clarity",
+    "mechanic": "Clean data transmission boosts all production by reducing noise penalties"
+  },
+  "landmark": {
+    "id": "lm_dream_monitor",
+    "name": "The Dream Monitor",
+    "description": "A bedside screen that evolves into a neural interface",
+    "evolutionStages": [
+      "A small bedside screen displaying static",
+      "The screen shows flickering dream fragments",
+      "Neural sensors attach and translate dream imagery",
+      "A full neural headset merges sleep data with waking input",
+      "The Dream Monitor bridges consciousness and computation seamlessly"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_signal_noise_05",
+    "name": "Signal Noise",
+    "description": "Background interference scrambles data packet production",
+    "triggerCondition": "Environmental interference accumulates over time",
+    "penalty": "Data packet output is reduced by 20% and gains random variance"
+  },
+  "stabilizer": {
+    "id": "stab_freq_tuning_05",
+    "name": "Frequency Tuning",
+    "description": "Calibrating signal filters clears interference",
+    "mechanic": "Periodic frequency calibration actions clear accumulated noise"
+  },
+  "completionCeremony": "The dream and the data merge into a single lucid stream"
 }

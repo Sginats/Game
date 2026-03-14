@@ -455,5 +455,38 @@
     "comp_anomaly_construct",
     "comp_containment_bot"
   ],
-  "routeBonus": "anomaly"
+  "routeBonus": "anomaly",
+  "roomLaw": {
+    "id": "law_false_display_10",
+    "name": "Law of False Display",
+    "description": "This room lies",
+    "mechanic": "Displayed numbers occasionally show false values to test player awareness"
+  },
+  "landmark": {
+    "id": "lm_containment_field",
+    "name": "The Containment Field",
+    "description": "A flickering barrier that evolves into a stable prison",
+    "evolutionStages": [
+      "A faint shimmer in the air marks an unstable boundary",
+      "Energy arcs crackle along a visible perimeter",
+      "A solid energy wall hums with restrained power",
+      "Layered containment shields pulse in harmonic patterns",
+      "The Containment Field holds something ancient and grateful"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_breach_pressure_10",
+    "name": "Breach Pressure",
+    "description": "Containment weakens over time requiring active reinforcement",
+    "triggerCondition": "Containment integrity drops below critical threshold",
+    "penalty": "Contained resources leak out at an accelerating rate"
+  },
+  "stabilizer": {
+    "id": "stab_seal_protocol_10",
+    "name": "Seal Protocol",
+    "description": "Tapping containment seals reinforces the barrier",
+    "mechanic": "Active tap-based seal reinforcement restores containment integrity"
+  },
+  "completionCeremony": "Whatever was contained speaks \u2014 and thanks you"
 }

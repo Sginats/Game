@@ -460,5 +460,38 @@
     "comp_chrono_daemon",
     "comp_engine_bot"
   ],
-  "routeBonus": "transcendence"
+  "routeBonus": "transcendence",
+  "roomLaw": {
+    "id": "law_momentum_18",
+    "name": "Law of Momentum",
+    "description": "This room stores momentum",
+    "mechanic": "Production from past sessions echoes forward, compounding moment generation"
+  },
+  "landmark": {
+    "id": "lm_chrono_pendulum",
+    "name": "The Chrono Pendulum",
+    "description": "A swinging pendulum that evolves into a temporal gateway",
+    "evolutionStages": [
+      "A simple pendulum swinging in perpetual motion",
+      "The pendulum trail leaves glowing temporal afterimages",
+      "Time dilates visibly around the swinging arc",
+      "A gateway forms at the apex of each swing",
+      "The Chrono Pendulum bridges all moments into one eternal now"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_time_dilation_18",
+    "name": "Time Dilation",
+    "description": "Actions slow down as temporal pressure builds",
+    "triggerCondition": "Temporal pressure accumulates from sustained production",
+    "penalty": "All actions take progressively longer to complete"
+  },
+  "stabilizer": {
+    "id": "stab_temporal_sync_18",
+    "name": "Temporal Sync",
+    "description": "Resynchronizing timelines clears dilation effects",
+    "mechanic": "Initiating temporal resynchronization resets dilation and grants a speed burst"
+  },
+  "completionCeremony": "All your past selves wave from the other side of time"
 }

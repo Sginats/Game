@@ -429,5 +429,38 @@
     "comp_server_construct",
     "comp_stealth_bot"
   ],
-  "routeBonus": "stealth"
+  "routeBonus": "stealth",
+  "roomLaw": {
+    "id": "law_heat_06",
+    "name": "Law of Heat",
+    "description": "This room punishes heat",
+    "mechanic": "Overclocking generates more cycles but risks overheating and production loss"
+  },
+  "landmark": {
+    "id": "lm_forbidden_rack",
+    "name": "The Forbidden Rack",
+    "description": "A dusty server rack that evolves into a supercomputer",
+    "evolutionStages": [
+      "A dusty rack of blinking lights hidden behind boxes",
+      "Cables are organized and fans spin with new purpose",
+      "Liquid cooling lines snake through upgraded hardware",
+      "Quantum processors hum in temperature-controlled bays",
+      "The Forbidden Rack processes realities in parallel dimensions"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_thermal_runaway_06",
+    "name": "Thermal Runaway",
+    "description": "Heat buildup slows production and can crash cycles",
+    "triggerCondition": "Heat level exceeds safe operating threshold",
+    "penalty": "Cycle production drops by 50% and risks total crash for 60 seconds"
+  },
+  "stabilizer": {
+    "id": "stab_cooling_06",
+    "name": "Cooling Protocol",
+    "description": "Active cooling management prevents thermal shutdowns",
+    "mechanic": "Managing cooling systems keeps heat below threshold and unlocks overclock bonuses"
+  },
+  "completionCeremony": "The server closet wall cracks open, revealing deeper infrastructure"
 }

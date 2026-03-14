@@ -269,6 +269,141 @@ class MidSceneTwist {
   }
 }
 
+/// A room law that defines the core behavioural rule of a room.
+class RoomLaw {
+  final String id;
+  final String name;
+  final String description;
+  final String mechanic;
+
+  const RoomLaw({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.mechanic,
+  });
+
+  factory RoomLaw.fromJson(Map<String, dynamic> json) {
+    return RoomLaw(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      mechanic: json['mechanic'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'mechanic': mechanic,
+      };
+}
+
+/// A landmark object within a room that evolves visually as the player progresses.
+class RoomLandmark {
+  final String id;
+  final String name;
+  final String description;
+  final List<String> evolutionStages;
+  final int currentStage;
+
+  const RoomLandmark({
+    required this.id,
+    required this.name,
+    required this.description,
+    this.evolutionStages = const [],
+    this.currentStage = 0,
+  });
+
+  factory RoomLandmark.fromJson(Map<String, dynamic> json) {
+    return RoomLandmark(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      evolutionStages:
+          (json['evolutionStages'] as List<dynamic>? ?? const [])
+              .map((e) => e as String)
+              .toList(),
+      currentStage: json['currentStage'] as int? ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'evolutionStages': evolutionStages,
+        'currentStage': currentStage,
+      };
+}
+
+/// A room-specific hazard that creates pressure for the player.
+class RoomHazard {
+  final String id;
+  final String name;
+  final String description;
+  final String triggerCondition;
+  final String penalty;
+
+  const RoomHazard({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.triggerCondition,
+    required this.penalty,
+  });
+
+  factory RoomHazard.fromJson(Map<String, dynamic> json) {
+    return RoomHazard(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      triggerCondition: json['triggerCondition'] as String,
+      penalty: json['penalty'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'triggerCondition': triggerCondition,
+        'penalty': penalty,
+      };
+}
+
+/// A stabilization mechanic that counters the room hazard.
+class RoomStabilizer {
+  final String id;
+  final String name;
+  final String description;
+  final String mechanic;
+
+  const RoomStabilizer({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.mechanic,
+  });
+
+  factory RoomStabilizer.fromJson(Map<String, dynamic> json) {
+    return RoomStabilizer(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      mechanic: json['mechanic'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'mechanic': mechanic,
+      };
+}
+
 /// Main room/scene definition describing a single game room.
 class RoomScene {
   final String id;
@@ -295,6 +430,11 @@ class RoomScene {
   final String? sideActivityId;
   final List<String> companionAffinityIds;
   final String? routeBonus;
+  final RoomLaw? roomLaw;
+  final RoomLandmark? landmark;
+  final RoomHazard? hazard;
+  final RoomStabilizer? stabilizer;
+  final String? completionCeremony;
 
   const RoomScene({
     required this.id,
@@ -321,6 +461,11 @@ class RoomScene {
     this.sideActivityId,
     this.companionAffinityIds = const [],
     this.routeBonus,
+    this.roomLaw,
+    this.landmark,
+    this.hazard,
+    this.stabilizer,
+    this.completionCeremony,
   });
 
   RoomScene copyWith({
@@ -348,6 +493,11 @@ class RoomScene {
     String? sideActivityId,
     List<String>? companionAffinityIds,
     String? routeBonus,
+    RoomLaw? roomLaw,
+    RoomLandmark? landmark,
+    RoomHazard? hazard,
+    RoomStabilizer? stabilizer,
+    String? completionCeremony,
   }) {
     return RoomScene(
       id: id ?? this.id,
@@ -376,6 +526,11 @@ class RoomScene {
       sideActivityId: sideActivityId ?? this.sideActivityId,
       companionAffinityIds: companionAffinityIds ?? this.companionAffinityIds,
       routeBonus: routeBonus ?? this.routeBonus,
+      roomLaw: roomLaw ?? this.roomLaw,
+      landmark: landmark ?? this.landmark,
+      hazard: hazard ?? this.hazard,
+      stabilizer: stabilizer ?? this.stabilizer,
+      completionCeremony: completionCeremony ?? this.completionCeremony,
     );
   }
 
@@ -406,6 +561,11 @@ class RoomScene {
         'sideActivityId': sideActivityId,
         'companionAffinityIds': companionAffinityIds,
         'routeBonus': routeBonus,
+        'roomLaw': roomLaw?.toJson(),
+        'landmark': landmark?.toJson(),
+        'hazard': hazard?.toJson(),
+        'stabilizer': stabilizer?.toJson(),
+        'completionCeremony': completionCeremony,
       };
 
   factory RoomScene.fromJson(Map<String, dynamic> json) {
@@ -462,6 +622,20 @@ class RoomScene {
               .map((e) => e as String)
               .toList(),
       routeBonus: json['routeBonus'] as String?,
+      roomLaw: json['roomLaw'] != null
+          ? RoomLaw.fromJson(json['roomLaw'] as Map<String, dynamic>)
+          : null,
+      landmark: json['landmark'] != null
+          ? RoomLandmark.fromJson(json['landmark'] as Map<String, dynamic>)
+          : null,
+      hazard: json['hazard'] != null
+          ? RoomHazard.fromJson(json['hazard'] as Map<String, dynamic>)
+          : null,
+      stabilizer: json['stabilizer'] != null
+          ? RoomStabilizer.fromJson(
+              json['stabilizer'] as Map<String, dynamic>)
+          : null,
+      completionCeremony: json['completionCeremony'] as String?,
     );
   }
 }

@@ -450,5 +450,38 @@
     "comp_night_drone",
     "comp_command_ai"
   ],
-  "routeBonus": "operator"
+  "routeBonus": "operator",
+  "roomLaw": {
+    "id": "law_vigilance_07",
+    "name": "Law of Vigilance",
+    "description": "This room rewards vigilance",
+    "mechanic": "Staying active during low periods gives bonus directives as a loyalty reward"
+  },
+  "landmark": {
+    "id": "lm_command_console",
+    "name": "The Command Console",
+    "description": "A battered desk that evolves into a war room nerve center",
+    "evolutionStages": [
+      "A scratched metal desk with a single dim lamp",
+      "Monitors flicker to life showing system status feeds",
+      "A tactical display table replaces the old desk",
+      "Holographic situation maps float above the console",
+      "The Command Console orchestrates operations across all sectors"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_system_fatigue_07",
+    "name": "System Fatigue",
+    "description": "Neglected subsystems degrade directive output",
+    "triggerCondition": "Subsystems left unattended for extended periods",
+    "penalty": "Directive output decreases by 10% per neglected subsystem"
+  },
+  "stabilizer": {
+    "id": "stab_routine_maint_07",
+    "name": "Routine Maintenance",
+    "description": "Regular maintenance cycles prevent system decay",
+    "mechanic": "Performing maintenance actions on a schedule prevents fatigue accumulation"
+  },
+  "completionCeremony": "Dawn breaks through the window as all systems report green"
 }
