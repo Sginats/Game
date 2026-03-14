@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('RouteArchetype has expected values', () {
-    expect(RouteArchetype.values.length, 7);
+    expect(RouteArchetype.values.length, 10);
     expect(RouteArchetype.operator.name, 'operator');
     expect(RouteArchetype.transcendence.name, 'transcendence');
   });

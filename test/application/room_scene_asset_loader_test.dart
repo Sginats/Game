@@ -34,5 +34,30 @@ void main() {
       ),
       isTrue,
     );
+    expect(
+      rooms.every((room) => room['roomLaw'] != null),
+      isTrue,
+      reason: 'All rooms should have a roomLaw defined',
+    );
+    expect(
+      rooms.every((room) => room['landmark'] != null),
+      isTrue,
+      reason: 'All rooms should have a landmark defined',
+    );
+    expect(
+      rooms.every((room) => room['hazard'] != null),
+      isTrue,
+      reason: 'All rooms should have a hazard defined',
+    );
+    expect(
+      rooms.every((room) => room['stabilizer'] != null),
+      isTrue,
+      reason: 'All rooms should have a stabilizer defined',
+    );
+    expect(
+      rooms.every((room) => room['completionCeremony'] != null),
+      isTrue,
+      reason: 'All rooms should have a completionCeremony defined',
+    );
   });
 }

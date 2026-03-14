@@ -41,6 +41,7 @@ jobs:
           dart run test/domain/models/companion_model_test.dart
           dart run test/domain/models/route_faction_model_test.dart
           dart run test/domain/models/side_activity_model_test.dart
+          dart run test/domain/models/room_scene_expansion_test.dart
 
   analyze:
     name: Analyze
