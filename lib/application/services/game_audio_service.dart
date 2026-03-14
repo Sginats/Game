@@ -237,4 +237,75 @@ class GameAudioService {
     await Future.delayed(const Duration(milliseconds: 50));
     await HapticFeedback.lightImpact();
   }
+
+  // ─── Room-specific audio layer ────────────────────────────────────
+
+  /// Current ambient audio profile for room-based layering.
+  String _currentRoomAudioProfile = 'default';
+
+  /// The active room's audio profile (e.g., 'salvage', 'thermal', 'orbital').
+  String get currentRoomAudioProfile => _currentRoomAudioProfile;
+
+  /// Set the room audio profile when transitioning rooms.
+  void setRoomAudioProfile(String profile) {
+    _currentRoomAudioProfile = profile;
+  }
+
+  /// Room transformation stage change — environment evolving.
+  Future<void> playTransformationAdvance() async {
+    if (!_enabled) return;
+    await _playAsset('unlock.wav');
+    await HapticFeedback.mediumImpact();
+    await Future.delayed(const Duration(milliseconds: 100));
+    await HapticFeedback.lightImpact();
+    await Future.delayed(const Duration(milliseconds: 80));
+    await HapticFeedback.selectionClick();
+  }
+
+  /// Room mid-scene twist activation — dramatic shift.
+  Future<void> playRoomTwist() async {
+    if (!_enabled) return;
+    await _playAsset('alert.wav');
+    await HapticFeedback.heavyImpact();
+    await Future.delayed(const Duration(milliseconds: 150));
+    await HapticFeedback.heavyImpact();
+    await Future.delayed(const Duration(milliseconds: 100));
+    await HapticFeedback.mediumImpact();
+  }
+
+  /// Guide notification — subtle companion cue.
+  Future<void> playGuideNotification() async {
+    if (!_enabled || _sfxVolume <= 0.05) return;
+    await _playAsset('tap.wav');
+    await HapticFeedback.selectionClick();
+  }
+
+  /// Rare event spawn — distinctive attention pulse.
+  Future<void> playRareEventSpawn() async {
+    if (!_enabled) return;
+    await _playAsset('alert.wav');
+    await HapticFeedback.heavyImpact();
+    await Future.delayed(const Duration(milliseconds: 80));
+    await HapticFeedback.mediumImpact();
+    await Future.delayed(const Duration(milliseconds: 60));
+    await HapticFeedback.lightImpact();
+  }
+
+  /// Room transition cue — smooth crossfade feel.
+  Future<void> playRoomTransition() async {
+    if (!_enabled) return;
+    await _playAsset('unlock.wav');
+    await HapticFeedback.lightImpact();
+    await Future.delayed(const Duration(milliseconds: 200));
+    await HapticFeedback.mediumImpact();
+  }
+
+  /// Relic acquired — meta-progression reward.
+  Future<void> playRelicAcquired() async {
+    if (!_enabled) return;
+    await _playAsset('milestone.wav');
+    await HapticFeedback.mediumImpact();
+    await Future.delayed(const Duration(milliseconds: 100));
+    await HapticFeedback.heavyImpact();
+  }
 }
