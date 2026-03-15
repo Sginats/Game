@@ -44,6 +44,7 @@ jobs:
           dart run test/domain/models/side_activity_model_test.dart
           dart run test/domain/models/room_scene_expansion_test.dart
           dart run test/domain/models/post_core_systems_test.dart
+          dart run test/domain/models/ui_ux_systems_test.dart
 
   analyze:
     name: Analyze

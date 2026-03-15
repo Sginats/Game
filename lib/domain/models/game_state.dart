@@ -8,6 +8,7 @@ import 'post_core_systems.dart';
 import 'room_scene.dart';
 import 'route_faction.dart';
 import 'side_activity.dart';
+import 'ui_ux_systems.dart';
 import 'upgrade.dart';
 
 /// Complete game state — immutable, updated via [copyWith].
@@ -77,6 +78,7 @@ class GameState {
   final int roomMasteryRank;
   final Map<String, int> sceneMasteryRanks;
   final PostCoreState postCore;
+  final UIUXState uiux;
 
   GameState({
     required this.coins,
@@ -142,6 +144,7 @@ class GameState {
     this.roomMasteryRank = 0,
     this.sceneMasteryRanks = const {},
     this.postCore = const PostCoreState(),
+    this.uiux = const UIUXState(),
   }) : prestigeMultiplier =
             prestigeMultiplier ?? GameNumber.fromDouble(1);
 
@@ -248,6 +251,7 @@ class GameState {
     int? roomMasteryRank,
     Map<String, int>? sceneMasteryRanks,
     PostCoreState? postCore,
+    UIUXState? uiux,
   }) {
     return GameState(
       coins: coins ?? this.coins,
@@ -317,6 +321,7 @@ class GameState {
       roomMasteryRank: roomMasteryRank ?? this.roomMasteryRank,
       sceneMasteryRanks: sceneMasteryRanks ?? this.sceneMasteryRanks,
       postCore: postCore ?? this.postCore,
+      uiux: uiux ?? this.uiux,
     );
   }
 
@@ -384,6 +389,7 @@ class GameState {
         'roomMasteryRank': roomMasteryRank,
         'sceneMasteryRanks': sceneMasteryRanks,
         'postCore': postCore.toJson(),
+        'uiux': uiux.toJson(),
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -576,6 +582,9 @@ class GameState {
           ? PostCoreState.fromJson(
               json['postCore'] as Map<String, dynamic>)
           : const PostCoreState(),
+      uiux: json['uiux'] != null
+          ? UIUXState.fromJson(json['uiux'] as Map<String, dynamic>)
+          : const UIUXState(),
     );
   }
 }
