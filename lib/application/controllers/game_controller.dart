@@ -29,6 +29,10 @@ import '../services/room_scene_service.dart';
 class GameController {
   static const bool _eventsEnabled = true;
 
+  /// Tap multiplier bonus applied to Room 01 each time an environment-trigger
+  /// event fires.  Matches the SALVAGE MODE room law's rhythm bonus.
+  static const double _room01EnvTapBonus = 1.02;
+
   final ConfigService _config;
   final TimeProvider _timeProvider;
   final GameRepository? _repository;
@@ -48,6 +52,15 @@ class GameController {
   bool lastTapWasCritical = false;
   String? lastRecommendation;
   String? lastAiLine;
+
+  /// Set to true when the very first tap happens — cleared after being read.
+  bool firstTapJustHappened = false;
+
+  /// Set to true when the very first upgrade is purchased — cleared after being read.
+  bool firstUpgradeJustPurchased = false;
+
+  /// Set to true when the very first room scene event spawns — cleared after being read.
+  bool firstEventJustSpawned = false;
 
   GameController({
     required ConfigService config,
@@ -220,12 +233,15 @@ class GameController {
   bool tap() {
     if (!canTap) return false;
     final before = _state.coins;
+    final isFirstTap = _state.totalTaps == 0;
     var tapped = TapSystem.processTap(
       _state,
       _config.baseTapValue,
       now: _timeProvider.now(),
     );
     var gain = tapped.coins - before;
+
+    if (isFirstTap) firstTapJustHappened = true;
 
     final tapBonus = _tapBonusMultiplier.toDouble();
     if (tapBonus > 1) {
@@ -332,6 +348,7 @@ class GameController {
     final definition = _config.upgrades[upgradeId];
     if (definition == null) return false;
 
+    final isFirstUpgrade = _state.totalUpgradesPurchased == 0;
     final currentLevel = _state.upgrades[upgradeId]?.level ?? 0;
     final remainingLevels = math.max(0, definition.maxLevel - currentLevel);
     final targetQuantity = math.min(quantity, remainingLevels);
@@ -376,6 +393,7 @@ class GameController {
     }
 
     _state = updated;
+    if (isFirstUpgrade) firstUpgradeJustPurchased = true;
     _updateQuestProgress();
     _checkEraUnlocks();
     _checkSceneBadges();
@@ -2214,6 +2232,9 @@ class GameController {
       totalEventsSpawned: _state.totalEventsSpawned + 1,
       seenEventTemplates: {..._state.seenEventTemplates, selected.id},
     );
+    // Notify UI that the first room scene event just spawned.
+    // totalEventsSpawned is already incremented above; value 1 = first event ever.
+    if (_state.totalEventsSpawned == 1) firstEventJustSpawned = true;
     _recordSceneEventArchive(selected);
     if (runtimeEvent.rarity.index >= EventRarity.rare.index) {
       _pushNarrativeBeat(
@@ -2317,6 +2338,14 @@ class GameController {
           break;
         case EventRewardType.secretClue:
           _discoverFirstHiddenRoomSecret();
+          // Narrative beat for secret clue discovery
+          _pushNarrativeBeat(
+            id: 'secret_clue_${definition.id}',
+            title: 'Secret Clue: ${definition.title}',
+            body: definition.flavorText.isEmpty
+                ? 'A hidden detail has come to light. Check the codex.'
+                : definition.flavorText,
+          );
           break;
         case EventRewardType.hiddenBranchProgress:
         case EventRewardType.routeReward:
@@ -2352,6 +2381,15 @@ class GameController {
           break;
         case EventRewardType.environmentTrigger:
           triggerTransformation = true;
+          // Room 01 bonus: a small tap multiplier stacks each time an
+          // environment event fires in the Junk Corner, rewarding active play
+          // in the tutorial room.
+          if (_state.currentRoomId == 'room_01') {
+            updated = updated.copyWith(
+              tapMultiplier: updated.tapMultiplier *
+                  GameNumber.fromDouble(_room01EnvTapBonus),
+            );
+          }
           break;
       }
     }
@@ -2391,6 +2429,10 @@ class GameController {
 
     if (triggerTransformation) {
       advanceTransformationStage();
+    }
+    // Transformation boost: when event chain > 3, also check for stage advance
+    if (!triggerTransformation && _state.currentEventChain > 3) {
+      _checkRoomProgression();
     }
     if (definition.category == SceneEventCategory.secretTrigger ||
         definition.category == SceneEventCategory.hiddenGlitch) {

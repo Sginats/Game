@@ -7,7 +7,8 @@ void main() {
     final guide = RobotGuideService();
     guide.onRoomChanged('room_01', trustTier: 1);
     expect(guide.hasMessage, isTrue);
-    expect(guide.currentMessage!.id, 'room_01_hint');
+    // room_01_intro has priority 9 — highest among non-trigger messages
+    expect(guide.currentMessage!.id, 'room_01_intro');
     expect(guide.currentMessage!.type, RobotGuideMessageType.roomIntro);
   });
 

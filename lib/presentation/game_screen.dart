@@ -28,6 +28,7 @@ import 'tech_tree/tech_tree_builder.dart';
 import 'tech_tree/tech_tree_models.dart';
 import 'tech_tree/tech_tree_view.dart';
 import 'widgets/room_scene_backdrop.dart';
+import 'widgets/room_status_panel.dart';
 
 class GameScreen extends StatefulWidget {
   final GameController controller;
@@ -766,6 +767,8 @@ class _GameScreenState extends State<GameScreen>
           const SizedBox(height: 8),
           _buildRoomOverviewCard(),
           const SizedBox(height: 8),
+          _buildRoomStatusPanel(),
+          const SizedBox(height: 8),
           if (_controller.activeEvent != null) ...[
             _buildActiveEventCard(_controller.activeEvent!),
             const SizedBox(height: 8),
@@ -1082,6 +1085,17 @@ class _GameScreenState extends State<GameScreen>
           ],
         ],
       ),
+    );
+  }
+
+  Widget _buildRoomStatusPanel() {
+    final room = _controller.currentRoom;
+    final roomState = _controller.currentRoomState;
+    if (room == null) return const SizedBox.shrink();
+    return RoomStatusPanel(
+      room: room,
+      roomState: roomState,
+      upgradesPurchased: roomState.upgradesPurchased,
     );
   }
 
@@ -1884,6 +1898,19 @@ class _GameScreenState extends State<GameScreen>
       );
       unawaited(widget.audioService.playMilestone());
       _controller.lastUnlockedMilestones = [];
+    }
+    // Guide hook-ups for first-time milestones
+    if (_controller.firstTapJustHappened) {
+      _controller.firstTapJustHappened = false;
+      _robotGuide.onFirstTap();
+    }
+    if (_controller.firstUpgradeJustPurchased) {
+      _controller.firstUpgradeJustPurchased = false;
+      _robotGuide.onFirstUpgradePurchased();
+    }
+    if (_controller.firstEventJustSpawned) {
+      _controller.firstEventJustSpawned = false;
+      _robotGuide.onFirstEventAppeared();
     }
   }
 
