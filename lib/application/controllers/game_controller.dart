@@ -3151,6 +3151,7 @@ class GameController {
   double _rarityRewardMultiplier(EventRarity rarity) {
     return switch (rarity) {
       EventRarity.common => 1,
+      EventRarity.uncommon => 1.08,
       EventRarity.rare => 1.18,
       EventRarity.epic => 1.42,
       EventRarity.corrupted => 1.8,
