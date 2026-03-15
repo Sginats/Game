@@ -1,0 +1,3572 @@
+{
+  "masteryGoals": [
+    {
+      "id": "mastery_room_01_fastest",
+      "roomId": "room_01",
+      "type": "fastestClear",
+      "title": "Speed Run: Junk Corner",
+      "description": "Complete Junk Corner within the target time limit.",
+      "targetValue": 300,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_01_fastest"
+    },
+    {
+      "id": "mastery_room_01_highcombo",
+      "roomId": "room_01",
+      "type": "highComboClear",
+      "title": "Combo Master: Junk Corner",
+      "description": "Achieve a high combo chain while clearing Junk Corner.",
+      "targetValue": 500,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_01_highcombo"
+    },
+    {
+      "id": "mastery_room_01_secret",
+      "roomId": "room_01",
+      "type": "secretClear",
+      "title": "Secret Seeker: Junk Corner",
+      "description": "Discover and activate all hidden secrets in Junk Corner.",
+      "targetValue": 3,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_01_secret"
+    },
+    {
+      "id": "mastery_room_01_archive",
+      "roomId": "room_01",
+      "type": "archiveComplete",
+      "title": "Archivist: Junk Corner",
+      "description": "Unlock every codex and archive entry associated with Junk Corner.",
+      "targetValue": 5,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_01_archive"
+    },
+    {
+      "id": "mastery_room_01_nofail",
+      "roomId": "room_01",
+      "type": "noFailureClear",
+      "title": "Flawless: Junk Corner",
+      "description": "Clear Junk Corner without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_01_nofail"
+    },
+    {
+      "id": "mastery_room_01_route",
+      "roomId": "room_01",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Junk Corner",
+      "description": "Complete Junk Corner while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_01_route",
+      "routeConstraint": "route_operator"
+    },
+    {
+      "id": "mastery_room_01_challenge",
+      "roomId": "room_01",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Junk Corner",
+      "description": "Complete the challenge variant of Junk Corner under modified rules.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_01_challenge"
+    },
+    {
+      "id": "mastery_room_02_fastest",
+      "roomId": "room_02",
+      "type": "fastestClear",
+      "title": "Speed Run: Wiring Den",
+      "description": "Complete Wiring Den within the target time limit.",
+      "targetValue": 295,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_02_fastest"
+    },
+    {
+      "id": "mastery_room_02_highcombo",
+      "roomId": "room_02",
+      "type": "highComboClear",
+      "title": "Combo Master: Wiring Den",
+      "description": "Achieve a high combo chain while clearing Wiring Den.",
+      "targetValue": 550,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_02_highcombo"
+    },
+    {
+      "id": "mastery_room_02_secret",
+      "roomId": "room_02",
+      "type": "secretClear",
+      "title": "Secret Seeker: Wiring Den",
+      "description": "Discover and activate all hidden secrets in Wiring Den.",
+      "targetValue": 3,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_02_secret"
+    },
+    {
+      "id": "mastery_room_02_archive",
+      "roomId": "room_02",
+      "type": "archiveComplete",
+      "title": "Archivist: Wiring Den",
+      "description": "Unlock every codex and archive entry associated with Wiring Den.",
+      "targetValue": 6,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_02_archive"
+    },
+    {
+      "id": "mastery_room_02_nofail",
+      "roomId": "room_02",
+      "type": "noFailureClear",
+      "title": "Flawless: Wiring Den",
+      "description": "Clear Wiring Den without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_02_nofail"
+    },
+    {
+      "id": "mastery_room_02_route",
+      "roomId": "room_02",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Wiring Den",
+      "description": "Complete Wiring Den while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_02_route",
+      "routeConstraint": "route_automation"
+    },
+    {
+      "id": "mastery_room_02_challenge",
+      "roomId": "room_02",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Wiring Den",
+      "description": "Complete the challenge variant of Wiring Den under modified rules.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_02_challenge"
+    },
+    {
+      "id": "mastery_room_03_fastest",
+      "roomId": "room_03",
+      "type": "fastestClear",
+      "title": "Speed Run: Steam Vents",
+      "description": "Complete Steam Vents within the target time limit.",
+      "targetValue": 290,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_03_fastest"
+    },
+    {
+      "id": "mastery_room_03_highcombo",
+      "roomId": "room_03",
+      "type": "highComboClear",
+      "title": "Combo Master: Steam Vents",
+      "description": "Achieve a high combo chain while clearing Steam Vents.",
+      "targetValue": 600,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_03_highcombo"
+    },
+    {
+      "id": "mastery_room_03_secret",
+      "roomId": "room_03",
+      "type": "secretClear",
+      "title": "Secret Seeker: Steam Vents",
+      "description": "Discover and activate all hidden secrets in Steam Vents.",
+      "targetValue": 3,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_03_secret"
+    },
+    {
+      "id": "mastery_room_03_archive",
+      "roomId": "room_03",
+      "type": "archiveComplete",
+      "title": "Archivist: Steam Vents",
+      "description": "Unlock every codex and archive entry associated with Steam Vents.",
+      "targetValue": 7,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_03_archive"
+    },
+    {
+      "id": "mastery_room_03_nofail",
+      "roomId": "room_03",
+      "type": "noFailureClear",
+      "title": "Flawless: Steam Vents",
+      "description": "Clear Steam Vents without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_03_nofail"
+    },
+    {
+      "id": "mastery_room_03_route",
+      "roomId": "room_03",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Steam Vents",
+      "description": "Complete Steam Vents while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_03_route",
+      "routeConstraint": "route_anomaly"
+    },
+    {
+      "id": "mastery_room_03_challenge",
+      "roomId": "room_03",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Steam Vents",
+      "description": "Complete the challenge variant of Steam Vents under modified rules.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_03_challenge"
+    },
+    {
+      "id": "mastery_room_04_fastest",
+      "roomId": "room_04",
+      "type": "fastestClear",
+      "title": "Speed Run: Signal Tower",
+      "description": "Complete Signal Tower within the target time limit.",
+      "targetValue": 285,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_04_fastest"
+    },
+    {
+      "id": "mastery_room_04_highcombo",
+      "roomId": "room_04",
+      "type": "highComboClear",
+      "title": "Combo Master: Signal Tower",
+      "description": "Achieve a high combo chain while clearing Signal Tower.",
+      "targetValue": 650,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_04_highcombo"
+    },
+    {
+      "id": "mastery_room_04_secret",
+      "roomId": "room_04",
+      "type": "secretClear",
+      "title": "Secret Seeker: Signal Tower",
+      "description": "Discover and activate all hidden secrets in Signal Tower.",
+      "targetValue": 3,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_04_secret"
+    },
+    {
+      "id": "mastery_room_04_archive",
+      "roomId": "room_04",
+      "type": "archiveComplete",
+      "title": "Archivist: Signal Tower",
+      "description": "Unlock every codex and archive entry associated with Signal Tower.",
+      "targetValue": 8,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_04_archive"
+    },
+    {
+      "id": "mastery_room_04_nofail",
+      "roomId": "room_04",
+      "type": "noFailureClear",
+      "title": "Flawless: Signal Tower",
+      "description": "Clear Signal Tower without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_04_nofail"
+    },
+    {
+      "id": "mastery_room_04_route",
+      "roomId": "room_04",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Signal Tower",
+      "description": "Complete Signal Tower while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_04_route",
+      "routeConstraint": "route_swarm"
+    },
+    {
+      "id": "mastery_room_04_challenge",
+      "roomId": "room_04",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Signal Tower",
+      "description": "Complete the challenge variant of Signal Tower under modified rules.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_04_challenge"
+    },
+    {
+      "id": "mastery_room_05_fastest",
+      "roomId": "room_05",
+      "type": "fastestClear",
+      "title": "Speed Run: Sensor Lab",
+      "description": "Complete Sensor Lab within the target time limit.",
+      "targetValue": 280,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_05_fastest"
+    },
+    {
+      "id": "mastery_room_05_highcombo",
+      "roomId": "room_05",
+      "type": "highComboClear",
+      "title": "Combo Master: Sensor Lab",
+      "description": "Achieve a high combo chain while clearing Sensor Lab.",
+      "targetValue": 700,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_05_highcombo"
+    },
+    {
+      "id": "mastery_room_05_secret",
+      "roomId": "room_05",
+      "type": "secretClear",
+      "title": "Secret Seeker: Sensor Lab",
+      "description": "Discover and activate all hidden secrets in Sensor Lab.",
+      "targetValue": 3,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_05_secret"
+    },
+    {
+      "id": "mastery_room_05_archive",
+      "roomId": "room_05",
+      "type": "archiveComplete",
+      "title": "Archivist: Sensor Lab",
+      "description": "Unlock every codex and archive entry associated with Sensor Lab.",
+      "targetValue": 9,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_05_archive"
+    },
+    {
+      "id": "mastery_room_05_nofail",
+      "roomId": "room_05",
+      "type": "noFailureClear",
+      "title": "Flawless: Sensor Lab",
+      "description": "Clear Sensor Lab without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_05_nofail"
+    },
+    {
+      "id": "mastery_room_05_route",
+      "roomId": "room_05",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Sensor Lab",
+      "description": "Complete Sensor Lab while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_05_route",
+      "routeConstraint": "route_research"
+    },
+    {
+      "id": "mastery_room_05_challenge",
+      "roomId": "room_05",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Sensor Lab",
+      "description": "Complete the challenge variant of Sensor Lab under modified rules.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_05_challenge"
+    },
+    {
+      "id": "mastery_room_06_fastest",
+      "roomId": "room_06",
+      "type": "fastestClear",
+      "title": "Speed Run: Assembly Line",
+      "description": "Complete Assembly Line within the target time limit.",
+      "targetValue": 275,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_06_fastest"
+    },
+    {
+      "id": "mastery_room_06_highcombo",
+      "roomId": "room_06",
+      "type": "highComboClear",
+      "title": "Combo Master: Assembly Line",
+      "description": "Achieve a high combo chain while clearing Assembly Line.",
+      "targetValue": 750,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_06_highcombo"
+    },
+    {
+      "id": "mastery_room_06_secret",
+      "roomId": "room_06",
+      "type": "secretClear",
+      "title": "Secret Seeker: Assembly Line",
+      "description": "Discover and activate all hidden secrets in Assembly Line.",
+      "targetValue": 4,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_06_secret"
+    },
+    {
+      "id": "mastery_room_06_archive",
+      "roomId": "room_06",
+      "type": "archiveComplete",
+      "title": "Archivist: Assembly Line",
+      "description": "Unlock every codex and archive entry associated with Assembly Line.",
+      "targetValue": 10,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_06_archive"
+    },
+    {
+      "id": "mastery_room_06_nofail",
+      "roomId": "room_06",
+      "type": "noFailureClear",
+      "title": "Flawless: Assembly Line",
+      "description": "Clear Assembly Line without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_06_nofail"
+    },
+    {
+      "id": "mastery_room_06_route",
+      "roomId": "room_06",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Assembly Line",
+      "description": "Complete Assembly Line while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_06_route",
+      "routeConstraint": "route_operator"
+    },
+    {
+      "id": "mastery_room_06_challenge",
+      "roomId": "room_06",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Assembly Line",
+      "description": "Complete the challenge variant of Assembly Line under modified rules.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_06_challenge"
+    },
+    {
+      "id": "mastery_room_07_fastest",
+      "roomId": "room_07",
+      "type": "fastestClear",
+      "title": "Speed Run: Coolant Labyrinth",
+      "description": "Complete Coolant Labyrinth within the target time limit.",
+      "targetValue": 270,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_07_fastest"
+    },
+    {
+      "id": "mastery_room_07_highcombo",
+      "roomId": "room_07",
+      "type": "highComboClear",
+      "title": "Combo Master: Coolant Labyrinth",
+      "description": "Achieve a high combo chain while clearing Coolant Labyrinth.",
+      "targetValue": 800,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_07_highcombo"
+    },
+    {
+      "id": "mastery_room_07_secret",
+      "roomId": "room_07",
+      "type": "secretClear",
+      "title": "Secret Seeker: Coolant Labyrinth",
+      "description": "Discover and activate all hidden secrets in Coolant Labyrinth.",
+      "targetValue": 4,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_07_secret"
+    },
+    {
+      "id": "mastery_room_07_archive",
+      "roomId": "room_07",
+      "type": "archiveComplete",
+      "title": "Archivist: Coolant Labyrinth",
+      "description": "Unlock every codex and archive entry associated with Coolant Labyrinth.",
+      "targetValue": 11,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_07_archive"
+    },
+    {
+      "id": "mastery_room_07_nofail",
+      "roomId": "room_07",
+      "type": "noFailureClear",
+      "title": "Flawless: Coolant Labyrinth",
+      "description": "Clear Coolant Labyrinth without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_07_nofail"
+    },
+    {
+      "id": "mastery_room_07_route",
+      "roomId": "room_07",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Coolant Labyrinth",
+      "description": "Complete Coolant Labyrinth while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_07_route",
+      "routeConstraint": "route_automation"
+    },
+    {
+      "id": "mastery_room_07_challenge",
+      "roomId": "room_07",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Coolant Labyrinth",
+      "description": "Complete the challenge variant of Coolant Labyrinth under modified rules.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_07_challenge"
+    },
+    {
+      "id": "mastery_room_08_fastest",
+      "roomId": "room_08",
+      "type": "fastestClear",
+      "title": "Speed Run: Data Vault",
+      "description": "Complete Data Vault within the target time limit.",
+      "targetValue": 265,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_08_fastest"
+    },
+    {
+      "id": "mastery_room_08_highcombo",
+      "roomId": "room_08",
+      "type": "highComboClear",
+      "title": "Combo Master: Data Vault",
+      "description": "Achieve a high combo chain while clearing Data Vault.",
+      "targetValue": 850,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_08_highcombo"
+    },
+    {
+      "id": "mastery_room_08_secret",
+      "roomId": "room_08",
+      "type": "secretClear",
+      "title": "Secret Seeker: Data Vault",
+      "description": "Discover and activate all hidden secrets in Data Vault.",
+      "targetValue": 4,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_08_secret"
+    },
+    {
+      "id": "mastery_room_08_archive",
+      "roomId": "room_08",
+      "type": "archiveComplete",
+      "title": "Archivist: Data Vault",
+      "description": "Unlock every codex and archive entry associated with Data Vault.",
+      "targetValue": 12,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_08_archive"
+    },
+    {
+      "id": "mastery_room_08_nofail",
+      "roomId": "room_08",
+      "type": "noFailureClear",
+      "title": "Flawless: Data Vault",
+      "description": "Clear Data Vault without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_08_nofail"
+    },
+    {
+      "id": "mastery_room_08_route",
+      "roomId": "room_08",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Data Vault",
+      "description": "Complete Data Vault while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_08_route",
+      "routeConstraint": "route_anomaly"
+    },
+    {
+      "id": "mastery_room_08_challenge",
+      "roomId": "room_08",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Data Vault",
+      "description": "Complete the challenge variant of Data Vault under modified rules.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_08_challenge"
+    },
+    {
+      "id": "mastery_room_09_fastest",
+      "roomId": "room_09",
+      "type": "fastestClear",
+      "title": "Speed Run: Gravity Well",
+      "description": "Complete Gravity Well within the target time limit.",
+      "targetValue": 260,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_09_fastest"
+    },
+    {
+      "id": "mastery_room_09_highcombo",
+      "roomId": "room_09",
+      "type": "highComboClear",
+      "title": "Combo Master: Gravity Well",
+      "description": "Achieve a high combo chain while clearing Gravity Well.",
+      "targetValue": 900,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_09_highcombo"
+    },
+    {
+      "id": "mastery_room_09_secret",
+      "roomId": "room_09",
+      "type": "secretClear",
+      "title": "Secret Seeker: Gravity Well",
+      "description": "Discover and activate all hidden secrets in Gravity Well.",
+      "targetValue": 4,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_09_secret"
+    },
+    {
+      "id": "mastery_room_09_archive",
+      "roomId": "room_09",
+      "type": "archiveComplete",
+      "title": "Archivist: Gravity Well",
+      "description": "Unlock every codex and archive entry associated with Gravity Well.",
+      "targetValue": 13,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_09_archive"
+    },
+    {
+      "id": "mastery_room_09_nofail",
+      "roomId": "room_09",
+      "type": "noFailureClear",
+      "title": "Flawless: Gravity Well",
+      "description": "Clear Gravity Well without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_09_nofail"
+    },
+    {
+      "id": "mastery_room_09_route",
+      "roomId": "room_09",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Gravity Well",
+      "description": "Complete Gravity Well while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_09_route",
+      "routeConstraint": "route_swarm"
+    },
+    {
+      "id": "mastery_room_09_challenge",
+      "roomId": "room_09",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Gravity Well",
+      "description": "Complete the challenge variant of Gravity Well under modified rules.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_09_challenge"
+    },
+    {
+      "id": "mastery_room_10_fastest",
+      "roomId": "room_10",
+      "type": "fastestClear",
+      "title": "Speed Run: Anomaly Containment",
+      "description": "Complete Anomaly Containment within the target time limit.",
+      "targetValue": 255,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_10_fastest"
+    },
+    {
+      "id": "mastery_room_10_highcombo",
+      "roomId": "room_10",
+      "type": "highComboClear",
+      "title": "Combo Master: Anomaly Containment",
+      "description": "Achieve a high combo chain while clearing Anomaly Containment.",
+      "targetValue": 950,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_10_highcombo"
+    },
+    {
+      "id": "mastery_room_10_secret",
+      "roomId": "room_10",
+      "type": "secretClear",
+      "title": "Secret Seeker: Anomaly Containment",
+      "description": "Discover and activate all hidden secrets in Anomaly Containment.",
+      "targetValue": 4,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_10_secret"
+    },
+    {
+      "id": "mastery_room_10_archive",
+      "roomId": "room_10",
+      "type": "archiveComplete",
+      "title": "Archivist: Anomaly Containment",
+      "description": "Unlock every codex and archive entry associated with Anomaly Containment.",
+      "targetValue": 14,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_10_archive"
+    },
+    {
+      "id": "mastery_room_10_nofail",
+      "roomId": "room_10",
+      "type": "noFailureClear",
+      "title": "Flawless: Anomaly Containment",
+      "description": "Clear Anomaly Containment without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_10_nofail"
+    },
+    {
+      "id": "mastery_room_10_route",
+      "roomId": "room_10",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Anomaly Containment",
+      "description": "Complete Anomaly Containment while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_10_route",
+      "routeConstraint": "route_research"
+    },
+    {
+      "id": "mastery_room_10_challenge",
+      "roomId": "room_10",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Anomaly Containment",
+      "description": "Complete the challenge variant of Anomaly Containment under modified rules.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_10_challenge"
+    },
+    {
+      "id": "mastery_room_11_fastest",
+      "roomId": "room_11",
+      "type": "fastestClear",
+      "title": "Speed Run: Neural Nexus",
+      "description": "Complete Neural Nexus within the target time limit.",
+      "targetValue": 250,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_11_fastest"
+    },
+    {
+      "id": "mastery_room_11_highcombo",
+      "roomId": "room_11",
+      "type": "highComboClear",
+      "title": "Combo Master: Neural Nexus",
+      "description": "Achieve a high combo chain while clearing Neural Nexus.",
+      "targetValue": 1000,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_11_highcombo"
+    },
+    {
+      "id": "mastery_room_11_secret",
+      "roomId": "room_11",
+      "type": "secretClear",
+      "title": "Secret Seeker: Neural Nexus",
+      "description": "Discover and activate all hidden secrets in Neural Nexus.",
+      "targetValue": 5,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_11_secret"
+    },
+    {
+      "id": "mastery_room_11_archive",
+      "roomId": "room_11",
+      "type": "archiveComplete",
+      "title": "Archivist: Neural Nexus",
+      "description": "Unlock every codex and archive entry associated with Neural Nexus.",
+      "targetValue": 15,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_11_archive"
+    },
+    {
+      "id": "mastery_room_11_nofail",
+      "roomId": "room_11",
+      "type": "noFailureClear",
+      "title": "Flawless: Neural Nexus",
+      "description": "Clear Neural Nexus without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_11_nofail"
+    },
+    {
+      "id": "mastery_room_11_route",
+      "roomId": "room_11",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Neural Nexus",
+      "description": "Complete Neural Nexus while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_11_route",
+      "routeConstraint": "route_operator"
+    },
+    {
+      "id": "mastery_room_11_challenge",
+      "roomId": "room_11",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Neural Nexus",
+      "description": "Complete the challenge variant of Neural Nexus under modified rules.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_11_challenge"
+    },
+    {
+      "id": "mastery_room_12_fastest",
+      "roomId": "room_12",
+      "type": "fastestClear",
+      "title": "Speed Run: Forge Core",
+      "description": "Complete Forge Core within the target time limit.",
+      "targetValue": 245,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_12_fastest"
+    },
+    {
+      "id": "mastery_room_12_highcombo",
+      "roomId": "room_12",
+      "type": "highComboClear",
+      "title": "Combo Master: Forge Core",
+      "description": "Achieve a high combo chain while clearing Forge Core.",
+      "targetValue": 1050,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_12_highcombo"
+    },
+    {
+      "id": "mastery_room_12_secret",
+      "roomId": "room_12",
+      "type": "secretClear",
+      "title": "Secret Seeker: Forge Core",
+      "description": "Discover and activate all hidden secrets in Forge Core.",
+      "targetValue": 5,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_12_secret"
+    },
+    {
+      "id": "mastery_room_12_archive",
+      "roomId": "room_12",
+      "type": "archiveComplete",
+      "title": "Archivist: Forge Core",
+      "description": "Unlock every codex and archive entry associated with Forge Core.",
+      "targetValue": 16,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_12_archive"
+    },
+    {
+      "id": "mastery_room_12_nofail",
+      "roomId": "room_12",
+      "type": "noFailureClear",
+      "title": "Flawless: Forge Core",
+      "description": "Clear Forge Core without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_12_nofail"
+    },
+    {
+      "id": "mastery_room_12_route",
+      "roomId": "room_12",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Forge Core",
+      "description": "Complete Forge Core while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_12_route",
+      "routeConstraint": "route_automation"
+    },
+    {
+      "id": "mastery_room_12_challenge",
+      "roomId": "room_12",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Forge Core",
+      "description": "Complete the challenge variant of Forge Core under modified rules.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_12_challenge"
+    },
+    {
+      "id": "mastery_room_13_fastest",
+      "roomId": "room_13",
+      "type": "fastestClear",
+      "title": "Speed Run: Echo Chamber",
+      "description": "Complete Echo Chamber within the target time limit.",
+      "targetValue": 240,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_13_fastest"
+    },
+    {
+      "id": "mastery_room_13_highcombo",
+      "roomId": "room_13",
+      "type": "highComboClear",
+      "title": "Combo Master: Echo Chamber",
+      "description": "Achieve a high combo chain while clearing Echo Chamber.",
+      "targetValue": 1100,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_13_highcombo"
+    },
+    {
+      "id": "mastery_room_13_secret",
+      "roomId": "room_13",
+      "type": "secretClear",
+      "title": "Secret Seeker: Echo Chamber",
+      "description": "Discover and activate all hidden secrets in Echo Chamber.",
+      "targetValue": 5,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_13_secret"
+    },
+    {
+      "id": "mastery_room_13_archive",
+      "roomId": "room_13",
+      "type": "archiveComplete",
+      "title": "Archivist: Echo Chamber",
+      "description": "Unlock every codex and archive entry associated with Echo Chamber.",
+      "targetValue": 17,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_13_archive"
+    },
+    {
+      "id": "mastery_room_13_nofail",
+      "roomId": "room_13",
+      "type": "noFailureClear",
+      "title": "Flawless: Echo Chamber",
+      "description": "Clear Echo Chamber without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_13_nofail"
+    },
+    {
+      "id": "mastery_room_13_route",
+      "roomId": "room_13",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Echo Chamber",
+      "description": "Complete Echo Chamber while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_13_route",
+      "routeConstraint": "route_anomaly"
+    },
+    {
+      "id": "mastery_room_13_challenge",
+      "roomId": "room_13",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Echo Chamber",
+      "description": "Complete the challenge variant of Echo Chamber under modified rules.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_13_challenge"
+    },
+    {
+      "id": "mastery_room_14_fastest",
+      "roomId": "room_14",
+      "type": "fastestClear",
+      "title": "Speed Run: Harmony Cathedral",
+      "description": "Complete Harmony Cathedral within the target time limit.",
+      "targetValue": 235,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_14_fastest"
+    },
+    {
+      "id": "mastery_room_14_highcombo",
+      "roomId": "room_14",
+      "type": "highComboClear",
+      "title": "Combo Master: Harmony Cathedral",
+      "description": "Achieve a high combo chain while clearing Harmony Cathedral.",
+      "targetValue": 1150,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_14_highcombo"
+    },
+    {
+      "id": "mastery_room_14_secret",
+      "roomId": "room_14",
+      "type": "secretClear",
+      "title": "Secret Seeker: Harmony Cathedral",
+      "description": "Discover and activate all hidden secrets in Harmony Cathedral.",
+      "targetValue": 5,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_14_secret"
+    },
+    {
+      "id": "mastery_room_14_archive",
+      "roomId": "room_14",
+      "type": "archiveComplete",
+      "title": "Archivist: Harmony Cathedral",
+      "description": "Unlock every codex and archive entry associated with Harmony Cathedral.",
+      "targetValue": 18,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_14_archive"
+    },
+    {
+      "id": "mastery_room_14_nofail",
+      "roomId": "room_14",
+      "type": "noFailureClear",
+      "title": "Flawless: Harmony Cathedral",
+      "description": "Clear Harmony Cathedral without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_14_nofail"
+    },
+    {
+      "id": "mastery_room_14_route",
+      "roomId": "room_14",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Harmony Cathedral",
+      "description": "Complete Harmony Cathedral while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_14_route",
+      "routeConstraint": "route_swarm"
+    },
+    {
+      "id": "mastery_room_14_challenge",
+      "roomId": "room_14",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Harmony Cathedral",
+      "description": "Complete the challenge variant of Harmony Cathedral under modified rules.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_14_challenge"
+    },
+    {
+      "id": "mastery_room_15_fastest",
+      "roomId": "room_15",
+      "type": "fastestClear",
+      "title": "Speed Run: Reality Box",
+      "description": "Complete Reality Box within the target time limit.",
+      "targetValue": 230,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_15_fastest"
+    },
+    {
+      "id": "mastery_room_15_highcombo",
+      "roomId": "room_15",
+      "type": "highComboClear",
+      "title": "Combo Master: Reality Box",
+      "description": "Achieve a high combo chain while clearing Reality Box.",
+      "targetValue": 1200,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_15_highcombo"
+    },
+    {
+      "id": "mastery_room_15_secret",
+      "roomId": "room_15",
+      "type": "secretClear",
+      "title": "Secret Seeker: Reality Box",
+      "description": "Discover and activate all hidden secrets in Reality Box.",
+      "targetValue": 5,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_15_secret"
+    },
+    {
+      "id": "mastery_room_15_archive",
+      "roomId": "room_15",
+      "type": "archiveComplete",
+      "title": "Archivist: Reality Box",
+      "description": "Unlock every codex and archive entry associated with Reality Box.",
+      "targetValue": 19,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_15_archive"
+    },
+    {
+      "id": "mastery_room_15_nofail",
+      "roomId": "room_15",
+      "type": "noFailureClear",
+      "title": "Flawless: Reality Box",
+      "description": "Clear Reality Box without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_15_nofail"
+    },
+    {
+      "id": "mastery_room_15_route",
+      "roomId": "room_15",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Reality Box",
+      "description": "Complete Reality Box while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_15_route",
+      "routeConstraint": "route_research"
+    },
+    {
+      "id": "mastery_room_15_challenge",
+      "roomId": "room_15",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Reality Box",
+      "description": "Complete the challenge variant of Reality Box under modified rules.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_15_challenge"
+    },
+    {
+      "id": "mastery_room_16_fastest",
+      "roomId": "room_16",
+      "type": "fastestClear",
+      "title": "Speed Run: Orbital Control Habitat",
+      "description": "Complete Orbital Control Habitat within the target time limit.",
+      "targetValue": 225,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_16_fastest"
+    },
+    {
+      "id": "mastery_room_16_highcombo",
+      "roomId": "room_16",
+      "type": "highComboClear",
+      "title": "Combo Master: Orbital Control Habitat",
+      "description": "Achieve a high combo chain while clearing Orbital Control Habitat.",
+      "targetValue": 1250,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_16_highcombo"
+    },
+    {
+      "id": "mastery_room_16_secret",
+      "roomId": "room_16",
+      "type": "secretClear",
+      "title": "Secret Seeker: Orbital Control Habitat",
+      "description": "Discover and activate all hidden secrets in Orbital Control Habitat.",
+      "targetValue": 6,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_16_secret"
+    },
+    {
+      "id": "mastery_room_16_archive",
+      "roomId": "room_16",
+      "type": "archiveComplete",
+      "title": "Archivist: Orbital Control Habitat",
+      "description": "Unlock every codex and archive entry associated with Orbital Control Habitat.",
+      "targetValue": 20,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_16_archive"
+    },
+    {
+      "id": "mastery_room_16_nofail",
+      "roomId": "room_16",
+      "type": "noFailureClear",
+      "title": "Flawless: Orbital Control Habitat",
+      "description": "Clear Orbital Control Habitat without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_16_nofail"
+    },
+    {
+      "id": "mastery_room_16_route",
+      "roomId": "room_16",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Orbital Control Habitat",
+      "description": "Complete Orbital Control Habitat while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_16_route",
+      "routeConstraint": "route_operator"
+    },
+    {
+      "id": "mastery_room_16_challenge",
+      "roomId": "room_16",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Orbital Control Habitat",
+      "description": "Complete the challenge variant of Orbital Control Habitat under modified rules.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_16_challenge"
+    },
+    {
+      "id": "mastery_room_17_fastest",
+      "roomId": "room_17",
+      "type": "fastestClear",
+      "title": "Speed Run: Planetary Systems Forge",
+      "description": "Complete Planetary Systems Forge within the target time limit.",
+      "targetValue": 220,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_17_fastest"
+    },
+    {
+      "id": "mastery_room_17_highcombo",
+      "roomId": "room_17",
+      "type": "highComboClear",
+      "title": "Combo Master: Planetary Systems Forge",
+      "description": "Achieve a high combo chain while clearing Planetary Systems Forge.",
+      "targetValue": 1300,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_17_highcombo"
+    },
+    {
+      "id": "mastery_room_17_secret",
+      "roomId": "room_17",
+      "type": "secretClear",
+      "title": "Secret Seeker: Planetary Systems Forge",
+      "description": "Discover and activate all hidden secrets in Planetary Systems Forge.",
+      "targetValue": 6,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_17_secret"
+    },
+    {
+      "id": "mastery_room_17_archive",
+      "roomId": "room_17",
+      "type": "archiveComplete",
+      "title": "Archivist: Planetary Systems Forge",
+      "description": "Unlock every codex and archive entry associated with Planetary Systems Forge.",
+      "targetValue": 21,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_17_archive"
+    },
+    {
+      "id": "mastery_room_17_nofail",
+      "roomId": "room_17",
+      "type": "noFailureClear",
+      "title": "Flawless: Planetary Systems Forge",
+      "description": "Clear Planetary Systems Forge without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_17_nofail"
+    },
+    {
+      "id": "mastery_room_17_route",
+      "roomId": "room_17",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Planetary Systems Forge",
+      "description": "Complete Planetary Systems Forge while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_17_route",
+      "routeConstraint": "route_automation"
+    },
+    {
+      "id": "mastery_room_17_challenge",
+      "roomId": "room_17",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Planetary Systems Forge",
+      "description": "Complete the challenge variant of Planetary Systems Forge under modified rules.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_17_challenge"
+    },
+    {
+      "id": "mastery_room_18_fastest",
+      "roomId": "room_18",
+      "type": "fastestClear",
+      "title": "Speed Run: Chrono Engine Room",
+      "description": "Complete Chrono Engine Room within the target time limit.",
+      "targetValue": 215,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_18_fastest"
+    },
+    {
+      "id": "mastery_room_18_highcombo",
+      "roomId": "room_18",
+      "type": "highComboClear",
+      "title": "Combo Master: Chrono Engine Room",
+      "description": "Achieve a high combo chain while clearing Chrono Engine Room.",
+      "targetValue": 1350,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_18_highcombo"
+    },
+    {
+      "id": "mastery_room_18_secret",
+      "roomId": "room_18",
+      "type": "secretClear",
+      "title": "Secret Seeker: Chrono Engine Room",
+      "description": "Discover and activate all hidden secrets in Chrono Engine Room.",
+      "targetValue": 6,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_18_secret"
+    },
+    {
+      "id": "mastery_room_18_archive",
+      "roomId": "room_18",
+      "type": "archiveComplete",
+      "title": "Archivist: Chrono Engine Room",
+      "description": "Unlock every codex and archive entry associated with Chrono Engine Room.",
+      "targetValue": 22,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_18_archive"
+    },
+    {
+      "id": "mastery_room_18_nofail",
+      "roomId": "room_18",
+      "type": "noFailureClear",
+      "title": "Flawless: Chrono Engine Room",
+      "description": "Clear Chrono Engine Room without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_18_nofail"
+    },
+    {
+      "id": "mastery_room_18_route",
+      "roomId": "room_18",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Chrono Engine Room",
+      "description": "Complete Chrono Engine Room while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_18_route",
+      "routeConstraint": "route_anomaly"
+    },
+    {
+      "id": "mastery_room_18_challenge",
+      "roomId": "room_18",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Chrono Engine Room",
+      "description": "Complete the challenge variant of Chrono Engine Room under modified rules.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_18_challenge"
+    },
+    {
+      "id": "mastery_room_19_fastest",
+      "roomId": "room_19",
+      "type": "fastestClear",
+      "title": "Speed Run: Reality Kernel Chamber",
+      "description": "Complete Reality Kernel Chamber within the target time limit.",
+      "targetValue": 210,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_19_fastest"
+    },
+    {
+      "id": "mastery_room_19_highcombo",
+      "roomId": "room_19",
+      "type": "highComboClear",
+      "title": "Combo Master: Reality Kernel Chamber",
+      "description": "Achieve a high combo chain while clearing Reality Kernel Chamber.",
+      "targetValue": 1400,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_19_highcombo"
+    },
+    {
+      "id": "mastery_room_19_secret",
+      "roomId": "room_19",
+      "type": "secretClear",
+      "title": "Secret Seeker: Reality Kernel Chamber",
+      "description": "Discover and activate all hidden secrets in Reality Kernel Chamber.",
+      "targetValue": 6,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_19_secret"
+    },
+    {
+      "id": "mastery_room_19_archive",
+      "roomId": "room_19",
+      "type": "archiveComplete",
+      "title": "Archivist: Reality Kernel Chamber",
+      "description": "Unlock every codex and archive entry associated with Reality Kernel Chamber.",
+      "targetValue": 23,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_19_archive"
+    },
+    {
+      "id": "mastery_room_19_nofail",
+      "roomId": "room_19",
+      "type": "noFailureClear",
+      "title": "Flawless: Reality Kernel Chamber",
+      "description": "Clear Reality Kernel Chamber without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_19_nofail"
+    },
+    {
+      "id": "mastery_room_19_route",
+      "roomId": "room_19",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Reality Kernel Chamber",
+      "description": "Complete Reality Kernel Chamber while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_19_route",
+      "routeConstraint": "route_swarm"
+    },
+    {
+      "id": "mastery_room_19_challenge",
+      "roomId": "room_19",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Reality Kernel Chamber",
+      "description": "Complete the challenge variant of Reality Kernel Chamber under modified rules.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_19_challenge"
+    },
+    {
+      "id": "mastery_room_20_fastest",
+      "roomId": "room_20",
+      "type": "fastestClear",
+      "title": "Speed Run: Quiet Singularity",
+      "description": "Complete Quiet Singularity within the target time limit.",
+      "targetValue": 205,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_20_fastest"
+    },
+    {
+      "id": "mastery_room_20_highcombo",
+      "roomId": "room_20",
+      "type": "highComboClear",
+      "title": "Combo Master: Quiet Singularity",
+      "description": "Achieve a high combo chain while clearing Quiet Singularity.",
+      "targetValue": 1450,
+      "rewardType": "hiddenUpgrade",
+      "rewardId": "reward_mastery_room_20_highcombo"
+    },
+    {
+      "id": "mastery_room_20_secret",
+      "roomId": "room_20",
+      "type": "secretClear",
+      "title": "Secret Seeker: Quiet Singularity",
+      "description": "Discover and activate all hidden secrets in Quiet Singularity.",
+      "targetValue": 6,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_mastery_room_20_secret"
+    },
+    {
+      "id": "mastery_room_20_archive",
+      "roomId": "room_20",
+      "type": "archiveComplete",
+      "title": "Archivist: Quiet Singularity",
+      "description": "Unlock every codex and archive entry associated with Quiet Singularity.",
+      "targetValue": 24,
+      "rewardType": "archiveBoost",
+      "rewardId": "reward_mastery_room_20_archive"
+    },
+    {
+      "id": "mastery_room_20_nofail",
+      "roomId": "room_20",
+      "type": "noFailureClear",
+      "title": "Flawless: Quiet Singularity",
+      "description": "Clear Quiet Singularity without triggering any hazard failures or instability spikes.",
+      "targetValue": 1,
+      "rewardType": "featuredBonus",
+      "rewardId": "reward_mastery_room_20_nofail"
+    },
+    {
+      "id": "mastery_room_20_route",
+      "roomId": "room_20",
+      "type": "routeSpecific",
+      "title": "Route Specialist: Quiet Singularity",
+      "description": "Complete Quiet Singularity while following a specific route archetype.",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_mastery_room_20_route",
+      "routeConstraint": "route_research"
+    },
+    {
+      "id": "mastery_room_20_challenge",
+      "roomId": "room_20",
+      "type": "challengeClear",
+      "title": "Challenge Victor: Quiet Singularity",
+      "description": "Complete the challenge variant of Quiet Singularity under modified rules.",
+      "targetValue": 1,
+      "rewardType": "codexBonus",
+      "rewardId": "reward_mastery_room_20_challenge"
+    }
+  ],
+  "relicSets": [
+    {
+      "id": "relic_set_stability",
+      "name": "Anchored Foundation",
+      "description": "Relics recovered from the most stable rooms. Together they reinforce structural integrity across all systems.",
+      "theme": "stability",
+      "requiredRelicIds": [
+        "relic_room_01_junk_anchor",
+        "relic_room_06_line_brace",
+        "relic_room_14_cathedral_keystone"
+      ],
+      "setBonusDescription": "Reduces instability buildup by 15% across all rooms.",
+      "setBonusType": "strategyUnlock",
+      "setBonusMagnitude": 0.15
+    },
+    {
+      "id": "relic_set_anomaly",
+      "name": "Fractured Signals",
+      "description": "Strange artifacts that pulse with anomalous energy. Collecting them all reveals hidden interference patterns.",
+      "theme": "anomaly",
+      "requiredRelicIds": [
+        "relic_room_10_containment_shard",
+        "relic_room_09_gravity_lens",
+        "relic_room_15_reality_splinter",
+        "relic_room_19_kernel_echo"
+      ],
+      "setBonusDescription": "Unlocks the Anomaly Resonance strategy, allowing controlled instability bursts for bonus production.",
+      "setBonusType": "strategyUnlock",
+      "setBonusMagnitude": 0.2
+    },
+    {
+      "id": "relic_set_legacy",
+      "name": "Forgotten Circuitry",
+      "description": "Old-world components from the earliest rooms. Their combined data reveals lost manufacturing techniques.",
+      "theme": "legacy",
+      "requiredRelicIds": [
+        "relic_room_01_boot_chip",
+        "relic_room_02_wire_coil",
+        "relic_room_03_vent_valve",
+        "relic_room_04_signal_prism",
+        "relic_room_05_sensor_core"
+      ],
+      "setBonusDescription": "Unlocks a hidden upgrade branch in rooms 1-5 that was sealed during initial construction.",
+      "setBonusType": "hiddenBranch",
+      "setBonusMagnitude": 1.0
+    },
+    {
+      "id": "relic_set_mastery",
+      "name": "Perfected Components",
+      "description": "Rewards earned only through flawless performance. Each piece represents mastery of a different discipline.",
+      "theme": "mastery",
+      "requiredRelicIds": [
+        "relic_mastery_speed",
+        "relic_mastery_combo",
+        "relic_mastery_flawless",
+        "relic_mastery_challenge"
+      ],
+      "setBonusDescription": "Increases archive depth by 2 tiers, revealing buried lore entries across all rooms.",
+      "setBonusType": "archiveDepth",
+      "setBonusMagnitude": 2.0
+    },
+    {
+      "id": "relic_set_exploration",
+      "name": "Cartographer's Cache",
+      "description": "Mapping tools and environmental samples collected from secret areas across multiple rooms.",
+      "theme": "exploration",
+      "requiredRelicIds": [
+        "relic_room_07_labyrinth_map",
+        "relic_room_08_vault_key",
+        "relic_room_13_echo_compass"
+      ],
+      "setBonusDescription": "Reveals hidden subspaces in rooms 7, 8, and 13 and increases secret discovery chance by 25%.",
+      "setBonusType": "hiddenBranch",
+      "setBonusMagnitude": 0.25
+    },
+    {
+      "id": "relic_set_temporal",
+      "name": "Chrono Fragments",
+      "description": "Time-touched relics that shimmer between moments. Their resonance bends the flow of room progression.",
+      "theme": "temporal",
+      "requiredRelicIds": [
+        "relic_room_18_chrono_gear",
+        "relic_room_09_temporal_dust",
+        "relic_room_20_singularity_thread",
+        "relic_room_15_time_fold"
+      ],
+      "setBonusDescription": "Alters event timing behavior, allowing rare events to appear 30% more frequently.",
+      "setBonusType": "eventBehavior",
+      "setBonusMagnitude": 0.3
+    },
+    {
+      "id": "relic_set_synthesis",
+      "name": "Convergence Array",
+      "description": "Relics from rooms where multiple systems overlap. Together they enable cross-system synergies.",
+      "theme": "synthesis",
+      "requiredRelicIds": [
+        "relic_room_11_neural_bridge",
+        "relic_room_12_forge_catalyst",
+        "relic_room_16_orbital_link",
+        "relic_room_17_planetary_mesh"
+      ],
+      "setBonusDescription": "Unlocks cross-room synergy bonuses when generators from different rooms are active simultaneously.",
+      "setBonusType": "strategyUnlock",
+      "setBonusMagnitude": 0.18
+    },
+    {
+      "id": "relic_set_acceptance",
+      "name": "Quiet Understanding",
+      "description": "Contemplative relics found only by those who pause, observe, and accept the system as it is.",
+      "theme": "acceptance",
+      "requiredRelicIds": [
+        "relic_room_14_harmony_bell",
+        "relic_room_20_silence_token",
+        "relic_room_13_echo_memory"
+      ],
+      "setBonusDescription": "Deepens archive entries with philosophical commentary and unlocks the Acceptance ending variant.",
+      "setBonusType": "archiveDepth",
+      "setBonusMagnitude": 1.5
+    }
+  ],
+  "multiRoomSecrets": [
+    {
+      "id": "secret_ghost_signal",
+      "name": "The Ghost Signal",
+      "description": "A faint transmission echoes across multiple rooms. Tracing it to its source reveals a hidden frequency that predates the facility.",
+      "clues": [
+        {
+          "clueId": "clue_ghost_signal_1",
+          "roomId": "room_04",
+          "hint": "A recurring static pattern in the Signal Tower broadcast logs.",
+          "order": 1
+        },
+        {
+          "clueId": "clue_ghost_signal_2",
+          "roomId": "room_08",
+          "hint": "An encrypted data fragment buried in the deepest vault partition.",
+          "order": 2
+        },
+        {
+          "clueId": "clue_ghost_signal_3",
+          "roomId": "room_11",
+          "hint": "A neural pathway that fires without any input stimulus.",
+          "order": 3
+        },
+        {
+          "clueId": "clue_ghost_signal_4",
+          "roomId": "room_18",
+          "hint": "A timestamp in the Chrono Engine that references a moment before the facility existed.",
+          "order": 4
+        }
+      ],
+      "payoffRoomId": "room_20",
+      "rewardType": "hiddenEnding",
+      "rewardId": "ending_ghost_frequency",
+      "rewardDescription": "Unlocks the Ghost Frequency ending, where the player discovers the facility was built around an alien signal."
+    },
+    {
+      "id": "secret_original_architect",
+      "name": "The Original Architect",
+      "description": "Scattered blueprints and personal logs suggest someone designed the facility with a hidden purpose. Piecing them together reveals the architect's true intent.",
+      "clues": [
+        {
+          "clueId": "clue_architect_1",
+          "roomId": "room_01",
+          "hint": "A handwritten note tucked behind a junk pile: 'Start here. Remember why.'",
+          "order": 1
+        },
+        {
+          "clueId": "clue_architect_2",
+          "roomId": "room_06",
+          "hint": "Assembly Line blueprints with annotations in a personal shorthand.",
+          "order": 2
+        },
+        {
+          "clueId": "clue_architect_3",
+          "roomId": "room_12",
+          "hint": "A forging mold shaped like a key that fits no known lock in the facility.",
+          "order": 3
+        },
+        {
+          "clueId": "clue_architect_4",
+          "roomId": "room_16",
+          "hint": "Orbital telemetry data aimed at coordinates that match no known star system.",
+          "order": 4
+        },
+        {
+          "clueId": "clue_architect_5",
+          "roomId": "room_19",
+          "hint": "The Reality Kernel contains a dormant subroutine signed with a personal identifier.",
+          "order": 5
+        }
+      ],
+      "payoffRoomId": "room_19",
+      "rewardType": "metaRelic",
+      "rewardId": "relic_architect_key",
+      "rewardDescription": "Grants the Architect's Key meta-relic, which reveals hidden annotations in every room's codex entries."
+    },
+    {
+      "id": "secret_mirror_rooms",
+      "name": "Mirror Rooms",
+      "description": "Certain rooms contain reflections of other rooms, subtly distorted. Finding all mirror pairs unlocks a parallel traversal route.",
+      "clues": [
+        {
+          "clueId": "clue_mirror_1",
+          "roomId": "room_03",
+          "hint": "Steam patterns in the vents form the outline of the Coolant Labyrinth.",
+          "order": 1
+        },
+        {
+          "clueId": "clue_mirror_2",
+          "roomId": "room_07",
+          "hint": "Coolant flow channels mirror the steam vent layout in reverse.",
+          "order": 2
+        },
+        {
+          "clueId": "clue_mirror_3",
+          "roomId": "room_13",
+          "hint": "Echoes in the chamber replay sounds from the Harmony Cathedral, inverted.",
+          "order": 3
+        },
+        {
+          "clueId": "clue_mirror_4",
+          "roomId": "room_14",
+          "hint": "Harmonic frequencies in the Cathedral resonate with Echo Chamber acoustics.",
+          "order": 4
+        }
+      ],
+      "payoffRoomId": "room_15",
+      "rewardType": "secretRoute",
+      "rewardId": "route_mirror_traverse",
+      "rewardDescription": "Unlocks the Mirror Traverse route, allowing rooms to be replayed in their mirrored configuration."
+    },
+    {
+      "id": "secret_sleeping_core",
+      "name": "The Sleeping Core",
+      "description": "Deep beneath the facility lies a dormant processing core. Environmental anomalies in scattered rooms hint at its location and how to awaken it.",
+      "clues": [
+        {
+          "clueId": "clue_sleeping_core_1",
+          "roomId": "room_05",
+          "hint": "Sensor readings spike toward an unregistered subterranean heat source.",
+          "order": 1
+        },
+        {
+          "clueId": "clue_sleeping_core_2",
+          "roomId": "room_09",
+          "hint": "Gravity well distortions point downward to a mass far below the facility floor.",
+          "order": 2
+        },
+        {
+          "clueId": "clue_sleeping_core_3",
+          "roomId": "room_10",
+          "hint": "Anomaly containment logs reference a sealed entity labeled 'Core-Zero'.",
+          "order": 3
+        }
+      ],
+      "payoffRoomId": "room_12",
+      "rewardType": "archiveEntry",
+      "rewardId": "archive_sleeping_core",
+      "rewardDescription": "Unlocks the Sleeping Core archive chapter, a deep-lore entry explaining the facility's original power source."
+    },
+    {
+      "id": "secret_guide_origin",
+      "name": "The Guide's Origin",
+      "description": "The Guide has always been present, but where did it come from? Fragments of its creation story are scattered across the facility.",
+      "clues": [
+        {
+          "clueId": "clue_guide_origin_1",
+          "roomId": "room_02",
+          "hint": "Wiring Den circuits contain a dormant personality matrix labeled 'Prototype Guide v0.1'.",
+          "order": 1
+        },
+        {
+          "clueId": "clue_guide_origin_2",
+          "roomId": "room_08",
+          "hint": "Data Vault archives contain redacted files about an 'Empathy Engine' project.",
+          "order": 2
+        },
+        {
+          "clueId": "clue_guide_origin_3",
+          "roomId": "room_11",
+          "hint": "The Neural Nexus houses a memory fragment of the Guide's first activation.",
+          "order": 3
+        },
+        {
+          "clueId": "clue_guide_origin_4",
+          "roomId": "room_17",
+          "hint": "Planetary Systems Forge records show the Guide's core was forged from stellar material.",
+          "order": 4
+        },
+        {
+          "clueId": "clue_guide_origin_5",
+          "roomId": "room_20",
+          "hint": "In the Quiet Singularity, the Guide whispers its own creation story if you wait long enough.",
+          "order": 5
+        }
+      ],
+      "payoffRoomId": "room_20",
+      "rewardType": "metaRelic",
+      "rewardId": "relic_guide_heart",
+      "rewardDescription": "Grants the Guide's Heart meta-relic, deepening all Guide interactions and unlocking the Guide Origin codex chapter."
+    }
+  ],
+  "masteryContracts": [
+    {
+      "id": "contract_room_01_1",
+      "roomId": "room_01",
+      "title": "Stable Hand: Junk Corner",
+      "description": "Complete Junk Corner while keeping instability below 15%.",
+      "metric": "minimalInstability",
+      "targetValue": 15,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_01_1"
+    },
+    {
+      "id": "contract_room_01_2",
+      "roomId": "room_01",
+      "title": "One-Pass Detective: Junk Corner",
+      "description": "Find all 3 clues in Junk Corner within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 3,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_01_2"
+    },
+    {
+      "id": "contract_room_01_3",
+      "roomId": "room_01",
+      "title": "Chain Builder: Junk Corner",
+      "description": "Build a combo chain of at least 200 in Junk Corner.",
+      "metric": "highChainCount",
+      "targetValue": 200,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_01_3"
+    },
+    {
+      "id": "contract_room_02_1",
+      "roomId": "room_02",
+      "title": "Purist Path: Wiring Den",
+      "description": "Complete Wiring Den using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_02_1"
+    },
+    {
+      "id": "contract_room_02_2",
+      "roomId": "room_02",
+      "title": "Manual Override: Wiring Den",
+      "description": "Complete Wiring Den with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_02_2"
+    },
+    {
+      "id": "contract_room_02_3",
+      "roomId": "room_02",
+      "title": "Legacy Keeper: Wiring Den",
+      "description": "Complete Wiring Den without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_02_3"
+    },
+    {
+      "id": "contract_room_03_1",
+      "roomId": "room_03",
+      "title": "Side Expert: Steam Vents",
+      "description": "Achieve rank 3 or higher in Steam Vents's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 3,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_03_1"
+    },
+    {
+      "id": "contract_room_03_2",
+      "roomId": "room_03",
+      "title": "Stable Hand: Steam Vents",
+      "description": "Complete Steam Vents while keeping instability below 13%.",
+      "metric": "minimalInstability",
+      "targetValue": 13,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_03_2"
+    },
+    {
+      "id": "contract_room_03_3",
+      "roomId": "room_03",
+      "title": "One-Pass Detective: Steam Vents",
+      "description": "Find all 3 clues in Steam Vents within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 3,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_03_3"
+    },
+    {
+      "id": "contract_room_04_1",
+      "roomId": "room_04",
+      "title": "Chain Builder: Signal Tower",
+      "description": "Build a combo chain of at least 290 in Signal Tower.",
+      "metric": "highChainCount",
+      "targetValue": 290,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_04_1"
+    },
+    {
+      "id": "contract_room_04_2",
+      "roomId": "room_04",
+      "title": "Purist Path: Signal Tower",
+      "description": "Complete Signal Tower using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_04_2"
+    },
+    {
+      "id": "contract_room_04_3",
+      "roomId": "room_04",
+      "title": "Manual Override: Signal Tower",
+      "description": "Complete Signal Tower with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_04_3"
+    },
+    {
+      "id": "contract_room_05_1",
+      "roomId": "room_05",
+      "title": "Legacy Keeper: Sensor Lab",
+      "description": "Complete Sensor Lab without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_05_1"
+    },
+    {
+      "id": "contract_room_05_2",
+      "roomId": "room_05",
+      "title": "Side Expert: Sensor Lab",
+      "description": "Achieve rank 3 or higher in Sensor Lab's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 3,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_05_2"
+    },
+    {
+      "id": "contract_room_05_3",
+      "roomId": "room_05",
+      "title": "Stable Hand: Sensor Lab",
+      "description": "Complete Sensor Lab while keeping instability below 11%.",
+      "metric": "minimalInstability",
+      "targetValue": 11,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_05_3"
+    },
+    {
+      "id": "contract_room_06_1",
+      "roomId": "room_06",
+      "title": "One-Pass Detective: Assembly Line",
+      "description": "Find all 4 clues in Assembly Line within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 4,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_06_1"
+    },
+    {
+      "id": "contract_room_06_2",
+      "roomId": "room_06",
+      "title": "Chain Builder: Assembly Line",
+      "description": "Build a combo chain of at least 350 in Assembly Line.",
+      "metric": "highChainCount",
+      "targetValue": 350,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_06_2"
+    },
+    {
+      "id": "contract_room_06_3",
+      "roomId": "room_06",
+      "title": "Purist Path: Assembly Line",
+      "description": "Complete Assembly Line using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_06_3"
+    },
+    {
+      "id": "contract_room_07_1",
+      "roomId": "room_07",
+      "title": "Manual Override: Coolant Labyrinth",
+      "description": "Complete Coolant Labyrinth with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_07_1"
+    },
+    {
+      "id": "contract_room_07_2",
+      "roomId": "room_07",
+      "title": "Legacy Keeper: Coolant Labyrinth",
+      "description": "Complete Coolant Labyrinth without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_07_2"
+    },
+    {
+      "id": "contract_room_07_3",
+      "roomId": "room_07",
+      "title": "Side Expert: Coolant Labyrinth",
+      "description": "Achieve rank 3 or higher in Coolant Labyrinth's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 3,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_07_3"
+    },
+    {
+      "id": "contract_room_08_1",
+      "roomId": "room_08",
+      "title": "Stable Hand: Data Vault",
+      "description": "Complete Data Vault while keeping instability below 8%.",
+      "metric": "minimalInstability",
+      "targetValue": 8,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_08_1"
+    },
+    {
+      "id": "contract_room_08_2",
+      "roomId": "room_08",
+      "title": "One-Pass Detective: Data Vault",
+      "description": "Find all 4 clues in Data Vault within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 4,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_08_2"
+    },
+    {
+      "id": "contract_room_08_3",
+      "roomId": "room_08",
+      "title": "Chain Builder: Data Vault",
+      "description": "Build a combo chain of at least 410 in Data Vault.",
+      "metric": "highChainCount",
+      "targetValue": 410,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_08_3"
+    },
+    {
+      "id": "contract_room_09_1",
+      "roomId": "room_09",
+      "title": "Purist Path: Gravity Well",
+      "description": "Complete Gravity Well using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_09_1"
+    },
+    {
+      "id": "contract_room_09_2",
+      "roomId": "room_09",
+      "title": "Manual Override: Gravity Well",
+      "description": "Complete Gravity Well with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_09_2"
+    },
+    {
+      "id": "contract_room_09_3",
+      "roomId": "room_09",
+      "title": "Legacy Keeper: Gravity Well",
+      "description": "Complete Gravity Well without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_09_3"
+    },
+    {
+      "id": "contract_room_10_1",
+      "roomId": "room_10",
+      "title": "Side Expert: Anomaly Containment",
+      "description": "Achieve rank 4 or higher in Anomaly Containment's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 4,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_10_1"
+    },
+    {
+      "id": "contract_room_10_2",
+      "roomId": "room_10",
+      "title": "Stable Hand: Anomaly Containment",
+      "description": "Complete Anomaly Containment while keeping instability below 6%.",
+      "metric": "minimalInstability",
+      "targetValue": 6,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_10_2"
+    },
+    {
+      "id": "contract_room_10_3",
+      "roomId": "room_10",
+      "title": "One-Pass Detective: Anomaly Containment",
+      "description": "Find all 4 clues in Anomaly Containment within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 4,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_10_3"
+    },
+    {
+      "id": "contract_room_11_1",
+      "roomId": "room_11",
+      "title": "Chain Builder: Neural Nexus",
+      "description": "Build a combo chain of at least 500 in Neural Nexus.",
+      "metric": "highChainCount",
+      "targetValue": 500,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_11_1"
+    },
+    {
+      "id": "contract_room_11_2",
+      "roomId": "room_11",
+      "title": "Purist Path: Neural Nexus",
+      "description": "Complete Neural Nexus using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_11_2"
+    },
+    {
+      "id": "contract_room_11_3",
+      "roomId": "room_11",
+      "title": "Manual Override: Neural Nexus",
+      "description": "Complete Neural Nexus with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_11_3"
+    },
+    {
+      "id": "contract_room_12_1",
+      "roomId": "room_12",
+      "title": "Legacy Keeper: Forge Core",
+      "description": "Complete Forge Core without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_12_1"
+    },
+    {
+      "id": "contract_room_12_2",
+      "roomId": "room_12",
+      "title": "Side Expert: Forge Core",
+      "description": "Achieve rank 4 or higher in Forge Core's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 4,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_12_2"
+    },
+    {
+      "id": "contract_room_12_3",
+      "roomId": "room_12",
+      "title": "Stable Hand: Forge Core",
+      "description": "Complete Forge Core while keeping instability below 5%.",
+      "metric": "minimalInstability",
+      "targetValue": 5,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_12_3"
+    },
+    {
+      "id": "contract_room_13_1",
+      "roomId": "room_13",
+      "title": "One-Pass Detective: Echo Chamber",
+      "description": "Find all 5 clues in Echo Chamber within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 5,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_13_1"
+    },
+    {
+      "id": "contract_room_13_2",
+      "roomId": "room_13",
+      "title": "Chain Builder: Echo Chamber",
+      "description": "Build a combo chain of at least 560 in Echo Chamber.",
+      "metric": "highChainCount",
+      "targetValue": 560,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_13_2"
+    },
+    {
+      "id": "contract_room_13_3",
+      "roomId": "room_13",
+      "title": "Purist Path: Echo Chamber",
+      "description": "Complete Echo Chamber using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_13_3"
+    },
+    {
+      "id": "contract_room_14_1",
+      "roomId": "room_14",
+      "title": "Manual Override: Harmony Cathedral",
+      "description": "Complete Harmony Cathedral with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_14_1"
+    },
+    {
+      "id": "contract_room_14_2",
+      "roomId": "room_14",
+      "title": "Legacy Keeper: Harmony Cathedral",
+      "description": "Complete Harmony Cathedral without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_14_2"
+    },
+    {
+      "id": "contract_room_14_3",
+      "roomId": "room_14",
+      "title": "Side Expert: Harmony Cathedral",
+      "description": "Achieve rank 4 or higher in Harmony Cathedral's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 4,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_14_3"
+    },
+    {
+      "id": "contract_room_15_1",
+      "roomId": "room_15",
+      "title": "Stable Hand: Reality Box",
+      "description": "Complete Reality Box while keeping instability below 5%.",
+      "metric": "minimalInstability",
+      "targetValue": 5,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_15_1"
+    },
+    {
+      "id": "contract_room_15_2",
+      "roomId": "room_15",
+      "title": "One-Pass Detective: Reality Box",
+      "description": "Find all 5 clues in Reality Box within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 5,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_15_2"
+    },
+    {
+      "id": "contract_room_15_3",
+      "roomId": "room_15",
+      "title": "Chain Builder: Reality Box",
+      "description": "Build a combo chain of at least 620 in Reality Box.",
+      "metric": "highChainCount",
+      "targetValue": 620,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_15_3"
+    },
+    {
+      "id": "contract_room_16_1",
+      "roomId": "room_16",
+      "title": "Purist Path: Orbital Control Habitat",
+      "description": "Complete Orbital Control Habitat using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_16_1"
+    },
+    {
+      "id": "contract_room_16_2",
+      "roomId": "room_16",
+      "title": "Manual Override: Orbital Control Habitat",
+      "description": "Complete Orbital Control Habitat with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_16_2"
+    },
+    {
+      "id": "contract_room_16_3",
+      "roomId": "room_16",
+      "title": "Legacy Keeper: Orbital Control Habitat",
+      "description": "Complete Orbital Control Habitat without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_16_3"
+    },
+    {
+      "id": "contract_room_17_1",
+      "roomId": "room_17",
+      "title": "Side Expert: Planetary Systems Forge",
+      "description": "Achieve rank 5 or higher in Planetary Systems Forge's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 5,
+      "rewardType": "guideMemory",
+      "rewardId": "reward_contract_room_17_1"
+    },
+    {
+      "id": "contract_room_17_2",
+      "roomId": "room_17",
+      "title": "Stable Hand: Planetary Systems Forge",
+      "description": "Complete Planetary Systems Forge while keeping instability below 5%.",
+      "metric": "minimalInstability",
+      "targetValue": 5,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_17_2"
+    },
+    {
+      "id": "contract_room_17_3",
+      "roomId": "room_17",
+      "title": "One-Pass Detective: Planetary Systems Forge",
+      "description": "Find all 6 clues in Planetary Systems Forge within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 6,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_17_3"
+    },
+    {
+      "id": "contract_room_18_1",
+      "roomId": "room_18",
+      "title": "Chain Builder: Chrono Engine Room",
+      "description": "Build a combo chain of at least 710 in Chrono Engine Room.",
+      "metric": "highChainCount",
+      "targetValue": 710,
+      "rewardType": "hiddenEventUnlock",
+      "rewardId": "reward_contract_room_18_1"
+    },
+    {
+      "id": "contract_room_18_2",
+      "roomId": "room_18",
+      "title": "Purist Path: Chrono Engine Room",
+      "description": "Complete Chrono Engine Room using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_18_2"
+    },
+    {
+      "id": "contract_room_18_3",
+      "roomId": "room_18",
+      "title": "Manual Override: Chrono Engine Room",
+      "description": "Complete Chrono Engine Room with automation level at or below 2.",
+      "metric": "lowAutomation",
+      "targetValue": 2,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_18_3"
+    },
+    {
+      "id": "contract_room_19_1",
+      "roomId": "room_19",
+      "title": "Legacy Keeper: Reality Kernel Chamber",
+      "description": "Complete Reality Kernel Chamber without overwriting any legacy data or removing old upgrades.",
+      "metric": "preserveLegacy",
+      "targetValue": 1,
+      "rewardType": "badge",
+      "rewardId": "reward_contract_room_19_1"
+    },
+    {
+      "id": "contract_room_19_2",
+      "roomId": "room_19",
+      "title": "Side Expert: Reality Kernel Chamber",
+      "description": "Achieve rank 5 or higher in Reality Kernel Chamber's side activity.",
+      "metric": "sideActivityHighRank",
+      "targetValue": 5,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_19_2"
+    },
+    {
+      "id": "contract_room_19_3",
+      "roomId": "room_19",
+      "title": "Stable Hand: Reality Kernel Chamber",
+      "description": "Complete Reality Kernel Chamber while keeping instability below 5%.",
+      "metric": "minimalInstability",
+      "targetValue": 5,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_19_3"
+    },
+    {
+      "id": "contract_room_20_1",
+      "roomId": "room_20",
+      "title": "One-Pass Detective: Quiet Singularity",
+      "description": "Find all 6 clues in Quiet Singularity within a single run.",
+      "metric": "allCluesOneRun",
+      "targetValue": 6,
+      "rewardType": "archiveMark",
+      "rewardId": "reward_contract_room_20_1"
+    },
+    {
+      "id": "contract_room_20_2",
+      "roomId": "room_20",
+      "title": "Chain Builder: Quiet Singularity",
+      "description": "Build a combo chain of at least 770 in Quiet Singularity.",
+      "metric": "highChainCount",
+      "targetValue": 770,
+      "rewardType": "relicFragment",
+      "rewardId": "reward_contract_room_20_2"
+    },
+    {
+      "id": "contract_room_20_3",
+      "roomId": "room_20",
+      "title": "Purist Path: Quiet Singularity",
+      "description": "Complete Quiet Singularity using only abilities from a single route archetype.",
+      "metric": "routeRestriction",
+      "targetValue": 1,
+      "rewardType": "roomVariant",
+      "rewardId": "reward_contract_room_20_3"
+    }
+  ],
+  "archiveCompletionRewards": [
+    {
+      "id": "archive_reward_guideMemory_tier_1",
+      "section": "guideMemory",
+      "sectionName": "Guide Memory",
+      "tier": 1,
+      "description": "Recall the Guide's earliest observations.",
+      "rewardType": "passiveBonus",
+      "rewardDescription": "Increases Guide hint frequency by 10%.",
+      "rewardId": "reward_archive_reward_guideMemory_tier_1"
+    },
+    {
+      "id": "archive_reward_guideMemory_tier_2",
+      "section": "guideMemory",
+      "sectionName": "Guide Memory",
+      "tier": 2,
+      "description": "Reconstruct the Guide's mid-journey reflections.",
+      "rewardType": "hiddenClue",
+      "rewardDescription": "Reveals a hidden clue in the Guide's dialogue across 3 rooms.",
+      "rewardId": "reward_archive_reward_guideMemory_tier_2"
+    },
+    {
+      "id": "archive_reward_guideMemory_tier_3",
+      "section": "guideMemory",
+      "sectionName": "Guide Memory",
+      "tier": 3,
+      "description": "Complete the Guide's full memory archive.",
+      "rewardType": "guideUpgrade",
+      "rewardDescription": "Unlocks the Guide's Reflection mode, providing deeper commentary during revisits.",
+      "rewardId": "reward_archive_reward_guideMemory_tier_3"
+    },
+    {
+      "id": "archive_reward_routeArchive_tier_1",
+      "section": "routeArchive",
+      "sectionName": "Route Archive",
+      "tier": 1,
+      "description": "Document your first route completion.",
+      "rewardType": "passiveBonus",
+      "rewardDescription": "Grants a 5% production bonus when following any documented route.",
+      "rewardId": "reward_archive_reward_routeArchive_tier_1"
+    },
+    {
+      "id": "archive_reward_routeArchive_tier_2",
+      "section": "routeArchive",
+      "sectionName": "Route Archive",
+      "tier": 2,
+      "description": "Map the connections between routes.",
+      "rewardType": "newRoomIntro",
+      "rewardDescription": "Unlocks the Route Crossroads narrative introduction.",
+      "rewardId": "reward_archive_reward_routeArchive_tier_2"
+    },
+    {
+      "id": "archive_reward_routeArchive_tier_3",
+      "section": "routeArchive",
+      "sectionName": "Route Archive",
+      "tier": 3,
+      "description": "Master all route variations.",
+      "rewardType": "specialEventPool",
+      "rewardDescription": "Adds rare cross-route events to the event pool in all rooms.",
+      "rewardId": "reward_archive_reward_routeArchive_tier_3"
+    },
+    {
+      "id": "archive_reward_secretArchive_tier_1",
+      "section": "secretArchive",
+      "sectionName": "Secret Archive",
+      "tier": 1,
+      "description": "Catalogue your first batch of secrets.",
+      "rewardType": "hiddenClue",
+      "rewardDescription": "Reveals proximity hints for undiscovered secrets in rooms you revisit.",
+      "rewardId": "reward_archive_reward_secretArchive_tier_1"
+    },
+    {
+      "id": "archive_reward_secretArchive_tier_2",
+      "section": "secretArchive",
+      "sectionName": "Secret Archive",
+      "tier": 2,
+      "description": "Decode the patterns behind secret placement.",
+      "rewardType": "relicFragment",
+      "rewardDescription": "Grants a relic fragment from the Cartographer's Cache set.",
+      "rewardId": "reward_archive_reward_secretArchive_tier_2"
+    },
+    {
+      "id": "archive_reward_secretArchive_tier_3",
+      "section": "secretArchive",
+      "sectionName": "Secret Archive",
+      "tier": 3,
+      "description": "Complete the secret archive.",
+      "rewardType": "revisitHook",
+      "rewardDescription": "Unlocks 'Secret Echo' revisit events in rooms 1-10.",
+      "rewardId": "reward_archive_reward_secretArchive_tier_3"
+    },
+    {
+      "id": "archive_reward_sceneLore_tier_1",
+      "section": "sceneLore",
+      "sectionName": "Scene Lore",
+      "tier": 1,
+      "description": "Read the opening chapters of the facility's story.",
+      "rewardType": "passiveBonus",
+      "rewardDescription": "Grants a 3% codex discovery bonus in all rooms.",
+      "rewardId": "reward_archive_reward_sceneLore_tier_1"
+    },
+    {
+      "id": "archive_reward_sceneLore_tier_2",
+      "section": "sceneLore",
+      "sectionName": "Scene Lore",
+      "tier": 2,
+      "description": "Connect the narrative threads across rooms.",
+      "rewardType": "transformationVariant",
+      "rewardDescription": "Unlocks an alternate transformation stage in rooms 5 and 10.",
+      "rewardId": "reward_archive_reward_sceneLore_tier_2"
+    },
+    {
+      "id": "archive_reward_sceneLore_tier_3",
+      "section": "sceneLore",
+      "sectionName": "Scene Lore",
+      "tier": 3,
+      "description": "Complete the full scene lore collection.",
+      "rewardType": "newRoomIntro",
+      "rewardDescription": "Unlocks the Lorekeeper's Epilogue, a narrative wrap-up sequence.",
+      "rewardId": "reward_archive_reward_sceneLore_tier_3"
+    },
+    {
+      "id": "archive_reward_eventArchive_tier_1",
+      "section": "eventArchive",
+      "sectionName": "Event Archive",
+      "tier": 1,
+      "description": "Record your first wave of events.",
+      "rewardType": "passiveBonus",
+      "rewardDescription": "Increases rare event chance by 5% globally.",
+      "rewardId": "reward_archive_reward_eventArchive_tier_1"
+    },
+    {
+      "id": "archive_reward_eventArchive_tier_2",
+      "section": "eventArchive",
+      "sectionName": "Event Archive",
+      "tier": 2,
+      "description": "Catalogue event chains and their outcomes.",
+      "rewardType": "specialEventPool",
+      "rewardDescription": "Adds Legacy Event variants to rooms 1-10.",
+      "rewardId": "reward_archive_reward_eventArchive_tier_2"
+    },
+    {
+      "id": "archive_reward_eventArchive_tier_3",
+      "section": "eventArchive",
+      "sectionName": "Event Archive",
+      "tier": 3,
+      "description": "Complete the full event archive.",
+      "rewardType": "relicFragment",
+      "rewardDescription": "Grants a relic fragment from the Chrono Fragments set.",
+      "rewardId": "reward_archive_reward_eventArchive_tier_3"
+    },
+    {
+      "id": "archive_reward_challengeArchive_tier_1",
+      "section": "challengeArchive",
+      "sectionName": "Challenge Archive",
+      "tier": 1,
+      "description": "Complete your first challenge runs.",
+      "rewardType": "passiveBonus",
+      "rewardDescription": "Grants a 5% bonus to challenge completion rewards.",
+      "rewardId": "reward_archive_reward_challengeArchive_tier_1"
+    },
+    {
+      "id": "archive_reward_challengeArchive_tier_2",
+      "section": "challengeArchive",
+      "sectionName": "Challenge Archive",
+      "tier": 2,
+      "description": "Document advanced challenge strategies.",
+      "rewardType": "hiddenClue",
+      "rewardDescription": "Reveals hidden challenge modifiers in rooms 11-15.",
+      "rewardId": "reward_archive_reward_challengeArchive_tier_2"
+    },
+    {
+      "id": "archive_reward_challengeArchive_tier_3",
+      "section": "challengeArchive",
+      "sectionName": "Challenge Archive",
+      "tier": 3,
+      "description": "Master all challenge variants.",
+      "rewardType": "revisitHook",
+      "rewardDescription": "Unlocks Challenge Remix revisit mode for all rooms.",
+      "rewardId": "reward_archive_reward_challengeArchive_tier_3"
+    },
+    {
+      "id": "archive_reward_transformationArchive_tier_1",
+      "section": "transformationArchive",
+      "sectionName": "Transformation Archive",
+      "tier": 1,
+      "description": "Witness your first room transformations.",
+      "rewardType": "passiveBonus",
+      "rewardDescription": "Transformation stages grant 8% more production.",
+      "rewardId": "reward_archive_reward_transformationArchive_tier_1"
+    },
+    {
+      "id": "archive_reward_transformationArchive_tier_2",
+      "section": "transformationArchive",
+      "sectionName": "Transformation Archive",
+      "tier": 2,
+      "description": "Study the transformation mechanics across rooms.",
+      "rewardType": "transformationVariant",
+      "rewardDescription": "Unlocks an alternate final-stage transformation for rooms 8 and 12.",
+      "rewardId": "reward_archive_reward_transformationArchive_tier_2"
+    },
+    {
+      "id": "archive_reward_transformationArchive_tier_3",
+      "section": "transformationArchive",
+      "sectionName": "Transformation Archive",
+      "tier": 3,
+      "description": "Complete the transformation archive.",
+      "rewardType": "guideUpgrade",
+      "rewardDescription": "The Guide comments on transformation history during revisits.",
+      "rewardId": "reward_archive_reward_transformationArchive_tier_3"
+    },
+    {
+      "id": "archive_reward_companionArchive_tier_1",
+      "section": "companionArchive",
+      "sectionName": "Companion Archive",
+      "tier": 1,
+      "description": "Bond with your first companions.",
+      "rewardType": "passiveBonus",
+      "rewardDescription": "Companion abilities recharge 10% faster.",
+      "rewardId": "reward_archive_reward_companionArchive_tier_1"
+    },
+    {
+      "id": "archive_reward_companionArchive_tier_2",
+      "section": "companionArchive",
+      "sectionName": "Companion Archive",
+      "tier": 2,
+      "description": "Document companion evolution paths.",
+      "rewardType": "hiddenClue",
+      "rewardDescription": "Reveals hidden evolution triggers for 3 companions.",
+      "rewardId": "reward_archive_reward_companionArchive_tier_2"
+    },
+    {
+      "id": "archive_reward_companionArchive_tier_3",
+      "section": "companionArchive",
+      "sectionName": "Companion Archive",
+      "tier": 3,
+      "description": "Complete the full companion archive.",
+      "rewardType": "specialEventPool",
+      "rewardDescription": "Adds companion-specific rare events to rooms where companions were first found.",
+      "rewardId": "reward_archive_reward_companionArchive_tier_3"
+    }
+  ],
+  "revisitUnlocks": [
+    {
+      "id": "revisit_room_01_1",
+      "targetRoomId": "room_01",
+      "targetRoomName": "Junk Corner",
+      "triggerRoomId": "room_11",
+      "unlockType": "newDoor",
+      "description": "Neural Nexus analysis reveals a sealed maintenance hatch in the Junk Corner."
+    },
+    {
+      "id": "revisit_room_01_2",
+      "targetRoomId": "room_01",
+      "targetRoomName": "Junk Corner",
+      "triggerRoomId": "room_16",
+      "unlockType": "newInteraction",
+      "description": "Orbital telemetry data unlocks a buried communication terminal in the Junk Corner."
+    },
+    {
+      "id": "revisit_room_02_1",
+      "targetRoomId": "room_02",
+      "targetRoomName": "Wiring Den",
+      "triggerRoomId": "room_08",
+      "unlockType": "hiddenSubspace",
+      "description": "Data Vault decryption keys open a hidden sub-level beneath the Wiring Den."
+    },
+    {
+      "id": "revisit_room_02_2",
+      "targetRoomId": "room_02",
+      "targetRoomName": "Wiring Den",
+      "triggerRoomId": "room_12",
+      "unlockType": "newSecretClue",
+      "description": "Forge Core metallurgy logs hint at a rare alloy hidden in the Wiring Den walls."
+    },
+    {
+      "id": "revisit_room_03_1",
+      "targetRoomId": "room_03",
+      "targetRoomName": "Steam Vents",
+      "triggerRoomId": "room_07",
+      "unlockType": "newDialogue",
+      "description": "Coolant Labyrinth pressure data triggers new Guide commentary in the Steam Vents."
+    },
+    {
+      "id": "revisit_room_03_2",
+      "targetRoomId": "room_03",
+      "targetRoomName": "Steam Vents",
+      "triggerRoomId": "room_18",
+      "unlockType": "upgradedEventPool",
+      "description": "Chrono Engine temporal shifts introduce time-loop events in the Steam Vents."
+    },
+    {
+      "id": "revisit_room_04_1",
+      "targetRoomId": "room_04",
+      "targetRoomName": "Signal Tower",
+      "triggerRoomId": "room_11",
+      "unlockType": "newSecretClue",
+      "description": "Neural Nexus frequency analysis reveals a hidden signal pattern in the Signal Tower."
+    },
+    {
+      "id": "revisit_room_04_2",
+      "targetRoomId": "room_04",
+      "targetRoomName": "Signal Tower",
+      "triggerRoomId": "room_17",
+      "unlockType": "alteredSideActivity",
+      "description": "Planetary forge calibration data transforms the Signal Tower's side activity."
+    },
+    {
+      "id": "revisit_room_05_1",
+      "targetRoomId": "room_05",
+      "targetRoomName": "Sensor Lab",
+      "triggerRoomId": "room_10",
+      "unlockType": "newDoor",
+      "description": "Anomaly Containment protocols reveal a quarantined section of the Sensor Lab."
+    },
+    {
+      "id": "revisit_room_05_2",
+      "targetRoomId": "room_05",
+      "targetRoomName": "Sensor Lab",
+      "triggerRoomId": "room_13",
+      "unlockType": "newInteraction",
+      "description": "Echo Chamber resonance data activates dormant sensors in the Sensor Lab."
+    },
+    {
+      "id": "revisit_room_06_1",
+      "targetRoomId": "room_06",
+      "targetRoomName": "Assembly Line",
+      "triggerRoomId": "room_12",
+      "unlockType": "hiddenSubspace",
+      "description": "Forge Core schematics reveal a prototype assembly chamber beneath the Assembly Line."
+    },
+    {
+      "id": "revisit_room_06_2",
+      "targetRoomId": "room_06",
+      "targetRoomName": "Assembly Line",
+      "triggerRoomId": "room_16",
+      "unlockType": "masteryFollowUp",
+      "description": "Orbital Control efficiency metrics unlock advanced mastery objectives in the Assembly Line."
+    },
+    {
+      "id": "revisit_room_07_1",
+      "targetRoomId": "room_07",
+      "targetRoomName": "Coolant Labyrinth",
+      "triggerRoomId": "room_09",
+      "unlockType": "newDialogue",
+      "description": "Gravity Well pressure maps reveal unexplored branches in the Coolant Labyrinth."
+    },
+    {
+      "id": "revisit_room_07_2",
+      "targetRoomId": "room_07",
+      "targetRoomName": "Coolant Labyrinth",
+      "triggerRoomId": "room_15",
+      "unlockType": "upgradedEventPool",
+      "description": "Reality Box paradoxes introduce spatial anomaly events in the Coolant Labyrinth."
+    },
+    {
+      "id": "revisit_room_08_1",
+      "targetRoomId": "room_08",
+      "targetRoomName": "Data Vault",
+      "triggerRoomId": "room_11",
+      "unlockType": "newDoor",
+      "description": "Neural Nexus access credentials open a classified archive wing in the Data Vault."
+    },
+    {
+      "id": "revisit_room_08_2",
+      "targetRoomId": "room_08",
+      "targetRoomName": "Data Vault",
+      "triggerRoomId": "room_19",
+      "unlockType": "hiddenSubspace",
+      "description": "Reality Kernel algorithms reveal a virtual subspace within the Data Vault."
+    },
+    {
+      "id": "revisit_room_09_1",
+      "targetRoomId": "room_09",
+      "targetRoomName": "Gravity Well",
+      "triggerRoomId": "room_15",
+      "unlockType": "newInteraction",
+      "description": "Reality Box spatial data enables gravity manipulation experiments in the Gravity Well."
+    },
+    {
+      "id": "revisit_room_09_2",
+      "targetRoomId": "room_09",
+      "targetRoomName": "Gravity Well",
+      "triggerRoomId": "room_18",
+      "unlockType": "newSecretClue",
+      "description": "Chrono Engine logs reference a temporal gravity anomaly hidden in the Gravity Well."
+    },
+    {
+      "id": "revisit_room_10_1",
+      "targetRoomId": "room_10",
+      "targetRoomName": "Anomaly Containment",
+      "triggerRoomId": "room_19",
+      "unlockType": "alteredSideActivity",
+      "description": "Reality Kernel containment protocols transform the Anomaly Containment side activity."
+    },
+    {
+      "id": "revisit_room_10_2",
+      "targetRoomId": "room_10",
+      "targetRoomName": "Anomaly Containment",
+      "triggerRoomId": "room_20",
+      "unlockType": "newDialogue",
+      "description": "The Quiet Singularity's calm reveals new Guide reflections on the Anomaly Containment."
+    },
+    {
+      "id": "revisit_room_11_1",
+      "targetRoomId": "room_11",
+      "targetRoomName": "Neural Nexus",
+      "triggerRoomId": "room_17",
+      "unlockType": "newDoor",
+      "description": "Planetary Systems Forge data links reveal a hidden neural conduit in the Neural Nexus."
+    },
+    {
+      "id": "revisit_room_11_2",
+      "targetRoomId": "room_11",
+      "targetRoomName": "Neural Nexus",
+      "triggerRoomId": "room_20",
+      "unlockType": "masteryFollowUp",
+      "description": "Singularity insight unlocks transcendent mastery goals in the Neural Nexus."
+    },
+    {
+      "id": "revisit_room_12_1",
+      "targetRoomId": "room_12",
+      "targetRoomName": "Forge Core",
+      "triggerRoomId": "room_17",
+      "unlockType": "hiddenSubspace",
+      "description": "Planetary forge harmonics reveal a resonant sub-chamber beneath the Forge Core."
+    },
+    {
+      "id": "revisit_room_12_2",
+      "targetRoomId": "room_12",
+      "targetRoomName": "Forge Core",
+      "triggerRoomId": "room_18",
+      "unlockType": "upgradedEventPool",
+      "description": "Chrono Engine temporal echoes introduce time-forged events in the Forge Core."
+    },
+    {
+      "id": "revisit_room_13_1",
+      "targetRoomId": "room_13",
+      "targetRoomName": "Echo Chamber",
+      "triggerRoomId": "room_14",
+      "unlockType": "newInteraction",
+      "description": "Harmony Cathedral frequencies activate hidden acoustic panels in the Echo Chamber."
+    },
+    {
+      "id": "revisit_room_13_2",
+      "targetRoomId": "room_13",
+      "targetRoomName": "Echo Chamber",
+      "triggerRoomId": "room_20",
+      "unlockType": "newSecretClue",
+      "description": "The Quiet Singularity's silence reveals a final echo hidden in the Echo Chamber."
+    },
+    {
+      "id": "revisit_room_14_1",
+      "targetRoomId": "room_14",
+      "targetRoomName": "Harmony Cathedral",
+      "triggerRoomId": "room_19",
+      "unlockType": "newDialogue",
+      "description": "Reality Kernel philosophy unlocks new Guide meditations in the Harmony Cathedral."
+    },
+    {
+      "id": "revisit_room_14_2",
+      "targetRoomId": "room_14",
+      "targetRoomName": "Harmony Cathedral",
+      "triggerRoomId": "room_20",
+      "unlockType": "alteredSideActivity",
+      "description": "Singularity calm transforms the Harmony Cathedral's side activity into a contemplative mode."
+    },
+    {
+      "id": "revisit_room_15_1",
+      "targetRoomId": "room_15",
+      "targetRoomName": "Reality Box",
+      "triggerRoomId": "room_18",
+      "unlockType": "newDoor",
+      "description": "Chrono Engine temporal maps reveal a time-locked door in the Reality Box."
+    },
+    {
+      "id": "revisit_room_15_2",
+      "targetRoomId": "room_15",
+      "targetRoomName": "Reality Box",
+      "triggerRoomId": "room_19",
+      "unlockType": "upgradedEventPool",
+      "description": "Reality Kernel paradox data introduces reality-fold events in the Reality Box."
+    }
+  ],
+  "atmosphereConfigs": [
+    {
+      "id": "atmosphere_room_01",
+      "roomId": "room_01",
+      "roomName": "Junk Corner",
+      "microLifeElements": [
+        {
+          "type": "drone",
+          "description": "A battered repair drone circles lazily above the junk piles, occasionally bumping into debris."
+        },
+        {
+          "type": "fan",
+          "description": "A ceiling fan wobbles unevenly, stirring dust motes in the amber light."
+        },
+        {
+          "type": "particle",
+          "description": "Metallic dust particles drift through shafts of light from cracks in the ceiling."
+        }
+      ],
+      "lightingPreset": "warmIndustrial",
+      "landmarkReactivity": "The central junk heap shifts and settles as upgrades are purchased, revealing buried objects."
+    },
+    {
+      "id": "atmosphere_room_02",
+      "roomId": "room_02",
+      "roomName": "Wiring Den",
+      "microLifeElements": [
+        {
+          "type": "monitor",
+          "description": "Old CRT monitors flicker with scrolling green text and occasional static bursts."
+        },
+        {
+          "type": "shadow",
+          "description": "Cable shadows sway on the walls as unseen currents disturb the wiring overhead."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "A tangled cable cluster pulses with dim light in a slow breathing rhythm."
+        }
+      ],
+      "lightingPreset": "flickeringNeon",
+      "landmarkReactivity": "The main cable trunk glows brighter as the room transforms, new wires snaking outward."
+    },
+    {
+      "id": "atmosphere_room_03",
+      "roomId": "room_03",
+      "roomName": "Steam Vents",
+      "microLifeElements": [
+        {
+          "type": "thermalShimmer",
+          "description": "Heat distortion ripples above active vents, warping the view of distant pipes."
+        },
+        {
+          "type": "particle",
+          "description": "Condensation droplets form on cold pipes and drip into puddles below."
+        },
+        {
+          "type": "machineWeather",
+          "description": "Periodic steam bursts create a fog layer that rolls along the floor."
+        }
+      ],
+      "lightingPreset": "dimEmber",
+      "landmarkReactivity": "The main pressure gauge reacts to production levels, its needle swinging with each upgrade."
+    },
+    {
+      "id": "atmosphere_room_04",
+      "roomId": "room_04",
+      "roomName": "Signal Tower",
+      "microLifeElements": [
+        {
+          "type": "signalFog",
+          "description": "A faint electromagnetic haze shimmers around the tower's antenna array."
+        },
+        {
+          "type": "monitor",
+          "description": "Signal strength meters pulse rhythmically on wall-mounted displays."
+        },
+        {
+          "type": "guideReaction",
+          "description": "The Guide's avatar flickers when signal interference peaks."
+        },
+        {
+          "type": "particle",
+          "description": "Tiny spark-like particles arc between antenna tips during high activity."
+        }
+      ],
+      "lightingPreset": "electricBlue",
+      "landmarkReactivity": "The tower's beacon rotates faster as the room evolves, its light reaching farther."
+    },
+    {
+      "id": "atmosphere_room_05",
+      "roomId": "room_05",
+      "roomName": "Sensor Lab",
+      "microLifeElements": [
+        {
+          "type": "monitor",
+          "description": "Holographic readouts hover above sensor arrays, displaying real-time data streams."
+        },
+        {
+          "type": "drone",
+          "description": "A calibration drone methodically scans equipment, projecting thin laser grids."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "Sensor dishes rotate slowly, tracking invisible signals."
+        }
+      ],
+      "lightingPreset": "sterileWhite",
+      "landmarkReactivity": "The central sensor array extends additional arms and dishes as the room progresses."
+    },
+    {
+      "id": "atmosphere_room_06",
+      "roomId": "room_06",
+      "roomName": "Assembly Line",
+      "microLifeElements": [
+        {
+          "type": "machineWeather",
+          "description": "Fine metal shavings drift through the air near active fabrication stations."
+        },
+        {
+          "type": "fan",
+          "description": "Industrial extraction fans hum overhead, creating a steady downdraft."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "Robotic arms along the line perform maintenance gestures even when idle."
+        },
+        {
+          "type": "shadow",
+          "description": "Moving machine parts cast rhythmic shadows that sweep across the floor."
+        }
+      ],
+      "lightingPreset": "harshOverhead",
+      "landmarkReactivity": "The assembly line extends with new stations as upgrades are purchased, products becoming more complex."
+    },
+    {
+      "id": "atmosphere_room_07",
+      "roomId": "room_07",
+      "roomName": "Coolant Labyrinth",
+      "microLifeElements": [
+        {
+          "type": "thermalShimmer",
+          "description": "Cold air creates inverse heat shimmer near super-cooled pipe junctions."
+        },
+        {
+          "type": "particle",
+          "description": "Ice crystals form and float in the air near exposed coolant lines."
+        },
+        {
+          "type": "shadow",
+          "description": "Labyrinthine pipe shadows create shifting maze patterns on the walls."
+        }
+      ],
+      "lightingPreset": "coolFluorescent",
+      "landmarkReactivity": "The labyrinth's central cooling tower frosts over progressively, ice patterns becoming intricate."
+    },
+    {
+      "id": "atmosphere_room_08",
+      "roomId": "room_08",
+      "roomName": "Data Vault",
+      "microLifeElements": [
+        {
+          "type": "monitor",
+          "description": "Rows of server status indicators blink in cascading patterns."
+        },
+        {
+          "type": "signalFog",
+          "description": "A faint data-visualization haze projects ghostly file structures in the air."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "Data tape reels spin intermittently, reading and writing archived information."
+        }
+      ],
+      "lightingPreset": "deepShadow",
+      "landmarkReactivity": "The vault door mechanism grows more elaborate with each archive tier unlocked."
+    },
+    {
+      "id": "atmosphere_room_09",
+      "roomId": "room_09",
+      "roomName": "Gravity Well",
+      "microLifeElements": [
+        {
+          "type": "particle",
+          "description": "Small debris fragments orbit slowly around the central gravity anomaly."
+        },
+        {
+          "type": "shadow",
+          "description": "Shadows stretch and compress unnaturally near the gravity distortion field."
+        },
+        {
+          "type": "machineWeather",
+          "description": "Gravitational tides cause periodic waves in any loose material."
+        },
+        {
+          "type": "guideReaction",
+          "description": "The Guide's projection distorts slightly when near the gravity source."
+        }
+      ],
+      "lightingPreset": "twilightHaze",
+      "landmarkReactivity": "The gravity well's event horizon visually deepens as room mastery increases."
+    },
+    {
+      "id": "atmosphere_room_10",
+      "roomId": "room_10",
+      "roomName": "Anomaly Containment",
+      "microLifeElements": [
+        {
+          "type": "staticRain",
+          "description": "Static discharge falls like rain from containment field generators overhead."
+        },
+        {
+          "type": "signalFog",
+          "description": "An anomalous haze drifts unpredictably, changing color based on containment status."
+        },
+        {
+          "type": "guideReaction",
+          "description": "The Guide issues subtle warnings when anomaly readings fluctuate."
+        }
+      ],
+      "lightingPreset": "crimsonAlert",
+      "landmarkReactivity": "Containment pods illuminate sequentially as anomalies are catalogued and secured."
+    },
+    {
+      "id": "atmosphere_room_11",
+      "roomId": "room_11",
+      "roomName": "Neural Nexus",
+      "microLifeElements": [
+        {
+          "type": "particle",
+          "description": "Bioluminescent particles trace neural pathway patterns through the air."
+        },
+        {
+          "type": "signalFog",
+          "description": "A soft cognitive haze pulses in rhythm with the nexus's processing cycles."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "Synaptic bridges form and dissolve between neural columns in real time."
+        },
+        {
+          "type": "guideReaction",
+          "description": "The Guide's responses become more contemplative and layered in this room."
+        }
+      ],
+      "lightingPreset": "etherealGlow",
+      "landmarkReactivity": "The central neural column grows additional branches, its glow intensifying with each upgrade."
+    },
+    {
+      "id": "atmosphere_room_12",
+      "roomId": "room_12",
+      "roomName": "Forge Core",
+      "microLifeElements": [
+        {
+          "type": "thermalShimmer",
+          "description": "Intense heat distortion rises from the active forge, warping the view above."
+        },
+        {
+          "type": "particle",
+          "description": "Molten sparks drift upward from the forge surface in lazy spirals."
+        },
+        {
+          "type": "machineWeather",
+          "description": "Forge exhaust creates localized thermal updrafts that rustle loose materials."
+        }
+      ],
+      "lightingPreset": "goldenHour",
+      "landmarkReactivity": "The forge's crucible glows with increasing intensity, its molten contents changing color with progress."
+    },
+    {
+      "id": "atmosphere_room_13",
+      "roomId": "room_13",
+      "roomName": "Echo Chamber",
+      "microLifeElements": [
+        {
+          "type": "shadow",
+          "description": "Sound-reactive shadows pulse on the chamber walls in sync with ambient echoes."
+        },
+        {
+          "type": "particle",
+          "description": "Visible sound waves manifest as shimmering rings that expand outward from the center."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "Acoustic panels tilt and adjust, searching for optimal resonance angles."
+        }
+      ],
+      "lightingPreset": "softAmbient",
+      "landmarkReactivity": "The echo focus point at the chamber's center produces increasingly complex harmonic visualizations."
+    },
+    {
+      "id": "atmosphere_room_14",
+      "roomId": "room_14",
+      "roomName": "Harmony Cathedral",
+      "microLifeElements": [
+        {
+          "type": "particle",
+          "description": "Golden motes of light drift downward like gentle snow through the cathedral space."
+        },
+        {
+          "type": "guideReaction",
+          "description": "The Guide's tone becomes reverent and measured within the cathedral walls."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "Crystal spires hum with harmonic frequencies, their glow shifting with the room's mood."
+        },
+        {
+          "type": "shadow",
+          "description": "Stained-glass-like light patterns slowly rotate across the floor."
+        }
+      ],
+      "lightingPreset": "cathedralLight",
+      "landmarkReactivity": "The central organ of harmonic crystals gains new pipes and voices with each transformation stage."
+    },
+    {
+      "id": "atmosphere_room_15",
+      "roomId": "room_15",
+      "roomName": "Reality Box",
+      "microLifeElements": [
+        {
+          "type": "staticRain",
+          "description": "Reality static cascades from unstable dimensional seams in the ceiling."
+        },
+        {
+          "type": "signalFog",
+          "description": "A probability haze makes objects appear to exist in multiple positions simultaneously."
+        },
+        {
+          "type": "machineWeather",
+          "description": "Localized reality storms cause brief visual glitches in the environment."
+        }
+      ],
+      "lightingPreset": "voidBlack",
+      "landmarkReactivity": "The reality containment frame warps and shifts, its geometry becoming more impossible with progress."
+    },
+    {
+      "id": "atmosphere_room_16",
+      "roomId": "room_16",
+      "roomName": "Orbital Control Habitat",
+      "microLifeElements": [
+        {
+          "type": "monitor",
+          "description": "Orbital trajectory displays show satellite paths and debris fields in real time."
+        },
+        {
+          "type": "drone",
+          "description": "A small maintenance drone tends to life support systems along the habitat walls."
+        },
+        {
+          "type": "particle",
+          "description": "Micro-meteorite dust drifts through the observation windows in zero-g patterns."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "The habitat's outer ring rotates slowly, visible through panoramic viewports."
+        }
+      ],
+      "lightingPreset": "orbitalDawn",
+      "landmarkReactivity": "The central command console expands with additional control surfaces as systems come online."
+    },
+    {
+      "id": "atmosphere_room_17",
+      "roomId": "room_17",
+      "roomName": "Planetary Systems Forge",
+      "microLifeElements": [
+        {
+          "type": "thermalShimmer",
+          "description": "Stellar-grade heat distortion emanates from the planetary forge's core."
+        },
+        {
+          "type": "particle",
+          "description": "Miniature planetesimals orbit the forge in a scale model of planetary formation."
+        },
+        {
+          "type": "machineWeather",
+          "description": "Solar wind simulations create aurora-like effects across the forge chamber ceiling."
+        }
+      ],
+      "lightingPreset": "stellarForge",
+      "landmarkReactivity": "The planetary model at the forge's center gains complexity, from dust to fully formed worlds."
+    },
+    {
+      "id": "atmosphere_room_18",
+      "roomId": "room_18",
+      "roomName": "Chrono Engine Room",
+      "microLifeElements": [
+        {
+          "type": "signalFog",
+          "description": "Temporal distortion haze causes objects to briefly show their past and future states."
+        },
+        {
+          "type": "staticRain",
+          "description": "Chronometric particles fall upward near the engine's temporal exhaust ports."
+        },
+        {
+          "type": "guideReaction",
+          "description": "The Guide occasionally repeats phrases or speaks in reverse near temporal hotspots."
+        },
+        {
+          "type": "shadow",
+          "description": "Shadows lag behind their objects, creating ghostly time-delayed silhouettes."
+        }
+      ],
+      "lightingPreset": "temporalFlux",
+      "landmarkReactivity": "The chrono engine's clockwork mechanisms spin at varying speeds, some running backward."
+    },
+    {
+      "id": "atmosphere_room_19",
+      "roomId": "room_19",
+      "roomName": "Reality Kernel Chamber",
+      "microLifeElements": [
+        {
+          "type": "signalFog",
+          "description": "The room's atmosphere is a dense computational fog of rendered possibility."
+        },
+        {
+          "type": "particle",
+          "description": "Code fragments materialize as floating glyphs that dissolve on contact."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "The reality kernel itself breathes, expanding and contracting with each processing cycle."
+        }
+      ],
+      "lightingPreset": "kernelPulse",
+      "landmarkReactivity": "The kernel's crystalline structure reveals deeper fractal layers with each mastery milestone."
+    },
+    {
+      "id": "atmosphere_room_20",
+      "roomId": "room_20",
+      "roomName": "Quiet Singularity",
+      "microLifeElements": [
+        {
+          "type": "particle",
+          "description": "Light itself drifts slowly, as if the room exists at the edge of time."
+        },
+        {
+          "type": "guideReaction",
+          "description": "The Guide speaks rarely here, and when it does, its words carry unusual weight."
+        },
+        {
+          "type": "shadow",
+          "description": "There are no harsh shadows\u2014only gentle gradients that shift imperceptibly."
+        },
+        {
+          "type": "idleAnimation",
+          "description": "A single point of light at the room's center pulses with the rhythm of everything."
+        },
+        {
+          "type": "machineWeather",
+          "description": "The air itself seems to hum at a frequency just below perception."
+        }
+      ],
+      "lightingPreset": "singularityCalm",
+      "landmarkReactivity": "The singularity point remains unchanged\u2014but the player's perception of it deepens with each visit."
+    }
+  ],
+  "featuredRoomRotation": [
+    {
+      "id": "featured_week_01",
+      "roomId": "room_03",
+      "weekKey": "2025-W28",
+      "rewardMultiplier": 1.5,
+      "specialEventId": "evt_steam_surge",
+      "challengeModifierId": "mod_overheat_pressure",
+      "codexGainBonus": 0.25,
+      "relicFragmentChanceBonus": 0.1,
+      "visualThemeAccent": "ember_glow"
+    },
+    {
+      "id": "featured_week_02",
+      "roomId": "room_09",
+      "weekKey": "2025-W29",
+      "rewardMultiplier": 1.75,
+      "specialEventId": "evt_gravity_flux",
+      "challengeModifierId": "mod_inverted_gravity",
+      "codexGainBonus": 0.3,
+      "relicFragmentChanceBonus": 0.15,
+      "visualThemeAccent": "void_purple"
+    },
+    {
+      "id": "featured_week_03",
+      "roomId": "room_14",
+      "weekKey": "2025-W30",
+      "rewardMultiplier": 1.5,
+      "specialEventId": "evt_harmonic_convergence",
+      "challengeModifierId": "mod_silence_restriction",
+      "codexGainBonus": 0.2,
+      "relicFragmentChanceBonus": 0.12,
+      "visualThemeAccent": "cathedral_gold"
+    },
+    {
+      "id": "featured_week_04",
+      "roomId": "room_18",
+      "weekKey": "2025-W31",
+      "rewardMultiplier": 2.0,
+      "specialEventId": "evt_temporal_echo",
+      "challengeModifierId": "mod_time_pressure",
+      "codexGainBonus": 0.35,
+      "relicFragmentChanceBonus": 0.2,
+      "visualThemeAccent": "chrono_teal"
+    }
+  ],
+  "guideSideObjectives": [
+    {
+      "id": "guide_obj_prove_restraint",
+      "condition": "proveRestraint",
+      "title": "The Measured Path",
+      "description": "Demonstrate restraint by completing 5 rooms without purchasing the highest-tier upgrade available.",
+      "targetValue": 5,
+      "trackingMetric": "rooms_cleared_without_max_upgrade",
+      "rewardType": "guideMemory",
+      "rewardId": "guide_memory_restraint",
+      "rewardDescription": "The Guide shares a memory about the value of patience and deliberate choice.",
+      "guideDialogueOnProgress": "You could take more, but you choose not to. That tells me something.",
+      "guideDialogueOnComplete": "I once watched a system consume everything it could. It didn't end well. You're different."
+    },
+    {
+      "id": "guide_obj_prove_curiosity",
+      "condition": "proveCuriosity",
+      "title": "The Inquisitive Mind",
+      "description": "Discover at least one secret in 10 different rooms.",
+      "targetValue": 10,
+      "trackingMetric": "rooms_with_secret_found",
+      "rewardType": "guideMemory",
+      "rewardId": "guide_memory_curiosity",
+      "rewardDescription": "The Guide reveals a hidden observation about the facility's design philosophy.",
+      "guideDialogueOnProgress": "You look where others don't. The facility notices that.",
+      "guideDialogueOnComplete": "Every secret you found was placed there by someone who hoped someone like you would come along."
+    },
+    {
+      "id": "guide_obj_sustain_stability",
+      "condition": "sustainStability",
+      "title": "The Steady Hand",
+      "description": "Maintain instability below 10% for 15 consecutive room completions.",
+      "targetValue": 15,
+      "trackingMetric": "consecutive_low_instability_clears",
+      "rewardType": "guideMemory",
+      "rewardId": "guide_memory_stability",
+      "rewardDescription": "The Guide recounts the story of the facility's most stable era and what it meant.",
+      "guideDialogueOnProgress": "Steady. Controlled. The systems respond well to your consistency.",
+      "guideDialogueOnComplete": "There was a time when everything here ran this smoothly. You've brought that back."
+    },
+    {
+      "id": "guide_obj_reject_easy_power",
+      "condition": "rejectEasyPower",
+      "title": "The Principled Operator",
+      "description": "Decline 3 high-value event rewards that would have granted significant power boosts.",
+      "targetValue": 3,
+      "trackingMetric": "high_value_rewards_declined",
+      "rewardType": "guideMemory",
+      "rewardId": "guide_memory_principle",
+      "rewardDescription": "The Guide shares its perspective on power and the cost of taking shortcuts.",
+      "guideDialogueOnProgress": "Most would have taken that without thinking. You paused. Good.",
+      "guideDialogueOnComplete": "Power offered freely always has a cost. You understood that without being told."
+    },
+    {
+      "id": "guide_obj_investigate_oddities",
+      "condition": "investigateOddities",
+      "title": "The Anomaly Investigator",
+      "description": "Interact with 8 anomalous objects or events across different rooms.",
+      "targetValue": 8,
+      "trackingMetric": "anomalous_interactions_count",
+      "rewardType": "guideMemory",
+      "rewardId": "guide_memory_oddities",
+      "rewardDescription": "The Guide explains its own theory about why anomalies cluster in certain areas.",
+      "guideDialogueOnProgress": "Most avoid the strange things. You walk toward them. Noted.",
+      "guideDialogueOnComplete": "The anomalies aren't random. I've been waiting for someone to confirm that. Thank you."
+    },
+    {
+      "id": "guide_obj_preserve_old_hardware",
+      "condition": "preserveOldHardware",
+      "title": "The Preservationist",
+      "description": "Complete 6 rooms without replacing legacy hardware with modern upgrades.",
+      "targetValue": 6,
+      "trackingMetric": "rooms_with_legacy_preserved",
+      "rewardType": "guideMemory",
+      "rewardId": "guide_memory_preservation",
+      "rewardDescription": "The Guide tells you about the original builders and their philosophy of permanence.",
+      "guideDialogueOnProgress": "You keep the old systems running. They appreciate that. In their way.",
+      "guideDialogueOnComplete": "Everything new was built on something old. You honor that connection."
+    },
+    {
+      "id": "guide_obj_trust_autonomous",
+      "condition": "trustAutonomous",
+      "title": "The Trust Protocol",
+      "description": "Allow autonomous systems to operate without manual override in 4 rooms.",
+      "targetValue": 4,
+      "trackingMetric": "rooms_with_full_autonomy",
+      "rewardType": "guideMemory",
+      "rewardId": "guide_memory_trust",
+      "rewardDescription": "The Guide reflects on trust between operators and autonomous systems.",
+      "guideDialogueOnProgress": "Letting go of control is harder than taking it. You're learning.",
+      "guideDialogueOnComplete": "Trust isn't weakness. It's the foundation of everything we're building here."
+    }
+  ],
+  "cosmeticRewards": [
+    {
+      "id": "cosmetic_transition_glitch_fade",
+      "type": "transitionStyle",
+      "name": "Glitch Fade",
+      "description": "Room transitions dissolve through a glitch-art effect with digital artifacts.",
+      "unlockCondition": "Complete all mastery goals in Room 10.",
+      "rarity": "rare"
+    },
+    {
+      "id": "cosmetic_transition_thermal_wipe",
+      "type": "transitionStyle",
+      "name": "Thermal Wipe",
+      "description": "Room transitions use a heat-distortion wipe effect inspired by the Steam Vents.",
+      "unlockCondition": "Clear Room 3 with zero instability.",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "cosmetic_guide_reaction_philosophical",
+      "type": "guideReaction",
+      "name": "Philosophical Guide",
+      "description": "The Guide occasionally quotes philosophical observations during idle moments.",
+      "unlockCondition": "Complete all Guide side objectives.",
+      "rarity": "epic"
+    },
+    {
+      "id": "cosmetic_guide_reaction_playful",
+      "type": "guideReaction",
+      "name": "Playful Guide",
+      "description": "The Guide makes lighthearted comments and jokes during routine operations.",
+      "unlockCondition": "Discover 30 secrets across all rooms.",
+      "rarity": "rare"
+    },
+    {
+      "id": "cosmetic_decor_junk_garden",
+      "type": "roomDecor",
+      "name": "Junk Garden",
+      "description": "Small plants grow among the junk in Room 1, adding life to the scrap heap.",
+      "unlockCondition": "Revisit Room 1 after completing Room 15.",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "cosmetic_decor_data_fireflies",
+      "type": "roomDecor",
+      "name": "Data Fireflies",
+      "description": "Luminescent data fragments drift like fireflies through the Data Vault.",
+      "unlockCondition": "Complete the Secret Archive tier 3.",
+      "rarity": "rare"
+    },
+    {
+      "id": "cosmetic_landmark_forge_phoenix",
+      "type": "landmarkVariant",
+      "name": "Phoenix Forge",
+      "description": "The Forge Core's crucible is replaced with a phoenix-shaped flame sculpture.",
+      "unlockCondition": "Complete all mastery goals in Room 12.",
+      "rarity": "epic"
+    },
+    {
+      "id": "cosmetic_landmark_crystal_tower",
+      "type": "landmarkVariant",
+      "name": "Crystal Signal Tower",
+      "description": "The Signal Tower's antenna is replaced with a crystalline growth that refracts light.",
+      "unlockCondition": "Complete the Ghost Signal multi-room secret.",
+      "rarity": "legendary"
+    },
+    {
+      "id": "cosmetic_archive_golden_text",
+      "type": "archiveVisual",
+      "name": "Golden Archive",
+      "description": "Completed archive entries display in golden illuminated text.",
+      "unlockCondition": "Complete 6 archive section tiers.",
+      "rarity": "rare"
+    },
+    {
+      "id": "cosmetic_archive_holographic",
+      "type": "archiveVisual",
+      "name": "Holographic Archive",
+      "description": "Archive entries project as holographic displays when viewed.",
+      "unlockCondition": "Complete all archive section tier 1 rewards.",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "cosmetic_ambient_aurora",
+      "type": "ambientTheme",
+      "name": "Aurora Ambience",
+      "description": "A subtle aurora borealis effect plays in the background of all rooms.",
+      "unlockCondition": "Complete the Planetary Systems Forge with all secrets found.",
+      "rarity": "epic"
+    },
+    {
+      "id": "cosmetic_ambient_starfield",
+      "type": "ambientTheme",
+      "name": "Deep Starfield",
+      "description": "Room backgrounds feature a slowly rotating deep-space starfield.",
+      "unlockCondition": "Complete all mastery goals in Room 16.",
+      "rarity": "rare"
+    },
+    {
+      "id": "cosmetic_title_architect",
+      "type": "titleUnlock",
+      "name": "The Architect",
+      "description": "Display the title 'The Architect' on your profile.",
+      "unlockCondition": "Complete The Original Architect multi-room secret.",
+      "rarity": "legendary"
+    },
+    {
+      "id": "cosmetic_title_chronomancer",
+      "type": "titleUnlock",
+      "name": "Chronomancer",
+      "description": "Display the title 'Chronomancer' on your profile.",
+      "unlockCondition": "Complete all mastery goals in Room 18.",
+      "rarity": "epic"
+    },
+    {
+      "id": "cosmetic_seal_stability",
+      "type": "routeSeal",
+      "name": "Seal of Stability",
+      "description": "A golden seal icon displayed on rooms completed with minimal instability.",
+      "unlockCondition": "Complete the Steady Hand Guide objective.",
+      "rarity": "rare"
+    },
+    {
+      "id": "cosmetic_seal_anomaly",
+      "type": "routeSeal",
+      "name": "Seal of Anomaly",
+      "description": "A fractured seal icon displayed on rooms completed via the Anomaly route.",
+      "unlockCondition": "Complete 10 rooms using the Anomaly route.",
+      "rarity": "rare"
+    },
+    {
+      "id": "cosmetic_trophy_singularity_orb",
+      "type": "trophyItem",
+      "name": "Singularity Orb",
+      "description": "A miniature singularity that floats in your trophy display, pulsing with quiet energy.",
+      "unlockCondition": "Complete Room 20 with all mastery goals.",
+      "rarity": "legendary"
+    },
+    {
+      "id": "cosmetic_badge_pioneer",
+      "type": "roomBadge",
+      "name": "Pioneer Badge",
+      "description": "A badge awarded for being among the first to complete all rooms.",
+      "unlockCondition": "Complete all 20 rooms at least once.",
+      "rarity": "epic"
+    },
+    {
+      "id": "cosmetic_badge_completionist",
+      "type": "roomBadge",
+      "name": "Completionist Badge",
+      "description": "A badge for achieving 100% completion across all mastery goals.",
+      "unlockCondition": "Complete all 140 mastery goals.",
+      "rarity": "legendary"
+    },
+    {
+      "id": "cosmetic_ending_visual_quiet_dawn",
+      "type": "endingVisual",
+      "name": "Quiet Dawn",
+      "description": "An alternate ending visual where the facility powers down peacefully at sunrise.",
+      "unlockCondition": "Complete the Quiet Singularity with the Acceptance relic set equipped.",
+      "rarity": "legendary"
+    }
+  ]
+}
