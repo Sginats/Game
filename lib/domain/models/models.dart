@@ -6,6 +6,7 @@ export 'game_state.dart';
 export 'gameplay_extensions.dart';
 export 'generator.dart';
 export 'meta_progression.dart';
+export 'post_core_systems.dart';
 export 'progression_content.dart';
 export 'robot_guide.dart';
 export 'room_scene.dart';

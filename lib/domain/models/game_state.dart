@@ -4,6 +4,7 @@ import 'companion.dart';
 import 'gameplay_extensions.dart';
 import 'generator.dart';
 import 'meta_progression.dart';
+import 'post_core_systems.dart';
 import 'room_scene.dart';
 import 'route_faction.dart';
 import 'side_activity.dart';
@@ -75,6 +76,7 @@ class GameState {
   final List<QuestState> activeQuests;
   final int roomMasteryRank;
   final Map<String, int> sceneMasteryRanks;
+  final PostCoreState postCore;
 
   GameState({
     required this.coins,
@@ -139,6 +141,7 @@ class GameState {
     this.activeQuests = const [],
     this.roomMasteryRank = 0,
     this.sceneMasteryRanks = const {},
+    this.postCore = const PostCoreState(),
   }) : prestigeMultiplier =
             prestigeMultiplier ?? GameNumber.fromDouble(1);
 
@@ -244,6 +247,7 @@ class GameState {
     List<QuestState>? activeQuests,
     int? roomMasteryRank,
     Map<String, int>? sceneMasteryRanks,
+    PostCoreState? postCore,
   }) {
     return GameState(
       coins: coins ?? this.coins,
@@ -312,6 +316,7 @@ class GameState {
       activeQuests: activeQuests ?? this.activeQuests,
       roomMasteryRank: roomMasteryRank ?? this.roomMasteryRank,
       sceneMasteryRanks: sceneMasteryRanks ?? this.sceneMasteryRanks,
+      postCore: postCore ?? this.postCore,
     );
   }
 
@@ -378,6 +383,7 @@ class GameState {
         'activeQuests': activeQuests.map((e) => e.toJson()).toList(),
         'roomMasteryRank': roomMasteryRank,
         'sceneMasteryRanks': sceneMasteryRanks,
+        'postCore': postCore.toJson(),
       };
 
   factory GameState.fromJson(Map<String, dynamic> json) {
@@ -566,6 +572,10 @@ class GameState {
           ? (json['sceneMasteryRanks'] as Map<String, dynamic>)
               .map((k, v) => MapEntry(k, v as int))
           : const {},
+      postCore: json['postCore'] != null
+          ? PostCoreState.fromJson(
+              json['postCore'] as Map<String, dynamic>)
+          : const PostCoreState(),
     );
   }
 }
