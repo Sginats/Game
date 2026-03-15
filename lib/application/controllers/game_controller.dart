@@ -44,6 +44,11 @@ class GameController {
   Future<void>? _saveFuture;
   SceneEventDefinition? _activeRoomSceneEvent;
 
+  /// Monotonically increasing counter incremented on every state mutation that
+  /// affects the tech tree (purchases, upgrades, era changes, room changes).
+  /// The UI can compare this cheaply instead of hashing the full state map.
+  int _stateVersion = 0;
+
   List<AchievementDefinition> lastUnlockedAchievements = [];
   List<String> lastUnlockedMilestones = [];
   GameNumber? pendingOfflineEarnings;
@@ -88,6 +93,12 @@ class GameController {
 
   GameState get state => _state;
   ConfigService get config => _config;
+
+  /// Monotonically increasing version counter. Incremented on every mutation
+  /// that affects the tech tree (purchases, era changes, room changes). Used by
+  /// the UI instead of the expensive O(n) state hash.
+  int get stateVersion => _stateVersion;
+
   String get currentEraId => _currentEraId;
   Set<String> get loadedEraWindow {
     final ids = <String>{..._ownedEraIds, _currentEraId};
@@ -340,6 +351,7 @@ class GameController {
     _checkMilestones();
     _checkAchievements();
     _refreshGuidance();
+    _stateVersion++;
     return true;
   }
 
@@ -400,6 +412,7 @@ class GameController {
     _checkMilestones();
     _checkAchievements();
     _refreshGuidance();
+    _stateVersion++;
     return true;
   }
 
@@ -444,6 +457,7 @@ class GameController {
     _state = _state.copyWith(currentEraId: eraId);
     _syncRoomToCurrentEra();
     _refreshGuidance();
+    _stateVersion++;
     return true;
   }
 
@@ -485,6 +499,7 @@ class GameController {
       body: room.introText,
     );
     _refreshGuidance();
+    _stateVersion++;
     return true;
   }
 
@@ -1741,6 +1756,7 @@ class GameController {
       unlockedEras: unlocked,
       currentEraId: newestEraId ?? _currentEraId,
     );
+    _stateVersion++;
 
     if (newestEraId != null) {
       final era = _eraById(newestEraId);

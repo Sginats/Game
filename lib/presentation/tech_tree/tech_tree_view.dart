@@ -60,13 +60,15 @@ class TechTreeView extends StatelessWidget {
                   (node) => Positioned(
                     left: node.position.dx - (_nodeRadius(node) / 2),
                     top: node.position.dy - (_nodeRadius(node) / 2),
-                    child: _TreeNode(
-                      key: ValueKey('tree-node-${node.id}'),
-                      node: node,
-                      hovered: hoveredNodeId == node.id,
-                      onTap: () => onNodeTap(node),
-                      onHoverChanged: (hovering) =>
-                          onHoverChanged(hovering ? node.id : null),
+                    child: RepaintBoundary(
+                      child: _TreeNode(
+                        key: ValueKey('tree-node-${node.id}'),
+                        node: node,
+                        hovered: hoveredNodeId == node.id,
+                        onTap: () => onNodeTap(node),
+                        onHoverChanged: (hovering) =>
+                            onHoverChanged(hovering ? node.id : null),
+                      ),
                     ),
                   ),
                 ),
@@ -277,19 +279,20 @@ class _ConnectionPainter extends CustomPainter {
   final TechTreeGraph graph;
   final String? selectedNodeId;
   final String? hoveredNodeId;
+  // Node lookup map built once from the graph, reused across paint calls.
+  final Map<String, TechTreeNodeData> _nodeMap;
 
-  const _ConnectionPainter({
+  _ConnectionPainter({
     required this.graph,
     required this.selectedNodeId,
     required this.hoveredNodeId,
-  });
+  }) : _nodeMap = {for (final node in graph.nodes) node.id: node};
 
   @override
   void paint(Canvas canvas, Size size) {
-    final nodeMap = {for (final node in graph.nodes) node.id: node};
     for (final connection in graph.connections) {
-      final fromNode = nodeMap[connection.fromId];
-      final toNode = nodeMap[connection.toId];
+      final fromNode = _nodeMap[connection.fromId];
+      final toNode = _nodeMap[connection.toId];
       if (fromNode == null || toNode == null) continue;
 
       final selected = selectedNodeId == connection.fromId ||

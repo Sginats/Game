@@ -80,11 +80,15 @@ class _GameScreenState extends State<GameScreen>
   int _lastGuideMemoryCount = 0;
   String? _lastPromptedUpdateVersion;
   String? _lastRestartPromptVersion;
+  // Cached ambient-sync room ID — avoids calling syncAmbientForRoom every build
+  String _lastAmbientRoomId = '';
 
-  // Cached tech tree graph — rebuilt only when state actually changes
+  // Cached tech tree graph — rebuilt only when stateVersion changes
   TechTreeGraph? _cachedGraph;
   String _lastEraId = '';
-  int _lastStateHash = 0;
+  int _lastStateVersion = -1;
+  // Cached era definition — O(1) lookup after first build
+  Era? _cachedEraDef;
 
   GameController get _controller => widget.controller;
   LeaderboardService get _leaderboardService => widget.leaderboardService;
@@ -122,7 +126,20 @@ class _GameScreenState extends State<GameScreen>
             _syncEraWindow(eraId);
             _robotGuide.onEraChanged(eraId);
             _cachedGraph = null; // Invalidate cache on era change
+            _cachedEraDef = null; // Invalidate cached era def
             _selectedNodeId = null;
+            _lastStateVersion = -1; // Force tree rebuild
+          }
+          // Sync ambient audio once per room change (not every build)
+          final roomId = _controller.currentRoomId;
+          if (roomId != _lastAmbientRoomId) {
+            _lastAmbientRoomId = roomId;
+            unawaited(
+              widget.audioService.syncAmbientForRoom(
+                _controller.currentRoom,
+                _controller.currentRoomState,
+              ),
+            );
           }
         });
         _handleFeedback();
@@ -173,25 +190,25 @@ class _GameScreenState extends State<GameScreen>
   @override
   Widget build(BuildContext context) {
     final eraId = _currentEra(_controller);
-    _syncEraWindow(eraId);
     final currentRoom = _controller.currentRoom;
     final accent = _sceneAccent(currentRoom, eraId);
     final gradient = _sceneGradient(currentRoom, eraId);
-    final eraDef = widget.config.eras.firstWhere(
-      (item) => item.id == eraId,
-      orElse: () => widget.config.eras.first,
-    );
-    unawaited(
-      widget.audioService.syncAmbientForRoom(
-        _controller.currentRoom,
-        _controller.currentRoomState,
-      ),
-    );
 
-    // Cache the tech tree graph — only rebuild when state actually changes
-    final stateHash = _computeStateHash();
-    if (_cachedGraph == null || stateHash != _lastStateHash) {
-      _lastStateHash = stateHash;
+    // Cache the era definition — only search when the era changes.
+    if (_cachedEraDef == null || _cachedEraDef!.id != eraId) {
+      _cachedEraDef = widget.config.eras.firstWhere(
+        (item) => item.id == eraId,
+        orElse: () => widget.config.eras.first,
+      );
+    }
+    final eraDef = _cachedEraDef!;
+
+    // Cache the tech tree graph — rebuild only when stateVersion changes or
+    // purchase-mode / selection changes (both mutate _lastStateVersion via
+    // invalidation calls in the relevant handlers).
+    final stateVersion = _controller.stateVersion;
+    if (_cachedGraph == null || stateVersion != _lastStateVersion) {
+      _lastStateVersion = stateVersion;
       _cachedGraph = TechTreeBuilder.build(
         config: widget.config,
         controller: _controller,
@@ -418,27 +435,32 @@ class _GameScreenState extends State<GameScreen>
     return Stack(
       children: [
         Positioned.fill(
-          child: TechTreeView(
-            graph: graph,
-            selectedNodeId: _selectedNodeId,
-            hoveredNodeId: _hoveredNodeId,
-            transformationController: _camera,
-            backgroundLayer: currentRoom == null
-                ? null
-                : RoomSceneBackdrop(
-                    room: currentRoom,
-                    roomState: _controller.currentRoomState,
-                    reducedMotion: widget.settings.reducedMotion,
-                  ),
-            onNodeTap: (value) {
-              unawaited(widget.audioService.playNodeSelect());
-              setState(() => _selectedNodeId = value.id);
-              _focusNode(value.position);
-            },
-            onHoverChanged: (value) {
-              if (_hoveredNodeId == value) return;
-              setState(() => _hoveredNodeId = value);
-            },
+          child: RepaintBoundary(
+            child: TechTreeView(
+              graph: graph,
+              selectedNodeId: _selectedNodeId,
+              hoveredNodeId: _hoveredNodeId,
+              transformationController: _camera,
+              backgroundLayer: currentRoom == null
+                  ? null
+                  : RoomSceneBackdrop(
+                      room: currentRoom,
+                      roomState: _controller.currentRoomState,
+                      reducedMotion: widget.settings.reducedMotion,
+                    ),
+              onNodeTap: (value) {
+                unawaited(widget.audioService.playNodeSelect());
+                setState(() {
+                  _selectedNodeId = value.id;
+                  _lastStateVersion = -1; // Rebuild tree to show selection
+                });
+                _focusNode(value.position);
+              },
+              onHoverChanged: (value) {
+                if (_hoveredNodeId == value) return;
+                setState(() => _hoveredNodeId = value);
+              },
+            ),
           ),
         ),
         Positioned(
@@ -576,7 +598,10 @@ class _GameScreenState extends State<GameScreen>
           final selected = mode == _purchaseMode;
           return InkWell(
             borderRadius: BorderRadius.circular(10),
-            onTap: () => setState(() => _purchaseMode = mode),
+            onTap: () => setState(() {
+              _purchaseMode = mode;
+              _lastStateVersion = -1; // Force tree rebuild on mode change
+            }),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 160),
               padding: const EdgeInsets.symmetric(
@@ -2128,6 +2153,8 @@ class _GameScreenState extends State<GameScreen>
     _syncEraWindow(eraId);
     _selectedNodeId = null;
     _cachedGraph = null;
+    _cachedEraDef = null;
+    _lastStateVersion = -1; // Force tree rebuild
     setState(() {});
     WidgetsBinding.instance.addPostFrameCallback((_) => _focusCurrentEra());
   }
@@ -4190,7 +4217,31 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
+  // Cached glass-box decorations to avoid per-build allocation.
+  static const BoxDecoration _kGlassBox22 = BoxDecoration(
+    color: Color(0xCC101A24),
+    borderRadius: BorderRadius.all(Radius.circular(22)),
+    border: Border.fromBorderSide(
+      BorderSide(color: Color(0x12FFFFFF)),
+    ),
+    boxShadow: [
+      BoxShadow(color: Color(0x44000000), blurRadius: 10, offset: Offset(0, 4)),
+    ],
+  );
+  static const BoxDecoration _kGlassBox16 = BoxDecoration(
+    color: Color(0xCC101A24),
+    borderRadius: BorderRadius.all(Radius.circular(16)),
+    border: Border.fromBorderSide(
+      BorderSide(color: Color(0x12FFFFFF)),
+    ),
+    boxShadow: [
+      BoxShadow(color: Color(0x44000000), blurRadius: 10, offset: Offset(0, 4)),
+    ],
+  );
+
   BoxDecoration _glassBox({double radius = 22}) {
+    if (radius == 22) return _kGlassBox22;
+    if (radius == 16) return _kGlassBox16;
     return BoxDecoration(
       color: const Color(0xCC101A24),
       borderRadius: BorderRadius.circular(radius),
@@ -4215,31 +4266,6 @@ class _GameScreenState extends State<GameScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
-  }
-
-  /// Compute a lightweight hash of state fields that affect the tech tree.
-  /// Used to avoid expensive TechTreeBuilder.build() calls every tick.
-  int _computeStateHash() {
-    final state = _controller.state;
-    // Combine key fields that affect tree rendering using integer-based hashing
-    var hash = state.coins.toStringFormatted().hashCode;
-    hash ^= state.generators.length.hashCode;
-    hash ^= state.upgrades.length.hashCode;
-    hash ^= state.unlockedEras.length.hashCode;
-    hash ^= state.discoveredSecrets.length.hashCode;
-    hash ^= state.unlockedMilestones.length.hashCode;
-    hash ^= state.chosenBranches.length.hashCode;
-    hash ^= state.currentEraId.hashCode;
-    hash ^= _selectedNodeId.hashCode;
-    hash ^= _purchaseMode.hashCode;
-    // Include total levels to detect purchases
-    for (final gen in state.generators.values) {
-      hash ^= gen.level.hashCode;
-    }
-    for (final upg in state.upgrades.values) {
-      hash ^= upg.level.hashCode;
-    }
-    return hash;
   }
 
   int _highestEraOrder() {

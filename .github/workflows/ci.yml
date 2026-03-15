@@ -46,6 +46,8 @@ jobs:
           flutter test test/domain/models/room_scene_expansion_test.dart
           flutter test test/domain/models/post_core_systems_test.dart
           flutter test test/domain/models/ui_ux_systems_test.dart
+          flutter test test/presentation/game_screen_widget_test.dart
+          flutter test test/application/game_controller_perf_test.dart
 
   analyze:
     name: Analyze
