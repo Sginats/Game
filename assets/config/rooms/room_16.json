@@ -1,12 +1,12 @@
 {
   "id": "room_16",
   "name": "Orbital Control Habitat",
-  "subtitle": "Above the world",
+  "subtitle": "Above the world, precision is everything.",
   "order": 16,
-  "introText": "Welcome to Orbital Control Habitat. Above the world. This is where your journey continues.",
-  "completionText": "You have mastered Orbital Control Habitat. The Relay Charges you've gathered here will echo through every room that follows.",
-  "guideTone": "calm, vast",
-  "guideIntroLine": "We left the ground behind. From up here, everything looks different.",
+  "introText": "Above the world, precision is everything.",
+  "completionText": "You turned orbit into dominion. Every relay answers your call now.",
+  "guideTone": "methodical, calm, exacting, deeply respectful of precision",
+  "guideIntroLine": "We left the surface behind. Everything here operates on timing and tolerance. One drift, one delay, and systems cascade.",
   "currency": "Relay Charges",
   "mechanicEmphasis": "automation",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_16_stage_1",
-      "name": "Orbital Control Habitat \u2014 Bare Bones",
-      "description": "The room in its raw state. Orbital Control Habitat evolves as you progress.",
-      "requiredUpgrades": 80,
+      "name": "Cold Station",
+      "description": "Cold orbital station with minimal systems online. Stars visible through frost-edged viewports.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "frost_viewports",
+        "minimal_lights",
+        "cold_metal"
       ],
       "unlocked": false
     },
     {
       "id": "room_16_stage_2",
-      "name": "Orbital Control Habitat \u2014 First Light",
-      "description": "Basic improvements visible. Orbital Control Habitat evolves as you progress.",
-      "requiredUpgrades": 240,
+      "name": "Active Habitat",
+      "description": "Warm, active habitat with relay grids and observation displays coordinating orbital operations.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "relay_grids",
+        "observation_displays",
+        "warm_lighting"
       ],
       "unlocked": false
     },
     {
       "id": "room_16_stage_3",
-      "name": "Orbital Control Habitat \u2014 Functional",
-      "description": "A proper working space. Orbital Control Habitat evolves as you progress.",
-      "requiredUpgrades": 480,
+      "name": "Orbital Command",
+      "description": "Full orbital command center with planetary overview, cascading relay networks, and precision timing displays.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_16_stage_4",
-      "name": "Orbital Control Habitat \u2014 Advanced",
-      "description": "High-tech transformation. Orbital Control Habitat evolves as you progress.",
-      "requiredUpgrades": 800,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_16_stage_5",
-      "name": "Orbital Control Habitat \u2014 Mastered",
-      "description": "The room at its peak. Orbital Control Habitat evolves as you progress.",
-      "requiredUpgrades": 1280,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "planetary_overview",
+        "relay_cascade",
+        "precision_displays",
+        "command_authority"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_16_secret_1",
-      "title": "Hidden Orbital Cache",
-      "description": "A secret stash hidden in the Orbital Control Habitat.",
-      "hint": "Look behind the orbital equipment.",
+      "title": "The Blind Relay",
+      "description": "One relay in the grid never reports status but always delivers.",
+      "hint": "Watch for the silent relay that never fails.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_16_secret_2",
+      "title": "Orbital Patience",
+      "description": "Some orbits teach patience the surface never could.",
+      "hint": "The guide speaks differently about timing after long sessions.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_16_secret_3",
+      "title": "The Hidden Frequency",
+      "description": "A frequency outside standard bands carries faint data.",
+      "hint": "Tune beyond the normal range.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_16_twist",
-    "title": "Orbital Control Habitat Shift",
-    "description": "Something changes in the Orbital Control Habitat. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 400",
-    "effectDescription": "New mechanics unlock in Orbital Control Habitat. Event rates increase.",
+    "title": "Pre-Calculated Relays",
+    "description": "The relay network starts pre-calculating responses before you input commands.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Relay systems predict your actions. Precision windows widen but timing bonuses become even more extreme.",
     "activated": false
   },
   "eventPoolId": "pool_room_16",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "relay_precision",
+    "orbit_timing",
+    "thermal_regulation",
+    "signal_amplification",
+    "observation_grid",
+    "micro_adjustment",
+    "satellite_coordination",
+    "hidden_frequency",
+    "zero_g_adaptation",
+    "orbital_chain"
   ],
   "loreEntries": [
-    "room_16_lore_1",
-    "room_16_lore_2",
-    "room_16_lore_3"
+    "room_16_archive_relay",
+    "room_16_guide_orbit",
+    "room_16_secret_freq",
+    "room_16_scene_habitat"
   ],
   "unlockRequirement": "room_15",
   "completed": false,
@@ -143,17 +147,76 @@
       {
         "id": "room_16_evt_1",
         "roomId": "room_16",
-        "title": "Orbit Correction",
-        "description": "Orbit Correction \u2014 a common instant event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
+        "title": "Relay Cascade",
+        "description": "Relay systems fire in perfect sequence. Each one amplifies the next.",
+        "flavorText": "Precision cascades.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 22.6,
+            "value": 16,
+            "description": "Gain Relay Charges"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Cascade precision bonus"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_16_evt_2",
+        "roomId": "room_16",
+        "title": "Orbital Window",
+        "description": "A precision orbital window opens. Timing is everything.",
+        "flavorText": "The window is narrow.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Relay Charges"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Window timing momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_16_evt_3",
+        "roomId": "room_16",
+        "title": "Thermal Regulation Burst",
+        "description": "Thermal systems achieve perfect balance. Output surges.",
+        "flavorText": "Temperature is currency in orbit.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Thermal efficiency"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 8,
             "description": "Gain Relay Charges"
           }
         ],
@@ -163,257 +226,245 @@
         "weight": 10
       },
       {
-        "id": "room_16_evt_2",
+        "id": "room_16_evt_4",
         "roomId": "room_16",
-        "title": "Solar Flare",
-        "description": "Solar Flare \u2014 a common shortChoice event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Signal Amplification",
+        "description": "Satellites align and amplify the signal beyond expected range.",
+        "flavorText": "Alignment multiplies reach.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
+        "durationSeconds": 9,
+        "choices": [],
+        "rewards": [
           {
-            "id": "room_16_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 22.6,
-                "description": "Gain Relay Charges"
-              }
-            ],
-            "risk": 0.1
+            "type": "instantCurrency",
+            "value": 14,
+            "description": "Gain Relay Charges"
           },
           {
-            "id": "room_16_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Signal alignment"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_16_evt_5",
+        "roomId": "room_16",
+        "title": "Observation Opportunity",
+        "description": "The observation grid detects a useful anomaly. React quickly.",
+        "flavorText": "Observation rewards attention.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12,
+        "choices": [
+          {
+            "id": "room_16_evt_5_c1",
+            "text": "Track carefully",
+            "description": "Precise observation",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 30.6,
-                "description": "Gain Relay Charges"
+                "value": 12,
+                "description": "Precise Charges"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_16_evt_5_c2",
+            "text": "Rapid scan",
+            "description": "Fast but imprecise",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 22,
+                "description": "Rush Charges"
               },
               {
                 "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
+                "value": 1,
+                "description": "Orbital route"
               }
             ],
-            "risk": 0.4
+            "risk": 0.3
           }
         ],
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_16_evt_3",
-        "roomId": "room_16",
-        "title": "Debris Field",
-        "description": "Debris Field \u2014 a common timedChain event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 22.6,
-            "description": "Gain Relay Charges"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_16_evt_4",
-        "roomId": "room_16",
-        "title": "Communication Window",
-        "description": "Communication Window \u2014 a common utility event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 4.08,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.98,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_16_evt_5",
-        "roomId": "room_16",
-        "title": "Gravity Anomaly",
-        "description": "Gravity Anomaly \u2014 a rare secretTrigger event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_16_evt_6",
         "roomId": "room_16",
-        "title": "Station Rotation",
-        "description": "Station Rotation \u2014 a rare legendaryAnomaly event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_16_evt_7",
-        "roomId": "room_16",
-        "title": "Supply Drop",
-        "description": "Supply Drop \u2014 a epic warningRisk event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 4.08,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.98,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_16_evt_8",
-        "roomId": "room_16",
-        "title": "EVA Required",
-        "description": "EVA Required \u2014 a corrupted miniBoss event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.98,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_16_evt_9",
-        "roomId": "room_16",
-        "title": "Orbital Decay",
-        "description": "Orbital Decay \u2014 a legendary guideAdvisory event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.98,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_16_evt_10",
-        "roomId": "room_16",
-        "title": "Earth View",
-        "description": "Earth View \u2014 a common hiddenGlitch event in Orbital Control Habitat.",
-        "flavorText": "The orbital environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Zero-G Drift Bonus",
+        "description": "Micro-gravity conditions create unexpected efficiency.",
+        "flavorText": "Weightlessness has advantages.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 7,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 22.6,
+            "value": 9,
             "description": "Gain Relay Charges"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Zero-G bonus"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_16_evt_7",
+        "roomId": "room_16",
+        "title": "Station Rotation Sync",
+        "description": "The habitat's rotation syncs with relay timing. Everything aligns.",
+        "flavorText": "Spin becomes rhythm.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Rotation sync"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 7,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_16_evt_8",
+        "roomId": "room_16",
+        "title": "Satellite Coordination Pulse",
+        "description": "All satellites coordinate simultaneously. The network hums.",
+        "flavorText": "Unity across orbit.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 13,
+            "description": "Gain Relay Charges"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Coordination pulse"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_16_evt_9",
+        "roomId": "room_16",
+        "title": "Ghost Frequency Signal",
+        "description": "A signal arrives on a frequency that shouldn't exist.",
+        "flavorText": "Someone else used this orbit.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Frequency clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_16_evt_10",
+        "roomId": "room_16",
+        "title": "Perfect Orbital Alignment",
+        "description": "Every element in the orbital system achieves perfect alignment simultaneously.",
+        "flavorText": "Perfection lasts only a moment.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Perfect alignment"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Orbital precision route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_16_evt_11",
+        "roomId": "room_16",
+        "title": "Deep Space Echo",
+        "description": "A signal bounces back from beyond expected range. It carries data from something unknown.",
+        "flavorText": "The void answers.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3,
+            "description": "Deep space data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the echo"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 35,
+            "description": "Gain Relay Charges"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -454,8 +505,8 @@
   "roomLaw": {
     "id": "law_precision_16",
     "name": "Law of Precision",
-    "description": "This room rewards precision",
-    "mechanic": "Well-timed commands give multiplied output based on timing accuracy"
+    "description": "Precision multiplies; sloppiness compounds errors",
+    "mechanic": "Timed actions within narrow windows gain exponential bonuses; missed windows cascade into penalties"
   },
   "landmark": {
     "id": "lm_observation_dome",
@@ -483,5 +534,47 @@
     "description": "Regular orbital corrections prevent decay",
     "mechanic": "Issuing regular correction commands maintains orbital stability and output"
   },
-  "completionCeremony": "The station achieves perfect orbit and the stars align"
+  "completionCeremony": "The observation dome irises open. Below, the planet glows with the light of systems you orchestrated from above.",
+  "midSceneTwistLine": "The relays are responding faster than our inputs. Something is pre-calculating.",
+  "completionReward": {
+    "relicName": "Orbital Lens",
+    "relicEffect": "Improves precision-timing windows and satellite coordination in future systems",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Gravity fades. The viewport opens to stars. Station lights boot in sequence from the observation ring inward.",
+    "audio": "Pressurization hiss followed by deep orbital hum",
+    "titleReveal": "Title materializes in projected starlight"
+  },
+  "transitionOut": {
+    "visual": "Relays fire in cascading sequence. Planetary surface rushes toward the camera. Station folds behind you.",
+    "audio": "Relay ping cascade building to a thunderous arrival",
+    "titleReveal": "Relay signals converge into the next room's ignition point"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_16_archive_relay",
+      "title": "Relay Archive",
+      "content": "Logs of every relay calibration and orbital maneuver."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_16_guide_orbit",
+      "title": "The View Changes Everything",
+      "content": "From orbit, every problem looks different. Distance is clarity."
+    },
+    {
+      "type": "secret",
+      "id": "room_16_secret_freq",
+      "title": "The Unlisted Frequency",
+      "content": "One relay responds to a frequency not in any manual."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_16_scene_habitat",
+      "title": "The Habitat That Watched the World",
+      "content": "From above, the machine learned patience. And aim."
+    }
+  ]
 }

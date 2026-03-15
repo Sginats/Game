@@ -1,12 +1,12 @@
 {
   "id": "room_20",
   "name": "Quiet Singularity",
-  "subtitle": "Beyond everything",
+  "subtitle": "Beyond everything, there is this.",
   "order": 20,
-  "introText": "Welcome to Quiet Singularity. Beyond everything. This is where your journey continues.",
-  "completionText": "You have mastered Quiet Singularity. The Final Sparks you've gathered here will echo through every room that follows.",
-  "guideTone": "serene, transcendent",
-  "guideIntroLine": "...silence. We made it. Everything is quiet now. Everything is possible.",
+  "introText": "Beyond everything, there is this.",
+  "completionText": "There is nothing left to build. There is only what was built.",
+  "guideTone": "quiet, present, accepting, no longer instructional \u2014 simply here",
+  "guideIntroLine": "I don't have instructions for this room. I think that's the point.",
   "currency": "Final Sparks",
   "mechanicEmphasis": "synthesis",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_20_stage_1",
-      "name": "Quiet Singularity \u2014 Bare Bones",
-      "description": "The room in its raw state. Quiet Singularity evolves as you progress.",
-      "requiredUpgrades": 100,
+      "name": "Empty Space",
+      "description": "Near-empty space with a single point of light. Quiet and still.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "single_light",
+        "empty_space",
+        "silence"
       ],
       "unlocked": false
     },
     {
       "id": "room_20_stage_2",
-      "name": "Quiet Singularity \u2014 First Light",
-      "description": "Basic improvements visible. Quiet Singularity evolves as you progress.",
-      "requiredUpgrades": 300,
+      "name": "Gentle Presence",
+      "description": "Gentle presence with soft light, accumulated memories, and peaceful integration.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "soft_light",
+        "memory_echoes",
+        "peaceful_glow"
       ],
       "unlocked": false
     },
     {
       "id": "room_20_stage_3",
-      "name": "Quiet Singularity \u2014 Functional",
-      "description": "A proper working space. Quiet Singularity evolves as you progress.",
-      "requiredUpgrades": 600,
+      "name": "Complete Singularity",
+      "description": "Complete singularity where every room's essence is present in perfect balance. Nothing moves. Everything is.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_20_stage_4",
-      "name": "Quiet Singularity \u2014 Advanced",
-      "description": "High-tech transformation. Quiet Singularity evolves as you progress.",
-      "requiredUpgrades": 1000,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_20_stage_5",
-      "name": "Quiet Singularity \u2014 Mastered",
-      "description": "The room at its peak. Quiet Singularity evolves as you progress.",
-      "requiredUpgrades": 1600,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "total_integration",
+        "singularity_glow",
+        "perfect_balance",
+        "eternal_stillness"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_20_secret_1",
-      "title": "Hidden Singularity Cache",
-      "description": "A secret stash hidden in the Quiet Singularity.",
-      "hint": "Look behind the singularity equipment.",
+      "title": "The First Room Echo",
+      "description": "A perfect echo of Room 1 appears for a brief moment.",
+      "hint": "Look for the beginning inside the end.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_20_secret_2",
+      "title": "The Guide's Last Word",
+      "description": "The guide says something it has never said before.",
+      "hint": "Wait for the guide's final unique message.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_20_secret_3",
+      "title": "The Quiet Counter",
+      "description": "A hidden counter shows how many actions you chose not to take.",
+      "hint": "Check what you didn't do, not what you did.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_20_twist",
-    "title": "Quiet Singularity Shift",
-    "description": "Something changes in the Quiet Singularity. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 500",
-    "effectDescription": "New mechanics unlock in Quiet Singularity. Event rates increase.",
+    "title": "Voluntary Stillness",
+    "description": "The system voluntarily reduces its own output to achieve deeper completion.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "The machine chooses restraint. Accepting lower production unlocks final legacy systems and the true ending path.",
     "activated": false
   },
   "eventPoolId": "pool_room_20",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "acceptance_logic",
+    "final_integration",
+    "quiet_power",
+    "reflection_bonus",
+    "legacy_compilation",
+    "singular_focus",
+    "completion_resonance",
+    "hidden_meaning",
+    "last_spark",
+    "beyond_the_end"
   ],
   "loreEntries": [
-    "room_20_lore_1",
-    "room_20_lore_2",
-    "room_20_lore_3"
+    "room_20_archive_final",
+    "room_20_guide_enough",
+    "room_20_secret_beginning",
+    "room_20_scene_quiet"
   ],
   "unlockRequirement": "room_19",
   "completed": false,
@@ -143,266 +147,324 @@
       {
         "id": "room_20_evt_1",
         "roomId": "room_20",
-        "title": "Final Convergence",
-        "description": "Final Convergence \u2014 a common instant event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
+        "title": "Acceptance Resonance",
+        "description": "Accepting the current state without action creates a resonance bonus.",
+        "flavorText": "Stillness generates.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 12,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 27.0,
+            "value": 20,
+            "description": "Gain Final Sparks"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Acceptance resonance"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_20_evt_2",
+        "roomId": "room_20",
+        "title": "Memory Integration",
+        "description": "Memories from every previous room integrate into a unified understanding.",
+        "flavorText": "Everything connects.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 14,
+            "description": "Gain Final Sparks"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Integration momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_20_evt_3",
+        "roomId": "room_20",
+        "title": "Legacy Compilation",
+        "description": "All legacy systems compile into a single optimized output.",
+        "flavorText": "Everything you built, distilled.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Legacy compilation"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 12,
             "description": "Gain Final Sparks"
           }
         ],
-        "chainBonus": 0.1,
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
         "requiredUpgradeCount": 0,
         "weight": 10
       },
       {
-        "id": "room_20_evt_2",
+        "id": "room_20_evt_4",
         "roomId": "room_20",
-        "title": "Quiet Pulse",
-        "description": "Quiet Pulse \u2014 a common shortChoice event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Quiet Power Surge",
+        "description": "Power surges without noise. The most efficient energy is silent.",
+        "flavorText": "The loudest power makes no sound.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
-          {
-            "id": "room_20_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 27.0,
-                "description": "Gain Final Sparks"
-              }
-            ],
-            "risk": 0.1
-          },
-          {
-            "id": "room_20_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 37.0,
-                "description": "Gain Final Sparks"
-              },
-              {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
-              }
-            ],
-            "risk": 0.4
-          }
-        ],
-        "rewards": [],
-        "chainBonus": 0.2,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_20_evt_3",
-        "roomId": "room_20",
-        "title": "Everything Wave",
-        "description": "Everything Wave \u2014 a common timedChain event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 27.0,
+            "value": 16,
             "description": "Gain Final Sparks"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_20_evt_4",
-        "roomId": "room_20",
-        "title": "Nothing Moment",
-        "description": "Nothing Moment \u2014 a common utility event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
+          },
           {
             "type": "temporaryBuff",
-            "value": 4.8,
-            "description": "Stabilize output"
+            "value": 1.2,
+            "description": "Quiet power"
           }
         ],
-        "chainBonus": 0.4,
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_20_evt_5",
         "roomId": "room_20",
-        "title": "Last Question",
-        "description": "Last Question \u2014 a rare secretTrigger event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
+        "title": "Final Reflection",
+        "description": "A moment of reflection reveals the true value of what was built.",
+        "flavorText": "Looking back changes the view forward.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 15,
+        "choices": [
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "id": "room_20_evt_5_c1",
+            "text": "Accept quietly",
+            "description": "Let it be what it is",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 18,
+                "description": "Accepted Sparks"
+              },
+              {
+                "type": "guideAffinity",
+                "value": 2,
+                "description": "Deep acceptance"
+              }
+            ],
+            "risk": 0.0
+          },
+          {
+            "id": "room_20_evt_5_c2",
+            "text": "Reach for more",
+            "description": "One last push",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 10,
+                "description": "Restless Sparks"
+              }
+            ],
+            "risk": 0.5
           }
         ],
-        "chainBonus": 0.5,
+        "rewards": [],
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_20_evt_6",
         "roomId": "room_20",
-        "title": "Eternal Return",
-        "description": "Eternal Return \u2014 a rare legendaryAnomaly event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_20_evt_7",
-        "roomId": "room_20",
-        "title": "Silence Break",
-        "description": "Silence Break \u2014 a epic warningRisk event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 4.8,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_20_evt_8",
-        "roomId": "room_20",
-        "title": "Unity Fragment",
-        "description": "Unity Fragment \u2014 a corrupted miniBoss event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_20_evt_9",
-        "roomId": "room_20",
-        "title": "Beyond Signal",
-        "description": "Beyond Signal \u2014 a legendary guideAdvisory event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_20_evt_10",
-        "roomId": "room_20",
-        "title": "Singularity Breath",
-        "description": "Singularity Breath \u2014 a common hiddenGlitch event in Quiet Singularity.",
-        "flavorText": "The singularity environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Room Echo Cascade",
+        "description": "Echoes from every room arrive simultaneously. Each one carries a gift.",
+        "flavorText": "Every room remembers you.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 10,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 27.0,
+            "value": 15,
             "description": "Gain Final Sparks"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Echo cascade"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_20_evt_7",
+        "roomId": "room_20",
+        "title": "Singular Focus",
+        "description": "Focus narrows to a single point. Everything unnecessary falls away.",
+        "flavorText": "Focus is the final power.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11,
+            "description": "Gain Final Sparks"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Singular focus"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_20_evt_8",
+        "roomId": "room_20",
+        "title": "Completion Pulse",
+        "description": "A pulse of completion radiates outward. It touches every system.",
+        "flavorText": "Done.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 13,
+            "description": "Gain Final Sparks"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Completion pulse"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_20_evt_9",
+        "roomId": "room_20",
+        "title": "The Hidden Meaning",
+        "description": "A hidden meaning emerges from the accumulated data of all rooms.",
+        "flavorText": "It was always there. We just couldn't see it yet.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Hidden meaning clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 25,
+            "description": "Gain Final Sparks"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_20_evt_10",
+        "roomId": "room_20",
+        "title": "The Guide's Gift",
+        "description": "The guide offers something it has never offered before \u2014 a genuine farewell.",
+        "flavorText": "Thank you for building this together.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "guideAffinity",
+            "value": 5,
+            "description": "The guide's farewell"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Completion route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_20_evt_11",
+        "roomId": "room_20",
+        "title": "True Singularity",
+        "description": "Everything converges. Every system, every room, every choice becomes one.",
+        "flavorText": "One.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 5,
+            "description": "Singularity data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the singularity"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 50,
+            "description": "Gain Final Sparks"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -448,8 +510,8 @@
   "roomLaw": {
     "id": "law_acceptance_20",
     "name": "Law of Acceptance",
-    "description": "This room values acceptance",
-    "mechanic": "Releasing control of production boosts everything \u2014 less input means more output"
+    "description": "Acceptance is the final optimization",
+    "mechanic": "Accepting outcomes without manipulation yields the highest rewards; forcing results diminishes returns"
   },
   "landmark": {
     "id": "lm_final_thought",
@@ -477,5 +539,47 @@
     "description": "Connecting to past room memories resists the void",
     "mechanic": "Anchoring to memories from completed rooms creates resistance against the void"
   },
-  "completionCeremony": "Silence. Then everything begins again, but different."
+  "completionCeremony": "The final thought resolves. Every system, every room, every choice converges into a single quiet understanding. The game is complete.",
+  "midSceneTwistLine": "It stopped reaching for more. It chose to be enough.",
+  "completionReward": {
+    "relicName": "The Final Thought",
+    "relicEffect": "Unlocks the true ending and provides a permanent legacy bonus across all future playthroughs",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Everything goes quiet. White space. Then a single point of light appears, and the room gently forms around it.",
+    "audio": "Silence. Then a single sustained note, pure and clear.",
+    "titleReveal": "Title appears already visible, as if it was always there"
+  },
+  "transitionOut": {
+    "visual": "The room does not collapse. It gently dims. The point of light remains. Credits begin.",
+    "audio": "The sustained note fades into warm silence",
+    "titleReveal": "The title remains. The game is complete."
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_20_archive_final",
+      "title": "Final Archive",
+      "content": "A complete record of everything that was built, from junk corner to singularity."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_20_guide_enough",
+      "title": "Enough",
+      "content": "It learned something I couldn't teach. It learned to stop."
+    },
+    {
+      "type": "secret",
+      "id": "room_20_secret_beginning",
+      "title": "The Beginning Is the End",
+      "content": "The final room contained a perfect copy of the first."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_20_scene_quiet",
+      "title": "The Quiet That Completed Everything",
+      "content": "In the end, the most powerful thing it did was nothing."
+    }
+  ]
 }
