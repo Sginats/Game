@@ -384,6 +384,307 @@
       "metric": "eventClicks",
       "target": 8,
       "requiredMilestoneId": "event_hunter"
+    },
+
+    {
+      "id": "room_01_quest",
+      "title": "Scrap Heap Ignition",
+      "description": "Scrap together 1000 coins from the junkyard floor of Room 01.",
+      "metric": "totalCoins",
+      "target": 1000
+    },
+    {
+      "id": "room_02_quest",
+      "title": "Budget Protocol",
+      "description": "Accumulate 5000 credits to unlock Room 02's fiscal subroutine.",
+      "metric": "totalCoins",
+      "target": 5000
+    },
+    {
+      "id": "room_03_quest",
+      "title": "Signal Bootstrap",
+      "description": "Tap 200 times to bootstrap the signal array in Room 03.",
+      "metric": "totalTaps",
+      "target": 200
+    },
+    {
+      "id": "room_04_quest",
+      "title": "Generator Nursery",
+      "description": "Deploy 15 generators to populate the nursery grid of Room 04.",
+      "metric": "totalGenerators",
+      "target": 15
+    },
+    {
+      "id": "room_05_quest",
+      "title": "Rhythm Calibration",
+      "description": "Reach a 20-hit combo to calibrate Room 05's rhythm engine.",
+      "metric": "strongestCombo",
+      "target": 20
+    },
+    {
+      "id": "room_06_quest",
+      "title": "Anomaly Scanner Online",
+      "description": "Click 15 events to activate Room 06's anomaly scanner.",
+      "metric": "eventClicks",
+      "target": 15
+    },
+    {
+      "id": "room_07_quest",
+      "title": "Risk Conduit",
+      "description": "Take 8 risky choices to charge Room 07's risk conduit.",
+      "metric": "riskyChoices",
+      "target": 8,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "room_08_quest",
+      "title": "Deep Reservoir",
+      "description": "Amass 25000 coins to fill Room 08's deep reservoir.",
+      "metric": "totalCoins",
+      "target": 25000
+    },
+    {
+      "id": "room_09_quest",
+      "title": "Tap Forge",
+      "description": "Deliver 500 taps to forge Room 09's manual input backbone.",
+      "metric": "totalTaps",
+      "target": 500
+    },
+    {
+      "id": "room_10_quest",
+      "title": "Grid Saturation",
+      "description": "Install 30 generators to saturate Room 10's power grid.",
+      "metric": "totalGenerators",
+      "target": 30
+    },
+    {
+      "id": "room_11_quest",
+      "title": "Cascade Initiator",
+      "description": "Reach a 35-hit combo to initiate Room 11's cascade protocol.",
+      "metric": "strongestCombo",
+      "target": 35
+    },
+    {
+      "id": "room_12_quest",
+      "title": "Event Siphon",
+      "description": "Capture 25 events to power Room 12's siphon array.",
+      "metric": "eventClicks",
+      "target": 25
+    },
+    {
+      "id": "room_13_quest",
+      "title": "Volatility Engine",
+      "description": "Take 15 risky choices to fuel Room 13's volatility engine.",
+      "metric": "riskyChoices",
+      "target": 15,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "room_14_quest",
+      "title": "Wealth Accumulator",
+      "description": "Reach 100000 coins to activate Room 14's wealth accumulator.",
+      "metric": "totalCoins",
+      "target": 100000
+    },
+    {
+      "id": "room_15_quest",
+      "title": "Percussive Maintenance",
+      "description": "Deliver 1500 taps to percussively maintain Room 15's systems.",
+      "metric": "totalTaps",
+      "target": 1500
+    },
+    {
+      "id": "room_16_quest",
+      "title": "Factory Floor",
+      "description": "Deploy 50 generators to staff Room 16's factory floor.",
+      "metric": "totalGenerators",
+      "target": 50
+    },
+    {
+      "id": "room_17_quest",
+      "title": "Harmonic Resonance",
+      "description": "Reach a 50-hit combo to achieve harmonic resonance in Room 17.",
+      "metric": "strongestCombo",
+      "target": 50
+    },
+    {
+      "id": "room_18_quest",
+      "title": "Anomaly Nexus",
+      "description": "Capture 40 events to crystallize Room 18's anomaly nexus.",
+      "metric": "eventClicks",
+      "target": 40
+    },
+    {
+      "id": "room_19_quest",
+      "title": "Chaos Reactor",
+      "description": "Take 25 risky choices to ignite Room 19's chaos reactor.",
+      "metric": "riskyChoices",
+      "target": 25,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "room_20_quest",
+      "title": "Omega Threshold",
+      "description": "Amass 1000000 coins to breach Room 20's omega threshold.",
+      "metric": "totalCoins",
+      "target": 1000000
+    },
+
+    {
+      "id": "event_responder",
+      "title": "Event Responder",
+      "description": "Click 50 events to prove your anomaly response speed.",
+      "metric": "eventClicks",
+      "target": 50
+    },
+    {
+      "id": "event_chain_adept",
+      "title": "Event Chain Adept",
+      "description": "Click 100 events to master chained anomaly resolution.",
+      "metric": "eventClicks",
+      "target": 100
+    },
+    {
+      "id": "event_storm_rider",
+      "title": "Event Storm Rider",
+      "description": "Capture 200 events to ride the anomaly storm unscathed.",
+      "metric": "eventClicks",
+      "target": 200
+    },
+    {
+      "id": "event_whisperer",
+      "title": "Event Whisperer",
+      "description": "Resolve 30 events after unlocking branch protocols to whisper to the anomalies.",
+      "metric": "eventClicks",
+      "target": 30,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "event_singularity",
+      "title": "Event Singularity",
+      "description": "Capture 500 events to collapse the anomaly field into a singularity.",
+      "metric": "eventClicks",
+      "target": 500,
+      "requiredMilestoneId": "event_hunter"
+    },
+
+    {
+      "id": "combo_initiate",
+      "title": "Combo Initiate",
+      "description": "Reach a 25-hit combo to prove your manual rhythm.",
+      "metric": "strongestCombo",
+      "target": 25
+    },
+    {
+      "id": "combo_specialist",
+      "title": "Combo Specialist",
+      "description": "Push your combo streak to 50 with precise timing.",
+      "metric": "strongestCombo",
+      "target": 50
+    },
+    {
+      "id": "combo_virtuoso",
+      "title": "Combo Virtuoso",
+      "description": "Achieve a devastating 100-hit combo streak.",
+      "metric": "strongestCombo",
+      "target": 100
+    },
+    {
+      "id": "combo_legend",
+      "title": "Combo Legend",
+      "description": "Reach 500 combo hits in a single unbroken chain.",
+      "metric": "strongestCombo",
+      "target": 500,
+      "requiredMilestoneId": "combo_master"
+    },
+    {
+      "id": "combo_transcendent",
+      "title": "Combo Transcendent",
+      "description": "Shatter the 1000-hit combo barrier and transcend manual input.",
+      "metric": "strongestCombo",
+      "target": 1000,
+      "requiredMilestoneId": "combo_master"
+    },
+
+    {
+      "id": "route_tap_pioneer",
+      "title": "Tap Route Pioneer",
+      "description": "Deliver 3000 taps to pioneer the manual input route.",
+      "metric": "totalTaps",
+      "target": 3000,
+      "requiredBranchId": "tap"
+    },
+    {
+      "id": "route_automation_architect",
+      "title": "Automation Architect",
+      "description": "Deploy 75 generators to architect the automation route.",
+      "metric": "totalGenerators",
+      "target": 75,
+      "requiredBranchId": "automation"
+    },
+    {
+      "id": "route_hybrid_equilibrium",
+      "title": "Hybrid Equilibrium",
+      "description": "Accumulate 500000 coins to prove the hybrid route's balanced power.",
+      "metric": "totalCoins",
+      "target": 500000,
+      "requiredBranchId": "hybrid"
+    },
+    {
+      "id": "route_risk_embrace",
+      "title": "Risk Embrace",
+      "description": "Take 30 risky choices to fully embrace the volatile path.",
+      "metric": "riskyChoices",
+      "target": 30,
+      "requiredBranchId": "risky"
+    },
+    {
+      "id": "route_master_convergence",
+      "title": "Route Convergence",
+      "description": "Amass 2000000 coins to prove mastery regardless of route.",
+      "metric": "totalCoins",
+      "target": 2000000,
+      "requiredMilestoneId": "branching"
+    },
+
+    {
+      "id": "secret_tap_echo",
+      "title": "Echoes of Input",
+      "description": "Tap 5000 times to uncover the echo pattern hidden in the input stream.",
+      "metric": "totalTaps",
+      "target": 5000
+    },
+    {
+      "id": "secret_generator_whisper",
+      "title": "Generator Whispers",
+      "description": "Deploy 40 generators to hear the whispers between idle cycles.",
+      "metric": "totalGenerators",
+      "target": 40,
+      "requiredMilestoneId": "room_awakening"
+    },
+    {
+      "id": "secret_risk_archive",
+      "title": "Forbidden Archive",
+      "description": "Take 20 risky choices to access the system's forbidden memory archive.",
+      "metric": "riskyChoices",
+      "target": 20,
+      "requiredMilestoneId": "branching"
+    },
+    {
+      "id": "secret_coin_abyss",
+      "title": "The Coin Abyss",
+      "description": "Amass 10000000 coins to peer into the abyss where value loses meaning.",
+      "metric": "totalCoins",
+      "target": 10000000,
+      "requiredMilestoneId": "deep_explorer"
+    },
+    {
+      "id": "secret_combo_ghost",
+      "title": "Ghost Combo",
+      "description": "Reach a 75-hit combo to summon the ghost pattern the AI tries to hide.",
+      "metric": "strongestCombo",
+      "target": 75,
+      "requiredMilestoneId": "combo_master"
     }
   ],
   "secrets": [

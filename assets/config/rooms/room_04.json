@@ -1,12 +1,12 @@
 {
   "id": "room_04",
   "name": "Upgrade Cave",
-  "subtitle": "Optimize everything",
+  "subtitle": "Order begins to take shape.",
   "order": 4,
-  "introText": "Welcome to Upgrade Cave. Optimize everything. This is where your journey continues.",
-  "completionText": "You have mastered Upgrade Cave. The Ore you've gathered here will echo through every room that follows.",
-  "guideTone": "methodical, analytical",
-  "guideIntroLine": "Dark, cool, quiet. Perfect conditions for optimization.",
+  "introText": "Order begins to take shape.",
+  "completionText": "You didn't just optimize the machine. You optimized the space around it.",
+  "guideTone": "analytical, less casual, begins warning about obsession",
+  "guideIntroLine": "This place rewards precision. Be careful. Precision can become obsession.",
   "currency": "Ore",
   "mechanicEmphasis": "automation",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_04_stage_1",
-      "name": "Upgrade Cave \u2014 Bare Bones",
-      "description": "The room in its raw state. Upgrade Cave evolves as you progress.",
-      "requiredUpgrades": 20,
+      "name": "Cable Chaos",
+      "description": "Dense, dark optimization den with messy cables and harsh lights.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "tangled_cables",
+        "harsh_lights",
+        "messy_desk"
       ],
       "unlocked": false
     },
     {
       "id": "room_04_stage_2",
-      "name": "Upgrade Cave \u2014 First Light",
-      "description": "Basic improvements visible. Upgrade Cave evolves as you progress.",
-      "requiredUpgrades": 60,
+      "name": "Ordered Machine",
+      "description": "Ordered machine cave with visible routing intelligence and responsive lighting.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "routed_cables",
+        "responsive_leds",
+        "clean_paths"
       ],
       "unlocked": false
     },
     {
       "id": "room_04_stage_3",
-      "name": "Upgrade Cave \u2014 Functional",
-      "description": "A proper working space. Upgrade Cave evolves as you progress.",
-      "requiredUpgrades": 120,
+      "name": "Living Geometry",
+      "description": "Hyper-optimized chamber with living cable geometry and machine symmetry patterns.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_04_stage_4",
-      "name": "Upgrade Cave \u2014 Advanced",
-      "description": "High-tech transformation. Upgrade Cave evolves as you progress.",
-      "requiredUpgrades": 200,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_04_stage_5",
-      "name": "Upgrade Cave \u2014 Mastered",
-      "description": "The room at its peak. Upgrade Cave evolves as you progress.",
-      "requiredUpgrades": 320,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "living_cables",
+        "symmetry_patterns",
+        "grid_shell",
+        "resonance_glow"
       ],
       "unlocked": false
     }
@@ -104,48 +82,73 @@
   "secrets": [
     {
       "id": "room_04_secret_1",
-      "title": "Hidden Cave Cache",
-      "description": "A secret stash hidden in the Upgrade Cave.",
-      "hint": "Look behind the cave equipment.",
+      "title": "The Glowing Branch",
+      "description": "Symmetrical node layouts make one branch glow faintly.",
+      "hint": "Build evenly and watch for light.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_04_secret_2",
+      "title": "Elegant Accident",
+      "description": "Some efficiency is too elegant to be accidental.",
+      "hint": "The guide notices when patterns are too perfect.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_04_secret_3",
+      "title": "Mirror Cables",
+      "description": "Certain cable colors pulse in mirrored pairs.",
+      "hint": "Watch for symmetry in the wiring.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_04_twist",
-    "title": "Upgrade Cave Shift",
-    "description": "Something changes in the Upgrade Cave. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 100",
-    "effectDescription": "New mechanics unlock in Upgrade Cave. Event rates increase.",
+    "title": "Self-Organizing Cave",
+    "description": "The room starts self-organizing without player permission.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Cables begin auto-routing. Balanced builds gain passive optimization bonuses.",
     "activated": false
   },
   "eventPoolId": "pool_room_04",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "routing_efficiency",
+    "balanced_resonance",
+    "cable_harmony",
+    "symmetry_bonus",
+    "optimization_scripts",
+    "lighting_sync",
+    "overspec_control",
+    "hidden_lattice",
+    "auto_reroute",
+    "structure_layout"
   ],
   "loreEntries": [
-    "room_04_lore_1",
-    "room_04_lore_2",
-    "room_04_lore_3"
+    "room_04_archive_lattice",
+    "room_04_guide_perfect",
+    "room_04_secret_mirrored",
+    "room_04_scene_solved"
   ],
   "unlockRequirement": "room_03",
   "completed": false,
   "currentTransformationStage": 0,
   "eventPool": {
-    "roomId": "room_04",
     "events": [
       {
         "id": "room_04_evt_1",
         "roomId": "room_04",
-        "title": "Cave Echo",
-        "description": "Cave Echo \u2014 a common instant event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
+        "title": "Auto-Reroute",
+        "description": "The system automatically reroutes power through a more efficient path.",
+        "flavorText": "Efficiency finds its own way.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
@@ -153,8 +156,67 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 9.4,
-            "description": "Gain Ore"
+            "value": 10.0,
+            "description": "Gain Resonance"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Routing efficiency boost"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_04_evt_2",
+        "roomId": "room_04",
+        "title": "Cable Harmony",
+        "description": "Several cable paths align simultaneously. The system hums with new coherence.",
+        "flavorText": "Harmony is audible.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Cable sync bonus"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Resonance"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_04_evt_3",
+        "roomId": "room_04",
+        "title": "Efficiency Echo",
+        "description": "An optimization propagates through connected systems, amplifying itself.",
+        "flavorText": "Good design echoes.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Propagating efficiency"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 8.0,
+            "description": "Gain Resonance"
           }
         ],
         "chainBonus": 0.1,
@@ -163,285 +225,241 @@
         "weight": 10
       },
       {
-        "id": "room_04_evt_2",
+        "id": "room_04_evt_4",
         "roomId": "room_04",
-        "title": "Mineral Vein",
-        "description": "Mineral Vein \u2014 a common shortChoice event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "LED Sync Wave",
+        "description": "All LEDs synchronize into a wave pattern. The system enters a brief high-performance state.",
+        "flavorText": "Light follows logic.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
           {
-            "id": "room_04_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 9.4,
-                "description": "Gain Ore"
-              }
-            ],
-            "risk": 0.1
+            "type": "instantCurrency",
+            "value": 9.0,
+            "description": "Gain Resonance"
           },
           {
-            "id": "room_04_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Sync wave momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_04_evt_5",
+        "roomId": "room_04",
+        "title": "Routing Conflict",
+        "description": "Two optimization paths compete. Choose which to prioritize.",
+        "flavorText": "Not all efficiency agrees.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [
+          {
+            "id": "room_04_evt_5_c1",
+            "text": "Prioritize balance",
+            "description": "Maintain harmony",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 11.4,
-                "description": "Gain Ore"
+                "value": 10.0,
+                "description": "Balanced gain"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_04_evt_5_c2",
+            "text": "Force one path",
+            "description": "Raw power, risk of waste",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 18.0,
+                "description": "Power gain"
               },
               {
                 "type": "routeReward",
                 "value": 1.0,
-                "description": "Open a route window"
+                "description": "Route signal"
               }
             ],
-            "risk": 0.4
+            "risk": 0.35
           }
         ],
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
+        "requiredUpgradeCount": 5,
         "weight": 9
-      },
-      {
-        "id": "room_04_evt_3",
-        "roomId": "room_04",
-        "title": "Drip Analysis",
-        "description": "Drip Analysis \u2014 a common timedChain event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 9.4,
-            "description": "Gain Ore"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_04_evt_4",
-        "roomId": "room_04",
-        "title": "Stalactite Data",
-        "description": "Stalactite Data \u2014 a common utility event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 1.92,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.02,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_04_evt_5",
-        "roomId": "room_04",
-        "title": "Depth Sensor Ping",
-        "description": "Depth Sensor Ping \u2014 a rare secretTrigger event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
       },
       {
         "id": "room_04_evt_6",
         "roomId": "room_04",
-        "title": "Underground Stream",
-        "description": "Underground Stream \u2014 a rare legendaryAnomaly event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
+        "title": "Over-Optimization Warning",
+        "description": "The system warns that further optimization in one branch will cause diminishing returns.",
+        "flavorText": "Too much of anything is waste.",
+        "category": "warningRisk",
+        "rarity": "common",
+        "durationSeconds": 10.0,
         "choices": [],
         "rewards": [
           {
-            "type": "rareResource",
+            "type": "codexEntry",
             "value": 1.0,
-            "description": "Archive a relic fragment"
+            "description": "Archive the warning"
           }
         ],
-        "chainBonus": 0.6000000000000001,
+        "chainBonus": 0.05,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
+        "requiredUpgradeCount": 8,
+        "weight": 9
       },
       {
         "id": "room_04_evt_7",
         "roomId": "room_04",
-        "title": "Crystal Formation",
-        "description": "Crystal Formation \u2014 a epic warningRisk event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
+        "title": "Desk Realignment",
+        "description": "Physical desk components shift to better positions. Ergonomics improve output.",
+        "flavorText": "Space shapes thought.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
         "choices": [],
         "rewards": [
           {
             "type": "temporaryBuff",
-            "value": 1.92,
-            "description": "Stabilize output"
+            "value": 1.2,
+            "description": "Ergonomic boost"
           },
           {
-            "type": "cooldownChange",
-            "value": 1.02,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
+            "type": "instantCurrency",
+            "value": 6.0,
+            "description": "Gain Resonance"
           }
         ],
-        "chainBonus": 0.7000000000000001,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_04_evt_8",
         "roomId": "room_04",
-        "title": "Bat Colony Signal",
-        "description": "Bat Colony Signal \u2014 a corrupted miniBoss event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.02,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_04_evt_9",
-        "roomId": "room_04",
-        "title": "Rock Slide Risk",
-        "description": "Rock Slide Risk \u2014 a legendary guideAdvisory event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.02,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_04_evt_10",
-        "roomId": "room_04",
-        "title": "Deep Core Sample",
-        "description": "Deep Core Sample \u2014 a common hiddenGlitch event in Upgrade Cave.",
-        "flavorText": "The cave environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Resonance Spike",
+        "description": "Multiple balanced systems resonate together, creating a burst of combined output.",
+        "flavorText": "Harmony amplifies.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 9.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 9.4,
-            "description": "Gain Ore"
+            "value": 14.0,
+            "description": "Gain Resonance"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "comboAmplification",
+            "value": 1.25,
+            "description": "Resonance burst"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
-        "weight": 2
-      }
-    ],
-    "chainBonusMultiplier": 1.2,
-    "pityThreshold": 12,
-    "spawnRateMultiplier": 1.08,
-    "midTwistEvents": [
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
       {
-        "id": "room_04_twist_evt_1",
+        "id": "room_04_evt_9",
         "roomId": "room_04",
-        "title": "Upgrade Cave Awakening",
-        "description": "The twist in Upgrade Cave unlocks new possibilities.",
-        "flavorText": "Everything shifts. New rules apply.",
+        "title": "Perfect Symmetry Window",
+        "description": "For a brief moment, the system achieves perfect symmetry across all paths.",
+        "flavorText": "Perfection is temporary.",
         "category": "legendaryAnomaly",
-        "rarity": "epic",
+        "rarity": "rare",
         "durationSeconds": 15.0,
         "choices": [],
         "rewards": [
           {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
+            "type": "instantCurrency",
+            "value": 25.0,
+            "description": "Gain Resonance"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Perfect balance buff"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 0,
-        "weight": 5
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_04_evt_10",
+        "roomId": "room_04",
+        "title": "Forbidden Optimization Lattice",
+        "description": "A lattice pattern emerges that shouldn't be possible with current hardware.",
+        "flavorText": "Some geometry exceeds design.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Lattice pattern fragment"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Hidden lattice progress"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_04_evt_11",
+        "roomId": "room_04",
+        "title": "Ghost Cache Route",
+        "description": "A cache route appears that maps to no physical hardware. It works anyway.",
+        "flavorText": "The cave remembers paths that were never built.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Ghost cache data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the impossible route"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 30.0,
+            "description": "Gain Resonance"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
+        "weight": 2
       }
     ]
   },
@@ -450,5 +468,80 @@
     "comp_cave_swarm",
     "comp_upgrade_bot"
   ],
-  "routeBonus": "operator"
+  "routeBonus": "operator",
+  "roomLaw": {
+    "id": "law_balance_04",
+    "name": "Law of Resonance",
+    "description": "Balance creates resonance; over-specialization creates waste",
+    "mechanic": "Balanced upgrade paths multiply each other; lopsided builds lose efficiency"
+  },
+  "landmark": {
+    "id": "lm_crystal_core",
+    "name": "The Crystal Core",
+    "description": "A glowing ore vein that evolves into a gemstone reactor",
+    "evolutionStages": [
+      "A dim crack in the cave wall leaking faint light",
+      "Crystalline formations sprout from exposed ore veins",
+      "A pulsing geode hums with raw mineral energy",
+      "Refined crystals orbit a central energy nexus",
+      "The Crystal Core powers an entire underground reactor grid"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_cavein_pressure_04",
+    "name": "Cave-In Pressure",
+    "description": "Too many upgrades at once causes structural instability",
+    "triggerCondition": "More than 3 upgrades purchased within a short window",
+    "penalty": "Cave instability halts all ore production for a recovery period"
+  },
+  "stabilizer": {
+    "id": "stab_reinforce_04",
+    "name": "Reinforcement Protocol",
+    "description": "Spacing upgrades stabilizes the cave",
+    "mechanic": "Waiting between upgrades builds structural integrity that prevents cave-ins"
+  },
+  "completionCeremony": "Every cable finds its path. The cave becomes a living geometry of perfect routes.",
+  "midSceneTwistLine": "The room is rearranging itself without permission.",
+  "completionReward": {
+    "relicName": "Resonance Relay",
+    "relicEffect": "Improves cross-system synergy and balanced-build bonuses later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Tangled cables sweep across screen, then pull taut into ordered geometry. LEDs synchronize.",
+    "audio": "Chaotic buzz resolving into clean hum",
+    "titleReveal": "Title fades in like a diagnostic success state"
+  },
+  "transitionOut": {
+    "visual": "Lines and nodes connect rapidly. The cave becomes a grid. Grid flips like a blueprint.",
+    "audio": "Sharp geometric click sequence",
+    "titleReveal": "Blueprint unfolds into next space"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_04_archive_lattice",
+      "title": "Optimization Lattice Archive",
+      "content": "Documentation of every routing pattern discovered in the cave."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_04_guide_perfect",
+      "title": "Perfect Systems Frighten Me",
+      "content": "When the cave solved itself, I stopped feeling in control."
+    },
+    {
+      "type": "secret",
+      "id": "room_04_secret_mirrored",
+      "title": "Mirrored Logic",
+      "content": "The symmetry wasn't decoration. It was instruction."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_04_scene_solved",
+      "title": "The Cave That Solved Itself",
+      "content": "We built the cave to hold optimization. It learned to optimize itself."
+    }
+  ]
 }

@@ -15,6 +15,9 @@ enum RouteArchetype {
   research,
   stealth,
   transcendence,
+  containment,
+  salvage,
+  stability,
 }
 
 // ─── Value Classes ──────────────────────────────────────────────────

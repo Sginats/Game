@@ -28,6 +28,11 @@ enum AchievementType {
   totalTokensGenerated,
   collectionBonusesFulfilled,
   relicsAcquired,
+  guideTrustLevel,
+  roomLawsMastered,
+  landmarksEvolved,
+  challengesCompleted,
+  hiddenAchievement,
 }
 
 /// Definition of an achievement loaded from configuration.

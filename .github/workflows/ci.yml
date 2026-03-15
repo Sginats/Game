@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.29.3'
           channel: stable
       - run: flutter pub get
       - name: Run Dart tests
@@ -41,6 +42,9 @@ jobs:
           dart run test/domain/models/companion_model_test.dart
           dart run test/domain/models/route_faction_model_test.dart
           dart run test/domain/models/side_activity_model_test.dart
+          dart run test/domain/models/room_scene_expansion_test.dart
+          dart run test/domain/models/post_core_systems_test.dart
+          dart run test/domain/models/ui_ux_systems_test.dart
 
   analyze:
     name: Analyze
@@ -49,6 +53,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.29.3'
           channel: stable
       - run: flutter pub get
       - run: dart analyze lib
@@ -65,6 +70,7 @@ jobs:
           java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.29.3'
           channel: stable
       - run: flutter pub get
       - run: flutter build apk --release
@@ -81,6 +87,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.29.3'
           channel: stable
       - run: flutter pub get
       - run: flutter build web
@@ -97,6 +104,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.29.3'
           channel: stable
       - run: |
           sudo apt-get update -y

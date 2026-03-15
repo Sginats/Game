@@ -532,6 +532,7 @@ class AppStrings {
       };
   String eventRarityLabel(EventRarity rarity) => switch (rarity) {
         EventRarity.common => isRussian ? 'обычное' : 'common',
+        EventRarity.uncommon => isRussian ? 'необычное' : 'uncommon',
         EventRarity.rare => isRussian ? 'редкое' : 'rare',
         EventRarity.epic => isRussian ? 'эпическое' : 'epic',
         EventRarity.corrupted => isRussian ? 'искажённое' : 'corrupted',

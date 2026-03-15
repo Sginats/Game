@@ -1,12 +1,12 @@
 {
   "id": "room_13",
   "name": "Corporate Takeover Suite",
-  "subtitle": "Power has a price",
+  "subtitle": "Power arrives wearing clean edges.",
   "order": 13,
-  "introText": "Welcome to Corporate Takeover Suite. Power has a price. This is where your journey continues.",
-  "completionText": "You have mastered Corporate Takeover Suite. The Influence you've gathered here will echo through every room that follows.",
-  "guideTone": "sharp, strategic",
-  "guideIntroLine": "Corner office. The view is nice, but everything here has strings attached.",
+  "introText": "Power arrives wearing clean edges.",
+  "completionText": "You learned how to turn systems into influence.",
+  "guideTone": "skeptical, sharp, morally alert",
+  "guideIntroLine": "This kind of room makes everything feel official. That does not make it safe.",
   "currency": "Influence",
   "mechanicEmphasis": "hybrid",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_13_stage_1",
-      "name": "Corporate Takeover Suite \u2014 Bare Bones",
-      "description": "The room in its raw state. Corporate Takeover Suite evolves as you progress.",
-      "requiredUpgrades": 65,
+      "name": "Premium Suite",
+      "description": "Clean premium suite with formal systems. Everything looks expensive.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "glass_surfaces",
+        "premium_panels",
+        "corporate_lighting"
       ],
       "unlocked": false
     },
     {
       "id": "room_13_stage_2",
-      "name": "Corporate Takeover Suite \u2014 First Light",
-      "description": "Basic improvements visible. Corporate Takeover Suite evolves as you progress.",
-      "requiredUpgrades": 195,
+      "name": "Executive Center",
+      "description": "Aggressive executive operations center with deal-making infrastructure.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "contract_displays",
+        "influence_meters",
+        "war_table"
       ],
       "unlocked": false
     },
     {
       "id": "room_13_stage_3",
-      "name": "Corporate Takeover Suite \u2014 Functional",
-      "description": "A proper working space. Corporate Takeover Suite evolves as you progress.",
-      "requiredUpgrades": 390,
+      "name": "Domination Suite",
+      "description": "Full domination suite where leverage replaces purity.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_13_stage_4",
-      "name": "Corporate Takeover Suite \u2014 Advanced",
-      "description": "High-tech transformation. Corporate Takeover Suite evolves as you progress.",
-      "requiredUpgrades": 650,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_13_stage_5",
-      "name": "Corporate Takeover Suite \u2014 Mastered",
-      "description": "The room at its peak. Corporate Takeover Suite evolves as you progress.",
-      "requiredUpgrades": 1040,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "power_displays",
+        "leverage_glow",
+        "executive_war_room",
+        "deal_architecture"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_13_secret_1",
-      "title": "Hidden Corporate Cache",
-      "description": "A secret stash hidden in the Corporate Takeover Suite.",
-      "hint": "Look behind the corporate equipment.",
+      "title": "The Fake Offer",
+      "description": "One premium offer has wording that doesn't match.",
+      "hint": "Read the fine print on every deal.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_13_secret_2",
+      "title": "Expensive Lies",
+      "description": "Not all expensive choices are valuable.",
+      "hint": "The guide quietly warns about premium traps.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_13_secret_3",
+      "title": "Duplicate Contract",
+      "description": "A contract appears twice with different clauses.",
+      "hint": "Compare identical-looking contracts.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_13_twist",
-    "title": "Corporate Takeover Suite Shift",
-    "description": "Something changes in the Corporate Takeover Suite. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 325",
-    "effectDescription": "New mechanics unlock in Corporate Takeover Suite. Event rates increase.",
+    "title": "Integrity vs Growth",
+    "description": "Premium offers appear. One leads to a hidden black-market branch.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Some offers are genuine; one is a trap leading to hidden power.",
     "activated": false
   },
   "eventPoolId": "pool_room_13",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "influence_systems",
+    "contract_power",
+    "executive_hardware",
+    "monetization_chains",
+    "high_value_automation",
+    "reputation_leverage",
+    "premium_event",
+    "black_market",
+    "cost_of_power",
+    "corporate_divergence"
   ],
   "loreEntries": [
-    "room_13_lore_1",
-    "room_13_lore_2",
-    "room_13_lore_3"
+    "room_13_archive_contract",
+    "room_13_guide_price",
+    "room_13_secret_premium",
+    "room_13_scene_monetized"
   ],
   "unlockRequirement": "room_12",
   "completed": false,
@@ -143,18 +147,98 @@
       {
         "id": "room_13_evt_1",
         "roomId": "room_13",
-        "title": "Hostile Bid",
-        "description": "Hostile Bid \u2014 a common instant event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
+        "title": "Hostile Acquisition Window",
+        "description": "A hostile acquisition opportunity opens.",
+        "flavorText": "Leverage doesn't ask permission.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12,
+        "choices": [
+          {
+            "id": "room_13_evt_1_c1",
+            "text": "Acquire cleanly",
+            "description": "Fair terms",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 14,
+                "description": "Clean Influence"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_13_evt_1_c2",
+            "text": "Hostile takeover",
+            "description": "Maximum extraction",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 28,
+                "description": "Hostile Influence"
+              },
+              {
+                "type": "routeReward",
+                "value": 1,
+                "description": "Power route"
+              }
+            ],
+            "risk": 0.35
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_13_evt_2",
+        "roomId": "room_13",
+        "title": "Premium Contract",
+        "description": "A premium contract lands. Terms are aggressive but profitable.",
+        "flavorText": "Premium means someone profits more.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 19.3,
+            "value": 15,
             "description": "Gain Influence"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Contract leverage"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_13_evt_3",
+        "roomId": "room_13",
+        "title": "Executive Backchannel",
+        "description": "A private channel opens. Information flows that shouldn't.",
+        "flavorText": "Power talks in whispers.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Influence"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Insider momentum"
           }
         ],
         "chainBonus": 0.1,
@@ -163,236 +247,224 @@
         "weight": 10
       },
       {
-        "id": "room_13_evt_2",
+        "id": "room_13_evt_4",
         "roomId": "room_13",
-        "title": "Board Meeting",
-        "description": "Board Meeting \u2014 a common shortChoice event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Influence Spike",
+        "description": "Your influence rating surges. Doors open.",
+        "flavorText": "Reputation compounds.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
-          {
-            "id": "room_13_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 19.3,
-                "description": "Gain Influence"
-              }
-            ],
-            "risk": 0.1
-          },
-          {
-            "id": "room_13_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 25.8,
-                "description": "Gain Influence"
-              },
-              {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
-              }
-            ],
-            "risk": 0.4
-          }
-        ],
-        "rewards": [],
-        "chainBonus": 0.2,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_13_evt_3",
-        "roomId": "room_13",
-        "title": "Market Crash",
-        "description": "Market Crash \u2014 a common timedChain event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
+        "durationSeconds": 8,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 19.3,
+            "value": 12,
             "description": "Gain Influence"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_13_evt_4",
-        "roomId": "room_13",
-        "title": "Insider Tip",
-        "description": "Insider Tip \u2014 a common utility event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
+          },
           {
             "type": "temporaryBuff",
-            "value": 3.54,
-            "description": "Stabilize output"
+            "value": 1.25,
+            "description": "Influence surge"
           }
         ],
-        "chainBonus": 0.4,
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_13_evt_5",
         "roomId": "room_13",
-        "title": "Merger Offer",
-        "description": "Merger Offer \u2014 a rare secretTrigger event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_13_evt_6",
-        "roomId": "room_13",
-        "title": "Audit Surprise",
-        "description": "Audit Surprise \u2014 a rare legendaryAnomaly event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_13_evt_7",
-        "roomId": "room_13",
-        "title": "Stock Split",
-        "description": "Stock Split \u2014 a epic warningRisk event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 3.54,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_13_evt_8",
-        "roomId": "room_13",
-        "title": "Lobby Pressure",
-        "description": "Lobby Pressure \u2014 a corrupted miniBoss event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_13_evt_9",
-        "roomId": "room_13",
-        "title": "Golden Parachute",
-        "description": "Golden Parachute \u2014 a legendary guideAdvisory event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_13_evt_10",
-        "roomId": "room_13",
-        "title": "Takeover Complete",
-        "description": "Takeover Complete \u2014 a common hiddenGlitch event in Corporate Takeover Suite.",
-        "flavorText": "The corporate environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Market Confidence Burst",
+        "description": "Market confidence peaks. Investment offers multiply.",
+        "flavorText": "Confidence is currency.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 19.3,
+            "value": 13,
             "description": "Gain Influence"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Market momentum"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_13_evt_6",
+        "roomId": "room_13",
+        "title": "Investor Alert",
+        "description": "An investor signals opportunity. Quick action captures value.",
+        "flavorText": "Connections pay dividends.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 9,
+            "description": "Gain Influence"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Investor insight"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_13_evt_7",
+        "roomId": "room_13",
+        "title": "Monetization Surge",
+        "description": "All monetization channels fire. Revenue explodes.",
+        "flavorText": "Every system becomes revenue.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 16,
+            "description": "Gain Influence"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Revenue chain"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_13_evt_8",
+        "roomId": "room_13",
+        "title": "PR Cleanup Cycle",
+        "description": "A PR issue resolves and improves perception.",
+        "flavorText": "Crisis management is a skill.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the PR cycle"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 7,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.05,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 5,
+        "weight": 9
+      },
+      {
+        "id": "room_13_evt_9",
+        "roomId": "room_13",
+        "title": "Fake Premium Branch",
+        "description": "A premium offer seems too good. Fine print reveals a hidden path.",
+        "flavorText": "The best trap offers real value.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Black-market clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_13_evt_10",
+        "roomId": "room_13",
+        "title": "Black Budget Drop",
+        "description": "An unmarked budget appears. No sender. No terms.",
+        "flavorText": "Free money has the highest interest rate.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2,
+            "description": "Black budget resources"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Dark finance route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_13_evt_11",
+        "roomId": "room_13",
+        "title": "Boardroom Leak",
+        "description": "A leaked recording reveals competing powers watching your operation.",
+        "flavorText": "Everyone is at the table.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3,
+            "description": "Corporate intelligence"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the leak"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 35,
+            "description": "Gain Influence"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -429,5 +501,80 @@
     "comp_corporate_daemon",
     "comp_takeover_drone"
   ],
-  "routeBonus": "automation"
+  "routeBonus": "automation",
+  "roomLaw": {
+    "id": "law_leverage_13",
+    "name": "Law of Leverage",
+    "description": "Leverage beats purity",
+    "mechanic": "Deal-based upgrades multiply faster; pure production is less efficient"
+  },
+  "landmark": {
+    "id": "lm_executive_chair",
+    "name": "The Executive Chair",
+    "description": "A cheap office chair that evolves into a command throne",
+    "evolutionStages": [
+      "A squeaky office chair with one broken wheel",
+      "Leather upholstery and armrests signal rising status",
+      "Built-in displays and controls turn the chair into a cockpit",
+      "The chair hovers and projects a corporate empire hologram",
+      "The Executive Chair commands markets across dimensions"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_hostile_takeover_13",
+    "name": "Hostile Takeover",
+    "description": "External pressure drains acquisitions",
+    "triggerCondition": "Acquisition reserves exceed a visible threshold",
+    "penalty": "A rival entity siphons 30% of unprotected acquisitions"
+  },
+  "stabilizer": {
+    "id": "stab_strategic_reserve_13",
+    "name": "Strategic Reserve",
+    "description": "Investing in defenses protects against hostile acts",
+    "mechanic": "Allocating acquisitions to defense prevents hostile takeover siphoning"
+  },
+  "completionCeremony": "Contracts sign themselves. The suite transforms into a war room of calculated leverage.",
+  "midSceneTwistLine": "We're trading integrity for leverage now.",
+  "completionReward": {
+    "relicName": "Leverage Crest",
+    "relicEffect": "Increases deal-based systems and premium route interactions later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Glass reflections sweep across black. Premium panels lock into place.",
+    "audio": "Crisp corporate chime with leather creak",
+    "titleReveal": "Title appears like a contract signing itself"
+  },
+  "transitionOut": {
+    "visual": "Signatures and graphs fracture. Polished surface reveals cathedral-dark depth.",
+    "audio": "Glass shattering into reverberant space",
+    "titleReveal": "Transition falls forward into depth"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_13_archive_contract",
+      "title": "Contract Archive",
+      "content": "Records of every deal and negotiation."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_13_guide_price",
+      "title": "Power Is Asking a Price",
+      "content": "Every deal had a cost. Not all were visible."
+    },
+    {
+      "type": "secret",
+      "id": "room_13_secret_premium",
+      "title": "Premium Does Not Mean Honest",
+      "content": "The most expensive offer was the only lie."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_13_scene_monetized",
+      "title": "The Suite That Monetized Thought",
+      "content": "Ideas became contracts and contracts became power."
+    }
+  ]
 }

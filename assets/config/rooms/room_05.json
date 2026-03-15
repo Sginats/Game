@@ -1,12 +1,12 @@
 {
   "id": "room_05",
   "name": "Smart Lab Bedroom",
-  "subtitle": "Where ideas sleep and wake",
+  "subtitle": "Comfort and experiment begin to merge.",
   "order": 5,
-  "introText": "Welcome to Smart Lab Bedroom. Where ideas sleep and wake. This is where your journey continues.",
-  "completionText": "You have mastered Smart Lab Bedroom. The Data Packets you've gathered here will echo through every room that follows.",
-  "guideTone": "curious, experimental",
-  "guideIntroLine": "Half bedroom, half lab. The sensors never sleep, even if you should.",
+  "introText": "Comfort and experiment begin to merge.",
+  "completionText": "You turned a private space into a working intelligence nursery.",
+  "guideTone": "curious, conversational, slightly excited by experiments",
+  "guideIntroLine": "This room still remembers being lived in. That may matter more than the machines do.",
   "currency": "Data Packets",
   "mechanicEmphasis": "signal",
   "themeColors": {
@@ -17,60 +17,39 @@
   "transformationStages": [
     {
       "id": "room_05_stage_1",
-      "name": "Smart Lab Bedroom \u2014 Bare Bones",
-      "description": "The room in its raw state. Smart Lab Bedroom evolves as you progress.",
-      "requiredUpgrades": 25,
+      "name": "Awkward Hybrid",
+      "description": "Mixed bedroom/lab with awkward prototype clutter. A test bench shares space with pillows.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "prototype_clutter",
+        "mixed_furniture",
+        "dim_lab_light"
       ],
       "unlocked": false
     },
     {
       "id": "room_05_stage_2",
-      "name": "Smart Lab Bedroom \u2014 First Light",
-      "description": "Basic improvements visible. Smart Lab Bedroom evolves as you progress.",
-      "requiredUpgrades": 75,
+      "name": "Functional Hybrid",
+      "description": "Functional hybrid space with test benches, sensors, and controlled lighting.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "test_benches",
+        "sensor_arrays",
+        "controlled_lighting",
+        "organized_tools"
       ],
       "unlocked": false
     },
     {
       "id": "room_05_stage_3",
-      "name": "Smart Lab Bedroom \u2014 Functional",
-      "description": "A proper working space. Smart Lab Bedroom evolves as you progress.",
-      "requiredUpgrades": 150,
+      "name": "Living Laboratory",
+      "description": "Fully integrated experimental living-lab with elegant hardware and hidden compartments exposed.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_05_stage_4",
-      "name": "Smart Lab Bedroom \u2014 Advanced",
-      "description": "High-tech transformation. Smart Lab Bedroom evolves as you progress.",
-      "requiredUpgrades": 250,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_05_stage_5",
-      "name": "Smart Lab Bedroom \u2014 Mastered",
-      "description": "The room at its peak. Smart Lab Bedroom evolves as you progress.",
-      "requiredUpgrades": 400,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "hidden_compartments",
+        "integrated_systems",
+        "robotic_arms",
+        "lab_glow"
       ],
       "unlocked": false
     }
@@ -104,48 +83,100 @@
   "secrets": [
     {
       "id": "room_05_secret_1",
-      "title": "Hidden Lab Cache",
-      "description": "A secret stash hidden in the Smart Lab Bedroom.",
-      "hint": "Look behind the lab equipment.",
+      "title": "The Hidden Lab",
+      "description": "Interacting with non-tech furniture reveals hidden lab functionality.",
+      "hint": "Try the nightstand drawer. It doesn't behave like furniture.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_05_secret_2",
+      "title": "More Than Comfort",
+      "description": "The room was hiding more than comfort.",
+      "hint": "The guide notices when furniture reacts oddly.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_05_secret_3",
+      "title": "The Hollow Drawer",
+      "description": "One drawer sounds hollow compared to the others.",
+      "hint": "Tap each drawer. Listen for the difference.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_05_twist",
-    "title": "Smart Lab Bedroom Shift",
-    "description": "Something changes in the Smart Lab Bedroom. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 125",
-    "effectDescription": "New mechanics unlock in Smart Lab Bedroom. Event rates increase.",
+    "title": "Failed Test Mutation",
+    "description": "Failed experiments become a permanent new upgrade family.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Failed prototypes mutate into unique upgrades. A new branch of unstable-but-powerful options appears.",
     "activated": false
   },
   "eventPoolId": "pool_room_05",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "prototype_systems",
+    "sensor_arrays",
+    "lab_tools",
+    "home_comfort",
+    "experiment_chains",
+    "failure_success",
+    "robotic_arm",
+    "hybrid_living_tech",
+    "secret_compartment",
+    "research_branch"
   ],
   "loreEntries": [
-    "room_05_lore_1",
-    "room_05_lore_2",
-    "room_05_lore_3"
+    "room_05_archive_prototype",
+    "room_05_guide_comfort",
+    "room_05_secret_hidden",
+    "room_05_scene_lab"
   ],
   "unlockRequirement": "room_04",
   "completed": false,
   "currentTransformationStage": 0,
   "eventPool": {
-    "roomId": "room_05",
     "events": [
       {
         "id": "room_05_evt_1",
         "roomId": "room_05",
-        "title": "Signal Spike",
-        "description": "Signal Spike \u2014 a common instant event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
+        "title": "Prototype Bloom",
+        "description": "A prototype device suddenly activates and begins producing useful output.",
+        "flavorText": "Not all accidents are failures.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 12.0,
+            "description": "Gain Data"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Prototype boost"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_05_evt_2",
+        "roomId": "room_05",
+        "title": "Sensor Drift",
+        "description": "A sensor recalibrates itself and detects something new in the room.",
+        "flavorText": "Attention reveals hidden signals.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
@@ -153,8 +184,88 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 10.5,
-            "description": "Gain Data Packets"
+            "value": 7.0,
+            "description": "Gain Data"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Detection momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_05_evt_3",
+        "roomId": "room_05",
+        "title": "Lab Spill Recovery",
+        "description": "A chemical spill threatens a prototype. Quick action saves valuable material.",
+        "flavorText": "Labs are messy by nature.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [
+          {
+            "id": "room_05_evt_3_c1",
+            "text": "Contain carefully",
+            "description": "Steady hands save more",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 10.0,
+                "description": "Recovered Data"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_05_evt_3_c2",
+            "text": "Grab what you can",
+            "description": "Fast but risky salvage",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 18.0,
+                "description": "Quick salvage"
+              },
+              {
+                "type": "rareResource",
+                "value": 1.0,
+                "description": "Unstable material"
+              }
+            ],
+            "risk": 0.35
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 10
+      },
+      {
+        "id": "room_05_evt_4",
+        "roomId": "room_05",
+        "title": "Test Bench Alert",
+        "description": "The test bench flags a successful calibration. Output quality improves.",
+        "flavorText": "Precision unlocks potential.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Calibration bonus"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 6.0,
+            "description": "Gain Data"
           }
         ],
         "chainBonus": 0.1,
@@ -163,290 +274,198 @@
         "weight": 10
       },
       {
-        "id": "room_05_evt_2",
+        "id": "room_05_evt_5",
         "roomId": "room_05",
-        "title": "Data Overflow",
-        "description": "Data Overflow \u2014 a common shortChoice event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Homemade Tool Success",
+        "description": "A jury-rigged tool works better than expected. Innovation rewards improvisation.",
+        "flavorText": "Necessity invents elegantly.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
           {
-            "id": "room_05_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 10.5,
-                "description": "Gain Data Packets"
-              }
-            ],
-            "risk": 0.1
+            "type": "instantCurrency",
+            "value": 9.0,
+            "description": "Gain Data"
           },
           {
-            "id": "room_05_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 13.0,
-                "description": "Gain Data Packets"
-              },
-              {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
-              }
-            ],
-            "risk": 0.4
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Improvisation bonus"
           }
         ],
-        "rewards": [],
-        "chainBonus": 0.2,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
-        "id": "room_05_evt_3",
+        "id": "room_05_evt_6",
         "roomId": "room_05",
-        "title": "Sensor Calibration",
-        "description": "Sensor Calibration \u2014 a common timedChain event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "timedChain",
+        "title": "Sleep Cycle Bonus",
+        "description": "The comfort systems trigger a rest-state bonus. The machine processes while you 'sleep.'",
+        "flavorText": "Rest is productive.",
+        "category": "utility",
         "rarity": "common",
         "durationSeconds": 12.0,
         "choices": [],
         "rewards": [
           {
-            "type": "instantCurrency",
-            "value": 10.5,
-            "description": "Gain Data Packets"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_05_evt_4",
-        "roomId": "room_05",
-        "title": "Experiment Runaway",
-        "description": "Experiment Runaway \u2014 a common utility event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
             "type": "temporaryBuff",
-            "value": 2.1,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_05_evt_5",
-        "roomId": "room_05",
-        "title": "Lab Contamination",
-        "description": "Lab Contamination \u2014 a rare secretTrigger event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.55,
-            "description": "Strengthen guide trust"
+            "value": 1.15,
+            "description": "Comfort-linked production"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "instantCurrency",
+            "value": 5.0,
+            "description": "Gain Data"
           }
         ],
-        "chainBonus": 0.5,
+        "chainBonus": 0.05,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_05_evt_6",
-        "roomId": "room_05",
-        "title": "Breakthrough Reading",
-        "description": "Breakthrough Reading \u2014 a rare legendaryAnomaly event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.55,
-            "description": "Strengthen guide trust"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
+        "requiredUpgradeCount": 5,
+        "weight": 9
       },
       {
         "id": "room_05_evt_7",
         "roomId": "room_05",
-        "title": "Noise Filter Fail",
-        "description": "Noise Filter Fail \u2014 a epic warningRisk event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 2.1,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_05_evt_8",
-        "roomId": "room_05",
-        "title": "Prototype Test",
-        "description": "Prototype Test \u2014 a corrupted miniBoss event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_05_evt_9",
-        "roomId": "room_05",
-        "title": "Sleep Deprivation Alert",
-        "description": "Sleep Deprivation Alert \u2014 a legendary guideAdvisory event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.55,
-            "description": "Strengthen guide trust"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_05_evt_10",
-        "roomId": "room_05",
-        "title": "Eureka Moment",
-        "description": "Eureka Moment \u2014 a common hiddenGlitch event in Smart Lab Bedroom.",
-        "flavorText": "The lab environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Robo-Arm Grab",
+        "description": "The robotic arm reaches for a component before you do. It chose correctly.",
+        "flavorText": "The arm is learning your patterns.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 7.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 10.5,
-            "description": "Gain Data Packets"
+            "value": 11.0,
+            "description": "Gain Data"
           },
           {
-            "type": "guideAffinity",
-            "value": 0.55,
-            "description": "Strengthen guide trust"
-          },
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "comboAmplification",
+            "value": 1.1,
+            "description": "Assisted momentum"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
-        "weight": 2
-      }
-    ],
-    "chainBonusMultiplier": 1.25,
-    "pityThreshold": 13,
-    "spawnRateMultiplier": 1.1,
-    "midTwistEvents": [
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
       {
-        "id": "room_05_twist_evt_1",
+        "id": "room_05_evt_8",
         "roomId": "room_05",
-        "title": "Smart Lab Bedroom Awakening",
-        "description": "The twist in Smart Lab Bedroom unlocks new possibilities.",
-        "flavorText": "Everything shifts. New rules apply.",
-        "category": "legendaryAnomaly",
-        "rarity": "epic",
+        "title": "Unexpected Breakthrough",
+        "description": "A random experiment produces an unexpectedly useful result.",
+        "flavorText": "Discovery doesn't follow schedules.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 14.0,
+            "description": "Gain Data"
+          },
+          {
+            "type": "routeReward",
+            "value": 1.0,
+            "description": "Research route progress"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_05_evt_9",
+        "roomId": "room_05",
+        "title": "Failed Test Mutation",
+        "description": "A failed experiment mutates into something new. The error contains unexpected potential.",
+        "flavorText": "Failure is just unrecognized progress.",
+        "category": "secretTrigger",
+        "rarity": "rare",
         "durationSeconds": 15.0,
         "choices": [],
         "rewards": [
           {
-            "type": "guideAffinity",
-            "value": 0.55,
-            "description": "Strengthen guide trust"
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Mutation fragment"
           },
           {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
+            "type": "instantCurrency",
+            "value": 18.0,
+            "description": "Gain Data"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 0,
-        "weight": 5
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_05_evt_10",
+        "roomId": "room_05",
+        "title": "Under-Bed Hidden Compartment",
+        "description": "A hidden compartment opens beneath the bed frame. Someone stored tech here deliberately.",
+        "flavorText": "The room has layers.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Compartment route progress"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Gain a relic fragment"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_05_evt_11",
+        "roomId": "room_05",
+        "title": "Unlabeled Prototype Case",
+        "description": "A sealed case with no label is found behind the furniture. Inside: something that shouldn't exist yet.",
+        "flavorText": "Someone was building the future here.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Prototype data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the unknown prototype"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 28.0,
+            "description": "Gain Data"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
+        "weight": 2
       }
     ]
   },
@@ -455,5 +474,80 @@
     "comp_lab_drone",
     "comp_smart_daemon"
   ],
-  "routeBonus": "research"
+  "routeBonus": "research",
+  "roomLaw": {
+    "id": "law_comfort_05",
+    "name": "Law of Dual Nature",
+    "description": "Comfort and research influence each other",
+    "mechanic": "Living-space upgrades boost lab output and vice versa; pure builds miss synergy bonuses"
+  },
+  "landmark": {
+    "id": "lm_dream_monitor",
+    "name": "The Dream Monitor",
+    "description": "A bedside screen that evolves into a neural interface",
+    "evolutionStages": [
+      "A small bedside screen displaying static",
+      "The screen shows flickering dream fragments",
+      "Neural sensors attach and translate dream imagery",
+      "A full neural headset merges sleep data with waking input",
+      "The Dream Monitor bridges consciousness and computation seamlessly"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_signal_noise_05",
+    "name": "Signal Noise",
+    "description": "Background interference scrambles data packet production",
+    "triggerCondition": "Environmental interference accumulates over time",
+    "penalty": "Data packet output is reduced by 20% and gains random variance"
+  },
+  "stabilizer": {
+    "id": "stab_freq_tuning_05",
+    "name": "Frequency Tuning",
+    "description": "Calibrating signal filters clears interference",
+    "mechanic": "Periodic frequency calibration actions clear accumulated noise"
+  },
+  "completionCeremony": "Hidden compartments open. The room reveals it was always more lab than bedroom.",
+  "midSceneTwistLine": "The failed tests are not gone. They're becoming something else.",
+  "completionReward": {
+    "relicName": "Prototype Seed",
+    "relicEffect": "Increases chance that failed experiments become useful upgrades later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Soft bedroom lighting fades in first, then sensors and lab lights wake underneath it.",
+    "audio": "Gentle ambient hum shifting to quiet electronic beeps",
+    "titleReveal": "Title appears like handwriting turning into UI"
+  },
+  "transitionOut": {
+    "visual": "Furniture outlines split open into hidden compartments. The room scans itself.",
+    "audio": "Scanning pulse followed by a door unlocking",
+    "titleReveal": "The scan beam becomes the entry corridor for the next room"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_05_archive_prototype",
+      "title": "Prototype Archive",
+      "content": "Records of every experiment conducted in the hybrid living-lab space."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_05_guide_comfort",
+      "title": "Comfort and Curiosity",
+      "content": "The bed was still warm when the first test bench powered on."
+    },
+    {
+      "type": "secret",
+      "id": "room_05_secret_hidden",
+      "title": "Hidden Under the Familiar",
+      "content": "The drawer wasn't broken. It was locked from inside."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_05_scene_lab",
+      "title": "Where Home Became a Laboratory",
+      "content": "Private space became research space. The bedroom never slept again."
+    }
+  ]
 }

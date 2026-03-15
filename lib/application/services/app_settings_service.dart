@@ -28,6 +28,9 @@ class AppSettings {
   final double musicVolume;
   final double sfxVolume;
   final ColorblindMode colorblindMode;
+  final String contrastMode;
+  final String tooltipBehavior;
+  final String transitionSpeed;
 
   const AppSettings({
     this.language = AppLanguage.english,
@@ -40,6 +43,9 @@ class AppSettings {
     this.musicVolume = 0.65,
     this.sfxVolume = 0.85,
     this.colorblindMode = ColorblindMode.off,
+    this.contrastMode = 'standard',
+    this.tooltipBehavior = 'onHover',
+    this.transitionSpeed = 'full',
   });
 
   AppSettings copyWith({
@@ -53,6 +59,9 @@ class AppSettings {
     double? musicVolume,
     double? sfxVolume,
     ColorblindMode? colorblindMode,
+    String? contrastMode,
+    String? tooltipBehavior,
+    String? transitionSpeed,
   }) {
     return AppSettings(
       language: language ?? this.language,
@@ -65,6 +74,9 @@ class AppSettings {
       musicVolume: musicVolume ?? this.musicVolume,
       sfxVolume: sfxVolume ?? this.sfxVolume,
       colorblindMode: colorblindMode ?? this.colorblindMode,
+      contrastMode: contrastMode ?? this.contrastMode,
+      tooltipBehavior: tooltipBehavior ?? this.tooltipBehavior,
+      transitionSpeed: transitionSpeed ?? this.transitionSpeed,
     );
   }
 }
@@ -80,6 +92,9 @@ class AppSettingsService {
   static const _sfxVolumeKey = 'sfx_volume';
   static const _colorblindModeKey = 'colorblind_mode';
   static const _screenShakeKey = 'screen_shake';
+  static const _contrastModeKey = 'contrast_mode';
+  static const _tooltipBehaviorKey = 'tooltip_behavior';
+  static const _transitionSpeedKey = 'transition_speed';
 
   Future<AppSettings> load() async {
     final prefs = await SharedPreferences.getInstance();
@@ -97,6 +112,9 @@ class AppSettingsService {
         (value) => value.name == prefs.getString(_colorblindModeKey),
         orElse: () => ColorblindMode.off,
       ),
+      contrastMode: prefs.getString(_contrastModeKey) ?? 'standard',
+      tooltipBehavior: prefs.getString(_tooltipBehaviorKey) ?? 'onHover',
+      transitionSpeed: prefs.getString(_transitionSpeedKey) ?? 'full',
     );
   }
 
@@ -112,5 +130,8 @@ class AppSettingsService {
     await prefs.setDouble(_musicVolumeKey, settings.musicVolume);
     await prefs.setDouble(_sfxVolumeKey, settings.sfxVolume);
     await prefs.setString(_colorblindModeKey, settings.colorblindMode.name);
+    await prefs.setString(_contrastModeKey, settings.contrastMode);
+    await prefs.setString(_tooltipBehaviorKey, settings.tooltipBehavior);
+    await prefs.setString(_transitionSpeedKey, settings.transitionSpeed);
   }
 }

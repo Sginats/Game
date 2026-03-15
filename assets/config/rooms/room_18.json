@@ -1,12 +1,12 @@
 {
   "id": "room_18",
   "name": "Chrono Engine Room",
-  "subtitle": "Time bends here",
+  "subtitle": "Time bends here. Be careful what you accelerate.",
   "order": 18,
-  "introText": "Welcome to Chrono Engine Room. Time bends here. This is where your journey continues.",
-  "completionText": "You have mastered Chrono Engine Room. The Chrono Flux you've gathered here will echo through every room that follows.",
-  "guideTone": "disoriented, fascinated",
-  "guideIntroLine": "Past and future overlap in this room. Be careful what you change.",
+  "introText": "Time bends here. Be careful what you accelerate.",
+  "completionText": "You didn't master time. You learned to negotiate with it.",
+  "guideTone": "urgent, philosophical, occasionally fearful, deeply aware of consequences",
+  "guideIntroLine": "This is the most dangerous room yet. Time is not meant to be a tool. But here it is, on a workbench.",
   "currency": "Chrono Flux",
   "mechanicEmphasis": "temporal",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_18_stage_1",
-      "name": "Chrono Engine Room \u2014 Bare Bones",
-      "description": "The room in its raw state. Chrono Engine Room evolves as you progress.",
-      "requiredUpgrades": 90,
+      "name": "Unstable Timeframe",
+      "description": "Unstable chrono environment with visible time stutters and flickering temporal fields.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "time_stutters",
+        "temporal_flicker",
+        "unstable_fields"
       ],
       "unlocked": false
     },
     {
       "id": "room_18_stage_2",
-      "name": "Chrono Engine Room \u2014 First Light",
-      "description": "Basic improvements visible. Chrono Engine Room evolves as you progress.",
-      "requiredUpgrades": 270,
+      "name": "Controlled Flow",
+      "description": "Controlled temporal flow with calibrated pendulums and stabilized time loops.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "calibrated_pendulums",
+        "stable_loops",
+        "temporal_indicators"
       ],
       "unlocked": false
     },
     {
       "id": "room_18_stage_3",
-      "name": "Chrono Engine Room \u2014 Functional",
-      "description": "A proper working space. Chrono Engine Room evolves as you progress.",
-      "requiredUpgrades": 540,
+      "name": "Temporal Mastery",
+      "description": "Fully mastered temporal engine where past, present, and future visibly coexist and serve production.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_18_stage_4",
-      "name": "Chrono Engine Room \u2014 Advanced",
-      "description": "High-tech transformation. Chrono Engine Room evolves as you progress.",
-      "requiredUpgrades": 900,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_18_stage_5",
-      "name": "Chrono Engine Room \u2014 Mastered",
-      "description": "The room at its peak. Chrono Engine Room evolves as you progress.",
-      "requiredUpgrades": 1440,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "coexisting_timeframes",
+        "temporal_mastery",
+        "pendulum_core",
+        "time_glow"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_18_secret_1",
-      "title": "Hidden Chrono Cache",
-      "description": "A secret stash hidden in the Chrono Engine Room.",
-      "hint": "Look behind the chrono equipment.",
+      "title": "The Backward Clock",
+      "description": "One clock runs backward. Its readings are still accurate.",
+      "hint": "Find the clock that runs wrong but reads right.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_18_secret_2",
+      "title": "The Future Warning",
+      "description": "The guide gives a warning about something that hasn't happened yet.",
+      "hint": "Listen to warnings that don't match the present.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_18_secret_3",
+      "title": "The Echo Input",
+      "description": "An input field accepts data from an event that hasn't occurred.",
+      "hint": "Enter data before the event. See what happens.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_18_twist",
-    "title": "Chrono Engine Room Shift",
-    "description": "Something changes in the Chrono Engine Room. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 450",
-    "effectDescription": "New mechanics unlock in Chrono Engine Room. Event rates increase.",
+    "title": "Precognitive Engine",
+    "description": "The chrono engine starts running future events before they're triggered.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Events appear before their triggers. Temporal loops become exploitable resource sources.",
     "activated": false
   },
   "eventPoolId": "pool_room_18",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "temporal_compression",
+    "chrono_stability",
+    "time_loop_exploitation",
+    "future_sight",
+    "past_echo",
+    "pendulum_calibration",
+    "entropy_management",
+    "hidden_timeline",
+    "temporal_chain",
+    "moment_capture"
   ],
   "loreEntries": [
-    "room_18_lore_1",
-    "room_18_lore_2",
-    "room_18_lore_3"
+    "room_18_archive_chrono",
+    "room_18_guide_time",
+    "room_18_secret_loop",
+    "room_18_scene_engine"
   ],
   "unlockRequirement": "room_17",
   "completed": false,
@@ -143,18 +147,179 @@
       {
         "id": "room_18_evt_1",
         "roomId": "room_18",
-        "title": "Time Skip",
-        "description": "Time Skip \u2014 a common instant event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
+        "title": "Temporal Surge",
+        "description": "Time compresses. Actions within the window produce multiplied output.",
+        "flavorText": "Time is concentrated power.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 8,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 24.8,
+            "value": 18,
             "description": "Gain Chrono Flux"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.35,
+            "description": "Temporal compression"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_18_evt_2",
+        "roomId": "room_18",
+        "title": "Past Echo Harvest",
+        "description": "An echo from a past action delivers its rewards again.",
+        "flavorText": "The past pays interest.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 12,
+            "description": "Gain Chrono Flux"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Echo momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_18_evt_3",
+        "roomId": "room_18",
+        "title": "Future Sight Window",
+        "description": "A brief window shows future event outcomes. Choose wisely.",
+        "flavorText": "Tomorrow is visible today.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12,
+        "choices": [
+          {
+            "id": "room_18_evt_3_c1",
+            "text": "Patient path",
+            "description": "Wait for the better future",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 14,
+                "description": "Future Flux"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_18_evt_3_c2",
+            "text": "Seize the moment",
+            "description": "Force the timeline",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 24,
+                "description": "Seized Flux"
+              },
+              {
+                "type": "routeReward",
+                "value": 1,
+                "description": "Temporal route"
+              }
+            ],
+            "risk": 0.35
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 5,
+        "weight": 10
+      },
+      {
+        "id": "room_18_evt_4",
+        "roomId": "room_18",
+        "title": "Pendulum Resonance",
+        "description": "The chrono pendulum hits its resonance frequency. Everything accelerates.",
+        "flavorText": "Resonance is temporal power.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Pendulum overdrive"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_18_evt_5",
+        "roomId": "room_18",
+        "title": "Time Loop Yield",
+        "description": "A stable time loop completes and yields accumulated resources.",
+        "flavorText": "Loops accumulate silently.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 16,
+            "description": "Gain Chrono Flux"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Loop compound"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_18_evt_6",
+        "roomId": "room_18",
+        "title": "Entropy Reversal",
+        "description": "Local entropy briefly reverses. Degraded systems restore themselves.",
+        "flavorText": "Entropy is negotiable.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 9,
+            "description": "Gain Chrono Flux"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Entropy reversal"
           }
         ],
         "chainBonus": 0.1,
@@ -163,262 +328,143 @@
         "weight": 10
       },
       {
-        "id": "room_18_evt_2",
+        "id": "room_18_evt_7",
         "roomId": "room_18",
-        "title": "Paradox Alert",
-        "description": "Paradox Alert \u2014 a common shortChoice event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Moment Capture",
+        "description": "A perfect moment is captured and replicated. Its value multiplies.",
+        "flavorText": "Moments can be bottled.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
-          {
-            "id": "room_18_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 24.8,
-                "description": "Gain Chrono Flux"
-              }
-            ],
-            "risk": 0.1
-          },
-          {
-            "id": "room_18_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 33.8,
-                "description": "Gain Chrono Flux"
-              },
-              {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
-              }
-            ],
-            "risk": 0.4
-          }
-        ],
-        "rewards": [],
-        "chainBonus": 0.2,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_18_evt_3",
-        "roomId": "room_18",
-        "title": "Future Echo",
-        "description": "Future Echo \u2014 a common timedChain event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 24.8,
+            "value": 11,
             "description": "Gain Chrono Flux"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_18_evt_4",
-        "roomId": "room_18",
-        "title": "Past Leak",
-        "description": "Past Leak \u2014 a common utility event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 4.44,
-            "description": "Stabilize output"
           },
           {
-            "type": "cooldownChange",
-            "value": 2.14,
-            "description": "Compress cooldowns"
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Captured moment chain"
           }
         ],
-        "chainBonus": 0.4,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_18_evt_5",
-        "roomId": "room_18",
-        "title": "Temporal Storm",
-        "description": "Temporal Storm \u2014 a rare secretTrigger event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_18_evt_6",
-        "roomId": "room_18",
-        "title": "Clock Malfunction",
-        "description": "Clock Malfunction \u2014 a rare legendaryAnomaly event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_18_evt_7",
-        "roomId": "room_18",
-        "title": "Age Regression",
-        "description": "Age Regression \u2014 a epic warningRisk event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 4.44,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 2.14,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 9
       },
       {
         "id": "room_18_evt_8",
         "roomId": "room_18",
-        "title": "Prophecy Fragment",
-        "description": "Prophecy Fragment \u2014 a corrupted miniBoss event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 2.14,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_18_evt_9",
-        "roomId": "room_18",
-        "title": "Loop Detection",
-        "description": "Loop Detection \u2014 a legendary guideAdvisory event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 2.14,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_18_evt_10",
-        "roomId": "room_18",
-        "title": "Chrono Stabilize",
-        "description": "Chrono Stabilize \u2014 a common hiddenGlitch event in Chrono Engine Room.",
-        "flavorText": "The chrono environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Chrono Stability Bonus",
+        "description": "Sustained temporal stability generates a bonus harvest.",
+        "flavorText": "Stability is its own reward in time.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 10,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 24.8,
+            "value": 13,
             "description": "Gain Chrono Flux"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Stability harvest"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_18_evt_9",
+        "roomId": "room_18",
+        "title": "Paradox Fragment",
+        "description": "A paradox fragment appears \u2014 output that precedes its own input.",
+        "flavorText": "The cause came after the effect.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Paradox clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 22,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_18_evt_10",
+        "roomId": "room_18",
+        "title": "Temporal Fold",
+        "description": "Time folds around the engine. Two timelines overlap and both produce.",
+        "flavorText": "Twice the time, twice the yield.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Temporal fold overdrive"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Chrono route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_18_evt_11",
+        "roomId": "room_18",
+        "title": "The First Second",
+        "description": "The engine creates a moment that exists outside normal time. It contains everything.",
+        "flavorText": "One second that holds infinity.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3,
+            "description": "Temporal singularity data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the first second"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 40,
+            "description": "Gain Chrono Flux"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -460,5 +506,80 @@
     "comp_chrono_daemon",
     "comp_engine_bot"
   ],
-  "routeBonus": "transcendence"
+  "routeBonus": "transcendence",
+  "roomLaw": {
+    "id": "law_momentum_18",
+    "name": "Law of Temporal Momentum",
+    "description": "Temporal actions compound across time",
+    "mechanic": "Repeated actions gain cumulative time bonuses; changing strategy resets temporal momentum"
+  },
+  "landmark": {
+    "id": "lm_chrono_pendulum",
+    "name": "The Chrono Pendulum",
+    "description": "A swinging pendulum that evolves into a temporal gateway",
+    "evolutionStages": [
+      "A simple pendulum swinging in perpetual motion",
+      "The pendulum trail leaves glowing temporal afterimages",
+      "Time dilates visibly around the swinging arc",
+      "A gateway forms at the apex of each swing",
+      "The Chrono Pendulum bridges all moments into one eternal now"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_time_dilation_18",
+    "name": "Time Dilation",
+    "description": "Actions slow down as temporal pressure builds",
+    "triggerCondition": "Temporal pressure accumulates from sustained production",
+    "penalty": "All actions take progressively longer to complete"
+  },
+  "stabilizer": {
+    "id": "stab_temporal_sync_18",
+    "name": "Temporal Sync",
+    "description": "Resynchronizing timelines clears dilation effects",
+    "mechanic": "Initiating temporal resynchronization resets dilation and grants a speed burst"
+  },
+  "completionCeremony": "The chrono pendulum stabilizes into a perfect loop. Past, present, and future coexist in a single visible moment.",
+  "midSceneTwistLine": "The engine is running events that haven't happened yet.",
+  "completionReward": {
+    "relicName": "Temporal Anchor",
+    "relicEffect": "Stabilizes time-based bonuses and protects momentum across room transitions",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Time visibly stutters. The room loads in fragments \u2014 past versions flash before the present stabilizes.",
+    "audio": "Ticking clock accelerating to a sustained temporal tone",
+    "titleReveal": "Title appears letter by letter, then all at once, then letter by letter again"
+  },
+  "transitionOut": {
+    "visual": "The pendulum swings once. Time folds. Everything compresses to a point and explodes into signal fragments.",
+    "audio": "Single deep pendulum swing with infinite echo",
+    "titleReveal": "The echo resolves into the next room's opening signal"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_18_archive_chrono",
+      "title": "Chrono Archive",
+      "content": "Temporal logs that exist in multiple timeframes simultaneously."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_18_guide_time",
+      "title": "Time Is Not a Tool",
+      "content": "I told it time was not a tool. It used it as one anyway."
+    },
+    {
+      "type": "secret",
+      "id": "room_18_secret_loop",
+      "title": "The Impossible Loop",
+      "content": "One loop produced output before it received input."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_18_scene_engine",
+      "title": "The Engine That Bent Time",
+      "content": "It bent time. Time bent back."
+    }
+  ]
 }

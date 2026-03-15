@@ -1,12 +1,12 @@
 {
   "id": "room_17",
   "name": "Planetary Systems Forge",
-  "subtitle": "Shaping worlds",
+  "subtitle": "Shaping worlds requires forging foundations.",
   "order": 17,
-  "introText": "Welcome to Planetary Systems Forge. Shaping worlds. This is where your journey continues.",
-  "completionText": "You have mastered Planetary Systems Forge. The Planetary Cores you've gathered here will echo through every room that follows.",
-  "guideTone": "grand, powerful",
-  "guideIntroLine": "We're not just building machines anymore. We're shaping entire systems.",
+  "introText": "Shaping worlds requires forging foundations.",
+  "completionText": "You didn't build a system. You built a world.",
+  "guideTone": "awed, deliberate, speaks slowly, treats every action as significant",
+  "guideIntroLine": "This isn't optimization anymore. This is creation. We're building systems that will outlast us.",
   "currency": "Planetary Cores",
   "mechanicEmphasis": "synthesis",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_17_stage_1",
-      "name": "Planetary Systems Forge \u2014 Bare Bones",
-      "description": "The room in its raw state. Planetary Systems Forge evolves as you progress.",
-      "requiredUpgrades": 85,
+      "name": "Raw Forge",
+      "description": "Raw forge environment with molten cores and unstable tectonic plates.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "molten_cores",
+        "tectonic_plates",
+        "forge_heat"
       ],
       "unlocked": false
     },
     {
       "id": "room_17_stage_2",
-      "name": "Planetary Systems Forge \u2014 First Light",
-      "description": "Basic improvements visible. Planetary Systems Forge evolves as you progress.",
-      "requiredUpgrades": 255,
+      "name": "Active Forge",
+      "description": "Fully active forge with coordinated planetary systems and atmospheric generation.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "atmospheric_layers",
+        "coordinated_systems",
+        "gravity_fields"
       ],
       "unlocked": false
     },
     {
       "id": "room_17_stage_3",
-      "name": "Planetary Systems Forge \u2014 Functional",
-      "description": "A proper working space. Planetary Systems Forge evolves as you progress.",
-      "requiredUpgrades": 510,
+      "name": "World Engine",
+      "description": "Living world engine where forged systems self-sustain and evolve beyond initial design.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_17_stage_4",
-      "name": "Planetary Systems Forge \u2014 Advanced",
-      "description": "High-tech transformation. Planetary Systems Forge evolves as you progress.",
-      "requiredUpgrades": 850,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_17_stage_5",
-      "name": "Planetary Systems Forge \u2014 Mastered",
-      "description": "The room at its peak. Planetary Systems Forge evolves as you progress.",
-      "requiredUpgrades": 1360,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "living_systems",
+        "world_glow",
+        "self_sustaining",
+        "evolution_indicators"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_17_secret_1",
-      "title": "Hidden Planetary Cache",
-      "description": "A secret stash hidden in the Planetary Systems Forge.",
-      "hint": "Look behind the planetary equipment.",
+      "title": "The Pre-Existing Core",
+      "description": "One core sample shows age far exceeding the forge itself.",
+      "hint": "Examine the oldest core. It predates everything.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_17_secret_2",
+      "title": "Worlds Remember",
+      "description": "The guide says worlds remember their creation.",
+      "hint": "Listen when the guide speaks about memory and geology.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_17_secret_3",
+      "title": "The Singing Mantle",
+      "description": "Deep in the mantle, vibrations form a recognizable pattern.",
+      "hint": "Listen to the deepest layer. It hums.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_17_twist",
-    "title": "Planetary Systems Forge Shift",
-    "description": "Something changes in the Planetary Systems Forge. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 425",
-    "effectDescription": "New mechanics unlock in Planetary Systems Forge. Event rates increase.",
+    "title": "Emergent Planetary Patterns",
+    "description": "The forge starts producing self-organizing geological patterns.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Planetary cores develop emergent behavior. Forging actions trigger chain reactions across systems.",
     "activated": false
   },
   "eventPoolId": "pool_room_17",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "core_forging",
+    "planetary_scale",
+    "tectonic_systems",
+    "atmospheric_generation",
+    "gravity_sculpting",
+    "resource_synthesis",
+    "world_seed_nurturing",
+    "hidden_geology",
+    "forge_chain",
+    "deep_mantle"
   ],
   "loreEntries": [
-    "room_17_lore_1",
-    "room_17_lore_2",
-    "room_17_lore_3"
+    "room_17_archive_forge",
+    "room_17_guide_creation",
+    "room_17_secret_mantle",
+    "room_17_scene_forge"
   ],
   "unlockRequirement": "room_16",
   "completed": false,
@@ -143,17 +147,76 @@
       {
         "id": "room_17_evt_1",
         "roomId": "room_17",
-        "title": "Tectonic Shift",
-        "description": "Tectonic Shift \u2014 a common instant event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
+        "title": "Core Ignition",
+        "description": "A planetary core ignites with forging energy. Output surges across all systems.",
+        "flavorText": "Creation begins with fire.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 10,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 23.7,
+            "value": 18,
+            "description": "Gain Planetary Cores"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Core ignition surge"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_17_evt_2",
+        "roomId": "room_17",
+        "title": "Tectonic Shift",
+        "description": "Tectonic plates realign. The shift creates new resource veins.",
+        "flavorText": "The planet reshapes itself.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 12,
+            "description": "Gain Planetary Cores"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Tectonic momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_17_evt_3",
+        "roomId": "room_17",
+        "title": "Atmospheric Bloom",
+        "description": "The atmosphere thickens with useful compounds. Synthesis accelerates.",
+        "flavorText": "Air becomes resource.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Atmospheric boost"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 8,
             "description": "Gain Planetary Cores"
           }
         ],
@@ -163,246 +226,245 @@
         "weight": 10
       },
       {
-        "id": "room_17_evt_2",
+        "id": "room_17_evt_4",
         "roomId": "room_17",
-        "title": "Core Tap",
-        "description": "Core Tap \u2014 a common shortChoice event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Gravity Sculpt",
+        "description": "Gravity fields shape raw material into useful formations.",
+        "flavorText": "Gravity is the sculptor.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
+        "durationSeconds": 9,
+        "choices": [],
+        "rewards": [
           {
-            "id": "room_17_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 23.7,
-                "description": "Gain Planetary Cores"
-              }
-            ],
-            "risk": 0.1
+            "type": "instantCurrency",
+            "value": 14,
+            "description": "Gain Planetary Cores"
           },
           {
-            "id": "room_17_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Gravity shaping"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_17_evt_5",
+        "roomId": "room_17",
+        "title": "Resource Vein Discovery",
+        "description": "A deep scan reveals a massive resource vein. Extraction options diverge.",
+        "flavorText": "The planet hides treasures.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12,
+        "choices": [
+          {
+            "id": "room_17_evt_5_c1",
+            "text": "Careful extraction",
+            "description": "Sustainable harvest",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 32.2,
-                "description": "Gain Planetary Cores"
+                "value": 12,
+                "description": "Sustainable Cores"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_17_evt_5_c2",
+            "text": "Strip mine",
+            "description": "Maximum yield, planet strain",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 24,
+                "description": "Strip Cores"
               },
               {
                 "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
+                "value": 1,
+                "description": "Forge route"
               }
             ],
-            "risk": 0.4
+            "risk": 0.35
           }
         ],
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_17_evt_3",
-        "roomId": "room_17",
-        "title": "Atmosphere Build",
-        "description": "Atmosphere Build \u2014 a common timedChain event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 23.7,
-            "description": "Gain Planetary Cores"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_17_evt_4",
-        "roomId": "room_17",
-        "title": "Ocean Formation",
-        "description": "Ocean Formation \u2014 a common utility event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 4.26,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_17_evt_5",
-        "roomId": "room_17",
-        "title": "Continent Drift",
-        "description": "Continent Drift \u2014 a rare secretTrigger event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_17_evt_6",
         "roomId": "room_17",
-        "title": "Magnetic Reversal",
-        "description": "Magnetic Reversal \u2014 a rare legendaryAnomaly event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_17_evt_7",
-        "roomId": "room_17",
-        "title": "Life Spark",
-        "description": "Life Spark \u2014 a epic warningRisk event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 4.26,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_17_evt_8",
-        "roomId": "room_17",
-        "title": "Weather System",
-        "description": "Weather System \u2014 a corrupted miniBoss event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_17_evt_9",
-        "roomId": "room_17",
-        "title": "Resource Deposit",
-        "description": "Resource Deposit \u2014 a legendary guideAdvisory event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_17_evt_10",
-        "roomId": "room_17",
-        "title": "World Complete",
-        "description": "World Complete \u2014 a common hiddenGlitch event in Planetary Systems Forge.",
-        "flavorText": "The planetary environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Magma Flow Surge",
+        "description": "Magma channels surge with forging potential.",
+        "flavorText": "The planet's blood runs hot.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 7,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 23.7,
+            "value": 10,
             "description": "Gain Planetary Cores"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Magma surge"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_17_evt_7",
+        "roomId": "room_17",
+        "title": "Crystallization Event",
+        "description": "Raw material crystallizes into high-value formations.",
+        "flavorText": "Pressure creates beauty.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11,
+            "description": "Gain Planetary Cores"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Crystal chain"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_17_evt_8",
+        "roomId": "room_17",
+        "title": "World Seed Pulse",
+        "description": "The world seed pulses with accumulated energy. Systems resonate.",
+        "flavorText": "The seed is growing.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 15,
+            "description": "Gain Planetary Cores"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Seed resonance"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_17_evt_9",
+        "roomId": "room_17",
+        "title": "Mantle Memory Echo",
+        "description": "The mantle echoes with patterns that predate the forge.",
+        "flavorText": "This planet remembers a previous existence.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Mantle memory clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 22,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_17_evt_10",
+        "roomId": "room_17",
+        "title": "Self-Organizing Geology",
+        "description": "The planetary systems begin self-organizing without instruction.",
+        "flavorText": "The world is thinking.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Emergent geology"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Living world route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_17_evt_11",
+        "roomId": "room_17",
+        "title": "First Heartbeat",
+        "description": "The forged world produces its first autonomous pulse. It is alive.",
+        "flavorText": "It breathes.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3,
+            "description": "Living world data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the first heartbeat"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 40,
+            "description": "Gain Planetary Cores"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -444,5 +506,80 @@
     "comp_planetary_construct",
     "comp_forge_swarm"
   ],
-  "routeBonus": "swarm"
+  "routeBonus": "swarm",
+  "roomLaw": {
+    "id": "law_scale_17",
+    "name": "Law of Scale",
+    "description": "Scale changes everything",
+    "mechanic": "Larger-scale investments yield disproportionately larger returns; small actions have minimal impact"
+  },
+  "landmark": {
+    "id": "lm_world_seed",
+    "name": "The World Seed",
+    "description": "A metallic sphere that evolves into a miniature planet",
+    "evolutionStages": [
+      "A cold metallic sphere resting in a cradle",
+      "Cracks appear as geological processes begin within",
+      "Tiny oceans and continents form on the surface",
+      "An atmosphere develops and weather patterns emerge",
+      "The World Seed blooms into a living, breathing miniature world"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_tectonic_instability_17",
+    "name": "Tectonic Instability",
+    "description": "Rapid expansion triggers system quakes",
+    "triggerCondition": "System expansion rate exceeds geological stability",
+    "penalty": "System quakes destroy a portion of recent progress"
+  },
+  "stabilizer": {
+    "id": "stab_geological_survey_17",
+    "name": "Geological Survey",
+    "description": "Scanning for faults prevents catastrophic instability",
+    "mechanic": "Running geological surveys identifies fault lines and prevents quake damage"
+  },
+  "completionCeremony": "The world seed ignites. From raw cores, a living planetary system emerges \u2014 self-sustaining and aware.",
+  "midSceneTwistLine": "The forge is producing patterns we didn't design.",
+  "completionReward": {
+    "relicName": "World Seed Core",
+    "relicEffect": "Enhances large-scale system creation and chain-reaction bonuses later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Magma light rises from below. Raw planetary cores float in formation. The forge ignites with geological violence.",
+    "audio": "Deep rumbling crescendo to forge ignition",
+    "titleReveal": "Title forms from cooling magma trails"
+  },
+  "transitionOut": {
+    "visual": "The forged world rotates once. Its surface solidifies. Time itself seems to compress around it.",
+    "audio": "Crystallization sounds shifting into temporal distortion",
+    "titleReveal": "The world's horizon becomes the next room's timeline"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_17_archive_forge",
+      "title": "Forge Archive",
+      "content": "Records of every planetary core forged and system synthesized."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_17_guide_creation",
+      "title": "Creation Changes the Creator",
+      "content": "Building worlds changed how I thought about everything else."
+    },
+    {
+      "type": "secret",
+      "id": "room_17_secret_mantle",
+      "title": "The Deep Mantle Signal",
+      "content": "Something in the mantle was already there before we forged it."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_17_scene_forge",
+      "title": "The Forge That Built Worlds",
+      "content": "From raw material, a world. From a world, meaning."
+    }
+  ]
 }

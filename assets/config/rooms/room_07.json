@@ -1,12 +1,12 @@
 {
   "id": "room_07",
   "name": "Night Shift Command Room",
-  "subtitle": "The world sleeps, we work",
+  "subtitle": "Focus sharpens in the dark.",
   "order": 7,
-  "introText": "Welcome to Night Shift Command Room. The world sleeps, we work. This is where your journey continues.",
-  "completionText": "You have mastered Night Shift Command Room. The Directives you've gathered here will echo through every room that follows.",
-  "guideTone": "serious, commanding",
-  "guideIntroLine": "Night shift. The screens glow. Everything depends on what happens next.",
+  "introText": "Focus sharpens in the dark.",
+  "completionText": "You learned how to steer momentum without wasting it.",
+  "guideTone": "tactical, concise, respects disciplined play",
+  "guideIntroLine": "This room listens best when everything else goes quiet.",
   "currency": "Directives",
   "mechanicEmphasis": "maintenance",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_07_stage_1",
-      "name": "Night Shift Command Room \u2014 Bare Bones",
-      "description": "The room in its raw state. Night Shift Command Room evolves as you progress.",
-      "requiredUpgrades": 35,
+      "name": "Dark Ops",
+      "description": "Dark ops room with small tactical panels and limited visibility. Status lights blink in silence.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "dim_panels",
+        "status_lights",
+        "dark_corners"
       ],
       "unlocked": false
     },
     {
       "id": "room_07_stage_2",
-      "name": "Night Shift Command Room \u2014 First Light",
-      "description": "Basic improvements visible. Night Shift Command Room evolves as you progress.",
-      "requiredUpgrades": 105,
+      "name": "Night Command",
+      "description": "Full night-ops command center with reactive displays and synchronized stations.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "reactive_displays",
+        "sync_stations",
+        "blue_ambient"
       ],
       "unlocked": false
     },
     {
       "id": "room_07_stage_3",
-      "name": "Night Shift Command Room \u2014 Functional",
-      "description": "A proper working space. Night Shift Command Room evolves as you progress.",
-      "requiredUpgrades": 210,
+      "name": "War Room",
+      "description": "High-focus war room with flowing data streams, tactical overlays, and responsive room pulse.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_07_stage_4",
-      "name": "Night Shift Command Room \u2014 Advanced",
-      "description": "High-tech transformation. Night Shift Command Room evolves as you progress.",
-      "requiredUpgrades": 350,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_07_stage_5",
-      "name": "Night Shift Command Room \u2014 Mastered",
-      "description": "The room at its peak. Night Shift Command Room evolves as you progress.",
-      "requiredUpgrades": 560,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "data_streams",
+        "tactical_overlays",
+        "room_pulse",
+        "command_bridge"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_07_secret_1",
-      "title": "Hidden Command Cache",
-      "description": "A secret stash hidden in the Night Shift Command Room.",
-      "hint": "Look behind the command equipment.",
+      "title": "The Endurance Signal",
+      "description": "Certain events only occur after prolonged uninterrupted play.",
+      "hint": "Stay focused. Don't break the session.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_07_secret_2",
+      "title": "Night Channels",
+      "description": "Night reveals channels the day ignores.",
+      "hint": "The guide speaks about hidden frequencies after dark.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_07_secret_3",
+      "title": "The Last Monitor",
+      "description": "One monitor stays active after all others dim.",
+      "hint": "Watch the screens when everything else sleeps.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_07_twist",
-    "title": "Night Shift Command Room Shift",
-    "description": "Something changes in the Night Shift Command Room. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 175",
-    "effectDescription": "New mechanics unlock in Night Shift Command Room. Event rates increase.",
+    "title": "Night Mode Pulse",
+    "description": "The room gains a night mode pulse that changes timing-based systems.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "A pulsing rhythm appears. Actions aligned to the pulse gain massive multipliers.",
     "activated": false
   },
   "eventPoolId": "pool_room_07",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "streak_multiplier",
+    "rhythm_precision",
+    "focus_mode",
+    "night_cycle",
+    "command_console",
+    "signal_clarity",
+    "blackout_reward",
+    "session_discipline",
+    "hidden_midnight",
+    "tactical_utility"
   ],
   "loreEntries": [
-    "room_07_lore_1",
-    "room_07_lore_2",
-    "room_07_lore_3"
+    "room_07_archive_shift",
+    "room_07_guide_precision",
+    "room_07_secret_console",
+    "room_07_scene_silence"
   ],
   "unlockRequirement": "room_06",
   "completed": false,
@@ -143,9 +147,9 @@
       {
         "id": "room_07_evt_1",
         "roomId": "room_07",
-        "title": "Incoming Order",
-        "description": "Incoming Order \u2014 a common instant event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
+        "title": "Blackout Sequence",
+        "description": "All lights cut. In the darkness, the system runs a perfect diagnostic.",
+        "flavorText": "Darkness clarifies.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
@@ -153,8 +157,94 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 12.7,
-            "description": "Gain Directives"
+            "value": 10.0,
+            "description": "Gain Signals"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Blackout precision"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_07_evt_2",
+        "roomId": "room_07",
+        "title": "Alert Sweep",
+        "description": "A sweep of alerts resolves into clear status. The brief tension creates focus.",
+        "flavorText": "Alertness is its own reward.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Alert-driven focus"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Signals"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_07_evt_3",
+        "roomId": "room_07",
+        "title": "Focus Window",
+        "description": "External noise drops to zero. A perfect focus window opens for timed actions.",
+        "flavorText": "Silence is a tool.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Deep focus multiplier"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 8.0,
+            "description": "Gain Signals"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_07_evt_4",
+        "roomId": "room_07",
+        "title": "Signal Cleanse",
+        "description": "Noise filters engage. Signal quality improves across all channels.",
+        "flavorText": "Clean signals carry further.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 9.0,
+            "description": "Gain Signals"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Signal clarity boost"
           }
         ],
         "chainBonus": 0.1,
@@ -163,257 +253,218 @@
         "weight": 10
       },
       {
-        "id": "room_07_evt_2",
+        "id": "room_07_evt_5",
         "roomId": "room_07",
-        "title": "System Alert",
-        "description": "System Alert \u2014 a common shortChoice event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
+        "title": "Midnight Sync",
+        "description": "All systems sync at the stroke of midnight. The alignment creates a burst of coordinated output.",
+        "flavorText": "Midnight is the system's reset.",
         "category": "shortChoice",
         "rarity": "common",
-        "durationSeconds": 10.0,
+        "durationSeconds": 12.0,
         "choices": [
           {
-            "id": "room_07_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
+            "id": "room_07_evt_5_c1",
+            "text": "Maintain rhythm",
+            "description": "Keep the steady beat",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 12.7,
-                "description": "Gain Directives"
+                "value": 10.0,
+                "description": "Steady Signals"
               }
             ],
-            "risk": 0.1
+            "risk": 0.05
           },
           {
-            "id": "room_07_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "id": "room_07_evt_5_c2",
+            "text": "Push the sync",
+            "description": "Force deeper alignment",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 16.2,
-                "description": "Gain Directives"
+                "value": 20.0,
+                "description": "Deep sync Signals"
               },
               {
                 "type": "routeReward",
                 "value": 1.0,
-                "description": "Open a route window"
+                "description": "Night route progress"
               }
             ],
-            "risk": 0.4
+            "risk": 0.3
           }
         ],
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_07_evt_3",
-        "roomId": "room_07",
-        "title": "Shift Change",
-        "description": "Shift Change \u2014 a common timedChain event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 12.7,
-            "description": "Gain Directives"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_07_evt_4",
-        "roomId": "room_07",
-        "title": "Priority Override",
-        "description": "Priority Override \u2014 a common utility event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 2.46,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.26,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_07_evt_5",
-        "roomId": "room_07",
-        "title": "Communication Static",
-        "description": "Communication Static \u2014 a rare secretTrigger event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_07_evt_6",
         "roomId": "room_07",
-        "title": "Radar Blip",
-        "description": "Radar Blip \u2014 a rare legendaryAnomaly event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
+        "title": "Console Cascade",
+        "description": "Console commands cascade through connected terminals. Each one amplifies the next.",
+        "flavorText": "Commands ripple.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
         "choices": [],
         "rewards": [
           {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
+            "type": "comboAmplification",
+            "value": 1.25,
+            "description": "Cascade momentum"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 6.0,
+            "description": "Gain Signals"
           }
         ],
-        "chainBonus": 0.6000000000000001,
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_07_evt_7",
         "roomId": "room_07",
-        "title": "Protocol Breach",
-        "description": "Protocol Breach \u2014 a epic warningRisk event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 2.46,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.26,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_07_evt_8",
-        "roomId": "room_07",
-        "title": "Night Watch Event",
-        "description": "Night Watch Event \u2014 a corrupted miniBoss event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.26,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_07_evt_9",
-        "roomId": "room_07",
-        "title": "Silent Alarm",
-        "description": "Silent Alarm \u2014 a legendary guideAdvisory event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.26,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_07_evt_10",
-        "roomId": "room_07",
-        "title": "Command Decision",
-        "description": "Command Decision \u2014 a common hiddenGlitch event in Night Shift Command Room.",
-        "flavorText": "The command environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Command Pulse",
+        "description": "A command pulse travels through the room. Systems that respond gain efficiency.",
+        "flavorText": "Authority travels in waves.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 7.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 12.7,
-            "description": "Gain Directives"
+            "value": 11.0,
+            "description": "Gain Signals"
           },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Command resonance"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_07_evt_8",
+        "roomId": "room_07",
+        "title": "Shift Bonus",
+        "description": "The shift clock ticks over. Sustained operation earns a discipline reward.",
+        "flavorText": "Endurance pays dividends.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 13.0,
+            "description": "Shift bonus Signals"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.1,
+            "description": "Discipline momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_07_evt_9",
+        "roomId": "room_07",
+        "title": "Ghost Operator Ping",
+        "description": "A terminal receives a ping from an operator that doesn't exist on any roster.",
+        "flavorText": "Someone else worked this shift before.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
           {
             "type": "secretClue",
             "value": 1.0,
-            "description": "Expose a secret clue"
+            "description": "Ghost operator fragment"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 18.0,
+            "description": "Gain Signals"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_07_evt_10",
+        "roomId": "room_07",
+        "title": "Zero-Light Precision Window",
+        "description": "All lights fail. In total darkness, the system achieves impossible precision.",
+        "flavorText": "The dark does not hinder what was built to see.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Zero-light overdrive"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Dark route progress"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_07_evt_11",
+        "roomId": "room_07",
+        "title": "Hidden Console Unlock",
+        "description": "A console panel slides open, revealing controls that respond to no known command set.",
+        "flavorText": "This console was built for a shift that hasn't happened yet.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Unknown console data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the hidden console"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 28.0,
+            "description": "Gain Signals"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -450,5 +501,80 @@
     "comp_night_drone",
     "comp_command_ai"
   ],
-  "routeBonus": "operator"
+  "routeBonus": "operator",
+  "roomLaw": {
+    "id": "law_rhythm_07",
+    "name": "Law of Rhythm",
+    "description": "Rhythm and streak discipline are rewarded",
+    "mechanic": "Consecutive timed actions multiply bonuses; broken streaks reset momentum"
+  },
+  "landmark": {
+    "id": "lm_command_console",
+    "name": "The Command Console",
+    "description": "A battered desk that evolves into a war room nerve center",
+    "evolutionStages": [
+      "A scratched metal desk with a single dim lamp",
+      "Monitors flicker to life showing system status feeds",
+      "A tactical display table replaces the old desk",
+      "Holographic situation maps float above the console",
+      "The Command Console orchestrates operations across all sectors"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_system_fatigue_07",
+    "name": "System Fatigue",
+    "description": "Neglected subsystems degrade directive output",
+    "triggerCondition": "Subsystems left unattended for extended periods",
+    "penalty": "Directive output decreases by 10% per neglected subsystem"
+  },
+  "stabilizer": {
+    "id": "stab_routine_maint_07",
+    "name": "Routine Maintenance",
+    "description": "Regular maintenance cycles prevent system decay",
+    "mechanic": "Performing maintenance actions on a schedule prevents fatigue accumulation"
+  },
+  "completionCeremony": "The command panels dim to a satisfied glow. Every system waits in perfect readiness.",
+  "midSceneTwistLine": "The systems are responding to rhythm now. Not just command.",
+  "completionReward": {
+    "relicName": "Midnight Seal",
+    "relicEffect": "Enhances streak-based rewards and active-session bonuses in future rooms",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Room enters from blackout. Only interface strips and status lights appear first.",
+    "audio": "Deep midnight tone with distant console beeps",
+    "titleReveal": "Title reveals with a midnight-blue pulse"
+  },
+  "transitionOut": {
+    "visual": "All displays go dark except one. That final screen becomes a tunnel of light.",
+    "audio": "Single sustained note opening into warmth",
+    "titleReveal": "Tunnel opens into the next room's living motion"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_07_archive_shift",
+      "title": "Shift Archive",
+      "content": "Logs of every night shift session and the streaks maintained within them."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_07_guide_precision",
+      "title": "Precision Is a Kind of Faith",
+      "content": "It trusted us to be consistent. We learned not to waste that."
+    },
+    {
+      "type": "secret",
+      "id": "room_07_secret_console",
+      "title": "The Console That Wakes at Midnight",
+      "content": "One console only activates when all others are dark."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_07_scene_silence",
+      "title": "The Room That Preferred Silence",
+      "content": "It performed best when no one was talking."
+    }
+  ]
 }

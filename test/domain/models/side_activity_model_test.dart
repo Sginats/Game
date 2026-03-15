@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('SideActivityType has expected values', () {
-    expect(SideActivityType.values.length, 12);
+    expect(SideActivityType.values.length, 16);
     expect(SideActivityType.calibrationConsole.name, 'calibrationConsole');
     expect(SideActivityType.roomRestore.name, 'roomRestore');
   });

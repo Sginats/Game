@@ -1,12 +1,12 @@
 {
   "id": "room_15",
   "name": "Simulation Chamber",
-  "subtitle": "Nothing is real, everything matters",
+  "subtitle": "Some of this room is lying to you.",
   "order": 15,
-  "introText": "Welcome to Simulation Chamber. Nothing is real, everything matters. This is where your journey continues.",
-  "completionText": "You have mastered Simulation Chamber. The Paradox Threads you've gathered here will echo through every room that follows.",
-  "guideTone": "unstable, questioning",
-  "guideIntroLine": "Is this real? The simulation chamber makes everything uncertain.",
+  "introText": "Some of this room is lying to you.",
+  "completionText": "You learned how to profit from contradiction.",
+  "guideTone": "suspicious, careful with language, warns often",
+  "guideIntroLine": "Be careful. Not every system you see is real, and not every fake thing is useless.",
   "currency": "Paradox Threads",
   "mechanicEmphasis": "event",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_15_stage_1",
-      "name": "Simulation Chamber \u2014 Bare Bones",
-      "description": "The room in its raw state. Simulation Chamber evolves as you progress.",
-      "requiredUpgrades": 75,
+      "name": "Unstable Chamber",
+      "description": "Strange chamber with visual instability and suspicious nodes.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "visual_glitches",
+        "suspicious_nodes",
+        "unstable_geometry"
       ],
       "unlocked": false
     },
     {
       "id": "room_15_stage_2",
-      "name": "Simulation Chamber \u2014 First Light",
-      "description": "Basic improvements visible. Simulation Chamber evolves as you progress.",
-      "requiredUpgrades": 225,
+      "name": "Split Simulation",
+      "description": "Split simulation with overlapping truths and unreliable UI.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "dual_geometry",
+        "overlapping_ui",
+        "truth_false_indicators"
       ],
       "unlocked": false
     },
     {
       "id": "room_15_stage_3",
-      "name": "Simulation Chamber \u2014 Functional",
-      "description": "A proper working space. Simulation Chamber evolves as you progress.",
-      "requiredUpgrades": 450,
+      "name": "Fractured Reality",
+      "description": "Fully fractured reality-box where fake and real coexist.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_15_stage_4",
-      "name": "Simulation Chamber \u2014 Advanced",
-      "description": "High-tech transformation. Simulation Chamber evolves as you progress.",
-      "requiredUpgrades": 750,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_15_stage_5",
-      "name": "Simulation Chamber \u2014 Mastered",
-      "description": "The room at its peak. Simulation Chamber evolves as you progress.",
-      "requiredUpgrades": 1200,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "coexisting_layers",
+        "exploitable_false",
+        "reality_fractures",
+        "contradiction_glow"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_15_secret_1",
-      "title": "Hidden Simulation Cache",
-      "description": "A secret stash hidden in the Simulation Chamber.",
-      "hint": "Look behind the simulation equipment.",
+      "title": "The Useful Wrong",
+      "description": "Choosing obviously wrong options eventually becomes useful.",
+      "hint": "Try the option that seems worst. Do it again.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_15_secret_2",
+      "title": "The Eager Fake",
+      "description": "The fake layer is too eager to be noticed.",
+      "hint": "The guide says fakes try too hard to be seen.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_15_secret_3",
+      "title": "The Shifting Tooltip",
+      "description": "One tooltip contradicts itself differently each time.",
+      "hint": "Read the same tooltip three times.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_15_twist",
-    "title": "Simulation Chamber Shift",
-    "description": "Something changes in the Simulation Chamber. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 375",
-    "effectDescription": "New mechanics unlock in Simulation Chamber. Event rates increase.",
+    "title": "Second Hidden Layer",
+    "description": "A second hidden layer of the room becomes accessible.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "A dual-layer system activates. False options become exploitable.",
     "activated": false
   },
   "eventPoolId": "pool_room_15",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "contradiction_reward",
+    "truth_filter",
+    "fake_detection",
+    "glitch_exploit",
+    "hidden_layer",
+    "wrong_choice_incentive",
+    "simulation_instability",
+    "false_economy",
+    "secret_reveal",
+    "dual_layer"
   ],
   "loreEntries": [
-    "room_15_lore_1",
-    "room_15_lore_2",
-    "room_15_lore_3"
+    "room_15_archive_contradiction",
+    "room_15_guide_wrong",
+    "room_15_secret_layer",
+    "room_15_scene_deception"
   ],
   "unlockRequirement": "room_14",
   "completed": false,
@@ -143,18 +147,77 @@
       {
         "id": "room_15_evt_1",
         "roomId": "room_15",
-        "title": "Reality Glitch",
-        "description": "Reality Glitch \u2014 a common instant event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
+        "title": "Simulation Desync",
+        "description": "The simulation desyncs. Two versions of reality overlap.",
+        "flavorText": "Which one is real?",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 21.5,
-            "description": "Gain Paradox Threads"
+            "value": 12,
+            "description": "Gain Paradox"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Desync insight"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_15_evt_2",
+        "roomId": "room_15",
+        "title": "False Reward Popup",
+        "description": "A reward popup looks genuine but isn't \u2014 interacting yields real data.",
+        "flavorText": "Even lies contain truth.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 8,
+            "description": "Gain Paradox"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "False reward insight"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_15_evt_3",
+        "roomId": "room_15",
+        "title": "Contradiction Leak",
+        "description": "A contradiction leaks between layers. The paradox generates energy.",
+        "flavorText": "Contradictions have weight.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Paradox"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Contradiction energy"
           }
         ],
         "chainBonus": 0.1,
@@ -163,257 +226,240 @@
         "weight": 10
       },
       {
-        "id": "room_15_evt_2",
+        "id": "room_15_evt_4",
         "roomId": "room_15",
-        "title": "Paradox Loop",
-        "description": "Paradox Loop \u2014 a common shortChoice event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Glitch Bloom",
+        "description": "A visual glitch blooms. Inside: usable fragments of both layers.",
+        "flavorText": "Glitches are windows.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
-          {
-            "id": "room_15_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 21.5,
-                "description": "Gain Paradox Threads"
-              }
-            ],
-            "risk": 0.1
-          },
-          {
-            "id": "room_15_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 29.0,
-                "description": "Gain Paradox Threads"
-              },
-              {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
-              }
-            ],
-            "risk": 0.4
-          }
-        ],
-        "rewards": [],
-        "chainBonus": 0.2,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_15_evt_3",
-        "roomId": "room_15",
-        "title": "Simulation Leak",
-        "description": "Simulation Leak \u2014 a common timedChain event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
+        "durationSeconds": 8,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 21.5,
-            "description": "Gain Paradox Threads"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_15_evt_4",
-        "roomId": "room_15",
-        "title": "False Memory",
-        "description": "False Memory \u2014 a common utility event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
+            "value": 11,
+            "description": "Gain Paradox"
+          },
           {
-            "type": "temporaryBuff",
-            "value": 3.9,
-            "description": "Stabilize output"
+            "type": "rareResource",
+            "value": 1,
+            "description": "Glitch fragment"
           }
         ],
-        "chainBonus": 0.4,
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_15_evt_5",
         "roomId": "room_15",
-        "title": "Debug Request",
-        "description": "Debug Request \u2014 a rare secretTrigger event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
+        "title": "Duplicate Node Flash",
+        "description": "A node appears in two places. One is real.",
+        "flavorText": "Reality tests you.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [
           {
-            "type": "guideAffinity",
-            "value": 0.95,
-            "description": "Strengthen guide trust"
+            "id": "room_15_evt_5_c1",
+            "text": "Left node",
+            "description": "Trust instinct",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 14,
+                "description": "Correct Paradox"
+              }
+            ],
+            "risk": 0.3
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "id": "room_15_evt_5_c2",
+            "text": "Right node",
+            "description": "The other choice",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 14,
+                "description": "Correct Paradox"
+              }
+            ],
+            "risk": 0.3
           }
         ],
-        "chainBonus": 0.5,
+        "rewards": [],
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 3,
+        "weight": 10
       },
       {
         "id": "room_15_evt_6",
         "roomId": "room_15",
-        "title": "Layer Collapse",
-        "description": "Layer Collapse \u2014 a rare legendaryAnomaly event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.95,
-            "description": "Strengthen guide trust"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_15_evt_7",
-        "roomId": "room_15",
-        "title": "Ghost Process",
-        "description": "Ghost Process \u2014 a epic warningRisk event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
+        "title": "Truth Filter Window",
+        "description": "A truth filter activates. Real systems glow. Fakes dim.",
+        "flavorText": "Clarity is temporary.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 12,
         "choices": [],
         "rewards": [
           {
             "type": "temporaryBuff",
-            "value": 3.9,
-            "description": "Stabilize output"
+            "value": 1.25,
+            "description": "Truth vision"
           },
           {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
+            "type": "instantCurrency",
+            "value": 6,
+            "description": "Gain Paradox"
           }
         ],
-        "chainBonus": 0.7000000000000001,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
+        "requiredUpgradeCount": 5,
+        "weight": 9
       },
       {
-        "id": "room_15_evt_8",
+        "id": "room_15_evt_7",
         "roomId": "room_15",
-        "title": "Truth Fragment",
-        "description": "Truth Fragment \u2014 a corrupted miniBoss event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_15_evt_9",
-        "roomId": "room_15",
-        "title": "Escape Attempt",
-        "description": "Escape Attempt \u2014 a legendary guideAdvisory event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.95,
-            "description": "Strengthen guide trust"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_15_evt_10",
-        "roomId": "room_15",
-        "title": "Simulation Reset",
-        "description": "Simulation Reset \u2014 a common hiddenGlitch event in Simulation Chamber.",
-        "flavorText": "The simulation environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Fake Branch Appearance",
+        "description": "A new upgrade branch appears. It may not be real.",
+        "flavorText": "Exploration is rewarded even in false spaces.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 21.5,
-            "description": "Gain Paradox Threads"
+            "value": 9,
+            "description": "Gain Paradox"
           },
           {
-            "type": "guideAffinity",
-            "value": 0.95,
-            "description": "Strengthen guide trust"
-          },
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "False branch insight"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_15_evt_8",
+        "roomId": "room_15",
+        "title": "Layer Slip",
+        "description": "Simulation layers slip. The gap reveals hidden architecture.",
+        "flavorText": "Between lies, there is structure.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Paradox"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Layer gap insight"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_15_evt_9",
+        "roomId": "room_15",
+        "title": "Impossible Node Path",
+        "description": "A path connects nodes that can't logically connect.",
+        "flavorText": "Logic is a suggestion here.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Impossible path clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20,
+            "description": "Gain Paradox"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_15_evt_10",
+        "roomId": "room_15",
+        "title": "True Error Event",
+        "description": "An actual error occurs. The real bug yields more than any feature.",
+        "flavorText": "Real bugs are worth more than fake features.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2,
+            "description": "True error data"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Reality route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_15_evt_11",
+        "roomId": "room_15",
+        "title": "Hidden Layer Open",
+        "description": "The hidden layer fully opens. A complete second room with its own rules.",
+        "flavorText": "The real room was hiding underneath.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3,
+            "description": "Hidden layer data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the hidden layer"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 35,
+            "description": "Gain Paradox"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -455,5 +501,80 @@
     "comp_sim_swarm",
     "comp_chamber_bot"
   ],
-  "routeBonus": "anomaly"
+  "routeBonus": "anomaly",
+  "roomLaw": {
+    "id": "law_deception_15",
+    "name": "Law of Deception",
+    "description": "Not every visible option is real",
+    "mechanic": "Some upgrades are false; learning to identify them yields hidden rewards"
+  },
+  "landmark": {
+    "id": "lm_reality_engine",
+    "name": "The Reality Engine",
+    "description": "A display that evolves into a window showing alternate timelines",
+    "evolutionStages": [
+      "A monitor showing a suspiciously perfect world",
+      "Glitches in the display reveal layers underneath",
+      "The screen becomes a portal to parallel simulations",
+      "Multiple timelines are visible simultaneously",
+      "The Reality Engine lets you choose which timeline is real"
+    ],
+    "currentStage": 0
+  },
+  "hazard": {
+    "id": "hz_simulation_leak_15",
+    "name": "Simulation Leak",
+    "description": "Simulated resources bleed into real calculations",
+    "triggerCondition": "Simulation depth exceeds containment boundaries",
+    "penalty": "Resource counts become unreliable as simulated values contaminate totals"
+  },
+  "stabilizer": {
+    "id": "stab_reality_anchor_15",
+    "name": "Reality Anchor",
+    "description": "Grounding protocols separate real from simulated",
+    "mechanic": "Activating grounding protocols purges simulated values and restores accurate counts"
+  },
+  "completionCeremony": "The layers separate. Real and fake coexist, and both serve you now.",
+  "midSceneTwistLine": "There's another layer underneath this one.",
+  "completionReward": {
+    "relicName": "Contradiction Prism",
+    "relicEffect": "Makes false layers and anomaly exploitation more valuable later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Scene loads twice with a tiny mismatch. One version fades. Fake nodes blink.",
+    "audio": "Glitching audio loop resolving into two overlapping tracks",
+    "titleReveal": "Title glitches, corrects, then glitches again"
+  },
+  "transitionOut": {
+    "visual": "UI and room layers slide out of sync. One hidden layer remains.",
+    "audio": "Split tone collapsing into singular resonance",
+    "titleReveal": "The remaining layer rotates into orbit-view geometry"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_15_archive_contradiction",
+      "title": "Contradiction Archive",
+      "content": "Catalog of false systems and profitable contradictions."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_15_guide_wrong",
+      "title": "Not Every Wrong Choice Is a Mistake",
+      "content": "Sometimes wrong is the only way to right."
+    },
+    {
+      "type": "secret",
+      "id": "room_15_secret_layer",
+      "title": "The Layer Beneath the Layer",
+      "content": "The simulation had a basement. We found the stairs."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_15_scene_deception",
+      "title": "The Chamber That Preferred Deception",
+      "content": "Truth was the exception. Lies were the operating system."
+    }
+  ]
 }

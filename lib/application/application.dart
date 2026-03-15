@@ -11,5 +11,6 @@ export 'services/leaderboard_session_service.dart';
 export 'services/leaderboard_transport.dart';
 export 'services/robot_guide_service.dart';
 export 'services/room_content_generator.dart';
+export 'services/room_ux_service.dart';
 export 'services/route_service.dart';
 export 'services/side_activity_service.dart';

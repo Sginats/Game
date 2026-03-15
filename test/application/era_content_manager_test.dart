@@ -131,13 +131,13 @@ void main() {
     expect(manager.generators.containsKey('gen_era_1'), isTrue);
   });
 
-  test('RoomContentGenerator buildForEra produces 100 upgrades', () {
+  test('RoomContentGenerator buildForEra produces 200 upgrades', () {
     const gen = RoomContentGenerator();
     final content = gen.buildForEra(
       era: eras.first,
       baseGenerators: baseGenerators,
     );
-    expect(content.upgrades.length, 100);
+    expect(content.upgrades.length, 200);
     expect(content.generators.length, 1);
   });
 }
