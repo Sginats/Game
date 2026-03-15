@@ -29,6 +29,7 @@ import 'tech_tree/tech_tree_models.dart';
 import 'tech_tree/tech_tree_view.dart';
 import 'widgets/room_scene_backdrop.dart';
 import 'widgets/room_status_panel.dart';
+import 'widgets/guide_card.dart';
 
 class GameScreen extends StatefulWidget {
   final GameController controller;
@@ -155,6 +156,11 @@ class _GameScreenState extends State<GameScreen>
       _syncEraWindow(_currentEra(_controller));
       _focusCurrentEra();
       widget.audioService.setRoomAudioProfile(_controller.currentRoomId);
+      // Warm-start the initial room's audio assets so there is no hitch
+      // on the first ambient start, guide ping, or event sound.
+      unawaited(
+        widget.audioService.preloadEssentials(roomId: _controller.currentRoomId),
+      );
       // Initialize robot guide with current era
       final eraId = _currentEra(_controller);
       _robotGuide.onEraChanged(eraId);
@@ -849,153 +855,16 @@ class _GameScreenState extends State<GameScreen>
   }
 
   Widget _buildGuideCard() {
-    final guideMessage = _robotGuide.currentMessage;
-    final recommendation = _controller.lastRecommendation;
-    final aiLine = _controller.lastAiLine;
-    final recentMemories =
-        _controller.codexState.guideMemories.reversed.take(2).toList();
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: _glassBox(radius: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.smart_toy_rounded, color: Colors.cyanAccent, size: 18),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  widget.strings.robotGuide,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              if (guideMessage != null)
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(8),
-                    borderRadius: BorderRadius.circular(999),
-                    border:
-                        Border.all(color: Colors.white.withAlpha(14)),
-                  ),
-                  child: Text(
-                    widget.strings
-                        .formatGuideMemoryType(guideMessage.type.name),
-                    style: const TextStyle(
-                      color: Colors.cyanAccent,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              if (guideMessage != null) const SizedBox(width: 6),
-              if (guideMessage != null)
-                IconButton(
-                  onPressed: () => setState(_robotGuide.dismiss),
-                  icon: const Icon(Icons.close_rounded, size: 18),
-                  splashRadius: 18,
-                  color: Colors.white54,
-                  tooltip: widget.strings.close,
-                ),
-            ],
-          ),
-          Text(
-            guideMessage == null
-                ? widget.strings.noGuideMessage
-                : widget.strings.translateContent(guideMessage.text),
-            style: const TextStyle(
-              color: Colors.white70,
-              fontSize: 12,
-              height: 1.35,
-            ),
-          ),
-          if (recommendation != null || aiLine != null) ...[
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white.withAlpha(7),
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: Colors.white.withAlpha(12)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.strings.recommendedNext,
-                    style: const TextStyle(
-                      color: Colors.cyanAccent,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  if (recommendation != null) ...[
-                    const SizedBox(height: 3),
-                    Text(
-                      widget.strings.formatRecommendation(recommendation),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                  if (aiLine != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      widget.strings.formatAiLine(aiLine),
-                      style: const TextStyle(
-                        color: Colors.white60,
-                        fontSize: 12,
-                        height: 1.35,
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: 8),
-                  FilledButton.tonalIcon(
-                    onPressed: _focusSuggestedNode,
-                    icon: const Icon(Icons.my_location_rounded, size: 16),
-                    label: Text(widget.strings.focusSuggestedNode),
-                  ),
-                ],
-              ),
-            ),
-          ],
-          if (recentMemories.isNotEmpty) ...[
-            const SizedBox(height: 10),
-            Text(
-              widget.strings.guideMemoryLog,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 6),
-            ...recentMemories.map(
-              (memory) => Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Text(
-                  '${widget.strings.translateContent(memory.title)}: ${widget.strings.translateContent(memory.content)}',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white54,
-                    fontSize: 11,
-                    height: 1.35,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ],
+    return RepaintBoundary(
+      child: GuideCard(
+        guideService: _robotGuide,
+        strings: widget.strings,
+        recommendation: _controller.lastRecommendation,
+        aiLine: _controller.lastAiLine,
+        recentMemories: _controller.codexState.guideMemories.reversed
+            .take(2)
+            .toList(growable: false),
+        onFocusSuggestedNode: _focusSuggestedNode,
       ),
     );
   }
@@ -2156,6 +2025,10 @@ class _GameScreenState extends State<GameScreen>
     unawaited(
       widget.audioService.playRoomTransition(roomId: _controller.currentRoomId),
     );
+    // Warm-start the new room's audio assets non-blocking after the transition.
+    unawaited(
+      widget.audioService.preloadEssentials(roomId: _controller.currentRoomId),
+    );
     _syncEraWindow(eraId);
     _selectedNodeId = null;
     _cachedGraph = null;
@@ -3092,9 +2965,12 @@ class _GameScreenState extends State<GameScreen>
   Future<void> _showCodexSheet() async {
     final orderedEras = widget.config.eras.toList()
       ..sort((a, b) => a.order.compareTo(b.order));
-    // Do NOT pre-load all 20 eras' content here — it causes a blocking
-    // synchronous parse of all JSON just to open the codex. Era content is
-    // lazy-loaded already by _syncEraWindow as the player progresses.
+    // Do NOT pre-load all configured eras' content here — iterating every era
+    // and calling ensureEraContent() triggers a blocking synchronous JSON parse
+    // for each room not yet loaded, causing a visible hitch when opening the
+    // codex. Era content is lazy-loaded by _syncEraWindow as the player
+    // progresses through rooms, so only already-visited eras are available in
+    // the overview section; this is intentional.
     final seenEvents = _controller.seenEventTemplates;
     const sections = [
       'overview',
@@ -3118,187 +2994,252 @@ class _GameScreenState extends State<GameScreen>
           maxChildSize: 0.94,
           minChildSize: 0.48,
           expand: false,
-          builder: (context, scrollController) => SingleChildScrollView(
-            controller: scrollController,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _sheetTitle(widget.strings.codex),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: sections
-                      .map(
-                        (item) => ChoiceChip(
-                          selected: section == item,
-                          onSelected: (_) => setModalState(() => section = item),
-                          label: Text(widget.strings.codexSectionLabel(item)),
+          builder: (context, scrollController) {
+            // Compute the flat item list once per section so the
+            // SliverList.builder has a known itemCount without rebuilding
+            // all widgets up-front.
+            final items = _codexSectionItems(
+              section,
+              orderedEras: orderedEras,
+              seenEvents: seenEvents,
+            );
+            return CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _sheetTitle(widget.strings.codex),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: sections
+                              .map(
+                                (item) => ChoiceChip(
+                                  selected: section == item,
+                                  onSelected: (_) =>
+                                      setModalState(() => section = item),
+                                  label: Text(
+                                      widget.strings.codexSectionLabel(item)),
+                                ),
+                              )
+                              .toList(),
                         ),
-                      )
-                      .toList(),
+                        // Static header for the selected section (stat lines,
+                        // summary text, etc.) — always a small fixed set of
+                        // widgets, never a long list.
+                        _buildCodexSectionHeader(
+                          section,
+                          orderedEras: orderedEras,
+                          seenEvents: seenEvents,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 14),
-                _buildCodexSection(
-                  section,
-                  orderedEras: orderedEras,
-                  seenEvents: seenEvents,
+                // Virtualized list — only the visible archive cards are built.
+                SliverList.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: _buildCodexItemWidget(items[index]),
+                  ),
                 ),
+                // Bottom padding inside scroll area.
+                const SliverToBoxAdapter(child: SizedBox(height: 20)),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildCodexSection(
+  /// Returns only the static header widgets for a codex section (stat lines,
+  /// summary text, etc.). These are a small, fixed set and are always built.
+  Widget _buildCodexSectionHeader(
+    String section, {
+    required List<Era> orderedEras,
+    required Set<String> seenEvents,
+  }) {
+    final codex = _controller.codexState;
+    return Padding(
+      padding: const EdgeInsets.only(top: 14, bottom: 4),
+      child: switch (section) {
+        'guide' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.guideAffinityLabel,
+                _controller.guideAffinity.toStringAsFixed(1),
+              ),
+              _statLine(
+                widget.strings.guideTierLabel,
+                widget.strings.formatGuideTier(_controller.guideTier),
+              ),
+            ],
+          ),
+        'route' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${widget.strings.playstyle}: ${widget.strings.formatPlaystyle(_controller.dominantPlaystyle)}\n${widget.strings.route}: ${_controller.state.chosenBranches.isEmpty ? widget.strings.hidden : _controller.state.chosenBranches.map(_branchLabel).join(' / ')}',
+                style: const TextStyle(color: Colors.white70, height: 1.35),
+              ),
+            ],
+          ),
+        'secrets' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.seenSecrets,
+                '${_controller.state.discoveredSecrets.length}',
+              ),
+            ],
+          ),
+        'collections' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.codexCompletion,
+                '${codex.totalDiscovered}/${codex.totalAvailable}',
+              ),
+              _statLine(
+                widget.strings.metaProgressLabel,
+                '${_controller.metaProgression.relics.length} ${widget.strings.relicArchiveTitle} · ${_controller.metaProgression.memoryFragments.length} ${widget.strings.guideMemoryLog}',
+              ),
+            ],
+          ),
+        _ => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.sceneArchive,
+                widget.strings.sceneArchiveProgress(
+                  _controller.completedSceneBadges.length,
+                  orderedEras.length,
+                ),
+              ),
+              _statLine(
+                widget.strings.eventCodex,
+                widget.strings.eventArchiveProgress(
+                  seenEvents.length,
+                  widget.config.progression.events.length,
+                ),
+              ),
+              _statLine(
+                widget.strings.codexCompletion,
+                '${codex.totalDiscovered}/${codex.totalAvailable}',
+              ),
+            ],
+          ),
+      },
+    );
+  }
+
+  /// Returns a flat list of [_CodexItemData] for [section]. Used by the
+  /// `SliverList.builder` in the codex sheet so items are virtualized and
+  /// only built when they scroll into view.
+  List<_CodexItemData> _codexSectionItems(
     String section, {
     required List<Era> orderedEras,
     required Set<String> seenEvents,
   }) {
     final codex = _controller.codexState;
     return switch (section) {
-      'guide' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.guideAffinityLabel,
-              _controller.guideAffinity.toStringAsFixed(1),
+      'guide' => codex.guideMemories.reversed
+          .map(
+            (memory) => _CodexItemData(
+              title: widget.strings.translateContent(memory.title),
+              subtitle: widget.strings.formatGuideMemoryType(memory.messageType),
+              body: widget.strings.translateContent(memory.content),
+              icon: Icons.smart_toy_rounded,
             ),
-            _statLine(
-              widget.strings.guideTierLabel,
-              widget.strings.formatGuideTier(_controller.guideTier),
+          )
+          .toList(growable: false),
+      'route' => codex.routeArchive
+          .map(
+            (entry) => _CodexItemData(
+              title: _routeArchiveTitle(entry),
+              subtitle:
+                  '${entry.completionPercentage.toStringAsFixed(0)}% · ${entry.roomsVisited.length}/${_controller.totalRooms}',
+              body:
+                  '${widget.strings.translateContent(entry.description)}\n${entry.branchesChosen.isEmpty ? widget.strings.hidden : entry.branchesChosen.map(_branchLabel).join(' / ')}',
+              icon: Icons.route_rounded,
             ),
-            const SizedBox(height: 10),
-            ...codex.guideMemories.reversed.map(
-              (memory) => _archiveCard(
-                title: widget.strings.translateContent(memory.title),
-                subtitle: widget.strings.formatGuideMemoryType(memory.messageType),
-                body: widget.strings.translateContent(memory.content),
-                icon: Icons.smart_toy_rounded,
-              ),
+          )
+          .toList(growable: false),
+      'secrets' => codex.secretArchive
+          .map(
+            (secret) => _CodexItemData(
+              title: widget.strings.translateContent(secret.title),
+              subtitle: secret.discovered
+                  ? widget.strings.discovered
+                  : widget.strings.hidden,
+              body: secret.discovered
+                  ? '${widget.strings.translateContent(secret.description)}\n${widget.strings.translateContent(secret.hint)}'
+                  : widget.strings.hiddenRouteHint,
+              icon: Icons.visibility_rounded,
             ),
-          ],
-        ),
-      'route' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${widget.strings.playstyle}: ${widget.strings.formatPlaystyle(_controller.dominantPlaystyle)}\n${widget.strings.route}: ${_controller.state.chosenBranches.isEmpty ? widget.strings.hidden : _controller.state.chosenBranches.map(_branchLabel).join(' / ')}',
-              style: const TextStyle(color: Colors.white70, height: 1.35),
+          )
+          .toList(growable: false),
+      'lore' => codex.sceneLore
+          .map(
+            (entry) => _CodexItemData(
+              title: widget.strings.translateContent(entry.title),
+              subtitle:
+                  '${widget.strings.currentRoom}: ${_roomLabel(entry.roomId)}',
+              body: widget.strings.translateContent(entry.content),
+              icon: Icons.menu_book_rounded,
             ),
-            const SizedBox(height: 12),
-            ...codex.routeArchive.map(
-              (entry) => _archiveCard(
-                title: _routeArchiveTitle(entry),
-                subtitle:
-                    '${entry.completionPercentage.toStringAsFixed(0)}% · ${entry.roomsVisited.length}/${_controller.totalRooms}',
-                body:
-                    '${widget.strings.translateContent(entry.description)}\n${entry.branchesChosen.isEmpty ? widget.strings.hidden : entry.branchesChosen.map(_branchLabel).join(' / ')}',
-                icon: Icons.route_rounded,
-              ),
+          )
+          .toList(growable: false),
+      'collections' => codex.entries
+          .map(
+            (entry) => _CodexItemData(
+              title: widget.strings.translateContent(entry.title),
+              subtitle:
+                  widget.strings.formatCodexEntryType(entry.type.name),
+              body: widget.strings.translateContent(entry.content),
+              icon: Icons.auto_stories_rounded,
             ),
-          ],
-        ),
-      'secrets' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.seenSecrets,
-              '${_controller.state.discoveredSecrets.length}',
-            ),
-            const SizedBox(height: 10),
-            ...codex.secretArchive.map(
-              (secret) => _archiveCard(
-                title: widget.strings.translateContent(secret.title),
-                subtitle: secret.discovered
-                    ? widget.strings.discovered
-                    : widget.strings.hidden,
-                body: secret.discovered
-                    ? '${widget.strings.translateContent(secret.description)}\n${widget.strings.translateContent(secret.hint)}'
-                    : widget.strings.hiddenRouteHint,
-                icon: Icons.visibility_rounded,
-              ),
-            ),
-          ],
-        ),
-      'lore' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ...codex.sceneLore.map(
-              (entry) => _archiveCard(
-                title: widget.strings.translateContent(entry.title),
-                subtitle: '${widget.strings.currentRoom}: ${_roomLabel(entry.roomId)}',
-                body: widget.strings.translateContent(entry.content),
-                icon: Icons.menu_book_rounded,
-              ),
-            ),
-          ],
-        ),
-      'collections' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.codexCompletion,
-              '${codex.totalDiscovered}/${codex.totalAvailable}',
-            ),
-            _statLine(
-              widget.strings.metaProgressLabel,
-              '${_controller.metaProgression.relics.length} ${widget.strings.relicArchiveTitle} · ${_controller.metaProgression.memoryFragments.length} ${widget.strings.guideMemoryLog}',
-            ),
-            const SizedBox(height: 10),
-            ...codex.entries.map(
-              (entry) => _archiveCard(
-                title: widget.strings.translateContent(entry.title),
-                subtitle: widget.strings.formatCodexEntryType(entry.type.name),
-                body: widget.strings.translateContent(entry.content),
-                icon: Icons.auto_stories_rounded,
-              ),
-            ),
-          ],
-        ),
-      _ => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.sceneArchive,
-              widget.strings.sceneArchiveProgress(
-                _controller.completedSceneBadges.length,
-                orderedEras.length,
-              ),
-            ),
-            _statLine(
-              widget.strings.eventCodex,
-              widget.strings.eventArchiveProgress(
-                seenEvents.length,
-                widget.config.progression.events.length,
-              ),
-            ),
-            _statLine(
-              widget.strings.codexCompletion,
-              '${codex.totalDiscovered}/${codex.totalAvailable}',
-            ),
-            const SizedBox(height: 12),
-            ...orderedEras.map((era) {
-              final bought = _roomUpgradeCount(era.id);
-              final total = _roomUpgradeTotal(era.id);
-              final completed = _controller.completedSceneBadges.contains(era.id);
-              return _archiveCard(
-                title: widget.strings.localizedEraName(era.name),
-                subtitle: completed
-                    ? widget.strings.sceneCompleted
-                    : widget.strings.notYetCompleted,
-                body:
-                    '${widget.strings.roomUpgradeProgress(bought, total)}\n${widget.strings.localizedEraDescription(era)}',
-                icon: Icons.meeting_room_rounded,
-                progress: total <= 0 ? 0 : (bought / total).clamp(0, 1),
-              );
-            }),
-          ],
-        ),
+          )
+          .toList(growable: false),
+      _ => orderedEras.map((era) {
+          final bought = _roomUpgradeCount(era.id);
+          final total = _roomUpgradeTotal(era.id);
+          final completed =
+              _controller.completedSceneBadges.contains(era.id);
+          return _CodexItemData(
+            title: widget.strings.localizedEraName(era.name),
+            subtitle: completed
+                ? widget.strings.sceneCompleted
+                : widget.strings.notYetCompleted,
+            body:
+                '${widget.strings.roomUpgradeProgress(bought, total)}\n${widget.strings.localizedEraDescription(era)}',
+            icon: Icons.meeting_room_rounded,
+            progress: total <= 0 ? 0 : (bought / total).clamp(0.0, 1.0),
+          );
+        }).toList(growable: false),
     };
   }
+
+  /// Builds the visual widget for a single [_CodexItemData]. Equivalent to
+  /// the old `_archiveCard` but receives a typed data object so item
+  /// construction is separated from item rendering.
+  Widget _buildCodexItemWidget(_CodexItemData item) {
+    return _archiveCard(
+      title: item.title,
+      subtitle: item.subtitle,
+      body: item.body,
+      icon: item.icon,
+      progress: item.progress,
+    );
+  }
+
 
   Widget _archiveCard({
     required String title,
@@ -4414,3 +4355,24 @@ String _currentEra(GameController controller) {
 }
 
 enum _NodePurchaseState { canBuy, tooExpensive, locked, owned }
+
+
+/// Lightweight data holder for a single codex archive card.
+/// Separates data preparation from widget construction so the
+/// SliverList.builder can index into a pre-built list without
+/// constructing any widgets until an item scrolls into view.
+class _CodexItemData {
+  final String title;
+  final String subtitle;
+  final String body;
+  final IconData icon;
+  final double? progress;
+
+  const _CodexItemData({
+    required this.title,
+    required this.subtitle,
+    required this.body,
+    required this.icon,
+    this.progress,
+  });
+}

@@ -49,6 +49,7 @@ jobs:
           flutter test test/presentation/game_screen_widget_test.dart
           flutter test test/application/game_controller_perf_test.dart
           flutter test test/presentation/tech_tree_viewport_test.dart
+          flutter test test/application/game_audio_service_preload_test.dart
 
   analyze:
     name: Analyze

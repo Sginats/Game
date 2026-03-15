@@ -501,4 +501,64 @@ class GameAudioService {
     await Future.delayed(const Duration(milliseconds: 100));
     await HapticFeedback.heavyImpact();
   }
+
+  // ─── Preload / warm-start ─────────────────────────────────────────
+
+  /// Warm-start the essential audio assets for [roomId] so that first
+  /// playback does not hitch.
+  ///
+  /// The method resolves file paths for the most likely-needed sounds
+  /// (ambient layer, transition cue, guide ping, rare-event cue, and
+  /// the common interaction click) and opens-then-immediately-closes each
+  /// WAV file via MCI. This forces the OS audio subsystem to map the
+  /// file into its internal buffer so the first real `play` call returns
+  /// near-instantly.
+  ///
+  /// The operation is intentionally non-blocking: the caller should fire
+  /// it with `unawaited()` after a room transition so it does not delay
+  /// the UI thread.
+  Future<void> preloadEssentials({required String roomId}) async {
+    if (!_enabled) return;
+    final candidates = _preloadAssetNames(roomId);
+    for (final name in candidates) {
+      final path = _resolveAssetPath(name);
+      if (path != null) {
+        await _warmPath(path);
+      }
+    }
+  }
+
+  /// Returns the ordered list of asset file names to warm for [roomId].
+  ///
+  /// Exposed as a public method for testing. Production callers should use
+  /// [preloadEssentials] which calls this internally.
+  // ignore: invalid_use_of_visible_for_testing_member
+  List<String> preloadAssetNamesForRoom(String roomId) =>
+      _preloadAssetNames(roomId);
+
+  List<String> _preloadAssetNames(String roomId) {
+    return [
+      // Current-room ambient layer
+      'rooms/${roomId}_ambient.wav',
+      // Room transition cue
+      'rooms/${roomId}_transition.wav',
+      // Guide notification ping
+      'rooms/${roomId}_guide.wav',
+      // Rare event cue (high-priority: audible gap on first trigger is jarring)
+      'rooms/${roomId}_event_rare.wav',
+      // Global fallbacks used when room-specific files are absent
+      'tap.wav',
+      'unlock.wav',
+      'alert.wav',
+    ];
+  }
+
+  /// Open and immediately close [path] via MCI to warm the audio buffer.
+  Future<void> _warmPath(String path) async {
+    if (_mciSendString == null) return;
+    const warmAlias = 'preload_warm';
+    final escaped = path.replaceAll('"', '""');
+    await _sendMci('open "$escaped" type waveaudio alias $warmAlias');
+    await _sendMci('close $warmAlias');
+  }
 }

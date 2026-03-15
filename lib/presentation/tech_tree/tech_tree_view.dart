@@ -121,6 +121,9 @@ class _TechTreeViewState extends State<TechTreeView> {
     return _visibleWorldRect.overlaps(nodeBounds);
   }
 
+  /// Returns the world-space bounding-box side length (in logical pixels) for
+  /// a node of [scale]. Used both for culling (bbox overlap test) and for
+  /// sizing and positioning the [Positioned] widget inside the world [Stack].
   static double _radiusFor(TechTreeNodeScale scale) {
     switch (scale) {
       case TechTreeNodeScale.minor:
