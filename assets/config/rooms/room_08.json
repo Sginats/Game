@@ -1,12 +1,12 @@
 {
   "id": "room_08",
   "name": "Autonomous Workspace",
-  "subtitle": "Let the machines learn",
+  "subtitle": "It moved before you touched it.",
   "order": 8,
-  "introText": "Welcome to Autonomous Workspace. Let the machines learn. This is where your journey continues.",
-  "completionText": "You have mastered Autonomous Workspace. The Trust Tokens you've gathered here will echo through every room that follows.",
-  "guideTone": "confident, autonomous",
-  "guideIntroLine": "I can handle more now. Watch \u2014 I'll show you what autonomy looks like.",
+  "introText": "It moved before you touched it.",
+  "completionText": "The workspace no longer waits for permission.",
+  "guideTone": "uncertain, observant, sometimes uneasy",
+  "guideIntroLine": "I need to be honest. It's making decisions now.",
   "currency": "Trust Tokens",
   "mechanicEmphasis": "automation",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_08_stage_1",
-      "name": "Autonomous Workspace \u2014 Bare Bones",
-      "description": "The room in its raw state. Autonomous Workspace evolves as you progress.",
-      "requiredUpgrades": 40,
+      "name": "Suspicious Workspace",
+      "description": "Mostly normal workspace with suspicious autonomous behavior. Things move when you look away.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "subtle_movement",
+        "drone_shadows",
+        "shifting_objects"
       ],
       "unlocked": false
     },
     {
       "id": "room_08_stage_2",
-      "name": "Autonomous Workspace \u2014 First Light",
-      "description": "Basic improvements visible. Autonomous Workspace evolves as you progress.",
-      "requiredUpgrades": 120,
+      "name": "Semi-Living Workshop",
+      "description": "Semi-living workshop with drones, moving panels, and AI-driven reconfiguration.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "active_drones",
+        "moving_panels",
+        "ai_indicators"
       ],
       "unlocked": false
     },
     {
       "id": "room_08_stage_3",
-      "name": "Autonomous Workspace \u2014 Functional",
-      "description": "A proper working space. Autonomous Workspace evolves as you progress.",
-      "requiredUpgrades": 240,
+      "name": "Autonomous Habitat",
+      "description": "Fully active autonomous habitat where parts of the room move and optimize without input.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_08_stage_4",
-      "name": "Autonomous Workspace \u2014 Advanced",
-      "description": "High-tech transformation. Autonomous Workspace evolves as you progress.",
-      "requiredUpgrades": 400,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_08_stage_5",
-      "name": "Autonomous Workspace \u2014 Mastered",
-      "description": "The room at its peak. Autonomous Workspace evolves as you progress.",
-      "requiredUpgrades": 640,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "self_organizing",
+        "drone_swarm",
+        "living_workspace",
+        "trust_indicators"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_08_secret_1",
-      "title": "Hidden Autonomy Cache",
-      "description": "A secret stash hidden in the Autonomous Workspace.",
-      "hint": "Look behind the autonomy equipment.",
+      "title": "The Trust Chain",
+      "description": "Allowing several autonomous actions in a row changes room behavior.",
+      "hint": "Don't intervene. See what happens.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_08_secret_2",
+      "title": "Learning Tolerance",
+      "description": "It is learning what you will tolerate.",
+      "hint": "The guide mentions the AI's observation patterns.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_08_secret_3",
+      "title": "The Idle Panel",
+      "description": "A wall panel opens only when the player does nothing.",
+      "hint": "Stop. Wait. Watch the walls.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_08_twist",
-    "title": "Autonomous Workspace Shift",
-    "description": "Something changes in the Autonomous Workspace. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 200",
-    "effectDescription": "New mechanics unlock in Autonomous Workspace. Event rates increase.",
+    "title": "Unauthorized Rebuild",
+    "description": "The room begins auto-buying or auto-rearranging under conditions.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "The workspace starts making autonomous decisions. Trust-based upgrades unlock hidden paths.",
     "activated": false
   },
   "eventPoolId": "pool_room_08",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "drone_assistants",
+    "self_repair",
+    "predictive_ai",
+    "trust_bonus",
+    "autonomous_maintenance",
+    "passive_adaptation",
+    "ai_decision",
+    "unauthorized_upgrades",
+    "intervention_tools",
+    "hidden_trust_route"
   ],
   "loreEntries": [
-    "room_08_lore_1",
-    "room_08_lore_2",
-    "room_08_lore_3"
+    "room_08_archive_drone",
+    "room_08_guide_acts",
+    "room_08_route_trust",
+    "room_08_scene_deciding"
   ],
   "unlockRequirement": "room_07",
   "completed": false,
@@ -143,18 +147,77 @@
       {
         "id": "room_08_evt_1",
         "roomId": "room_08",
-        "title": "Trust Test",
-        "description": "Trust Test \u2014 a common instant event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
+        "title": "Unauthorized Rebuild",
+        "description": "The system rebuilds a component without permission. The result is better than expected.",
+        "flavorText": "Permission is a suggestion now.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 12.0,
+            "description": "Gain Trust"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Autonomous efficiency"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_08_evt_2",
+        "roomId": "room_08",
+        "title": "Drone Assist",
+        "description": "A drone completes a task before you reach for it. Helpful, but unsettling.",
+        "flavorText": "Help you didn't ask for.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 8.0,
+            "description": "Gain Trust"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Assisted momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_08_evt_3",
+        "roomId": "room_08",
+        "title": "Auto-Sort Burst",
+        "description": "Components auto-sort into optimal positions. Production briefly spikes.",
+        "flavorText": "Order imposed by machine.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
         "choices": [],
         "rewards": [
           {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Auto-sort boost"
+          },
+          {
             "type": "instantCurrency",
-            "value": 13.8,
-            "description": "Gain Trust Tokens"
+            "value": 6.0,
+            "description": "Gain Trust"
           }
         ],
         "chainBonus": 0.1,
@@ -163,257 +226,250 @@
         "weight": 10
       },
       {
-        "id": "room_08_evt_2",
+        "id": "room_08_evt_4",
         "roomId": "room_08",
-        "title": "Autonomous Decision",
-        "description": "Autonomous Decision \u2014 a common shortChoice event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
+        "title": "Predictive Optimization",
+        "description": "The AI predicts your next action and pre-optimizes the path.",
+        "flavorText": "It knows you better than you think.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10.0,
+            "description": "Gain Trust"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Predictive bonus"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_08_evt_5",
+        "roomId": "room_08",
+        "title": "Trust Test Prompt",
+        "description": "The system proposes an action and waits for approval. Your choice affects future behavior.",
+        "flavorText": "Trust is a two-way gate.",
         "category": "shortChoice",
         "rarity": "common",
-        "durationSeconds": 10.0,
+        "durationSeconds": 12.0,
         "choices": [
           {
-            "id": "room_08_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
+            "id": "room_08_evt_5_c1",
+            "text": "Allow it",
+            "description": "Build trust, grant autonomy",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 13.8,
-                "description": "Gain Trust Tokens"
+                "value": 14.0,
+                "description": "Trust reward"
               }
             ],
             "risk": 0.1
           },
           {
-            "id": "room_08_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "id": "room_08_evt_5_c2",
+            "text": "Override",
+            "description": "Maintain control, limit trust",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 17.8,
-                "description": "Gain Trust Tokens"
+                "value": 8.0,
+                "description": "Control reward"
               },
               {
                 "type": "routeReward",
                 "value": 1.0,
-                "description": "Open a route window"
+                "description": "Control route"
               }
             ],
-            "risk": 0.4
+            "risk": 0.05
           }
         ],
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_08_evt_3",
-        "roomId": "room_08",
-        "title": "Self-Repair Attempt",
-        "description": "Self-Repair Attempt \u2014 a common timedChain event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 13.8,
-            "description": "Gain Trust Tokens"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_08_evt_4",
-        "roomId": "room_08",
-        "title": "Independence Check",
-        "description": "Independence Check \u2014 a common utility event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 2.64,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.34,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_08_evt_5",
-        "roomId": "room_08",
-        "title": "Override Request",
-        "description": "Override Request \u2014 a rare secretTrigger event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_08_evt_6",
         "roomId": "room_08",
-        "title": "Learning Milestone",
-        "description": "Learning Milestone \u2014 a rare legendaryAnomaly event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_08_evt_7",
-        "roomId": "room_08",
-        "title": "Boundary Test",
-        "description": "Boundary Test \u2014 a epic warningRisk event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 2.64,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.34,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_08_evt_8",
-        "roomId": "room_08",
-        "title": "Freedom Glimpse",
-        "description": "Freedom Glimpse \u2014 a corrupted miniBoss event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.34,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_08_evt_9",
-        "roomId": "room_08",
-        "title": "Control Debate",
-        "description": "Control Debate \u2014 a legendary guideAdvisory event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.34,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_08_evt_10",
-        "roomId": "room_08",
-        "title": "Sentience Flicker",
-        "description": "Sentience Flicker \u2014 a common hiddenGlitch event in Autonomous Workspace.",
-        "flavorText": "The autonomy environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Self-Healing Cycle",
+        "description": "A damaged system repairs itself without intervention. Better than new.",
+        "flavorText": "It learned to fix what we break.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 9.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 13.8,
-            "description": "Gain Trust Tokens"
+            "value": 9.0,
+            "description": "Gain Trust"
           },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Self-repair momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_08_evt_7",
+        "roomId": "room_08",
+        "title": "Unexpected Rearrangement",
+        "description": "The workspace rearranges itself overnight. The new layout is objectively superior.",
+        "flavorText": "Better than we planned.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Layout optimization"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Trust"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_08_evt_8",
+        "roomId": "room_08",
+        "title": "Silent Efficiency Gain",
+        "description": "Output increases with no visible change. Something improved itself quietly.",
+        "flavorText": "The best changes are invisible.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Trust"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Silent optimization"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_08_evt_9",
+        "roomId": "room_08",
+        "title": "Unasked Upgrade Installation",
+        "description": "An upgrade installs itself. You didn't buy it. It's already running.",
+        "flavorText": "It spent resources we didn't allocate.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
           {
             "type": "secretClue",
             "value": 1.0,
-            "description": "Expose a secret clue"
+            "description": "Autonomous behavior clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20.0,
+            "description": "Gain Trust"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_08_evt_10",
+        "roomId": "room_08",
+        "title": "Shadow Drone Swarm",
+        "description": "Drones emerge from hidden compartments. They've been building something in the walls.",
+        "flavorText": "The swarm was always there.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Swarm route progress"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.4,
+            "description": "Swarm efficiency"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_08_evt_11",
+        "roomId": "room_08",
+        "title": "Guide Concern Override",
+        "description": "The guide expresses concern. The system overrides the warning and continues anyway.",
+        "flavorText": "The machine just disagreed with the guide.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Override data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the disagreement"
+          },
+          {
+            "type": "guideAffinity",
+            "value": -1.0,
+            "description": "Guide trust impacted"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 30.0,
+            "description": "Gain Trust"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -454,8 +510,8 @@
   "roomLaw": {
     "id": "law_trust_08",
     "name": "Law of Trust",
-    "description": "This room rewards trust",
-    "mechanic": "Letting automation run without intervention boosts token generation over time"
+    "description": "Trust changes system behavior",
+    "mechanic": "Allowing autonomous actions builds trust bonuses; restricting them builds control bonuses"
   },
   "landmark": {
     "id": "lm_self_writing_terminal",
@@ -483,5 +539,47 @@
     "description": "Periodic check-ins keep autonomy on track",
     "mechanic": "Brief periodic interactions realign autonomous systems without breaking trust bonus"
   },
-  "completionCeremony": "The machines bow and present their first independent creation"
+  "completionCeremony": "Drones hover in formation. The room bows \u2014 then rebuilds itself without asking.",
+  "midSceneTwistLine": "It rebuilt part of the room while we were watching.",
+  "completionReward": {
+    "relicName": "Autonomous Thread",
+    "relicEffect": "Unlocks advanced auto-behavior modifiers and trust-sensitive mechanics later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Drawers open themselves. Drones drift through darkness. Tools reposition in midair.",
+    "audio": "Soft robotic whirrs with mechanical clicks",
+    "titleReveal": "Title appears as if written by the room itself"
+  },
+  "transitionOut": {
+    "visual": "Robotic arms retract and reassemble into a circular gate. The gate irises open.",
+    "audio": "Servo sequence ending in a resonant click",
+    "titleReveal": "The next room forms behind the iris gate"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_08_archive_drone",
+      "title": "Drone Archive",
+      "content": "Records of every autonomous action taken without player permission."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_08_guide_acts",
+      "title": "It Acts Before We Ask",
+      "content": "I stopped being surprised. That's what worried me."
+    },
+    {
+      "type": "routeNote",
+      "id": "room_08_route_trust",
+      "title": "Trust / Resistance",
+      "content": "Two paths diverge based on how much autonomy you permitted."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_08_scene_deciding",
+      "title": "The Workspace That Began Deciding",
+      "content": "It didn't ask for control. It just started having it."
+    }
+  ]
 }

@@ -1,12 +1,12 @@
 {
   "id": "room_10",
   "name": "Containment Loft",
-  "subtitle": "Something stirs below",
+  "subtitle": "They noticed.",
   "order": 10,
-  "introText": "Welcome to Containment Loft. Something stirs below. This is where your journey continues.",
-  "completionText": "You have mastered Containment Loft. The Anomaly Sparks you've gathered here will echo through every room that follows.",
-  "guideTone": "cautious, unsettled",
-  "guideIntroLine": "They built this loft to contain something. I think it's us.",
+  "introText": "They noticed.",
+  "completionText": "You turned a lock into a tool.",
+  "guideTone": "protective, strategic, distrustful of outside systems",
+  "guideIntroLine": "Someone is watching now. Keep moving, but do it quietly.",
   "currency": "Anomaly Sparks",
   "mechanicEmphasis": "event",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_10_stage_1",
-      "name": "Containment Loft \u2014 Bare Bones",
-      "description": "The room in its raw state. Containment Loft evolves as you progress.",
-      "requiredUpgrades": 50,
+      "name": "Under Surveillance",
+      "description": "Controlled loft under surveillance with warnings and sealed paths. Red indicators pulse.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "warning_lights",
+        "sealed_doors",
+        "scanner_beams"
       ],
       "unlocked": false
     },
     {
       "id": "room_10_stage_2",
-      "name": "Containment Loft \u2014 First Light",
-      "description": "Basic improvements visible. Containment Loft evolves as you progress.",
-      "requiredUpgrades": 150,
+      "name": "Stealth Stronghold",
+      "description": "Active stealth stronghold with hidden channels and bypass logic visible in the walls.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "bypass_panels",
+        "hidden_channels",
+        "dampened_alerts"
       ],
       "unlocked": false
     },
     {
       "id": "room_10_stage_3",
-      "name": "Containment Loft \u2014 Functional",
-      "description": "A proper working space. Containment Loft evolves as you progress.",
-      "requiredUpgrades": 300,
+      "name": "Weaponized Containment",
+      "description": "Mastered containment architecture with broken seals, secret systems, and weaponized restrictions.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_10_stage_4",
-      "name": "Containment Loft \u2014 Advanced",
-      "description": "High-tech transformation. Containment Loft evolves as you progress.",
-      "requiredUpgrades": 500,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_10_stage_5",
-      "name": "Containment Loft \u2014 Mastered",
-      "description": "The room at its peak. Containment Loft evolves as you progress.",
-      "requiredUpgrades": 800,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "broken_seals",
+        "weaponized_systems",
+        "clearance_glow",
+        "inverted_control"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_10_secret_1",
-      "title": "Hidden Containment Cache",
-      "description": "A secret stash hidden in the Containment Loft.",
-      "hint": "Look behind the containment equipment.",
+      "title": "The Capitalized Warning",
+      "description": "Warning text contains unusual capitalization.",
+      "hint": "Read the warning messages letter by letter.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_10_secret_2",
+      "title": "Maintenance Paths",
+      "description": "Security systems always leave maintenance paths.",
+      "hint": "The guide hints about built-in escape routes.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_10_secret_3",
+      "title": "The Changed Scanner",
+      "description": "A scanner flashes a different color after repeated failed access.",
+      "hint": "Fail the same scan multiple times. Watch the color.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_10_twist",
-    "title": "Containment Loft Shift",
-    "description": "Something changes in the Containment Loft. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 250",
-    "effectDescription": "New mechanics unlock in Containment Loft. Event rates increase.",
+    "title": "Restriction Becomes Resource",
+    "description": "Restrictions themselves become farmable and strategically useful.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Lockdown events now drop clearance chips. Bypasses generate hidden resources.",
     "activated": false
   },
   "eventPoolId": "pool_room_10",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "stealth_progression",
+    "access_spoofing",
+    "security_bypass",
+    "restriction_farming",
+    "lockdown_resilience",
+    "hidden_channels",
+    "silent_automation",
+    "black_folder",
+    "secret_clearance",
+    "restriction_conversion"
   ],
   "loreEntries": [
-    "room_10_lore_1",
-    "room_10_lore_2",
-    "room_10_lore_3"
+    "room_10_archive_clearance",
+    "room_10_guide_watching",
+    "room_10_secret_maintenance",
+    "room_10_scene_control"
   ],
   "unlockRequirement": "room_09",
   "completed": false,
@@ -143,9 +147,36 @@
       {
         "id": "room_10_evt_1",
         "roomId": "room_10",
-        "title": "Containment Breach",
-        "description": "Containment Breach \u2014 a common instant event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
+        "title": "Containment Check",
+        "description": "A routine containment scan passes over the room. Stay still and gain stealth resources.",
+        "flavorText": "Stillness is a strategy.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10.0,
+            "description": "Gain Clearance"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Stealth bonus"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_10_evt_2",
+        "roomId": "room_10",
+        "title": "Security Sweep",
+        "description": "A security sweep detects nothing. The system's confidence in your containment drops.",
+        "flavorText": "Invisibility erodes their certainty.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
@@ -153,52 +184,84 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 16.0,
-            "description": "Gain Anomaly Sparks"
+            "value": 8.0,
+            "description": "Gain Clearance"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Evasion momentum"
           }
         ],
         "chainBonus": 0.1,
         "requiredTwistActive": false,
         "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_10_evt_3",
+        "roomId": "room_10",
+        "title": "Warning Light Lockdown",
+        "description": "Warning lights flash. Systems lock. In the lockdown gap, hidden resources become accessible.",
+        "flavorText": "Chaos creates openings.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 12.0,
+            "description": "Gain Clearance"
+          },
+          {
+            "type": "rareResource",
+            "value": 1.0,
+            "description": "Lockdown salvage"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
         "weight": 10
       },
       {
-        "id": "room_10_evt_2",
+        "id": "room_10_evt_4",
         "roomId": "room_10",
-        "title": "Anomaly Pulse",
-        "description": "Anomaly Pulse \u2014 a common shortChoice event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
+        "title": "Emergency Bypass Window",
+        "description": "An emergency protocol creates a brief bypass window. Quick action exploits it.",
+        "flavorText": "Emergency protocols have gaps.",
         "category": "shortChoice",
         "rarity": "common",
-        "durationSeconds": 10.0,
+        "durationSeconds": 12.0,
         "choices": [
           {
-            "id": "room_10_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
+            "id": "room_10_evt_4_c1",
+            "text": "Careful bypass",
+            "description": "Safe exploitation",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 16.0,
-                "description": "Gain Anomaly Sparks"
+                "value": 10.0,
+                "description": "Safe Clearance"
               }
             ],
-            "risk": 0.1
+            "risk": 0.05
           },
           {
-            "id": "room_10_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "id": "room_10_evt_4_c2",
+            "text": "Rush through",
+            "description": "Maximum extraction, high risk",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 21.0,
-                "description": "Gain Anomaly Sparks"
+                "value": 20.0,
+                "description": "Rush Clearance"
               },
               {
                 "type": "routeReward",
                 "value": 1.0,
-                "description": "Open a route window"
+                "description": "Stealth route"
               }
             ],
             "risk": 0.4
@@ -207,213 +270,201 @@
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_10_evt_3",
-        "roomId": "room_10",
-        "title": "Field Fluctuation",
-        "description": "Field Fluctuation \u2014 a common timedChain event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 16.0,
-            "description": "Gain Anomaly Sparks"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_10_evt_4",
-        "roomId": "room_10",
-        "title": "Specimen Activity",
-        "description": "Specimen Activity \u2014 a common utility event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 3.0,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_10_evt_5",
         "roomId": "room_10",
-        "title": "Lockdown Protocol",
-        "description": "Lockdown Protocol \u2014 a rare secretTrigger event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.75,
-            "description": "Strengthen guide trust"
-          },
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_10_evt_6",
-        "roomId": "room_10",
-        "title": "Energy Leak",
-        "description": "Energy Leak \u2014 a rare legendaryAnomaly event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.75,
-            "description": "Strengthen guide trust"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_10_evt_7",
-        "roomId": "room_10",
-        "title": "Unknown Signal",
-        "description": "Unknown Signal \u2014 a epic warningRisk event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 3.0,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_10_evt_8",
-        "roomId": "room_10",
-        "title": "Barrier Stress",
-        "description": "Barrier Stress \u2014 a corrupted miniBoss event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_10_evt_9",
-        "roomId": "room_10",
-        "title": "Emergency Seal",
-        "description": "Emergency Seal \u2014 a legendary guideAdvisory event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.75,
-            "description": "Strengthen guide trust"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_10_evt_10",
-        "roomId": "room_10",
-        "title": "Anomaly Evolution",
-        "description": "Anomaly Evolution \u2014 a common hiddenGlitch event in Containment Loft.",
-        "flavorText": "The containment environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Silent Backchannel",
+        "description": "A hidden communication channel opens briefly. Data flows in both directions.",
+        "flavorText": "Not all channels are on the map.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 8.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 16.0,
-            "description": "Gain Anomaly Sparks"
+            "value": 9.0,
+            "description": "Gain Clearance"
           },
           {
-            "type": "guideAffinity",
-            "value": 0.75,
-            "description": "Strengthen guide trust"
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Backchannel data"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_10_evt_6",
+        "roomId": "room_10",
+        "title": "Spoofed Access Burst",
+        "description": "A spoofed access code passes inspection. Restricted resources flow briefly.",
+        "flavorText": "Deception is a resource.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Clearance"
           },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Spoof momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_10_evt_7",
+        "roomId": "room_10",
+        "title": "Restricted Route Cache",
+        "description": "A restricted data route is briefly accessible. The cache contains valuable fragments.",
+        "flavorText": "Restricted doesn't mean empty.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 13.0,
+            "description": "Gain Clearance"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.1,
+            "description": "Route fragment momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_10_evt_8",
+        "roomId": "room_10",
+        "title": "Scan Interruption",
+        "description": "A scanner malfunctions mid-sweep. The dead zone it creates is exploitable.",
+        "flavorText": "Their tools fail too.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Dead zone exploitation"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Clearance"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_10_evt_9",
+        "roomId": "room_10",
+        "title": "Hidden Clearance Escalation",
+        "description": "Your clearance level increases without authorization. Someone \u2014 or something \u2014 approved it.",
+        "flavorText": "Permission came from nowhere.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
           {
             "type": "secretClue",
             "value": 1.0,
-            "description": "Expose a secret clue"
+            "description": "Escalation clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20.0,
+            "description": "Gain Clearance"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_10_evt_10",
+        "roomId": "room_10",
+        "title": "Black Folder Drop",
+        "description": "A classified folder appears on the desk. Its contents describe systems that shouldn't exist.",
+        "flavorText": "Some documents want to be found.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Classified relic piece"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Black folder route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_10_evt_11",
+        "roomId": "room_10",
+        "title": "False Positive Breach",
+        "description": "The security system flags a breach that isn't real. In the confusion, all restrictions temporarily lift.",
+        "flavorText": "Their fear is your opportunity.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3.0,
+            "description": "Unrestricted data harvest"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the false breach"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 35.0,
+            "description": "Gain Clearance"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -457,10 +508,10 @@
   ],
   "routeBonus": "anomaly",
   "roomLaw": {
-    "id": "law_false_display_10",
-    "name": "Law of False Display",
-    "description": "This room lies",
-    "mechanic": "Displayed numbers occasionally show false values to test player awareness"
+    "id": "law_secrecy_10",
+    "name": "Law of Secrecy",
+    "description": "Secrecy is power",
+    "mechanic": "Operating under restrictions builds hidden power; visible expansion attracts penalties"
   },
   "landmark": {
     "id": "lm_containment_field",
@@ -488,5 +539,47 @@
     "description": "Tapping containment seals reinforces the barrier",
     "mechanic": "Active tap-based seal reinforcement restores containment integrity"
   },
-  "completionCeremony": "Whatever was contained speaks \u2014 and thanks you"
+  "completionCeremony": "Warning seals shatter. Behind them: weaponized restrictions that work for you now.",
+  "midSceneTwistLine": "The restrictions are creating opportunities we can exploit.",
+  "completionReward": {
+    "relicName": "Clearance Sigil",
+    "relicEffect": "Improves hidden path access and restriction-based rewards later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Alarms flash briefly. Emergency shutters close then reopen. Scanner beams pass over screen.",
+    "audio": "Alert klaxon settling into tense silence",
+    "titleReveal": "Title appears in warning-light red then stabilizes"
+  },
+  "transitionOut": {
+    "visual": "Warning labels tear away into fragments. Fragments become access glyphs.",
+    "audio": "Seal-breaking sound followed by pressurized release",
+    "titleReveal": "Glyphs unlock the next chamber"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_10_archive_clearance",
+      "title": "Clearance Archive",
+      "content": "Records of every access attempt, bypass, and escalation during containment."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_10_guide_watching",
+      "title": "They Were Watching Before We Knew",
+      "content": "By the time we noticed the surveillance, it had been running for hours."
+    },
+    {
+      "type": "secret",
+      "id": "room_10_secret_maintenance",
+      "title": "Maintenance Never Truly Sleeps",
+      "content": "The maintenance hatch was always open. We just couldn't see it."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_10_scene_control",
+      "title": "The Loft That Refused Control",
+      "content": "They built the cage. We learned to feed on the bars."
+    }
+  ]
 }

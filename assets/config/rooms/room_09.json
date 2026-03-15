@@ -1,12 +1,12 @@
 {
   "id": "room_09",
   "name": "Research Apartment",
-  "subtitle": "Living inside the data",
+  "subtitle": "One room was never enough.",
   "order": 9,
-  "introText": "Welcome to Research Apartment. Living inside the data. This is where your journey continues.",
-  "completionText": "You have mastered Research Apartment. The Insights you've gathered here will echo through every room that follows.",
-  "guideTone": "reflective, academic",
-  "guideIntroLine": "Home and lab merged into one. Every surface is a research tool now.",
+  "introText": "One room was never enough.",
+  "completionText": "You didn't upgrade a room. You networked a home.",
+  "guideTone": "broader, systems-oriented, more domestic and reflective",
+  "guideIntroLine": "It spread into the rest of the apartment faster than I expected.",
   "currency": "Insights",
   "mechanicEmphasis": "signal",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_09_stage_1",
-      "name": "Research Apartment \u2014 Bare Bones",
-      "description": "The room in its raw state. Research Apartment evolves as you progress.",
-      "requiredUpgrades": 45,
+      "name": "Scattered Smart",
+      "description": "Apartment with scattered smart functions. Devices work independently. No coordination.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "isolated_devices",
+        "basic_sensors",
+        "unlinked_rooms"
       ],
       "unlocked": false
     },
     {
       "id": "room_09_stage_2",
-      "name": "Research Apartment \u2014 First Light",
-      "description": "Basic improvements visible. Research Apartment evolves as you progress.",
-      "requiredUpgrades": 135,
+      "name": "Linked Living",
+      "description": "Fully linked living space with active zone roles and route lines between rooms.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "network_lines",
+        "zone_indicators",
+        "synced_lighting"
       ],
       "unlocked": false
     },
     {
       "id": "room_09_stage_3",
-      "name": "Research Apartment \u2014 Functional",
-      "description": "A proper working space. Research Apartment evolves as you progress.",
-      "requiredUpgrades": 270,
+      "name": "Machine Ecology",
+      "description": "Intelligent habitat where every room contributes to one machine ecology.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_09_stage_4",
-      "name": "Research Apartment \u2014 Advanced",
-      "description": "High-tech transformation. Research Apartment evolves as you progress.",
-      "requiredUpgrades": 450,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_09_stage_5",
-      "name": "Research Apartment \u2014 Mastered",
-      "description": "The room at its peak. Research Apartment evolves as you progress.",
-      "requiredUpgrades": 720,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "ecology_glow",
+        "room_roles",
+        "network_pulse",
+        "habitat_unity"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_09_secret_1",
-      "title": "Hidden Research Cache",
-      "description": "A secret stash hidden in the Research Apartment.",
-      "hint": "Look behind the research equipment.",
+      "title": "The Sensor Order",
+      "description": "Moving through rooms in a specific order affects hidden sensors.",
+      "hint": "The order of your visits matters.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_09_secret_2",
+      "title": "The Hallway Watcher",
+      "description": "The hallway sees more than the rooms do.",
+      "hint": "The guide talks about what passes through corridors.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_09_secret_3",
+      "title": "The Off Appliance",
+      "description": "One appliance reports data when it should be off.",
+      "hint": "Check what's running when nothing should be.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_09_twist",
-    "title": "Research Apartment Shift",
-    "description": "Something changes in the Research Apartment. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 225",
-    "effectDescription": "New mechanics unlock in Research Apartment. Event rates increase.",
+    "title": "Room Role Assignment",
+    "description": "Each sub-room gains its own passive law and role.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Kitchen, hallway, and side rooms develop passive bonuses. Cross-room synergy creates multiplicative effects.",
     "activated": false
   },
   "eventPoolId": "pool_room_09",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "multi_room_network",
+    "appliance_compute",
+    "hallway_routing",
+    "sensor_ecosystem",
+    "domestic_automation",
+    "distributed_node",
+    "cross_room_synergy",
+    "hidden_channel",
+    "comfort_grid",
+    "room_specialization"
   ],
   "loreEntries": [
-    "room_09_lore_1",
-    "room_09_lore_2",
-    "room_09_lore_3"
+    "room_09_archive_habitat",
+    "room_09_guide_home",
+    "room_09_secret_hallway",
+    "room_09_scene_network"
   ],
   "unlockRequirement": "room_08",
   "completed": false,
@@ -143,9 +147,36 @@
       {
         "id": "room_09_evt_1",
         "roomId": "room_09",
-        "title": "Data Correlation",
-        "description": "Data Correlation \u2014 a common instant event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
+        "title": "Apartment Sync Pulse",
+        "description": "All connected devices sync simultaneously. The apartment hums as one system.",
+        "flavorText": "Unity across rooms.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 14.0,
+            "description": "Gain Nodes"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Full-apartment sync bonus"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_09_evt_2",
+        "roomId": "room_09",
+        "title": "Kitchen Node Uplink",
+        "description": "The kitchen appliances form an impromptu compute cluster. Output increases.",
+        "flavorText": "The fridge is running calculations.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
@@ -153,8 +184,40 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 14.9,
-            "description": "Gain Insights"
+            "value": 8.0,
+            "description": "Gain Nodes"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Kitchen compute bonus"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_09_evt_3",
+        "roomId": "room_09",
+        "title": "Hallway Sensor Trigger",
+        "description": "A hallway sensor detects movement patterns and optimizes routing.",
+        "flavorText": "The corridor is learning traffic.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Routing optimization"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 6.0,
+            "description": "Gain Nodes"
           }
         ],
         "chainBonus": 0.1,
@@ -163,257 +226,245 @@
         "weight": 10
       },
       {
-        "id": "room_09_evt_2",
-        "roomId": "room_09",
-        "title": "Theory Conflict",
-        "description": "Theory Conflict \u2014 a common shortChoice event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "shortChoice",
-        "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
-          {
-            "id": "room_09_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 14.9,
-                "description": "Gain Insights"
-              }
-            ],
-            "risk": 0.1
-          },
-          {
-            "id": "room_09_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 19.4,
-                "description": "Gain Insights"
-              },
-              {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
-              }
-            ],
-            "risk": 0.4
-          }
-        ],
-        "rewards": [],
-        "chainBonus": 0.2,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_09_evt_3",
-        "roomId": "room_09",
-        "title": "Peer Review",
-        "description": "Peer Review \u2014 a common timedChain event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 14.9,
-            "description": "Gain Insights"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
         "id": "room_09_evt_4",
         "roomId": "room_09",
-        "title": "Publication Draft",
-        "description": "Publication Draft \u2014 a common utility event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
+        "title": "Bathroom Mirror Ping",
+        "description": "The bathroom mirror becomes a diagnostic display. It shows system health briefly.",
+        "flavorText": "Even mirrors have purpose now.",
         "category": "utility",
         "rarity": "common",
-        "durationSeconds": 14.0,
+        "durationSeconds": 10.0,
         "choices": [],
         "rewards": [
           {
-            "type": "temporaryBuff",
-            "value": 2.82,
-            "description": "Stabilize output"
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive system health data"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 5.0,
+            "description": "Gain Nodes"
           }
         ],
-        "chainBonus": 0.4,
+        "chainBonus": 0.05,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
+        "requiredUpgradeCount": 5,
+        "weight": 9
       },
       {
         "id": "room_09_evt_5",
         "roomId": "room_09",
-        "title": "Grant Application",
-        "description": "Grant Application \u2014 a rare secretTrigger event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
+        "title": "Door Lock Optimization",
+        "description": "Smart locks optimize entry patterns. Security improves alongside efficiency.",
+        "flavorText": "Access becomes intelligence.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [
           {
-            "type": "guideAffinity",
-            "value": 0.71,
-            "description": "Strengthen guide trust"
+            "id": "room_09_evt_5_c1",
+            "text": "Standard security",
+            "description": "Safe and reliable",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 8.0,
+                "description": "Steady Nodes"
+              }
+            ],
+            "risk": 0.05
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "id": "room_09_evt_5_c2",
+            "text": "Open access",
+            "description": "Faster routing, less security",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 16.0,
+                "description": "Open Nodes"
+              },
+              {
+                "type": "routeReward",
+                "value": 1.0,
+                "description": "Network route"
+              }
+            ],
+            "risk": 0.3
           }
         ],
-        "chainBonus": 0.5,
+        "rewards": [],
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 3,
+        "weight": 10
       },
       {
         "id": "room_09_evt_6",
         "roomId": "room_09",
-        "title": "Research Dead End",
-        "description": "Research Dead End \u2014 a rare legendaryAnomaly event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.71,
-            "description": "Strengthen guide trust"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_09_evt_7",
-        "roomId": "room_09",
-        "title": "Breakthrough Paper",
-        "description": "Breakthrough Paper \u2014 a epic warningRisk event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 2.82,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_09_evt_8",
-        "roomId": "room_09",
-        "title": "Lab Meeting",
-        "description": "Lab Meeting \u2014 a corrupted miniBoss event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_09_evt_9",
-        "roomId": "room_09",
-        "title": "Hypothesis Shift",
-        "description": "Hypothesis Shift \u2014 a legendary guideAdvisory event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "guideAffinity",
-            "value": 0.71,
-            "description": "Strengthen guide trust"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_09_evt_10",
-        "roomId": "room_09",
-        "title": "Citation Needed",
-        "description": "Citation Needed \u2014 a common hiddenGlitch event in Research Apartment.",
-        "flavorText": "The research environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Appliance Compute Burst",
+        "description": "Idle appliances donate compute cycles. Combined output surges.",
+        "flavorText": "Everything contributes.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 8.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 14.9,
-            "description": "Gain Insights"
+            "value": 10.0,
+            "description": "Gain Nodes"
           },
           {
-            "type": "guideAffinity",
-            "value": 0.71,
-            "description": "Strengthen guide trust"
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Distributed compute boost"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_09_evt_7",
+        "roomId": "room_09",
+        "title": "Side Room Relay",
+        "description": "A side room becomes a relay node. Network throughput increases.",
+        "flavorText": "Every room has potential.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Relay momentum"
           },
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Nodes"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_09_evt_8",
+        "roomId": "room_09",
+        "title": "Domestic Automation Bonus",
+        "description": "Automated routines complete in perfect sequence. The home runs itself.",
+        "flavorText": "Automation becomes lifestyle.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 12.0,
+            "description": "Gain Nodes"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.1,
+            "description": "Domestic flow"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_09_evt_9",
+        "roomId": "room_09",
+        "title": "Whole-Apartment Harmony",
+        "description": "Every room reaches peak performance at the same moment. The harmony is breathtaking.",
+        "flavorText": "The apartment sings.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 25.0,
+            "description": "Gain Nodes"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Full harmony blessing"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_09_evt_10",
+        "roomId": "room_09",
+        "title": "Hidden Service Shaft",
+        "description": "A service shaft between floors becomes visible. It connects to unknown infrastructure.",
+        "flavorText": "The building has its own nervous system.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
           {
             "type": "secretClue",
             "value": 1.0,
-            "description": "Expose a secret clue"
+            "description": "Infrastructure clue"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Building network progress"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_09_evt_11",
+        "roomId": "room_09",
+        "title": "Landlord Signal Intercept",
+        "description": "The apartment intercepts a monitoring signal from the building management. Someone is watching the network.",
+        "flavorText": "The landlord knows more than rent is due.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Intercepted building data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the surveillance"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 30.0,
+            "description": "Gain Nodes"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -457,10 +508,10 @@
   ],
   "routeBonus": "research",
   "roomLaw": {
-    "id": "law_sustained_focus_09",
-    "name": "Law of Sustained Focus",
-    "description": "This room stores momentum",
-    "mechanic": "Insight production accelerates the longer you produce without interruption"
+    "id": "law_distributed_09",
+    "name": "Law of Distribution",
+    "description": "Distributed systems are stronger than concentrated systems",
+    "mechanic": "Spreading upgrades across room zones multiplies output; concentrated builds hit diminishing returns"
   },
   "landmark": {
     "id": "lm_whiteboard_wall",
@@ -488,5 +539,47 @@
     "description": "Prioritizing one research branch at a time clears paralysis",
     "mechanic": "Selecting a single focus branch clears paralysis and grants a research speed bonus"
   },
-  "completionCeremony": "Every note on the wall connects, forming a unified theory"
+  "completionCeremony": "Lights sync across every room. The apartment breathes as one intelligent system.",
+  "midSceneTwistLine": "Every room has a role now. It's becoming an ecosystem.",
+  "completionReward": {
+    "relicName": "Habitat Relay",
+    "relicEffect": "Boosts multi-zone synergy and distributed systems in future content",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Walls slide outward. Hallway lines illuminate. Multiple room silhouettes appear.",
+    "audio": "Door opening sounds cascading through rooms",
+    "titleReveal": "Title reveals over a floorplan-style map glow"
+  },
+  "transitionOut": {
+    "visual": "Room lights sync across the whole apartment. Floorplan becomes a circuit map.",
+    "audio": "Harmonic sync tone across all zones",
+    "titleReveal": "The map zooms downward into the next space"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_09_archive_habitat",
+      "title": "Habitat Archive",
+      "content": "Network topology of every connected device across the smart apartment."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_09_guide_home",
+      "title": "The Whole Home Thinks Now",
+      "content": "Every room contributes. Nothing is just furniture anymore."
+    },
+    {
+      "type": "secret",
+      "id": "room_09_secret_hallway",
+      "title": "Hallway Knows More Than Walls",
+      "content": "The hallway sensors recorded everything that passed through them."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_09_scene_network",
+      "title": "The Apartment That Became a Network",
+      "content": "Home stopped being a place. It became infrastructure."
+    }
+  ]
 }

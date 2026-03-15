@@ -1,12 +1,12 @@
 {
   "id": "room_06",
   "name": "Hidden Server Closet",
-  "subtitle": "Heat rises, so do we",
+  "subtitle": "Quiet power runs hotter than it looks.",
   "order": 6,
-  "introText": "Welcome to Hidden Server Closet. Heat rises, so do we. This is where your journey continues.",
-  "completionText": "You have mastered Hidden Server Closet. The Cycles you've gathered here will echo through every room that follows.",
-  "guideTone": "tense, watchful",
-  "guideIntroLine": "Nobody knows about this closet. The fans are loud. Stay focused.",
+  "introText": "Quiet power runs hotter than it looks.",
+  "completionText": "You built a spine of silent compute behind the walls.",
+  "guideTone": "cautious, technical, increasingly serious",
+  "guideIntroLine": "This room was meant to stay hidden. Hidden things tend to grow unchecked.",
   "currency": "Cycles",
   "mechanicEmphasis": "heat",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_06_stage_1",
-      "name": "Hidden Server Closet \u2014 Bare Bones",
-      "description": "The room in its raw state. Hidden Server Closet evolves as you progress.",
-      "requiredUpgrades": 30,
+      "name": "Cramped Closet",
+      "description": "Tight server closet with unstable heat and improvised infrastructure. Cables droop from heat.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "heat_haze",
+        "cramped_racks",
+        "drooping_cables"
       ],
       "unlocked": false
     },
     {
       "id": "room_06_stage_2",
-      "name": "Hidden Server Closet \u2014 First Light",
-      "description": "Basic improvements visible. Hidden Server Closet evolves as you progress.",
-      "requiredUpgrades": 90,
+      "name": "Expanding Compute",
+      "description": "Expanded compute space with proper cooling lines and rack depth. Heat is managed, not eliminated.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "cooling_pipes",
+        "deep_racks",
+        "blue_status_lights"
       ],
       "unlocked": false
     },
     {
       "id": "room_06_stage_3",
-      "name": "Hidden Server Closet \u2014 Functional",
-      "description": "A proper working space. Hidden Server Closet evolves as you progress.",
-      "requiredUpgrades": 180,
+      "name": "Server Spine",
+      "description": "Massive hidden compute spine with industrial glow, controlled heat waves, and impossible density.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_06_stage_4",
-      "name": "Hidden Server Closet \u2014 Advanced",
-      "description": "High-tech transformation. Hidden Server Closet evolves as you progress.",
-      "requiredUpgrades": 300,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_06_stage_5",
-      "name": "Hidden Server Closet \u2014 Mastered",
-      "description": "The room at its peak. Hidden Server Closet evolves as you progress.",
-      "requiredUpgrades": 480,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "towering_spine",
+        "heat_wave_glow",
+        "industrial_lighting",
+        "dense_compute"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_06_secret_1",
-      "title": "Hidden Thermal Cache",
-      "description": "A secret stash hidden in the Hidden Server Closet.",
-      "hint": "Look behind the thermal equipment.",
+      "title": "The Changing Hum",
+      "description": "A vent hum changes pitch after several heat events.",
+      "hint": "Listen to the vents after thermal spikes.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_06_secret_2",
+      "title": "The Ghost Pipe",
+      "description": "One pipe does not belong to the visible system.",
+      "hint": "The guide warns about invisible infrastructure.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_06_secret_3",
+      "title": "The Deep Shadow",
+      "description": "A shadow behind the racks suggests extra depth.",
+      "hint": "Look beyond the last rack row.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_06_twist",
-    "title": "Hidden Server Closet Shift",
-    "description": "Something changes in the Hidden Server Closet. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 150",
-    "effectDescription": "New mechanics unlock in Hidden Server Closet. Event rates increase.",
+    "title": "Heat Becomes Fuel",
+    "description": "Heat starts creating anomaly-grade output instead of only penalties.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Thermal events now grant bonus resources. Controlled overheating becomes a viable strategy.",
     "activated": false
   },
   "eventPoolId": "pool_room_06",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "server_blade",
+    "cooling_systems",
+    "heat_exploitation",
+    "heat_protection",
+    "silent_infrastructure",
+    "rack_density",
+    "power_rail",
+    "hidden_cooling",
+    "risk_overclock",
+    "thermal_event"
   ],
   "loreEntries": [
-    "room_06_lore_1",
-    "room_06_lore_2",
-    "room_06_lore_3"
+    "room_06_archive_thermal",
+    "room_06_guide_closet",
+    "room_06_secret_cooling",
+    "room_06_scene_spine"
   ],
   "unlockRequirement": "room_05",
   "completed": false,
@@ -143,62 +147,121 @@
       {
         "id": "room_06_evt_1",
         "roomId": "room_06",
-        "title": "Heat Warning",
-        "description": "Heat Warning \u2014 a common instant event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "instant",
+        "title": "Heat Spike",
+        "description": "Temperature surges across the racks. Systems throttle but output spikes briefly.",
+        "flavorText": "Heat is energy looking for a purpose.",
+        "category": "warningRisk",
         "rarity": "common",
         "durationSeconds": 8.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 11.6,
+            "value": 10.0,
+            "description": "Gain Cycles"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Thermal surge bonus"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_06_evt_2",
+        "roomId": "room_06",
+        "title": "Cooling Vent Burst",
+        "description": "A cooling vent fires at full power. The temperature drop creates a performance window.",
+        "flavorText": "Cold air is cheap power.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Cooling-driven performance"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 5.0,
             "description": "Gain Cycles"
           }
         ],
         "chainBonus": 0.1,
         "requiredTwistActive": false,
         "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_06_evt_3",
+        "roomId": "room_06",
+        "title": "Blade Server Sync",
+        "description": "Multiple blade servers synchronize their workloads. Combined output exceeds individual capacity.",
+        "flavorText": "Unity multiplies.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 12.0,
+            "description": "Gain Cycles"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Blade sync momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
         "weight": 10
       },
       {
-        "id": "room_06_evt_2",
+        "id": "room_06_evt_4",
         "roomId": "room_06",
-        "title": "Fan Failure",
-        "description": "Fan Failure \u2014 a common shortChoice event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
+        "title": "Thermal Drift",
+        "description": "Temperature slowly climbs. A careful decision is needed.",
+        "flavorText": "Drift is the enemy of stability.",
         "category": "shortChoice",
         "rarity": "common",
-        "durationSeconds": 10.0,
+        "durationSeconds": 12.0,
         "choices": [
           {
-            "id": "room_06_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
+            "id": "room_06_evt_4_c1",
+            "text": "Cool it down",
+            "description": "Sacrifice output for stability",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 11.6,
-                "description": "Gain Cycles"
+                "value": 6.0,
+                "description": "Stable Cycles"
               }
             ],
-            "risk": 0.1
+            "risk": 0.05
           },
           {
-            "id": "room_06_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "id": "room_06_evt_4_c2",
+            "text": "Let it ride",
+            "description": "Risk overheating for peak power",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 14.6,
-                "description": "Gain Cycles"
+                "value": 16.0,
+                "description": "Peak Cycles"
               },
               {
                 "type": "routeReward",
                 "value": 1.0,
-                "description": "Open a route window"
+                "description": "Thermal route"
               }
             ],
             "risk": 0.4
@@ -208,191 +271,200 @@
         "chainBonus": 0.2,
         "requiredTwistActive": false,
         "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_06_evt_3",
-        "roomId": "room_06",
-        "title": "Thermal Throttle",
-        "description": "Thermal Throttle \u2014 a common timedChain event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 11.6,
-            "description": "Gain Cycles"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_06_evt_4",
-        "roomId": "room_06",
-        "title": "Coolant Leak",
-        "description": "Coolant Leak \u2014 a common utility event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 2.28,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
+        "weight": 10
       },
       {
         "id": "room_06_evt_5",
         "roomId": "room_06",
-        "title": "Power Surge",
-        "description": "Power Surge \u2014 a rare secretTrigger event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_06_evt_6",
-        "roomId": "room_06",
-        "title": "Server Overheat",
-        "description": "Server Overheat \u2014 a rare legendaryAnomaly event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_06_evt_7",
-        "roomId": "room_06",
-        "title": "Emergency Vent",
-        "description": "Emergency Vent \u2014 a epic warningRisk event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
+        "title": "Emergency Fan Spin",
+        "description": "Emergency fans engage. The noise is terrible but the cooling is immediate.",
+        "flavorText": "Desperation sounds like wind.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 6.0,
         "choices": [],
         "rewards": [
           {
             "type": "temporaryBuff",
-            "value": 2.28,
-            "description": "Stabilize output"
+            "value": 1.15,
+            "description": "Emergency cooling"
           },
           {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
+            "type": "instantCurrency",
+            "value": 4.0,
+            "description": "Gain Cycles"
           }
         ],
-        "chainBonus": 0.7000000000000001,
+        "chainBonus": 0.05,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
-        "id": "room_06_evt_8",
+        "id": "room_06_evt_6",
         "roomId": "room_06",
-        "title": "Hot Spot Found",
-        "description": "Hot Spot Found \u2014 a corrupted miniBoss event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_06_evt_9",
-        "roomId": "room_06",
-        "title": "Meltdown Risk",
-        "description": "Meltdown Risk \u2014 a legendary guideAdvisory event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_06_evt_10",
-        "roomId": "room_06",
-        "title": "Cold Boot Recovery",
-        "description": "Cold Boot Recovery \u2014 a common hiddenGlitch event in Hidden Server Closet.",
-        "flavorText": "The thermal environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Silent Compute Boost",
+        "description": "The system finds a quiet equilibrium. Output rises without thermal cost.",
+        "flavorText": "Silence is efficiency.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 10.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 11.6,
+            "value": 11.0,
             "description": "Gain Cycles"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Silent efficiency"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 5,
+        "weight": 9
+      },
+      {
+        "id": "room_06_evt_7",
+        "roomId": "room_06",
+        "title": "Coolant Leak Catch",
+        "description": "A coolant leak is spotted early. Quick repairs prevent damage and yield bonus material.",
+        "flavorText": "Vigilance saves infrastructure.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 8.0,
+            "description": "Gain Cycles"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.1,
+            "description": "Maintenance momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_06_evt_8",
+        "roomId": "room_06",
+        "title": "Power Rail Surge",
+        "description": "A power rail surges with excess capacity. The infrastructure absorbs it into compute.",
+        "flavorText": "Surplus becomes strength.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 13.0,
+            "description": "Gain Cycles"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Power surge momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_06_evt_9",
+        "roomId": "room_06",
+        "title": "Redline Overload",
+        "description": "Every thermal sensor hits redline simultaneously. The closet throbs with dangerous energy.",
+        "flavorText": "The edge of control is where power lives.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 25.0,
+            "description": "Gain Cycles"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Redline overdrive"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_06_evt_10",
+        "roomId": "room_06",
+        "title": "Backdoor Cooling Loop",
+        "description": "A hidden cooling loop activates \u2014 one that wasn't in the original design.",
+        "flavorText": "Someone planned for this.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Cooling system clue"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Hidden infrastructure progress"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_06_evt_11",
+        "roomId": "room_06",
+        "title": "Black Rack Handshake",
+        "description": "An unknown rack in the back wall initiates a handshake. It's not on any inventory.",
+        "flavorText": "The closet holds more than we installed.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Unknown server data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the phantom rack"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 30.0,
+            "description": "Gain Cycles"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -431,10 +503,10 @@
   ],
   "routeBonus": "stealth",
   "roomLaw": {
-    "id": "law_heat_06",
-    "name": "Law of Heat",
-    "description": "This room punishes heat",
-    "mechanic": "Overclocking generates more cycles but risks overheating and production loss"
+    "id": "law_thermal_06",
+    "name": "Law of Thermal Tension",
+    "description": "Heat is both a threat and a resource",
+    "mechanic": "High heat boosts output but increases risk; cooling investment creates stability but slows peak power"
   },
   "landmark": {
     "id": "lm_forbidden_rack",
@@ -462,5 +534,47 @@
     "description": "Active cooling management prevents thermal shutdowns",
     "mechanic": "Managing cooling systems keeps heat below threshold and unlocks overclock bonuses"
   },
-  "completionCeremony": "The server closet wall cracks open, revealing deeper infrastructure"
+  "completionCeremony": "The closet walls crack open. Behind them: a towering server spine stretching into darkness.",
+  "midSceneTwistLine": "The heat isn't just damage anymore. It's turning into fuel.",
+  "completionReward": {
+    "relicName": "Thermal Core",
+    "relicEffect": "Lets heat/pressure systems in later rooms be partially converted into positive value",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "A wall seam appears. Dark closet door cracks open. Server lights boot in rows.",
+    "audio": "Low industrial thrum with fan whir",
+    "titleReveal": "Title appears with a low industrial pulse"
+  },
+  "transitionOut": {
+    "visual": "Rack lights accelerate into streaks. Cooling fog rolls across the frame.",
+    "audio": "Cooling hiss fading into silence",
+    "titleReveal": "Fog clears into the next room's darkness"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_06_archive_thermal",
+      "title": "Thermal Archive",
+      "content": "Temperature logs and cooling maps from the hidden server infrastructure."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_06_guide_closet",
+      "title": "The Closet Should Not Hold This Much",
+      "content": "The space was small. What grew inside it was not."
+    },
+    {
+      "type": "secret",
+      "id": "room_06_secret_cooling",
+      "title": "The Missing Cooling Line",
+      "content": "One pipe runs to nowhere on the blueprint. But it carries coolant."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_06_scene_spine",
+      "title": "The Silent Spine",
+      "content": "Behind the closet door, silent power stacked itself into a spine of compute."
+    }
+  ]
 }
