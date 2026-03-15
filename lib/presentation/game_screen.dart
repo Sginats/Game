@@ -31,6 +31,7 @@ import 'widgets/room_scene_backdrop.dart';
 import 'widgets/room_status_panel.dart';
 import 'widgets/guide_card.dart';
 import 'widgets/room_overview_card.dart';
+import 'widgets/event_result_banner.dart';
 
 /// Lightweight snapshot of HUD values that change every timer tick.
 ///
@@ -65,6 +66,23 @@ class _HudSnapshot {
   int get hashCode =>
       coins.hashCode ^ perSecond.hashCode ^ combo ^ eraOrder ^ totalEras;
 }
+
+/// Resolved event result shown briefly in the event card area after the player
+/// resolves an event.  Cleared when the next event spawns or after [_kEventResultDisplayMs].
+class _EventResult {
+  final String title;
+  final EventResultRarity rarity;
+  final String? detail;
+
+  const _EventResult({
+    required this.title,
+    required this.rarity,
+    this.detail,
+  });
+}
+
+/// Duration (ms) to display the event result banner before fading it out.
+const int _kEventResultDisplayMs = 3500;
 
 class GameScreen extends StatefulWidget {
   final GameController controller;
@@ -125,6 +143,10 @@ class _GameScreenState extends State<GameScreen>
   // ValueListenableBuilder and rebuild in isolation.
   late final ValueNotifier<_HudSnapshot> _hudNotifier;
   late final ValueNotifier<GameEventState?> _activeEventNotifier;
+  // Shows the EventResultBanner after an event resolves.
+  late final ValueNotifier<_EventResult?> _eventResultNotifier;
+  // Auto-dismiss timer for the event result banner.
+  Timer? _eventResultTimer;
 
   // Cached tech tree graph — rebuilt only when stateVersion changes
   TechTreeGraph? _cachedGraph;
@@ -149,6 +171,7 @@ class _GameScreenState extends State<GameScreen>
     // Initialise reactive notifiers with a first snapshot.
     _hudNotifier = ValueNotifier<_HudSnapshot>(_buildHudSnapshot());
     _activeEventNotifier = ValueNotifier<GameEventState?>(_controller.activeEvent);
+    _eventResultNotifier = ValueNotifier<_EventResult?>(null);
 
     _tickTimer = Timer.periodic(
       Duration(milliseconds: _frameTickMs),
@@ -182,6 +205,11 @@ class _GameScreenState extends State<GameScreen>
         final newEvent = _controller.activeEvent;
         if (_activeEventNotifier.value?.id != newEvent?.id) {
           _activeEventNotifier.value = newEvent;
+          // Clear the result banner as soon as a new event spawns.
+          if (newEvent != null && _eventResultNotifier.value != null) {
+            _eventResultTimer?.cancel();
+            _eventResultNotifier.value = null;
+          }
         }
 
         // ── Step 3: structural-change detection → full rebuild only if needed ─
@@ -278,9 +306,11 @@ class _GameScreenState extends State<GameScreen>
     widget.updateService.removeListener(_handleUpdateServiceChanged);
     WidgetsBinding.instance.removeObserver(this);
     _tickTimer?.cancel();
+    _eventResultTimer?.cancel();
     _camera.dispose();
     _hudNotifier.dispose();
     _activeEventNotifier.dispose();
+    _eventResultNotifier.dispose();
     unawaited(_controller.saveGame());
     super.dispose();
   }
@@ -896,17 +926,39 @@ class _GameScreenState extends State<GameScreen>
           _buildRoomStatusPanel(),
           const SizedBox(height: 8),
           // Active event card rebuilds only when the event identity changes,
-          // not on every timer tick.
+          // not on every timer tick.  When the event resolves, show the
+          // EventResultBanner briefly in its place.
           ValueListenableBuilder<GameEventState?>(
             valueListenable: _activeEventNotifier,
             builder: (context, event, _) {
-              if (event == null) return const SizedBox.shrink();
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  RepaintBoundary(child: _buildActiveEventCard(event)),
-                  const SizedBox(height: 8),
-                ],
+              if (event != null) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    RepaintBoundary(child: _buildActiveEventCard(event)),
+                    const SizedBox(height: 8),
+                  ],
+                );
+              }
+              // No active event — show the result banner if one is pending.
+              return ValueListenableBuilder<_EventResult?>(
+                valueListenable: _eventResultNotifier,
+                builder: (context, result, _) {
+                  if (result == null) return const SizedBox.shrink();
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      RepaintBoundary(
+                        child: EventResultBanner(
+                          message: result.title,
+                          rarity: result.rarity,
+                          detail: result.detail,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  );
+                },
               );
             },
           ),
@@ -1142,6 +1194,7 @@ class _GameScreenState extends State<GameScreen>
           aggressiveChoice: event.risky && !event.clickOnly,
         );
         if (!ok) return;
+        _showEventResult(event);
         unawaited(
           widget.audioService.playEventResolve(
             roomId: _controller.currentRoomId,
@@ -1697,6 +1750,31 @@ class _GameScreenState extends State<GameScreen>
           _controller.state.coins,
         ).clamp(1, remainingLevels);
     }
+  }
+
+  /// Show the [EventResultBanner] briefly in the event card area after the
+  /// player resolves an event.  The banner auto-dismisses after
+  /// [_kEventResultDisplayMs] ms.
+  void _showEventResult(GameEventState event) {
+    final rarity = switch (event.rarity) {
+      EventRarity.uncommon => EventResultRarity.uncommon,
+      EventRarity.rare => EventResultRarity.rare,
+      EventRarity.epic => EventResultRarity.epic,
+      EventRarity.legendary || EventRarity.corrupted => EventResultRarity.legendary,
+      _ => EventResultRarity.common,
+    };
+    _eventResultNotifier.value = _EventResult(
+      title: widget.strings.translateContent(event.title),
+      rarity: rarity,
+      detail: _controller.lastEventRewardSummary,
+    );
+    _eventResultTimer?.cancel();
+    _eventResultTimer = Timer(
+      const Duration(milliseconds: _kEventResultDisplayMs),
+      () {
+        if (mounted) _eventResultNotifier.value = null;
+      },
+    );
   }
 
   void _handleFeedback() {

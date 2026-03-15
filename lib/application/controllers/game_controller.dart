@@ -49,6 +49,12 @@ class GameController {
   /// The UI can compare this cheaply instead of hashing the full state map.
   int _stateVersion = 0;
 
+  /// Room-state version counter. Incremented on room-specific state changes
+  /// (transformation stage advance, room completion, twist activation, secret
+  /// discovery) independently of tree mutations, so UI surfaces that only
+  /// display room state can avoid unnecessary tree rebuilds.
+  int _roomVersion = 0;
+
   List<AchievementDefinition> lastUnlockedAchievements = [];
   List<String> lastUnlockedMilestones = [];
   GameNumber? pendingOfflineEarnings;
@@ -57,6 +63,12 @@ class GameController {
   bool lastTapWasCritical = false;
   String? lastRecommendation;
   String? lastAiLine;
+
+  /// Human-readable summary of the most recent event resolution reward
+  /// (e.g. "+1 234 coins", "Transformation boosted", "Secret clue advanced").
+  /// Set after a successful [resolveActiveEvent] and cleared on next event
+  /// spawn.  UI can display this after the event card disappears.
+  String? lastEventRewardSummary;
 
   /// Set to true when the very first tap happens — cleared after being read.
   bool firstTapJustHappened = false;
@@ -98,6 +110,11 @@ class GameController {
   /// that affects the tech tree (purchases, era changes, room changes). Used by
   /// the UI instead of the expensive O(n) state hash.
   int get stateVersion => _stateVersion;
+
+  /// Room-state version counter. Incremented on room-specific changes
+  /// (transformation advance, room completion, twist, secret discovery).
+  /// Lets room-state UI surfaces rebuild independently of tree refreshes.
+  int get roomVersion => _roomVersion;
 
   String get currentEraId => _currentEraId;
   Set<String> get loadedEraWindow {
@@ -570,6 +587,7 @@ class GameController {
     );
     _checkRoomProgression();
     _refreshGuidance();
+    _roomVersion++;
     return true;
   }
 
@@ -608,6 +626,7 @@ class GameController {
     );
     _syncGuideMilestones();
     _refreshGuidance();
+    _roomVersion++;
     return true;
   }
 
@@ -681,6 +700,7 @@ class GameController {
     );
     _syncGuideMilestones();
     _refreshGuidance();
+    _roomVersion++;
     return true;
   }
 
@@ -716,6 +736,7 @@ class GameController {
     );
     _syncGuideMilestones();
     _refreshGuidance();
+    _roomVersion++;
     return true;
   }
 
@@ -1614,6 +1635,8 @@ class GameController {
     // Cap accumulator to prevent unbounded growth even during active events
     if (_eventAccumulator > 60) _eventAccumulator = 60;
     if (_state.activeEvent != null || _eventAccumulator < 12) return;
+    // Clear the previous event reward summary so the result banner goes away.
+    lastEventRewardSummary = null;
     if (_trySpawnRoomSceneEvent()) return;
 
     final chance = (_state.chosenBranches.contains('risky') ? 0.045 : 0.024) +
@@ -2443,6 +2466,13 @@ class GameController {
     );
     _state = updated;
 
+    // Build a concise reward summary for the UI event result banner.
+    lastEventRewardSummary = _buildEventRewardSummary(
+      definition: definition,
+      rewards: rewards,
+      rewardScale: rewardScale,
+    );
+
     if (triggerTransformation) {
       advanceTransformationStage();
     }
@@ -2594,6 +2624,59 @@ class GameController {
       RoomMechanicEmphasis.synthesis => 0.2,
       _ => 0.0,
     };
+  }
+
+  /// Build a short, human-readable reward summary for the event result banner.
+  /// Returns the primary effect (the one most impactful to the player).
+  String _buildEventRewardSummary({
+    required SceneEventDefinition definition,
+    required List<SceneEventReward> rewards,
+    required double rewardScale,
+  }) {
+    if (rewards.isEmpty) return definition.title;
+
+    // Find the most significant reward type in order of player impact.
+    for (final reward in rewards) {
+      switch (reward.type) {
+        case EventRewardType.instantCurrency:
+          // Estimate from reward.value and rewardScale (same formula used when resolving)
+          final est = math.max(
+            reward.value * 12,
+            productionPerSecond.toDouble() * (0.45 + reward.value * 0.11),
+          ) * rewardScale;
+          final display = est >= 1e9
+              ? '${(est / 1e9).toStringAsFixed(1)}B'
+              : est >= 1e6
+                  ? '${(est / 1e6).toStringAsFixed(1)}M'
+                  : est >= 1e3
+                      ? '${(est / 1e3).toStringAsFixed(1)}K'
+                      : est.round().toString();
+          return '+$display coins';
+        case EventRewardType.temporaryBuff:
+          return 'Tap & production boosted';
+        case EventRewardType.comboAmplification:
+          return '+${reward.value.round()} combo';
+        case EventRewardType.cooldownChange:
+          return 'Ability cooldowns reduced';
+        case EventRewardType.relicFragment:
+          return 'Relic fragment discovered';
+        case EventRewardType.secretClue:
+          return 'Secret clue advanced';
+        case EventRewardType.hiddenBranchProgress:
+          return 'Hidden branch unlocked';
+        case EventRewardType.routeReward:
+          return 'Route progress gained';
+        case EventRewardType.rareResource:
+          return 'Rare resource acquired';
+        case EventRewardType.guideAffinity:
+          return 'Guide trust increased';
+        case EventRewardType.codexEntry:
+          return 'Codex entry added';
+        case EventRewardType.environmentTrigger:
+          return 'Transformation triggered!';
+      }
+    }
+    return definition.title;
   }
 
   GameState _applyRoomEventIdentityBonus(

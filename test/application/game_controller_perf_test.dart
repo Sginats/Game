@@ -139,4 +139,44 @@ void main() {
       expect(c.stateVersion, versionAfterPurchase);
     });
   });
+
+  group('roomVersion counter', () {
+    test('starts at 0', () {
+      final c = _makeController();
+      expect(c.roomVersion, 0);
+    });
+
+    test('does NOT increment on purchaseGenerator', () {
+      final c = _makeController(coins: 1000);
+      final before = c.roomVersion;
+      c.purchaseGenerator('gen_1');
+      // Generator purchases are tree-only changes — roomVersion stays stable.
+      expect(c.roomVersion, before);
+    });
+
+    test('does NOT increment on purchaseUpgrade', () {
+      final c = _makeController(coins: 1000);
+      final before = c.roomVersion;
+      c.purchaseUpgrade('upg_1');
+      expect(c.roomVersion, before);
+    });
+
+    test('roomVersion is independent of stateVersion', () {
+      final c = _makeController(coins: 100000);
+      // Several purchases only bump stateVersion, not roomVersion.
+      c.purchaseGenerator('gen_1');
+      c.purchaseUpgrade('upg_1');
+      expect(c.stateVersion, greaterThan(0));
+      expect(c.roomVersion, 0);
+    });
+
+    test('is stable during idle tick', () {
+      final c = _makeController(coins: 1000);
+      c.purchaseGenerator('gen_1');
+      final rv = c.roomVersion;
+      c.tick(0.25);
+      c.tick(0.25);
+      expect(c.roomVersion, rv);
+    });
+  });
 }
