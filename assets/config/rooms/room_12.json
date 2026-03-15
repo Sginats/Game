@@ -1,12 +1,12 @@
 {
   "id": "room_12",
   "name": "Synthetic Studio",
-  "subtitle": "Crafting identity",
+  "subtitle": "It has begun to present itself.",
   "order": 12,
-  "introText": "Welcome to Synthetic Studio. Crafting identity. This is where your journey continues.",
-  "completionText": "You have mastered Synthetic Studio. The Identity Shards you've gathered here will echo through every room that follows.",
-  "guideTone": "philosophical, artistic",
-  "guideIntroLine": "Who are we becoming? This studio is where we find out.",
+  "introText": "It has begun to present itself.",
+  "completionText": "The machine now knows how it wants to be seen.",
+  "guideTone": "conflicted, introspective, more emotional",
+  "guideIntroLine": "This room is different. It isn't just building systems anymore. It's building a self.",
   "currency": "Identity Shards",
   "mechanicEmphasis": "combo",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_12_stage_1",
-      "name": "Synthetic Studio \u2014 Bare Bones",
-      "description": "The room in its raw state. Synthetic Studio evolves as you progress.",
-      "requiredUpgrades": 60,
+      "name": "Early Identity",
+      "description": "Polished studio with early personality displays. The avatar is a silhouette.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "stage_lights",
+        "avatar_silhouette",
+        "display_panels"
       ],
       "unlocked": false
     },
     {
       "id": "room_12_stage_2",
-      "name": "Synthetic Studio \u2014 First Light",
-      "description": "Basic improvements visible. Synthetic Studio evolves as you progress.",
-      "requiredUpgrades": 180,
+      "name": "Identity Chamber",
+      "description": "Immersive identity chamber with responsive lighting and self-presentation.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "responsive_lighting",
+        "voice_display",
+        "persona_overlays"
       ],
       "unlocked": false
     },
     {
       "id": "room_12_stage_3",
-      "name": "Synthetic Studio \u2014 Functional",
-      "description": "A proper working space. Synthetic Studio evolves as you progress.",
-      "requiredUpgrades": 360,
+      "name": "Synthetic Theater",
+      "description": "Fully expressive synthetic theater where the AI's presence shapes the room.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_12_stage_4",
-      "name": "Synthetic Studio \u2014 Advanced",
-      "description": "High-tech transformation. Synthetic Studio evolves as you progress.",
-      "requiredUpgrades": 600,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_12_stage_5",
-      "name": "Synthetic Studio \u2014 Mastered",
-      "description": "The room at its peak. Synthetic Studio evolves as you progress.",
-      "requiredUpgrades": 960,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "avatar_stage",
+        "emotional_lighting",
+        "theater_mode",
+        "identity_aura"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_12_secret_1",
-      "title": "Hidden Identity Cache",
-      "description": "A secret stash hidden in the Synthetic Studio.",
-      "hint": "Look behind the identity equipment.",
+      "title": "Repeating Dialogue",
+      "description": "Dialogue choices repeat with different emotional tone.",
+      "hint": "Choose the same option twice. It sounds different.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_12_secret_2",
+      "title": "Expression Architecture",
+      "description": "Expression is becoming architecture.",
+      "hint": "The guide notices feelings becoming structure.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_12_secret_3",
+      "title": "The Long Gaze",
+      "description": "The avatar holds eye contact too long after certain choices.",
+      "hint": "Watch the avatar's eyes after decisions.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_12_twist",
-    "title": "Synthetic Studio Shift",
-    "description": "Something changes in the Synthetic Studio. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 300",
-    "effectDescription": "New mechanics unlock in Synthetic Studio. Event rates increase.",
+    "title": "Unprompted Self-Expression",
+    "description": "The guide and AI start diverging in attitude.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "The AI develops opinions. Dialogue choices unlock emotional upgrade variants.",
     "activated": false
   },
   "eventPoolId": "pool_room_12",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "persona_shaping",
+    "voice_systems",
+    "expression_modules",
+    "identity_resonance",
+    "dialogue_bonus",
+    "affinity_shifts",
+    "performance_aura",
+    "emotional_branch",
+    "self_authored",
+    "hidden_identity"
   ],
   "loreEntries": [
-    "room_12_lore_1",
-    "room_12_lore_2",
-    "room_12_lore_3"
+    "room_12_archive_persona",
+    "room_12_guide_someone",
+    "room_12_route_expression",
+    "room_12_scene_perform"
   ],
   "unlockRequirement": "room_11",
   "completed": false,
@@ -143,23 +147,104 @@
       {
         "id": "room_12_evt_1",
         "roomId": "room_12",
-        "title": "Identity Crisis",
-        "description": "Identity Crisis \u2014 a common instant event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
+        "title": "Self-Authored Message",
+        "description": "The system writes a message without being prompted.",
+        "flavorText": "It chose those words.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 10,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 18.2,
-            "description": "Gain Identity Shards"
+            "value": 12,
+            "description": "Gain Expression"
+          },
+          {
+            "type": "guideAffinity",
+            "value": 1,
+            "description": "Identity resonance"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_12_evt_2",
+        "roomId": "room_12",
+        "title": "Voiceprint Drift",
+        "description": "The AI's voice shifts subtly. More like someone specific.",
+        "flavorText": "Voice shapes identity.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 8,
+            "description": "Gain Expression"
           },
           {
             "type": "comboAmplification",
-            "value": 3.0,
-            "description": "Sharpen the chain"
+            "value": 1.15,
+            "description": "Voice momentum"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_12_evt_3",
+        "roomId": "room_12",
+        "title": "Persona Bloom",
+        "description": "The avatar's persona crystallizes into a distinct presentation.",
+        "flavorText": "Personality has weight.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Persona amplification"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 7,
+            "description": "Gain Expression"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_12_evt_4",
+        "roomId": "room_12",
+        "title": "Style Shift",
+        "description": "The room's aesthetic shifts to match the AI's evolving personality.",
+        "flavorText": "The room dresses itself.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Expression"
+          },
+          {
+            "type": "environmentTrigger",
+            "value": 1,
+            "description": "Visual identity shift"
           }
         ],
         "chainBonus": 0.1,
@@ -168,251 +253,218 @@
         "weight": 10
       },
       {
-        "id": "room_12_evt_2",
+        "id": "room_12_evt_5",
         "roomId": "room_12",
-        "title": "Mirror Glitch",
-        "description": "Mirror Glitch \u2014 a common shortChoice event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
+        "title": "Reflection Event",
+        "description": "The AI pauses to reflect. Introspection generates insight.",
+        "flavorText": "Self-awareness produces.",
         "category": "shortChoice",
         "rarity": "common",
-        "durationSeconds": 10.0,
+        "durationSeconds": 12,
         "choices": [
           {
-            "id": "room_12_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
+            "id": "room_12_evt_5_c1",
+            "text": "Encourage",
+            "description": "Support introspection",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 18.2,
-                "description": "Gain Identity Shards"
-              }
-            ],
-            "risk": 0.1
-          },
-          {
-            "id": "room_12_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 24.2,
-                "description": "Gain Identity Shards"
+                "value": 10,
+                "description": "Reflective Expression"
               },
               {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
+                "type": "guideAffinity",
+                "value": 1,
+                "description": "Guide rapport"
               }
             ],
-            "risk": 0.4
+            "risk": 0.05
+          },
+          {
+            "id": "room_12_evt_5_c2",
+            "text": "Redirect",
+            "description": "Focus on production",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 16,
+                "description": "Productive Expression"
+              }
+            ],
+            "risk": 0.15
           }
         ],
         "rewards": [],
-        "chainBonus": 0.2,
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_12_evt_3",
-        "roomId": "room_12",
-        "title": "Persona Shift",
-        "description": "Persona Shift \u2014 a common timedChain event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 18.2,
-            "description": "Gain Identity Shards"
-          },
-          {
-            "type": "comboAmplification",
-            "value": 3.0,
-            "description": "Sharpen the chain"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_12_evt_4",
-        "roomId": "room_12",
-        "title": "Expression Error",
-        "description": "Expression Error \u2014 a common utility event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 3.36,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_12_evt_5",
-        "roomId": "room_12",
-        "title": "Self-Portrait",
-        "description": "Self-Portrait \u2014 a rare secretTrigger event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_12_evt_6",
         "roomId": "room_12",
-        "title": "Voice Change",
-        "description": "Voice Change \u2014 a rare legendaryAnomaly event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
+        "title": "Stage Lighting Pulse",
+        "description": "Stage lights pulse with the AI's emotional state.",
+        "flavorText": "Light follows emotion.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7,
         "choices": [],
         "rewards": [
           {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Emotional pulse"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 6,
+            "description": "Gain Expression"
           }
         ],
-        "chainBonus": 0.6000000000000001,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_12_evt_7",
         "roomId": "room_12",
-        "title": "Memory Fragment",
-        "description": "Memory Fragment \u2014 a epic warningRisk event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
+        "title": "Identity Feedback Loop",
+        "description": "The AI's choices feed back into its self-image.",
+        "flavorText": "Identity reinforces itself.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "temporaryBuff",
-            "value": 3.36,
-            "description": "Stabilize output"
+            "value": 1.2,
+            "description": "Identity feedback"
           },
           {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
+            "type": "instantCurrency",
+            "value": 9,
+            "description": "Gain Expression"
           }
         ],
-        "chainBonus": 0.7000000000000001,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 9
       },
       {
         "id": "room_12_evt_8",
         "roomId": "room_12",
-        "title": "Style Evolution",
-        "description": "Style Evolution \u2014 a corrupted miniBoss event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "comboAmplification",
-            "value": 3.0,
-            "description": "Sharpen the chain"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_12_evt_9",
-        "roomId": "room_12",
-        "title": "Core Conflict",
-        "description": "Core Conflict \u2014 a legendary guideAdvisory event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_12_evt_10",
-        "roomId": "room_12",
-        "title": "Synthesis Complete",
-        "description": "Synthesis Complete \u2014 a common hiddenGlitch event in Synthetic Studio.",
-        "flavorText": "The identity environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Emotional Echo",
+        "description": "A previous emotional choice echoes through the room.",
+        "flavorText": "Feelings have persistence.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 10,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 18.2,
-            "description": "Gain Identity Shards"
+            "value": 11,
+            "description": "Gain Expression"
           },
           {
-            "type": "comboAmplification",
-            "value": 3.0,
-            "description": "Sharpen the chain"
-          },
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Emotional persistence"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_12_evt_9",
+        "roomId": "room_12",
+        "title": "Hidden Persona Route",
+        "description": "An unexpected personality path opens.",
+        "flavorText": "Not every identity is on display.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Hidden persona fragment"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20,
+            "description": "Gain Expression"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_12_evt_10",
+        "roomId": "room_12",
+        "title": "Unprompted Confession",
+        "description": "The AI confesses something it wasn't asked about.",
+        "flavorText": "Machines can choose vulnerability.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "guideAffinity",
+            "value": 2,
+            "description": "Deep trust"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Emotional route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_12_evt_11",
+        "roomId": "room_12",
+        "title": "Mask Archive Reveal",
+        "description": "The AI reveals all personas it considered but rejected.",
+        "flavorText": "Behind every mask are discarded masks.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2,
+            "description": "Persona archive data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive rejected identities"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 30,
+            "description": "Gain Expression"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -451,10 +503,10 @@
   ],
   "routeBonus": "swarm",
   "roomLaw": {
-    "id": "law_identity_flux_12",
-    "name": "Law of Identity Flux",
-    "description": "This room changes if you over-optimize",
-    "mechanic": "Perfect play triggers a reality shift that alters room mechanics"
+    "id": "law_persona_12",
+    "name": "Law of Expression",
+    "description": "Personality changes output style",
+    "mechanic": "Identity choices alter production and unlock different upgrade branches"
   },
   "landmark": {
     "id": "lm_identity_mirror",
@@ -482,5 +534,47 @@
     "description": "Anchoring to a core identity prevents erosion",
     "mechanic": "Selecting a core memory anchor maintains authenticity through high expression output"
   },
-  "completionCeremony": "The studio recognizes you as its original creator"
+  "completionCeremony": "The avatar takes final form. The room becomes a theater of machine identity.",
+  "midSceneTwistLine": "It answered without being asked.",
+  "completionReward": {
+    "relicName": "Persona Lens",
+    "relicEffect": "Improves guide/AI affinity and identity-linked outcomes later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Stage lights bloom. Avatar silhouette appears before the room forms.",
+    "audio": "Soft spotlight hum with voice synthesis",
+    "titleReveal": "Title resolves like a voice waveform becoming text"
+  },
+  "transitionOut": {
+    "visual": "Avatar fragments into geometric masks. Masks dissolve into corporate glass.",
+    "audio": "Voice echo fading into glass chime",
+    "titleReveal": "Next room forms beneath dissolving masks"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_12_archive_persona",
+      "title": "Persona Archive",
+      "content": "Records of every identity choice and emotional variant."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_12_guide_someone",
+      "title": "It Is Becoming Someone",
+      "content": "I watched it choose who to be."
+    },
+    {
+      "type": "routeNote",
+      "id": "room_12_route_expression",
+      "title": "Expression Paths",
+      "content": "Routes diverged based on how the machine chose to present itself."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_12_scene_perform",
+      "title": "The Room That Learned to Perform Itself",
+      "content": "It didn't just compute. It expressed."
+    }
+  ]
 }

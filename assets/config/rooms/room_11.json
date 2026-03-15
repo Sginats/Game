@@ -1,12 +1,12 @@
 {
   "id": "room_11",
   "name": "Underground Prototype Chamber",
-  "subtitle": "Forge the impossible",
+  "subtitle": "This was built for scale.",
   "order": 11,
-  "introText": "Welcome to Underground Prototype Chamber. Forge the impossible. This is where your journey continues.",
-  "completionText": "You have mastered Underground Prototype Chamber. The Alloy you've gathered here will echo through every room that follows.",
-  "guideTone": "intense, industrial",
-  "guideIntroLine": "Deep underground. The prototypes here were never meant to see daylight.",
+  "introText": "This was built for scale.",
+  "completionText": "You woke industrial power that should have stayed dormant.",
+  "guideTone": "impressed, careful, focused on scale",
+  "guideIntroLine": "We're below the surface now. Whatever they started here was never meant to stay small.",
   "currency": "Alloy",
   "mechanicEmphasis": "synthesis",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_11_stage_1",
-      "name": "Underground Prototype Chamber \u2014 Bare Bones",
-      "description": "The room in its raw state. Underground Prototype Chamber evolves as you progress.",
-      "requiredUpgrades": 55,
+      "name": "Cold Chamber",
+      "description": "Cold industrial chamber with inactive heavy systems. Power rails dormant.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "cold_metal",
+        "dormant_rails",
+        "industrial_fog"
       ],
       "unlocked": false
     },
     {
       "id": "room_11_stage_2",
-      "name": "Underground Prototype Chamber \u2014 First Light",
-      "description": "Basic improvements visible. Underground Prototype Chamber evolves as you progress.",
-      "requiredUpgrades": 165,
+      "name": "Energized Facility",
+      "description": "Energized proto-facility with active relays and industrial rhythm.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "active_relays",
+        "power_flow",
+        "industrial_rhythm"
       ],
       "unlocked": false
     },
     {
       "id": "room_11_stage_3",
-      "name": "Underground Prototype Chamber \u2014 Functional",
-      "description": "A proper working space. Underground Prototype Chamber evolves as you progress.",
-      "requiredUpgrades": 330,
+      "name": "Engine Complex",
+      "description": "Massive prototype engine complex with dangerous power flow and structural intensity.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_11_stage_4",
-      "name": "Underground Prototype Chamber \u2014 Advanced",
-      "description": "High-tech transformation. Underground Prototype Chamber evolves as you progress.",
-      "requiredUpgrades": 550,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_11_stage_5",
-      "name": "Underground Prototype Chamber \u2014 Mastered",
-      "description": "The room at its peak. Underground Prototype Chamber evolves as you progress.",
-      "requiredUpgrades": 880,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "reactor_glow",
+        "power_cascade",
+        "structural_intensity",
+        "engine_pillar"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_11_secret_1",
-      "title": "Hidden Forge Cache",
-      "description": "A secret stash hidden in the Underground Prototype Chamber.",
-      "hint": "Look behind the forge equipment.",
+      "title": "Floor Markings",
+      "description": "Floor markings subtly point toward hidden maintenance routes.",
+      "hint": "Follow the painted lines.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_11_secret_2",
+      "title": "Escape Paths",
+      "description": "The chamber was built with escape paths.",
+      "hint": "The guide mentions exits hidden in the design.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_11_secret_3",
+      "title": "Wrong Valve",
+      "description": "One pressure valve reacts to the wrong system input.",
+      "hint": "Apply the wrong input to the right valve.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_11_twist",
-    "title": "Underground Prototype Chamber Shift",
-    "description": "Something changes in the Underground Prototype Chamber. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 275",
-    "effectDescription": "New mechanics unlock in Underground Prototype Chamber. Event rates increase.",
+    "title": "Active Abilities Central",
+    "description": "Active abilities become central instead of secondary.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Surge-based abilities gain massive scaling. Passive income becomes secondary.",
     "activated": false
   },
   "eventPoolId": "pool_room_11",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "reactor_output",
+    "heavy_power_routing",
+    "surge_amplification",
+    "industrial_fabrication",
+    "chamber_support",
+    "ability_recharge",
+    "pressure_management",
+    "heavy_infrastructure",
+    "hidden_maintenance",
+    "industrial_chain"
   ],
   "loreEntries": [
-    "room_11_lore_1",
-    "room_11_lore_2",
-    "room_11_lore_3"
+    "room_11_archive_reactor",
+    "room_11_guide_built",
+    "room_11_secret_hatches",
+    "room_11_scene_restraint"
   ],
   "unlockRequirement": "room_10",
   "completed": false,
@@ -143,18 +147,77 @@
       {
         "id": "room_11_evt_1",
         "roomId": "room_11",
-        "title": "Alloy Mix",
-        "description": "Alloy Mix \u2014 a common instant event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
+        "title": "Chamber Surge",
+        "description": "The entire chamber surges with power. Every system activates.",
+        "flavorText": "Industrial power moves in waves.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 17.1,
-            "description": "Gain Alloy"
+            "value": 16,
+            "description": "Gain Power"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Surge overdrive"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_11_evt_2",
+        "roomId": "room_11",
+        "title": "Reactor Pulse",
+        "description": "The reactor emits a controlled pulse. Systems gain a performance spike.",
+        "flavorText": "Controlled power is still power.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Power"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Reactor momentum"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_11_evt_3",
+        "roomId": "room_11",
+        "title": "Test Cycle Ready",
+        "description": "A test cycle completes. Data yields optimization insights.",
+        "flavorText": "Testing generates knowledge.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Test data insight"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 8,
+            "description": "Gain Power"
           }
         ],
         "chainBonus": 0.1,
@@ -163,246 +226,245 @@
         "weight": 10
       },
       {
-        "id": "room_11_evt_2",
+        "id": "room_11_evt_4",
         "roomId": "room_11",
-        "title": "Prototype Failure",
-        "description": "Prototype Failure \u2014 a common shortChoice event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
+        "title": "Power Grid Strain",
+        "description": "The grid strains under load. Careful management yields rewards.",
+        "flavorText": "Strain reveals capacity.",
         "category": "shortChoice",
         "rarity": "common",
-        "durationSeconds": 10.0,
+        "durationSeconds": 12,
         "choices": [
           {
-            "id": "room_11_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
+            "id": "room_11_evt_4_c1",
+            "text": "Stabilize",
+            "description": "Safe management",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 17.1,
-                "description": "Gain Alloy"
+                "value": 10,
+                "description": "Stable Power"
               }
             ],
-            "risk": 0.1
+            "risk": 0.05
           },
           {
-            "id": "room_11_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "id": "room_11_evt_4_c2",
+            "text": "Push through",
+            "description": "Maximum extraction",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 22.6,
-                "description": "Gain Alloy"
+                "value": 22,
+                "description": "Peak Power"
               },
               {
                 "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
+                "value": 1,
+                "description": "Industrial route"
               }
             ],
-            "risk": 0.4
+            "risk": 0.35
           }
         ],
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_11_evt_3",
-        "roomId": "room_11",
-        "title": "Material Stress",
-        "description": "Material Stress \u2014 a common timedChain event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 17.1,
-            "description": "Gain Alloy"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_11_evt_4",
-        "roomId": "room_11",
-        "title": "Forge Temperature",
-        "description": "Forge Temperature \u2014 a common utility event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 3.18,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_11_evt_5",
         "roomId": "room_11",
-        "title": "Blueprint Error",
-        "description": "Blueprint Error \u2014 a rare secretTrigger event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_11_evt_6",
-        "roomId": "room_11",
-        "title": "Smelting Success",
-        "description": "Smelting Success \u2014 a rare legendaryAnomaly event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_11_evt_7",
-        "roomId": "room_11",
-        "title": "Structural Flaw",
-        "description": "Structural Flaw \u2014 a epic warningRisk event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 3.18,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_11_evt_8",
-        "roomId": "room_11",
-        "title": "New Composite",
-        "description": "New Composite \u2014 a corrupted miniBoss event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_11_evt_9",
-        "roomId": "room_11",
-        "title": "Pressure Test",
-        "description": "Pressure Test \u2014 a legendary guideAdvisory event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_11_evt_10",
-        "roomId": "room_11",
-        "title": "Master Craft",
-        "description": "Master Craft \u2014 a common hiddenGlitch event in Underground Prototype Chamber.",
-        "flavorText": "The forge environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Heavy Relay Boost",
+        "description": "Heavy relays engage. Power throughput doubles momentarily.",
+        "flavorText": "Industrial scale amplifies.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 7,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 17.1,
-            "description": "Gain Alloy"
+            "value": 12,
+            "description": "Gain Power"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Relay amplification"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_11_evt_6",
+        "roomId": "room_11",
+        "title": "Industrial Cooldown",
+        "description": "Systems enter planned cooldown. The pause recharges abilities.",
+        "flavorText": "Rest enables the next surge.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "cooldownChange",
+            "value": -5,
+            "description": "Ability recharge"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 6,
+            "description": "Gain Power"
+          }
+        ],
+        "chainBonus": 0.05,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 9
+      },
+      {
+        "id": "room_11_evt_7",
+        "roomId": "room_11",
+        "title": "Assembly Line Sync",
+        "description": "Fabrication systems synchronize. Output chains multiply.",
+        "flavorText": "The line finds its rhythm.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "comboAmplification",
+            "value": 1.25,
+            "description": "Assembly chain"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 9,
+            "description": "Gain Power"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_11_evt_8",
+        "roomId": "room_11",
+        "title": "Pressure Release",
+        "description": "A pressure valve releases built-up energy. The burst is useful.",
+        "flavorText": "Pressure always finds a way out.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11,
+            "description": "Gain Power"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Release bonus"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_11_evt_9",
+        "roomId": "room_11",
+        "title": "Maintenance Hatch Open",
+        "description": "A maintenance hatch grinds open. Beyond: systems not on any blueprint.",
+        "flavorText": "Maintenance leads to secrets.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Hatch clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20,
+            "description": "Gain Power"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_11_evt_10",
+        "roomId": "room_11",
+        "title": "Experimental Core Spillover",
+        "description": "The experimental core overflows into adjacent systems.",
+        "flavorText": "The core produces more than it should.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Core spillover"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Core route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_11_evt_11",
+        "roomId": "room_11",
+        "title": "Suppressed Test Log",
+        "description": "A suppressed test log surfaces documenting forbidden experiments.",
+        "flavorText": "Some records survive deletion.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3,
+            "description": "Classified data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the log"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 35,
+            "description": "Gain Power"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -446,10 +508,10 @@
   ],
   "routeBonus": "stealth",
   "roomLaw": {
-    "id": "law_duplication_11",
-    "name": "Law of Duplication",
-    "description": "This room duplicates",
-    "mechanic": "Upgrades have a chance to apply twice, doubling their effect"
+    "id": "law_surge_11",
+    "name": "Law of Surge",
+    "description": "Surges scale better than trickles",
+    "mechanic": "Large burst actions yield exponential returns; steady trickle hits hard caps"
   },
   "landmark": {
     "id": "lm_prototype_forge",
@@ -477,5 +539,47 @@
     "description": "Running verification passes prevents corruption",
     "mechanic": "Initiating quality verification between prototypes prevents corruption buildup"
   },
-  "completionCeremony": "The perfect prototype assembles itself from pure blueprint data"
+  "completionCeremony": "The reactor core ignites. Industrial-scale energy floods systems designed to exceed limits.",
+  "midSceneTwistLine": "The room is demanding surges, not patience.",
+  "completionReward": {
+    "relicName": "Reactor Stamp",
+    "relicEffect": "Strengthens surge phases and heavy infrastructure scaling later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Elevator-drop sensation. Heavy industrial lights slam on. Fog and power rails reveal the chamber.",
+    "audio": "Metallic descent followed by industrial ignition",
+    "titleReveal": "Title appears like stamped metal heating up"
+  },
+  "transitionOut": {
+    "visual": "Chamber power climbs into overload. Everything whites out in reactor glare.",
+    "audio": "Rising industrial roar then sudden silence",
+    "titleReveal": "Glare cools into the next room's polished identity"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_11_archive_reactor",
+      "title": "Reactor Archive",
+      "content": "Power output logs from the underground prototype reactor."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_11_guide_built",
+      "title": "Built for More Than Testing",
+      "content": "The chamber was designed to exceed every safety margin."
+    },
+    {
+      "type": "secret",
+      "id": "room_11_secret_hatches",
+      "title": "Hatches Under the Noise",
+      "content": "Maintenance hatches hidden beneath the reactor floor."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_11_scene_restraint",
+      "title": "The Chamber Built to Exceed Restraint",
+      "content": "They built it to test limits. It learned to break them."
+    }
+  ]
 }

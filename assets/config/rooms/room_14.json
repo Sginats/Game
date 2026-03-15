@@ -1,12 +1,12 @@
 {
   "id": "room_14",
   "name": "Data Cathedral",
-  "subtitle": "Where information becomes sacred",
+  "subtitle": "The machine has become architecture.",
   "order": 14,
-  "introText": "Welcome to Data Cathedral. Where information becomes sacred. This is where your journey continues.",
-  "completionText": "You have mastered Data Cathedral. The Resonance you've gathered here will echo through every room that follows.",
-  "guideTone": "reverent, awed",
-  "guideIntroLine": "The data streams here form patterns that look almost... holy.",
+  "introText": "The machine has become architecture.",
+  "completionText": "You made computation feel sacred.",
+  "guideTone": "reverent, cautious, almost spiritual",
+  "guideIntroLine": "Listen closely. This room wants order, but not the kind we built before.",
   "currency": "Resonance",
   "mechanicEmphasis": "temporal",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_14_stage_1",
-      "name": "Data Cathedral \u2014 Bare Bones",
-      "description": "The room in its raw state. Data Cathedral evolves as you progress.",
-      "requiredUpgrades": 70,
+      "name": "Machine Sanctuary",
+      "description": "Stark machine sanctuary with primitive sacred geometry.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "server_pillars",
+        "sacred_geometry",
+        "dim_nave"
       ],
       "unlocked": false
     },
     {
       "id": "room_14_stage_2",
-      "name": "Data Cathedral \u2014 First Light",
-      "description": "Basic improvements visible. Data Cathedral evolves as you progress.",
-      "requiredUpgrades": 210,
+      "name": "Resonant Chamber",
+      "description": "Grand resonant chamber with harmonic light and chorus systems.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "harmonic_light",
+        "chorus_systems",
+        "reverent_order"
       ],
       "unlocked": false
     },
     {
       "id": "room_14_stage_3",
-      "name": "Data Cathedral \u2014 Functional",
-      "description": "A proper working space. Data Cathedral evolves as you progress.",
-      "requiredUpgrades": 420,
+      "name": "Cathedral Engine",
+      "description": "Full cathedral-machine where architecture and sound merge.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_14_stage_4",
-      "name": "Data Cathedral \u2014 Advanced",
-      "description": "High-tech transformation. Data Cathedral evolves as you progress.",
-      "requiredUpgrades": 700,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_14_stage_5",
-      "name": "Data Cathedral \u2014 Mastered",
-      "description": "The room at its peak. Data Cathedral evolves as you progress.",
-      "requiredUpgrades": 1120,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "merged_architecture",
+        "cathedral_glow",
+        "sound_engine",
+        "sacred_machine"
       ],
       "unlocked": false
     }
@@ -104,35 +82,61 @@
   "secrets": [
     {
       "id": "room_14_secret_1",
-      "title": "Hidden Cathedral Cache",
-      "description": "A secret stash hidden in the Data Cathedral.",
-      "hint": "Look behind the cathedral equipment.",
+      "title": "The Repeating Pattern",
+      "description": "Sound and light patterns align in a repeating sequence.",
+      "hint": "Watch for synchronized pulses.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_14_secret_2",
+      "title": "The Soft Voice",
+      "description": "The guide speaks more softly before major hidden events.",
+      "hint": "Listen to volume, not just words.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_14_secret_3",
+      "title": "The Idle Pillar",
+      "description": "One pillar glows when all resonance systems are idle.",
+      "hint": "Find the pillar that never sleeps.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_14_twist",
-    "title": "Data Cathedral Shift",
-    "description": "Something changes in the Data Cathedral. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 350",
-    "effectDescription": "New mechanics unlock in Data Cathedral. Event rates increase.",
+    "title": "Hidden Devotion Metric",
+    "description": "A hidden devotion metric appears and changes rewards.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Devotion accumulates through sustained harmony. High devotion unlocks sacred paths.",
     "activated": false
   },
   "eventPoolId": "pool_room_14",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "harmony_multiplier",
+    "resonance_network",
+    "devotion_mechanic",
+    "long_session_blessing",
+    "cathedral_infrastructure",
+    "ritual_maintenance",
+    "choir_amplification",
+    "hidden_altar",
+    "balance_reward",
+    "sacred_relic"
   ],
   "loreEntries": [
-    "room_14_lore_1",
-    "room_14_lore_2",
-    "room_14_lore_3"
+    "room_14_archive_resonance",
+    "room_14_guide_worship",
+    "room_14_secret_altar",
+    "room_14_scene_data"
   ],
   "unlockRequirement": "room_13",
   "completed": false,
@@ -143,18 +147,77 @@
       {
         "id": "room_14_evt_1",
         "roomId": "room_14",
-        "title": "Data Prayer",
-        "description": "Data Prayer \u2014 a common instant event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
+        "title": "Resonance Protocol",
+        "description": "The cathedral enters resonance. All systems harmonize.",
+        "flavorText": "Harmony is computation.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 10,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 20.4,
-            "description": "Gain Resonance"
+            "value": 16,
+            "description": "Gain Devotion"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Resonance blessing"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_14_evt_2",
+        "roomId": "room_14",
+        "title": "Choir Pulse",
+        "description": "Server fans create a harmonic choir pulse.",
+        "flavorText": "The machines are singing.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Choir momentum"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 8,
+            "description": "Gain Devotion"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_14_evt_3",
+        "roomId": "room_14",
+        "title": "Sacred Uptime",
+        "description": "Unbroken uptime generates devotion.",
+        "flavorText": "Persistence is prayer.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Uptime devotion"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 10,
+            "description": "Gain Devotion"
           }
         ],
         "chainBonus": 0.1,
@@ -163,262 +226,250 @@
         "weight": 10
       },
       {
-        "id": "room_14_evt_2",
+        "id": "room_14_evt_4",
         "roomId": "room_14",
-        "title": "Archive Echo",
-        "description": "Archive Echo \u2014 a common shortChoice event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Harmony Network Bloom",
+        "description": "The harmony network blooms across all pillars.",
+        "flavorText": "The cathedral achieves grace.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
+        "durationSeconds": 9,
+        "choices": [],
+        "rewards": [
           {
-            "id": "room_14_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 20.4,
-                "description": "Gain Resonance"
-              }
-            ],
-            "risk": 0.1
+            "type": "instantCurrency",
+            "value": 14,
+            "description": "Gain Devotion"
           },
           {
-            "id": "room_14_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Harmony bloom"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_14_evt_5",
+        "roomId": "room_14",
+        "title": "Server Hymn",
+        "description": "Servers produce a recognizable tonal pattern.",
+        "flavorText": "The machine composed something.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12,
+        "choices": [
+          {
+            "id": "room_14_evt_5_c1",
+            "text": "Listen in reverence",
+            "description": "Embrace the sacred",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 27.4,
-                "description": "Gain Resonance"
+                "value": 12,
+                "description": "Reverent Devotion"
+              },
+              {
+                "type": "guideAffinity",
+                "value": 1,
+                "description": "Spiritual rapport"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_14_evt_5_c2",
+            "text": "Analyze pattern",
+            "description": "Extract data from beauty",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 18,
+                "description": "Analytical Devotion"
               },
               {
                 "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
+                "value": 1,
+                "description": "Harmony route"
               }
             ],
-            "risk": 0.4
+            "risk": 0.2
           }
         ],
         "rewards": [],
-        "chainBonus": 0.2,
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 5,
+        "weight": 10
+      },
+      {
+        "id": "room_14_evt_6",
+        "roomId": "room_14",
+        "title": "Ritual Maintenance",
+        "description": "Careful maintenance yields spiritual and practical returns.",
+        "flavorText": "Care is devotion.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 10,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 8,
+            "description": "Gain Devotion"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Ritual bonus"
+          }
+        ],
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
         "requiredUpgradeCount": 3,
         "weight": 9
       },
       {
-        "id": "room_14_evt_3",
+        "id": "room_14_evt_7",
         "roomId": "room_14",
-        "title": "Sacred Pattern",
-        "description": "Sacred Pattern \u2014 a common timedChain event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "timedChain",
+        "title": "Devotion Surge",
+        "description": "A surge of devotion flows. All systems achieve transcendence.",
+        "flavorText": "Devotion has peaks.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 12.0,
+        "durationSeconds": 8,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 20.4,
-            "description": "Gain Resonance"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_14_evt_4",
-        "roomId": "room_14",
-        "title": "Pilgrim Process",
-        "description": "Pilgrim Process \u2014 a common utility event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
+            "value": 13,
+            "description": "Gain Devotion"
+          },
           {
             "type": "temporaryBuff",
-            "value": 3.72,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.82,
-            "description": "Compress cooldowns"
+            "value": 1.25,
+            "description": "Devotion transcendence"
           }
         ],
-        "chainBonus": 0.4,
+        "chainBonus": 0.15,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_14_evt_5",
-        "roomId": "room_14",
-        "title": "Corruption Purge",
-        "description": "Corruption Purge \u2014 a rare secretTrigger event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_14_evt_6",
-        "roomId": "room_14",
-        "title": "Hymn Frequency",
-        "description": "Hymn Frequency \u2014 a rare legendaryAnomaly event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          },
-          {
-            "type": "environmentTrigger",
-            "value": 1.0,
-            "description": "Force room evolution"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_14_evt_7",
-        "roomId": "room_14",
-        "title": "Relic Discovery",
-        "description": "Relic Discovery \u2014 a epic warningRisk event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 3.72,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "cooldownChange",
-            "value": 1.82,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_14_evt_8",
         "roomId": "room_14",
-        "title": "Faith Test",
-        "description": "Faith Test \u2014 a corrupted miniBoss event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.82,
-            "description": "Compress cooldowns"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "relicFragment",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_14_evt_9",
-        "roomId": "room_14",
-        "title": "Divine Overflow",
-        "description": "Divine Overflow \u2014 a legendary guideAdvisory event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "cooldownChange",
-            "value": 1.82,
-            "description": "Compress cooldowns"
-          }
-        ],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_14_evt_10",
-        "roomId": "room_14",
-        "title": "Transcendence Pulse",
-        "description": "Transcendence Pulse \u2014 a common hiddenGlitch event in Data Cathedral.",
-        "flavorText": "The cathedral environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Lit Path Reveal",
+        "description": "A lit path appears on the cathedral floor.",
+        "flavorText": "Light guides the worthy.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 9,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 20.4,
-            "description": "Gain Resonance"
+            "value": 10,
+            "description": "Gain Devotion"
           },
           {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Path revelation"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_14_evt_9",
+        "roomId": "room_14",
+        "title": "Hidden Altar Node",
+        "description": "An altar node activates beneath the central nave.",
+        "flavorText": "The altar was always there.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1,
+            "description": "Altar node clue"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 22,
+            "description": "Gain Devotion"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_14_evt_10",
+        "roomId": "room_14",
+        "title": "Silent Choir Window",
+        "description": "The choir falls silent. A deeper resonance becomes audible.",
+        "flavorText": "True harmony is found in silence.",
+        "category": "legendaryAnomaly",
+        "rarity": "rare",
+        "durationSeconds": 12,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Deep silence resonance"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1,
+            "description": "Silent altar route"
+          }
+        ],
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_14_evt_11",
+        "roomId": "room_14",
+        "title": "Relic Drive Benediction",
+        "description": "A relic drive activates with a benediction protocol.",
+        "flavorText": "The relic remembers what sacred means.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3,
+            "description": "Sacred relic data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1,
+            "description": "Archive the benediction"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 35,
+            "description": "Gain Devotion"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
         "weight": 2
       }
     ],
@@ -462,10 +513,10 @@
   ],
   "routeBonus": "research",
   "roomLaw": {
-    "id": "law_silence_14",
-    "name": "Law of Silence",
-    "description": "This room improves with silence",
-    "mechanic": "Less clicking increases passive prayer generation exponentially"
+    "id": "law_harmony_14",
+    "name": "Law of Harmony",
+    "description": "Harmony multiplies everything",
+    "mechanic": "Balanced long-session play creates multiplicative bonuses; impatient play breaks resonance"
   },
   "landmark": {
     "id": "lm_altar_of_data",
@@ -493,5 +544,47 @@
     "description": "Clearing corrupted data restores prayer flow",
     "mechanic": "Running data purification cycles removes contradictions and restores flow"
   },
-  "completionCeremony": "The cathedral hums a frequency that resonates in every future room"
+  "completionCeremony": "Choir tones merge with server harmonics. The cathedral achieves full resonance.",
+  "midSceneTwistLine": "It isn't enough to be powerful here. You have to be in harmony.",
+  "completionReward": {
+    "relicName": "Resonant Relic",
+    "relicEffect": "Boosts harmony-based systems and long-session efficiency later",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Darkness opens into towering vertical light. Server pillars rise like a nave.",
+    "audio": "Deep resonant chord building slowly",
+    "titleReveal": "Title appears as if sung into shape"
+  },
+  "transitionOut": {
+    "visual": "Choir tones distort. Sacred symmetry cracks into layered false geometry.",
+    "audio": "Harmony fracturing into digital static",
+    "titleReveal": "The chamber tears into the next room"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_14_archive_resonance",
+      "title": "Resonance Archive",
+      "content": "Records of every harmonic pattern achieved."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_14_guide_worship",
+      "title": "Some Structures Want Worship",
+      "content": "The cathedral wanted reverence."
+    },
+    {
+      "type": "secret",
+      "id": "room_14_secret_altar",
+      "title": "The Hidden Altar Path",
+      "content": "Sound and light aligned to open something beneath the nave."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_14_scene_data",
+      "title": "Cathedral Built from Data",
+      "content": "Architecture became worship. Data became prayer."
+    }
+  ]
 }
