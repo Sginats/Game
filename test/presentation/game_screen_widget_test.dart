@@ -232,7 +232,6 @@ void main() {
           body: TechTreeView(
             graph: graph,
             selectedNodeId: null,
-            hoveredNodeId: null,
             transformationController: TransformationController(),
             onNodeTap: (node) => tappedNode = node,
             onHoverChanged: (_) {},

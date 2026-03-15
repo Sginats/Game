@@ -86,7 +86,11 @@ class _GameScreenState extends State<GameScreen>
   // Cached tech tree graph — rebuilt only when stateVersion changes
   TechTreeGraph? _cachedGraph;
   String _lastEraId = '';
-  int _lastStateVersion = -1;
+  // Using _kInvalidVersion as the initial / "force rebuild" sentinel so the
+  // tree is always rebuilt on the first build and any time we explicitly
+  // invalidate the cache (era switch, purchase-mode change, node selection).
+  static const int _kInvalidVersion = -1;
+  int _lastStateVersion = _kInvalidVersion;
   // Cached era definition — O(1) lookup after first build
   Era? _cachedEraDef;
 
@@ -128,7 +132,7 @@ class _GameScreenState extends State<GameScreen>
             _cachedGraph = null; // Invalidate cache on era change
             _cachedEraDef = null; // Invalidate cached era def
             _selectedNodeId = null;
-            _lastStateVersion = -1; // Force tree rebuild
+            _lastStateVersion = _kInvalidVersion; // Force tree rebuild
           }
           // Sync ambient audio once per room change (not every build)
           final roomId = _controller.currentRoomId;
@@ -439,8 +443,8 @@ class _GameScreenState extends State<GameScreen>
             child: TechTreeView(
               graph: graph,
               selectedNodeId: _selectedNodeId,
-              hoveredNodeId: _hoveredNodeId,
               transformationController: _camera,
+              viewportSize: _viewportSize,
               backgroundLayer: currentRoom == null
                   ? null
                   : RoomSceneBackdrop(
@@ -452,13 +456,15 @@ class _GameScreenState extends State<GameScreen>
                 unawaited(widget.audioService.playNodeSelect());
                 setState(() {
                   _selectedNodeId = value.id;
-                  _lastStateVersion = -1; // Rebuild tree to show selection
+                  _lastStateVersion = _kInvalidVersion; // Rebuild tree to show selection
                 });
                 _focusNode(value.position);
               },
               onHoverChanged: (value) {
-                if (_hoveredNodeId == value) return;
-                setState(() => _hoveredNodeId = value);
+                // Record without setState — TechTreeView handles hover visuals
+                // internally. Context panel picks up the new value on the next
+                // timer-driven rebuild (≤250 ms later), which is acceptable.
+                _hoveredNodeId = value;
               },
             ),
           ),
@@ -600,7 +606,7 @@ class _GameScreenState extends State<GameScreen>
             borderRadius: BorderRadius.circular(10),
             onTap: () => setState(() {
               _purchaseMode = mode;
-              _lastStateVersion = -1; // Force tree rebuild on mode change
+              _lastStateVersion = _kInvalidVersion; // Force tree rebuild on mode change
             }),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 160),
@@ -2154,7 +2160,7 @@ class _GameScreenState extends State<GameScreen>
     _selectedNodeId = null;
     _cachedGraph = null;
     _cachedEraDef = null;
-    _lastStateVersion = -1; // Force tree rebuild
+    _lastStateVersion = _kInvalidVersion; // Force tree rebuild
     setState(() {});
     WidgetsBinding.instance.addPostFrameCallback((_) => _focusCurrentEra());
   }
@@ -3086,9 +3092,9 @@ class _GameScreenState extends State<GameScreen>
   Future<void> _showCodexSheet() async {
     final orderedEras = widget.config.eras.toList()
       ..sort((a, b) => a.order.compareTo(b.order));
-    for (final era in orderedEras) {
-      widget.config.ensureEraContent(era.id);
-    }
+    // Do NOT pre-load all 20 eras' content here — it causes a blocking
+    // synchronous parse of all JSON just to open the codex. Era content is
+    // lazy-loaded already by _syncEraWindow as the player progresses.
     final seenEvents = _controller.seenEventTemplates;
     const sections = [
       'overview',

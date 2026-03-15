@@ -48,6 +48,7 @@ jobs:
           flutter test test/domain/models/ui_ux_systems_test.dart
           flutter test test/presentation/game_screen_widget_test.dart
           flutter test test/application/game_controller_perf_test.dart
+          flutter test test/presentation/tech_tree_viewport_test.dart
 
   analyze:
     name: Analyze

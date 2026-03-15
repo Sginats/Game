@@ -15,3 +15,4 @@ export 'scene_event.dart';
 export 'side_activity.dart';
 export 'ui_ux_systems.dart';
 export 'upgrade.dart';
+export 'performance_budget.dart';
