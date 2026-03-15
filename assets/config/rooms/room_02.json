@@ -1,12 +1,12 @@
 {
   "id": "room_02",
   "name": "Budget Setup",
-  "subtitle": "Every credit counts",
+  "subtitle": "Cheap parts. Real ambition.",
   "order": 2,
-  "introText": "Welcome to Budget Setup. Every credit counts. This is where your journey continues.",
-  "completionText": "You have mastered Budget Setup. The Credits you've gathered here will echo through every room that follows.",
-  "guideTone": "practical, budget-conscious",
-  "guideIntroLine": "Okay, we have a real desk now. Not great, but real.",
+  "introText": "Cheap parts. Real ambition.",
+  "completionText": "You built more from less than anyone expected.",
+  "guideTone": "practical, optimistic, strategic, teaches value and efficiency",
+  "guideIntroLine": "It's not pretty, but it works. That already makes it dangerous.",
   "currency": "Credits",
   "mechanicEmphasis": "hybrid",
   "themeColors": {
@@ -17,60 +17,38 @@
   "transformationStages": [
     {
       "id": "room_02_stage_1",
-      "name": "Budget Setup \u2014 Bare Bones",
-      "description": "The room in its raw state. Budget Setup evolves as you progress.",
-      "requiredUpgrades": 10,
+      "name": "Mismatched Mess",
+      "description": "Cluttered low-budget setup with mismatched gear. Nothing coordinates. Cables tangle everywhere.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "mismatched_monitors",
+        "tangled_cables",
+        "cheap_peripherals"
       ],
       "unlocked": false
     },
     {
       "id": "room_02_stage_2",
-      "name": "Budget Setup \u2014 First Light",
-      "description": "Basic improvements visible. Budget Setup evolves as you progress.",
-      "requiredUpgrades": 30,
+      "name": "Coordinated Budget",
+      "description": "Coordinated but still cheap workstation with second monitor and better layout.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "dual_monitors",
+        "organized_cables",
+        "matching_theme"
       ],
       "unlocked": false
     },
     {
       "id": "room_02_stage_3",
-      "name": "Budget Setup \u2014 Functional",
-      "description": "A proper working space. Budget Setup evolves as you progress.",
-      "requiredUpgrades": 60,
+      "name": "Budget Battlestation",
+      "description": "Surprisingly high-performance budget battlestation with organized visuals and efficient flow.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_02_stage_4",
-      "name": "Budget Setup \u2014 Advanced",
-      "description": "High-tech transformation. Budget Setup evolves as you progress.",
-      "requiredUpgrades": 100,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_02_stage_5",
-      "name": "Budget Setup \u2014 Mastered",
-      "description": "The room at its peak. Budget Setup evolves as you progress.",
-      "requiredUpgrades": 160,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "rgb_accents",
+        "clean_layout",
+        "efficient_flow",
+        "performance_indicators"
       ],
       "unlocked": false
     }
@@ -104,56 +82,161 @@
   "secrets": [
     {
       "id": "room_02_secret_1",
-      "title": "Hidden Thrift Cache",
-      "description": "A secret stash hidden in the Budget Setup.",
-      "hint": "Look behind the thrift equipment.",
+      "title": "The Hidden Gem",
+      "description": "One item labeled 'low quality' keeps appearing in unusual places.",
+      "hint": "That cheap module shows up more often than it should.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_02_secret_2",
+      "title": "The Dangerous Bargain",
+      "description": "The guide jokes that the cheapest item is sometimes the most dangerous.",
+      "hint": "Listen when the guide talks about bargains.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_02_secret_3",
+      "title": "The Shifting Description",
+      "description": "Hovering over the same cheap module several times changes its description.",
+      "hint": "Read the same tooltip twice. Then a third time.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_02_twist",
-    "title": "Budget Setup Shift",
-    "description": "Something changes in the Budget Setup. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 50",
-    "effectDescription": "New mechanics unlock in Budget Setup. Event rates increase.",
+    "title": "Hidden Efficiency Score",
+    "description": "The room gains a hidden efficiency score that tracks your cost-performance ratio.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "An efficiency metric appears. High efficiency unlocks bonus discount events and rare budget modules.",
     "activated": false
   },
   "eventPoolId": "pool_room_02",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "budget_hardware",
+    "cheap_peripheral",
+    "cost_efficiency",
+    "marketplace_bonus",
+    "combo_extension",
+    "basic_automation",
+    "cable_organization",
+    "hidden_quality",
+    "discount_interaction",
+    "utility_comfort"
   ],
   "loreEntries": [
-    "room_02_lore_1",
-    "room_02_lore_2",
-    "room_02_lore_3"
+    "room_02_archive_hardware",
+    "room_02_route_efficiency",
+    "room_02_guide_cheap",
+    "room_02_scene_nothing"
   ],
   "unlockRequirement": "room_01",
   "completed": false,
   "currentTransformationStage": 0,
   "eventPool": {
-    "roomId": "room_02",
     "events": [
       {
         "id": "room_02_evt_1",
         "roomId": "room_02",
-        "title": "Budget Alert",
-        "description": "Budget Alert \u2014 a common instant event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
+        "title": "Discount Drop",
+        "description": "A flash sale hits the marketplace. Components drop to half price for a limited window.",
+        "flavorText": "Timing beats wealth.",
         "category": "instant",
         "rarity": "common",
-        "durationSeconds": 8.0,
+        "durationSeconds": 10.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 7.2,
+            "value": 10.0,
+            "description": "Gain Credits"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.3,
+            "description": "Purchase costs reduced briefly"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_02_evt_2",
+        "roomId": "room_02",
+        "title": "Cheap Peripheral Sale",
+        "description": "A batch of budget peripherals becomes available. They're ugly but functional.",
+        "flavorText": "Function over form.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [
+          {
+            "id": "room_02_evt_2_c1",
+            "text": "Buy the set",
+            "description": "Reliable value",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 8.0,
+                "description": "Steady Credits"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_02_evt_2_c2",
+            "text": "Gamble on the box",
+            "description": "Mystery bundle",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 18.0,
+                "description": "Bonus Credits"
+              },
+              {
+                "type": "rareResource",
+                "value": 1.0,
+                "description": "Hidden gem"
+              }
+            ],
+            "risk": 0.35
+          }
+        ],
+        "rewards": [],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 3,
+        "weight": 10
+      },
+      {
+        "id": "room_02_evt_3",
+        "roomId": "room_02",
+        "title": "RGB Flicker Surge",
+        "description": "The cheap RGB strips sync unexpectedly, creating a momentary power surge.",
+        "flavorText": "Even aesthetics can generate force.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "RGB momentum"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 5.0,
             "description": "Gain Credits"
           }
         ],
@@ -163,264 +246,215 @@
         "weight": 10
       },
       {
-        "id": "room_02_evt_2",
+        "id": "room_02_evt_4",
         "roomId": "room_02",
-        "title": "Coupon Found",
-        "description": "Coupon Found \u2014 a common shortChoice event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Bargain Bin Cache",
+        "description": "Digging through the bargain bin reveals a compatible part buried under junk.",
+        "flavorText": "Patience in cheap aisles pays off.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 10.0,
-        "choices": [
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
           {
-            "id": "room_02_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 7.2,
-                "description": "Gain Credits"
-              }
-            ],
-            "risk": 0.1
-          },
-          {
-            "id": "room_02_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 8.2,
-                "description": "Gain Credits"
-              },
-              {
-                "type": "routeReward",
-                "value": 1.0,
-                "description": "Open a route window"
-              }
-            ],
-            "risk": 0.4
+            "type": "instantCurrency",
+            "value": 12.0,
+            "description": "Gain Credits"
           }
         ],
-        "rewards": [],
-        "chainBonus": 0.2,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_02_evt_5",
+        "roomId": "room_02",
+        "title": "Cable Coupon Popup",
+        "description": "A popup offers a coupon for cable accessories. Small savings compound.",
+        "flavorText": "Pennies become power.",
+        "category": "utility",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.1,
+            "description": "Slight efficiency boost"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 4.0,
+            "description": "Gain Credits"
+          }
+        ],
+        "chainBonus": 0.05,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 2,
         "weight": 9
       },
       {
-        "id": "room_02_evt_3",
+        "id": "room_02_evt_6",
         "roomId": "room_02",
-        "title": "Price Drop",
-        "description": "Price Drop \u2014 a common timedChain event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "timedChain",
+        "title": "Cashback Window",
+        "description": "A brief cashback window opens. Every purchase returns a percentage.",
+        "flavorText": "The system rewards the thrifty.",
+        "category": "instant",
         "rarity": "common",
         "durationSeconds": 12.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 7.2,
-            "description": "Gain Credits"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_02_evt_4",
-        "roomId": "room_02",
-        "title": "Clearance Event",
-        "description": "Clearance Event \u2014 a common utility event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
+            "value": 8.0,
+            "description": "Cashback Credits"
+          },
           {
-            "type": "temporaryBuff",
-            "value": 1.56,
-            "description": "Stabilize output"
+            "type": "comboAmplification",
+            "value": 1.1,
+            "description": "Spending momentum"
           }
         ],
-        "chainBonus": 0.4,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_02_evt_5",
-        "roomId": "room_02",
-        "title": "Discount Glitch",
-        "description": "Discount Glitch \u2014 a rare secretTrigger event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_02_evt_6",
-        "roomId": "room_02",
-        "title": "Bulk Deal",
-        "description": "Bulk Deal \u2014 a rare legendaryAnomaly event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_02_evt_7",
         "roomId": "room_02",
-        "title": "Return Refund",
-        "description": "Return Refund \u2014 a epic warningRisk event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
+        "title": "Second Monitor Sync",
+        "description": "The second monitor finally syncs with the first. Workflow efficiency jumps.",
+        "flavorText": "Two screens think faster than one.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
         "choices": [],
         "rewards": [
           {
             "type": "temporaryBuff",
-            "value": 1.56,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
+            "value": 1.2,
+            "description": "Dual-screen production boost"
           }
         ],
-        "chainBonus": 0.7000000000000001,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
+        "requiredUpgradeCount": 5,
+        "weight": 10
       },
       {
         "id": "room_02_evt_8",
         "roomId": "room_02",
-        "title": "Flash Sale",
-        "description": "Flash Sale \u2014 a corrupted miniBoss event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_02_evt_9",
-        "roomId": "room_02",
-        "title": "Credit Check",
-        "description": "Credit Check \u2014 a legendary guideAdvisory event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_02_evt_10",
-        "roomId": "room_02",
-        "title": "Savings Cascade",
-        "description": "Savings Cascade \u2014 a common hiddenGlitch event in Budget Setup.",
-        "flavorText": "The thrift environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Marketplace Rush",
+        "description": "A surge of marketplace activity creates arbitrage opportunities.",
+        "flavorText": "The market rewards the attentive.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 8.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 7.2,
+            "value": 14.0,
             "description": "Gain Credits"
           },
           {
-            "type": "secretClue",
+            "type": "routeReward",
             "value": 1.0,
-            "description": "Expose a secret clue"
+            "description": "Market route progress"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
-        "weight": 2
-      }
-    ],
-    "chainBonusMultiplier": 1.1,
-    "pityThreshold": 10,
-    "spawnRateMultiplier": 1.04,
-    "midTwistEvents": [
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
       {
-        "id": "room_02_twist_evt_1",
+        "id": "room_02_evt_9",
         "roomId": "room_02",
-        "title": "Budget Setup Awakening",
-        "description": "The twist in Budget Setup unlocks new possibilities.",
-        "flavorText": "Everything shifts. New rules apply.",
-        "category": "legendaryAnomaly",
-        "rarity": "epic",
+        "title": "Counterfeit Gold Part",
+        "description": "A 'gold' rated part arrives \u2014 but something feels off. It performs too well for its price.",
+        "flavorText": "Not all labels tell the truth.",
+        "category": "secretTrigger",
+        "rarity": "rare",
         "durationSeconds": 15.0,
         "choices": [],
         "rewards": [
           {
-            "type": "rareResource",
+            "type": "secretClue",
             "value": 1.0,
-            "description": "Archive a relic fragment"
+            "description": "A clue about hidden quality"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 20.0,
+            "description": "Gain Credits"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 0,
-        "weight": 5
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_02_evt_10",
+        "roomId": "room_02",
+        "title": "Collector's Budget Mouse",
+        "description": "A rare first-edition budget mouse appears. Collectors would pay a fortune.",
+        "flavorText": "Rarity doesn't always mean expensive.",
+        "category": "utility",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Collectible relic piece"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the find"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_02_evt_11",
+        "roomId": "room_02",
+        "title": "Sponsor Trial Package",
+        "description": "A mysterious sponsor sends a trial package of premium components \u2014 for free.",
+        "flavorText": "Someone is watching your progress.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 3.0,
+            "description": "Premium trial components"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 30.0,
+            "description": "Gain Credits"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Log the sponsor contact"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
+        "weight": 2
       }
     ]
   },
@@ -432,9 +466,9 @@
   "routeBonus": "automation",
   "roomLaw": {
     "id": "law_efficiency_02",
-    "name": "Law of Efficiency",
-    "description": "This room rewards efficiency",
-    "mechanic": "Cheaper purchases give bonus credits proportional to savings"
+    "name": "Law of Cost-Efficiency",
+    "description": "Cost-efficiency matters more than raw power",
+    "mechanic": "Cheaper upgrades gain bonus value; expensive ones lose diminishing returns"
   },
   "landmark": {
     "id": "lm_discount_terminal",
@@ -462,5 +496,47 @@
     "description": "Waiting between purchases reduces costs",
     "mechanic": "A cooldown timer between purchases grants cumulative cost reduction"
   },
-  "completionCeremony": "The budget balances perfectly, revealing a hidden surplus"
+  "completionCeremony": "The budget rig hums with coordinated precision. Every cheap part earns its place.",
+  "midSceneTwistLine": "Efficiency is becoming its own kind of intelligence.",
+  "completionReward": {
+    "relicName": "Efficiency Token",
+    "relicEffect": "Improves cost-performance calculations and discount event value in future rooms",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Desk components slide into place from darkness. RGB flickers on one item at a time.",
+    "audio": "Soft click-snap assembly sounds building rhythm",
+    "titleReveal": "Title appears in clean budget-tech font"
+  },
+  "transitionOut": {
+    "visual": "Prices and tags flash across screen. Cheap parts blur into polished silhouettes.",
+    "audio": "Cash register chime fading into creative energy",
+    "titleReveal": "Budget metrics dissolve into next room glow"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_02_archive_hardware",
+      "title": "Budget Hardware Archive",
+      "content": "A catalog of every cheap part that proved its worth."
+    },
+    {
+      "type": "routeNote",
+      "id": "room_02_route_efficiency",
+      "title": "Efficiency Over Luxury",
+      "content": "The path that values clever spending over raw investment."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_02_guide_cheap",
+      "title": "Cheap Doesn't Mean Weak",
+      "content": "I learned more from $10 parts than from $1000 ones."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_02_scene_nothing",
+      "title": "Built From Almost Nothing",
+      "content": "The second room proved that ambition doesn't need a budget."
+    }
+  ]
 }

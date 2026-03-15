@@ -1,12 +1,12 @@
 {
   "id": "room_01",
   "name": "Junk Corner",
-  "subtitle": "Salvage and survive",
+  "subtitle": "Power returns to dead metal.",
   "order": 1,
-  "introText": "Welcome to Junk Corner. Salvage and survive. This is where your journey begins.",
-  "completionText": "You have mastered Junk Corner. The Scrap you've gathered here will echo through every room that follows.",
-  "guideTone": "encouraging, scrappy",
-  "guideIntroLine": "Hey\u2026 you found me in this pile of junk. Let's see what we can do.",
+  "introText": "Power returns to dead metal.",
+  "completionText": "It shouldn't be alive yet. But it is.",
+  "guideTone": "encouraging, patient, instructional, slightly amused by how broken everything is",
+  "guideIntroLine": "This is where it begins. Don't worry if it looks broken. Broken things can still wake up.",
   "currency": "Scrap",
   "mechanicEmphasis": "tap",
   "themeColors": {
@@ -17,60 +17,39 @@
   "transformationStages": [
     {
       "id": "room_01_stage_1",
-      "name": "Junk Corner \u2014 Bare Bones",
-      "description": "The room in its raw state. Junk Corner evolves as you progress.",
+      "name": "Dead Dust",
+      "description": "Dead, dusty, flickering setup with weak light and broken hardware. Screws litter the desk. The fan doesn't spin.",
       "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "dust_particles",
+        "flickering_light",
+        "cracked_case"
       ],
       "unlocked": false
     },
     {
       "id": "room_01_stage_2",
-      "name": "Junk Corner \u2014 First Light",
-      "description": "Basic improvements visible. Junk Corner evolves as you progress.",
-      "requiredUpgrades": 15,
+      "name": "First Light",
+      "description": "Cleaned desk, patched case, first glowing diagnostics. Wiring is visibly stable. One monitor flickers to life.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "clean_desk",
+        "patched_case",
+        "diagnostic_glow",
+        "stable_wiring"
       ],
       "unlocked": false
     },
     {
       "id": "room_01_stage_3",
-      "name": "Junk Corner \u2014 Functional",
-      "description": "A proper working space. Junk Corner evolves as you progress.",
-      "requiredUpgrades": 30,
+      "name": "Awakened Prototype",
+      "description": "Fully awakened prototype corner with active monitors, pulsing case core, and cleaner space. The second core hums beneath.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_01_stage_4",
-      "name": "Junk Corner \u2014 Advanced",
-      "description": "High-tech transformation. Junk Corner evolves as you progress.",
-      "requiredUpgrades": 50,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_01_stage_5",
-      "name": "Junk Corner \u2014 Mastered",
-      "description": "The room at its peak. Junk Corner evolves as you progress.",
-      "requiredUpgrades": 80,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "active_monitors",
+        "pulsing_core",
+        "clean_space",
+        "hidden_core_glow"
       ],
       "unlocked": false
     }
@@ -104,48 +83,73 @@
   "secrets": [
     {
       "id": "room_01_secret_1",
-      "title": "Hidden Salvage Cache",
-      "description": "A secret stash hidden in the Junk Corner.",
-      "hint": "Look behind the salvage equipment.",
+      "title": "The Motherboard Sequence",
+      "description": "A specific corner of the motherboard flashes when clicked in the correct order.",
+      "hint": "Watch the top-left pins. They react to a pattern.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_01_secret_2",
+      "title": "The Dead Port",
+      "description": "Not all dead ports are truly dead. One USB slot still carries a signal.",
+      "hint": "The guide mentions ports that aren't really gone.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_01_secret_3",
+      "title": "The Eternal Screw",
+      "description": "Repeated salvage interactions reveal one screw that never leaves the desk.",
+      "hint": "Something small refuses to be sorted away.",
+      "clueSource": "sideActivity",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_01_twist",
-    "title": "Junk Corner Shift",
-    "description": "Something changes in the Junk Corner. The rules aren't what they were.",
+    "title": "Dormant Second Core",
+    "description": "The broken PC was hiding a second dormant core beneath the motherboard.",
     "triggerCondition": "upgrades_purchased >= 25",
-    "effectDescription": "New mechanics unlock in Junk Corner. Event rates increase.",
+    "effectDescription": "A second processing core activates, doubling base tap value and revealing hidden motherboard upgrade paths.",
     "activated": false
   },
   "eventPoolId": "pool_room_01",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "core_repair",
+    "scrap_recovery",
+    "manual_click_power",
+    "combo_starter",
+    "stability_boot",
+    "desk_cleanup",
+    "basic_cooling",
+    "first_automation",
+    "hidden_motherboard",
+    "guide_tutorial"
   ],
   "loreEntries": [
-    "room_01_lore_1",
-    "room_01_lore_2",
-    "room_01_lore_3"
+    "room_01_lore_boot",
+    "room_01_archive_scrap",
+    "room_01_guide_wake",
+    "room_01_scene_corner"
   ],
   "unlockRequirement": null,
   "completed": false,
   "currentTransformationStage": 0,
   "eventPool": {
-    "roomId": "room_01",
     "events": [
       {
         "id": "room_01_evt_1",
         "roomId": "room_01",
-        "title": "Loose Wire",
-        "description": "Loose Wire \u2014 a common instant event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
+        "title": "Core Pulse",
+        "description": "A faint pulse ripples through the motherboard. Something deep inside the tower responds.",
+        "flavorText": "The dead machine remembers electricity.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
@@ -153,57 +157,84 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 6.1,
+            "value": 8.0,
             "description": "Gain Scrap"
           },
           {
             "type": "comboAmplification",
-            "value": 1.17,
-            "description": "Sharpen the chain"
+            "value": 1.2,
+            "description": "Pulse sharpens your rhythm"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_01_evt_2",
+        "roomId": "room_01",
+        "title": "Loose Wire Spark",
+        "description": "A dangling wire sparks against the case. Quick \u2014 tap before it grounds out!",
+        "flavorText": "Even broken connections carry power.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 6.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 6.0,
+            "description": "Gain Scrap"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Brief tap power surge"
           }
         ],
         "chainBonus": 0.1,
         "requiredTwistActive": false,
         "requiredUpgradeCount": 0,
-        "weight": 10
+        "weight": 11
       },
       {
-        "id": "room_01_evt_2",
+        "id": "room_01_evt_3",
         "roomId": "room_01",
-        "title": "Scrap Pile Discovery",
-        "description": "Scrap Pile Discovery \u2014 a common shortChoice event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
+        "title": "Spare Parts Crate",
+        "description": "You find a crate of old components wedged behind the desk. Most are junk. Some are not.",
+        "flavorText": "Treasure hides in forgotten places.",
         "category": "shortChoice",
         "rarity": "common",
-        "durationSeconds": 10.0,
+        "durationSeconds": 12.0,
         "choices": [
           {
-            "id": "room_01_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
+            "id": "room_01_evt_3_c1",
+            "text": "Sort carefully",
+            "description": "Patient sorting yields reliable parts",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 6.1,
-                "description": "Gain Scrap"
+                "value": 12.0,
+                "description": "Guaranteed Scrap"
               }
             ],
-            "risk": 0.1
+            "risk": 0.05
           },
           {
-            "id": "room_01_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "id": "room_01_evt_3_c2",
+            "text": "Grab and go",
+            "description": "Risky grab \u2014 could find gold or dust",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 6.6,
-                "description": "Gain Scrap"
+                "value": 20.0,
+                "description": "Bonus Scrap"
               },
               {
                 "type": "routeReward",
                 "value": 1.0,
-                "description": "Open a route window"
+                "description": "Route progress"
               }
             ],
             "risk": 0.4
@@ -213,234 +244,218 @@
         "chainBonus": 0.2,
         "requiredTwistActive": false,
         "requiredUpgradeCount": 3,
-        "weight": 9
-      },
-      {
-        "id": "room_01_evt_3",
-        "roomId": "room_01",
-        "title": "Rusty Toolbox",
-        "description": "Rusty Toolbox \u2014 a common timedChain event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 6.1,
-            "description": "Gain Scrap"
-          },
-          {
-            "type": "comboAmplification",
-            "value": 1.17,
-            "description": "Sharpen the chain"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
+        "weight": 10
       },
       {
         "id": "room_01_evt_4",
         "roomId": "room_01",
-        "title": "Broken Screen Flicker",
-        "description": "Broken Screen Flicker \u2014 a common utility event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 1.38,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_01_evt_5",
-        "roomId": "room_01",
-        "title": "Rat in the Cables",
-        "description": "Rat in the Cables \u2014 a rare secretTrigger event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
-      },
-      {
-        "id": "room_01_evt_6",
-        "roomId": "room_01",
-        "title": "Junk Avalanche",
-        "description": "Junk Avalanche \u2014 a rare legendaryAnomaly event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.6000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
-      },
-      {
-        "id": "room_01_evt_7",
-        "roomId": "room_01",
-        "title": "Old Battery Spark",
-        "description": "Old Battery Spark \u2014 a epic warningRisk event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
+        "title": "Dust Cloud Shutdown",
+        "description": "A plume of dust triggers a thermal fault. The system flickers dangerously.",
+        "flavorText": "Neglect has consequences.",
         "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 1.38,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_01_evt_8",
-        "roomId": "room_01",
-        "title": "Mystery Component",
-        "description": "Mystery Component \u2014 a corrupted miniBoss event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "comboAmplification",
-            "value": 1.17,
-            "description": "Sharpen the chain"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_01_evt_9",
-        "roomId": "room_01",
-        "title": "Dust Storm",
-        "description": "Dust Storm \u2014 a legendary guideAdvisory event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_01_evt_10",
-        "roomId": "room_01",
-        "title": "Salvage Bonanza",
-        "description": "Salvage Bonanza \u2014 a common hiddenGlitch event in Junk Corner.",
-        "flavorText": "The salvage environment reacts to your presence.",
-        "category": "hiddenGlitch",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 10.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 6.1,
-            "description": "Gain Scrap"
-          },
-          {
-            "type": "comboAmplification",
-            "value": 1.17,
-            "description": "Sharpen the chain"
-          },
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "value": 4.0,
+            "description": "Salvage from the shutdown"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
-        "weight": 2
-      }
-    ],
-    "chainBonusMultiplier": 1.05,
-    "pityThreshold": 9,
-    "spawnRateMultiplier": 1.02,
-    "midTwistEvents": [
+        "chainBonus": 0.05,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
       {
-        "id": "room_01_twist_evt_1",
+        "id": "room_01_evt_5",
         "roomId": "room_01",
-        "title": "Junk Corner Awakening",
-        "description": "The twist in Junk Corner unlocks new possibilities.",
-        "flavorText": "Everything shifts. New rules apply.",
-        "category": "legendaryAnomaly",
-        "rarity": "epic",
+        "title": "Fan Kickstart",
+        "description": "The main fan coughs to life. For a moment, everything runs cooler and faster.",
+        "flavorText": "Air flow is the first luxury.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Cooling boost to production"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 5.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_01_evt_6",
+        "roomId": "room_01",
+        "title": "Sticky Note Reminder",
+        "description": "A handwritten sticky note falls from the monitor. It contains a formula someone left behind.",
+        "flavorText": "The previous owner knew something.",
+        "category": "utility",
+        "rarity": "common",
         "durationSeconds": 15.0,
         "choices": [],
         "rewards": [
           {
-            "type": "rareResource",
+            "type": "codexEntry",
             "value": 1.0,
-            "description": "Archive a relic fragment"
+            "description": "Archive a forgotten note"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
+        "chainBonus": 0.05,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 5,
+        "weight": 8
+      },
+      {
+        "id": "room_01_evt_7",
+        "roomId": "room_01",
+        "title": "Salvage Drawer Pop",
+        "description": "A desk drawer pops open on its own. Inside: a handful of usable components.",
+        "flavorText": "The desk remembers what was stored.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 8.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 10.0,
+            "description": "Gain Scrap"
+          },
+          {
+            "type": "comboAmplification",
+            "value": 1.1,
+            "description": "Momentum from the find"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
         "requiredUpgradeCount": 0,
-        "weight": 5
+        "weight": 10
+      },
+      {
+        "id": "room_01_evt_8",
+        "roomId": "room_01",
+        "title": "Static Boot Attempt",
+        "description": "The system tries to boot from static charge alone. It almost works.",
+        "flavorText": "Desperation is a form of ingenuity.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 7.0,
+            "description": "Gain Scrap"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.1,
+            "description": "Residual charge lingers"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 2,
+        "weight": 9
+      },
+      {
+        "id": "room_01_evt_9",
+        "roomId": "room_01",
+        "title": "Dormant Core Ping",
+        "description": "A signal emerges from deep inside the motherboard. Something dormant is responding.",
+        "flavorText": "Not everything dead stays quiet.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 15.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "A clue about the hidden core"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 15.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_01_evt_10",
+        "roomId": "room_01",
+        "title": "Hidden Motherboard Port",
+        "description": "Behind a capacitor, you spot an unlabeled port. It pulses faintly when touched.",
+        "flavorText": "Engineers leave backdoors.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Progress toward a hidden path"
+          },
+          {
+            "type": "relicFragment",
+            "value": 1.0,
+            "description": "Gain a relic fragment"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_01_evt_11",
+        "roomId": "room_01",
+        "title": "Ghost BIOS Screen",
+        "description": "For a split second, a BIOS screen flashes \u2014 one that doesn't match any known firmware.",
+        "flavorText": "The machine has memories it shouldn't.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the ghost BIOS"
+          },
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Extract anomaly data"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 25.0,
+            "description": "Gain Scrap"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
+        "weight": 2
       }
     ]
   },
@@ -451,10 +466,10 @@
   ],
   "routeBonus": "operator",
   "roomLaw": {
-    "id": "law_patience_01",
-    "name": "Law of Patience",
-    "description": "This room rewards patience",
-    "mechanic": "Scrap production increases the longer you stay without prestiging"
+    "id": "law_manual_01",
+    "name": "Law of Manual Dominance",
+    "description": "Manual actions are strongest while the setup is unstable",
+    "mechanic": "Tap power is multiplied while automation is weak or absent"
   },
   "landmark": {
     "id": "lm_scrap_throne",
@@ -482,5 +497,47 @@
     "description": "Manual maintenance taps stabilize equipment",
     "mechanic": "Tapping maintenance actions resets decay timers and boosts output briefly"
   },
-  "completionCeremony": "The junk reshapes itself into a gateway"
+  "completionCeremony": "The junk reshapes itself into a gateway. A faint signal hums from the second core.",
+  "midSceneTwistLine": "There's another pulse in here. Something underneath the first system.",
+  "completionReward": {
+    "relicName": "Dormant Core Fragment",
+    "relicEffect": "Small permanent bonus to early-room stability and hidden hardware discovery",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Black screen, faint boot hum, dusty desk fades in through CRT flicker, one monitor line appears horizontally",
+    "audio": "Low-frequency boot hum building to a click",
+    "titleReveal": "Room title resolves from static noise"
+  },
+  "transitionOut": {
+    "visual": "Machine core pulse expands, dust lifts upward unnaturally, room folds into a bright wireframe outline",
+    "audio": "Rising digital tone with a snap",
+    "titleReveal": "Wireframe collapses into next room seed"
+  },
+  "codexAdditions": [
+    {
+      "type": "lore",
+      "id": "room_01_lore_boot",
+      "title": "First Boot Log",
+      "content": "The first current to flow through dead silicon. It shouldn't have worked."
+    },
+    {
+      "type": "archive",
+      "id": "room_01_archive_scrap",
+      "title": "Scrap Component Archive",
+      "content": "Catalog of salvaged parts recovered from the original junk pile."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_01_guide_wake",
+      "title": "Wake Sequence",
+      "content": "I remember the moment the first LED blinked. It felt like a heartbeat."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_01_scene_corner",
+      "title": "The Corner That Started It",
+      "content": "Every machine empire begins somewhere. This one began in a pile of discarded parts."
+    }
+  ]
 }

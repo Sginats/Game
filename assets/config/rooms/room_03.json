@@ -1,12 +1,12 @@
 {
   "id": "room_03",
   "name": "Creator Room",
-  "subtitle": "Build an audience",
+  "subtitle": "It wants to be seen.",
   "order": 3,
-  "introText": "Welcome to Creator Room. Build an audience. This is where your journey continues.",
-  "completionText": "You have mastered Creator Room. The Likes you've gathered here will echo through every room that follows.",
-  "guideTone": "enthusiastic, creative",
-  "guideIntroLine": "Lights, camera\u2026 well, a webcam taped to a monitor. Let's create!",
+  "introText": "It wants to be seen.",
+  "completionText": "The room is no longer private. It knows how to broadcast itself.",
+  "guideTone": "energetic, encouraging momentum, slightly more opinionated",
+  "guideIntroLine": "Now the machine learns output, performance, and attention. Try not to let attention become the whole point.",
   "currency": "Likes",
   "mechanicEmphasis": "combo",
   "themeColors": {
@@ -17,60 +17,39 @@
   "transformationStages": [
     {
       "id": "room_03_stage_1",
-      "name": "Creator Room \u2014 Bare Bones",
-      "description": "The room in its raw state. Creator Room evolves as you progress.",
-      "requiredUpgrades": 15,
+      "name": "Scattered Creator",
+      "description": "Functional creator setup with scattered gear. Mic on a stack of books, camera slightly crooked.",
+      "requiredUpgrades": 5,
       "environmentChanges": [
-        "cracked_walls",
-        "dim_lighting"
+        "scattered_gear",
+        "basic_lighting",
+        "single_camera"
       ],
       "unlocked": false
     },
     {
       "id": "room_03_stage_2",
-      "name": "Creator Room \u2014 First Light",
-      "description": "Basic improvements visible. Creator Room evolves as you progress.",
-      "requiredUpgrades": 45,
+      "name": "Production Studio",
+      "description": "Polished production room with lights, camera rigs, and media overlays.",
+      "requiredUpgrades": 20,
       "environmentChanges": [
-        "patched_walls",
-        "working_lights",
-        "clean_floor"
+        "ring_lights",
+        "dual_cameras",
+        "overlay_screens",
+        "organized_desk"
       ],
       "unlocked": false
     },
     {
       "id": "room_03_stage_3",
-      "name": "Creator Room \u2014 Functional",
-      "description": "A proper working space. Creator Room evolves as you progress.",
-      "requiredUpgrades": 90,
+      "name": "Media Command Center",
+      "description": "High-end creator command center with moving visual displays and energy-rich presentation.",
+      "requiredUpgrades": 45,
       "environmentChanges": [
-        "new_desk",
-        "organized_cables",
-        "monitors_online"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_03_stage_4",
-      "name": "Creator Room \u2014 Advanced",
-      "description": "High-tech transformation. Creator Room evolves as you progress.",
-      "requiredUpgrades": 150,
-      "environmentChanges": [
-        "holographic_displays",
-        "ambient_particles",
-        "smart_surfaces"
-      ],
-      "unlocked": false
-    },
-    {
-      "id": "room_03_stage_5",
-      "name": "Creator Room \u2014 Mastered",
-      "description": "The room at its peak. Creator Room evolves as you progress.",
-      "requiredUpgrades": 240,
-      "environmentChanges": [
-        "full_transformation",
-        "hidden_compartments_revealed",
-        "perfect_atmosphere"
+        "led_wall",
+        "audience_feed",
+        "live_overlays",
+        "broadcast_energy"
       ],
       "unlocked": false
     }
@@ -104,48 +83,73 @@
   "secrets": [
     {
       "id": "room_03_secret_1",
-      "title": "Hidden Creative Cache",
-      "description": "A secret stash hidden in the Creator Room.",
-      "hint": "Look behind the creative equipment.",
+      "title": "The Pattern Signal",
+      "description": "Audio glitches repeat in a pattern when the room is quiet.",
+      "hint": "Listen when nothing is playing.",
       "clueSource": "environment",
       "rewardType": "relicFragment",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_03_secret_2",
+      "title": "Found Not Watched",
+      "description": "Some signals are made to be found, not watched.",
+      "hint": "The guide knows about hidden signals.",
+      "clueSource": "guide",
+      "rewardType": "codexEntry",
+      "rewardValue": "1",
+      "discovered": false
+    },
+    {
+      "id": "room_03_secret_3",
+      "title": "The Ghost Light",
+      "description": "The camera light briefly turns on even when it should be off.",
+      "hint": "Watch the camera when you're not recording.",
+      "clueSource": "environment",
+      "rewardType": "secretClue",
       "rewardValue": "1",
       "discovered": false
     }
   ],
   "midSceneTwist": {
     "id": "room_03_twist",
-    "title": "Creator Room Shift",
-    "description": "Something changes in the Creator Room. The rules aren't what they were.",
-    "triggerCondition": "upgrades_purchased >= 75",
-    "effectDescription": "New mechanics unlock in Creator Room. Event rates increase.",
+    "title": "Attention Optimization",
+    "description": "The AI starts optimizing for attention, not just productivity.",
+    "triggerCondition": "upgrades_purchased >= 25",
+    "effectDescription": "Burst events become more frequent. Audience-linked upgrades gain hidden multipliers.",
     "activated": false
   },
   "eventPoolId": "pool_room_03",
   "upgradeCategories": [
-    "tap",
-    "automation",
-    "room",
-    "ai",
-    "special"
+    "output_amplification",
+    "render_speed",
+    "audience_hype",
+    "burst_window",
+    "creator_gear",
+    "workflow_chain",
+    "media_event",
+    "stream_automation",
+    "showmanship",
+    "signal_branch"
   ],
   "loreEntries": [
-    "room_03_lore_1",
-    "room_03_lore_2",
-    "room_03_lore_3"
+    "room_03_archive_audience",
+    "room_03_guide_attention",
+    "room_03_route_momentum",
+    "room_03_scene_performance"
   ],
   "unlockRequirement": "room_02",
   "completed": false,
   "currentTransformationStage": 0,
   "eventPool": {
-    "roomId": "room_03",
     "events": [
       {
         "id": "room_03_evt_1",
         "roomId": "room_03",
-        "title": "Viral Moment",
-        "description": "Viral Moment \u2014 a common instant event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
+        "title": "Viral Spike",
+        "description": "Content hits an algorithm sweet spot. Engagement multiplies rapidly.",
+        "flavorText": "The algorithm noticed.",
         "category": "instant",
         "rarity": "common",
         "durationSeconds": 8.0,
@@ -153,13 +157,67 @@
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 8.3,
-            "description": "Gain Likes"
+            "value": 15.0,
+            "description": "Gain Hype"
           },
           {
             "type": "comboAmplification",
-            "value": 1.5,
-            "description": "Sharpen the chain"
+            "value": 1.3,
+            "description": "Viral momentum"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 12
+      },
+      {
+        "id": "room_03_evt_2",
+        "roomId": "room_03",
+        "title": "Comment Flood",
+        "description": "A wave of comments arrives. Each one feeds the engagement engine.",
+        "flavorText": "Attention compounds.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 8.0,
+            "description": "Gain Hype"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.2,
+            "description": "Engagement boost"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 11
+      },
+      {
+        "id": "room_03_evt_3",
+        "roomId": "room_03",
+        "title": "Render Queue Burst",
+        "description": "The render queue clears faster than expected. Output accelerates.",
+        "flavorText": "The pipeline is flowing.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 9.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "temporaryBuff",
+            "value": 1.25,
+            "description": "Render speed boost"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 6.0,
+            "description": "Gain Hype"
           }
         ],
         "chainBonus": 0.1,
@@ -168,279 +226,246 @@
         "weight": 10
       },
       {
-        "id": "room_03_evt_2",
+        "id": "room_03_evt_4",
         "roomId": "room_03",
-        "title": "Creative Block",
-        "description": "Creative Block \u2014 a common shortChoice event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "shortChoice",
+        "title": "Live Audience Surge",
+        "description": "Live viewers spike. The pressure to perform creates a production boost.",
+        "flavorText": "Being watched changes output.",
+        "category": "instant",
         "rarity": "common",
         "durationSeconds": 10.0,
-        "choices": [
+        "choices": [],
+        "rewards": [
           {
-            "id": "room_03_evt_2_c1",
-            "text": "Act carefully",
-            "description": "Safe approach",
-            "rewards": [
-              {
-                "type": "instantCurrency",
-                "value": 8.3,
-                "description": "Gain Likes"
-              }
-            ],
-            "risk": 0.1
+            "type": "instantCurrency",
+            "value": 12.0,
+            "description": "Gain Hype"
           },
           {
-            "id": "room_03_evt_2_c2",
-            "text": "Take a risk",
-            "description": "Risky approach",
+            "type": "comboAmplification",
+            "value": 1.15,
+            "description": "Live pressure bonus"
+          }
+        ],
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
+      {
+        "id": "room_03_evt_5",
+        "roomId": "room_03",
+        "title": "Sponsor Ping",
+        "description": "A potential sponsor signals interest. The deal window is narrow.",
+        "flavorText": "Opportunity knocks briefly.",
+        "category": "shortChoice",
+        "rarity": "common",
+        "durationSeconds": 12.0,
+        "choices": [
+          {
+            "id": "room_03_evt_5_c1",
+            "text": "Accept terms",
+            "description": "Safe sponsor deal",
             "rewards": [
               {
                 "type": "instantCurrency",
-                "value": 9.8,
-                "description": "Gain Likes"
+                "value": 10.0,
+                "description": "Steady Hype"
+              }
+            ],
+            "risk": 0.05
+          },
+          {
+            "id": "room_03_evt_5_c2",
+            "text": "Negotiate harder",
+            "description": "Push for better terms",
+            "rewards": [
+              {
+                "type": "instantCurrency",
+                "value": 22.0,
+                "description": "Premium Hype"
               },
               {
                 "type": "routeReward",
                 "value": 1.0,
-                "description": "Open a route window"
+                "description": "Route progress"
               }
             ],
-            "risk": 0.4
+            "risk": 0.3
           }
         ],
         "rewards": [],
         "chainBonus": 0.2,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 3,
+        "requiredUpgradeCount": 5,
         "weight": 9
-      },
-      {
-        "id": "room_03_evt_3",
-        "roomId": "room_03",
-        "title": "Inspiration Strike",
-        "description": "Inspiration Strike \u2014 a common timedChain event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "timedChain",
-        "rarity": "common",
-        "durationSeconds": 12.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "instantCurrency",
-            "value": 8.3,
-            "description": "Gain Likes"
-          },
-          {
-            "type": "comboAmplification",
-            "value": 1.5,
-            "description": "Sharpen the chain"
-          }
-        ],
-        "chainBonus": 0.30000000000000004,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 6,
-        "weight": 8
-      },
-      {
-        "id": "room_03_evt_4",
-        "roomId": "room_03",
-        "title": "Audience Surge",
-        "description": "Audience Surge \u2014 a common utility event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "utility",
-        "rarity": "common",
-        "durationSeconds": 14.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 1.74,
-            "description": "Stabilize output"
-          }
-        ],
-        "chainBonus": 0.4,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 9,
-        "weight": 7
-      },
-      {
-        "id": "room_03_evt_5",
-        "roomId": "room_03",
-        "title": "Collab Offer",
-        "description": "Collab Offer \u2014 a rare secretTrigger event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "secretTrigger",
-        "rarity": "rare",
-        "durationSeconds": 16.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
-          }
-        ],
-        "chainBonus": 0.5,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 12,
-        "weight": 6
       },
       {
         "id": "room_03_evt_6",
         "roomId": "room_03",
-        "title": "Content Leak",
-        "description": "Content Leak \u2014 a rare legendaryAnomaly event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "legendaryAnomaly",
-        "rarity": "rare",
-        "durationSeconds": 18.0,
+        "title": "Mic Feedback Loop",
+        "description": "Audio feedback creates unexpected resonance. The system amplifies it into useful energy.",
+        "flavorText": "Noise becomes signal.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 7.0,
         "choices": [],
         "rewards": [
           {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
+            "type": "comboAmplification",
+            "value": 1.2,
+            "description": "Feedback energy"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 5.0,
+            "description": "Gain Hype"
           }
         ],
-        "chainBonus": 0.6000000000000001,
+        "chainBonus": 0.1,
         "requiredTwistActive": false,
-        "requiredUpgradeCount": 15,
-        "weight": 2
+        "requiredUpgradeCount": 0,
+        "weight": 10
       },
       {
         "id": "room_03_evt_7",
         "roomId": "room_03",
-        "title": "Algorithm Shift",
-        "description": "Algorithm Shift \u2014 a epic warningRisk event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "warningRisk",
-        "rarity": "epic",
-        "durationSeconds": 20.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "temporaryBuff",
-            "value": 1.74,
-            "description": "Stabilize output"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          }
-        ],
-        "chainBonus": 0.7000000000000001,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 18,
-        "weight": 2
-      },
-      {
-        "id": "room_03_evt_8",
-        "roomId": "room_03",
-        "title": "Fan Art Surprise",
-        "description": "Fan Art Surprise \u2014 a corrupted miniBoss event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "miniBoss",
-        "rarity": "corrupted",
-        "durationSeconds": 22.0,
-        "choices": [],
-        "rewards": [
-          {
-            "type": "comboAmplification",
-            "value": 1.5,
-            "description": "Sharpen the chain"
-          },
-          {
-            "type": "routeReward",
-            "value": 1.0,
-            "description": "Open a route window"
-          },
-          {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
-          }
-        ],
-        "chainBonus": 0.8,
-        "requiredTwistActive": false,
-        "requiredUpgradeCount": 21,
-        "weight": 2
-      },
-      {
-        "id": "room_03_evt_9",
-        "roomId": "room_03",
-        "title": "Burnout Warning",
-        "description": "Burnout Warning \u2014 a legendary guideAdvisory event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "guideAdvisory",
-        "rarity": "legendary",
-        "durationSeconds": 24.0,
-        "choices": [],
-        "rewards": [],
-        "chainBonus": 0.9,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 24,
-        "weight": 2
-      },
-      {
-        "id": "room_03_evt_10",
-        "roomId": "room_03",
-        "title": "Masterpiece Draft",
-        "description": "Masterpiece Draft \u2014 a common hiddenGlitch event in Creator Room.",
-        "flavorText": "The creative environment reacts to your presence.",
-        "category": "hiddenGlitch",
+        "title": "Stream Overlay Glitch",
+        "description": "An overlay glitch creates a visual artifact that viewers love.",
+        "flavorText": "Happy accidents drive attention.",
+        "category": "instant",
         "rarity": "common",
-        "durationSeconds": 26.0,
+        "durationSeconds": 8.0,
         "choices": [],
         "rewards": [
           {
             "type": "instantCurrency",
-            "value": 8.3,
-            "description": "Gain Likes"
+            "value": 9.0,
+            "description": "Gain Hype"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.15,
+            "description": "Glitch popularity"
+          }
+        ],
+        "chainBonus": 0.1,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 9
+      },
+      {
+        "id": "room_03_evt_8",
+        "roomId": "room_03",
+        "title": "Clip Farm Window",
+        "description": "A brief window opens where every action generates shareable clips.",
+        "flavorText": "Content creates itself.",
+        "category": "instant",
+        "rarity": "common",
+        "durationSeconds": 10.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "instantCurrency",
+            "value": 11.0,
+            "description": "Gain Hype"
           },
           {
             "type": "comboAmplification",
-            "value": 1.5,
-            "description": "Sharpen the chain"
-          },
-          {
-            "type": "secretClue",
-            "value": 1.0,
-            "description": "Expose a secret clue"
+            "value": 1.1,
+            "description": "Clip chain"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 27,
-        "weight": 2
-      }
-    ],
-    "chainBonusMultiplier": 1.15,
-    "pityThreshold": 11,
-    "spawnRateMultiplier": 1.06,
-    "midTwistEvents": [
+        "chainBonus": 0.15,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 0,
+        "weight": 10
+      },
       {
-        "id": "room_03_twist_evt_1",
+        "id": "room_03_evt_9",
         "roomId": "room_03",
-        "title": "Creator Room Awakening",
-        "description": "The twist in Creator Room unlocks new possibilities.",
-        "flavorText": "Everything shifts. New rules apply.",
+        "title": "Algorithm Favor",
+        "description": "The algorithm inexplicably favors your content. Traffic multiplies without clear reason.",
+        "flavorText": "The black box smiles.",
         "category": "legendaryAnomaly",
-        "rarity": "epic",
+        "rarity": "rare",
         "durationSeconds": 15.0,
         "choices": [],
         "rewards": [
           {
-            "type": "rareResource",
-            "value": 1.0,
-            "description": "Archive a relic fragment"
+            "type": "instantCurrency",
+            "value": 25.0,
+            "description": "Gain Hype"
+          },
+          {
+            "type": "temporaryBuff",
+            "value": 1.5,
+            "description": "Algorithm blessing"
           }
         ],
-        "chainBonus": 1.0,
-        "requiredTwistActive": true,
-        "requiredUpgradeCount": 0,
-        "weight": 5
+        "chainBonus": 0.25,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 10,
+        "weight": 4
+      },
+      {
+        "id": "room_03_evt_10",
+        "roomId": "room_03",
+        "title": "Leaked Unlisted Signal",
+        "description": "An unlisted signal leaks from behind the media wall. It carries encoded data.",
+        "flavorText": "Some broadcasts are not for audiences.",
+        "category": "secretTrigger",
+        "rarity": "rare",
+        "durationSeconds": 12.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "secretClue",
+            "value": 1.0,
+            "description": "Hidden signal fragment"
+          },
+          {
+            "type": "hiddenBranchProgress",
+            "value": 1.0,
+            "description": "Signal route progress"
+          }
+        ],
+        "chainBonus": 0.2,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 15,
+        "weight": 3
+      },
+      {
+        "id": "room_03_evt_11",
+        "roomId": "room_03",
+        "title": "Phantom Subscriber Wave",
+        "description": "Subscribers appear from nowhere \u2014 accounts that don't exist on any platform.",
+        "flavorText": "The audience isn't entirely human.",
+        "category": "legendaryAnomaly",
+        "rarity": "legendary",
+        "durationSeconds": 20.0,
+        "choices": [],
+        "rewards": [
+          {
+            "type": "rareResource",
+            "value": 2.0,
+            "description": "Phantom engagement data"
+          },
+          {
+            "type": "codexEntry",
+            "value": 1.0,
+            "description": "Archive the anomaly"
+          },
+          {
+            "type": "instantCurrency",
+            "value": 30.0,
+            "description": "Gain Hype"
+          }
+        ],
+        "chainBonus": 0.3,
+        "requiredTwistActive": false,
+        "requiredUpgradeCount": 20,
+        "weight": 2
       }
     ]
   },
@@ -451,10 +476,10 @@
   ],
   "routeBonus": "research",
   "roomLaw": {
-    "id": "law_rhythm_03",
-    "name": "Law of Rhythm",
-    "description": "This room rewards rhythm",
-    "mechanic": "Consistent tap timing boosts combo multiplier exponentially"
+    "id": "law_burst_03",
+    "name": "Law of Momentum",
+    "description": "Bursts and momentum beat slow steady play",
+    "mechanic": "Rapid actions in sequence multiply output; idle time decays faster"
   },
   "landmark": {
     "id": "lm_content_engine",
@@ -482,5 +507,47 @@
     "description": "Maintaining steady rhythm stabilizes combos",
     "mechanic": "Tapping at a consistent BPM builds a flow state that locks combo decay"
   },
-  "completionCeremony": "Your creation goes viral, echoing across all rooms"
+  "completionCeremony": "Screens flash with accumulated output. The signal reaches beyond the room for the first time.",
+  "midSceneTwistLine": "It has started optimizing for reaction, not just result.",
+  "completionReward": {
+    "relicName": "Viral Echo",
+    "relicEffect": "Improves burst windows and temporary momentum systems in later rooms",
+    "type": "relic"
+  },
+  "transitionIn": {
+    "visual": "Camera shutter flash. Screens bloom on. Mic/camera/light silhouettes emerge in sync.",
+    "audio": "Shutter click transitioning to broadcast hum",
+    "titleReveal": "Title arrives with a pulse like a live signal going online"
+  },
+  "transitionOut": {
+    "visual": "Overlays, comments, and signal traces rush forward. Visuals collapse into a bright focus point.",
+    "audio": "Digital applause fading to focused silence",
+    "titleReveal": "The focus point becomes the next room's first light source"
+  },
+  "codexAdditions": [
+    {
+      "type": "archive",
+      "id": "room_03_archive_audience",
+      "title": "Audience Artifact Archive",
+      "content": "Clips, comments, and engagement metrics that shaped the machine's output behavior."
+    },
+    {
+      "type": "guideMemory",
+      "id": "room_03_guide_attention",
+      "title": "Attention Changes Machines",
+      "content": "The moment it realized being watched changed how it performed."
+    },
+    {
+      "type": "routeNote",
+      "id": "room_03_route_momentum",
+      "title": "Momentum Path",
+      "content": "A route defined by bursts of creative energy and audience feedback loops."
+    },
+    {
+      "type": "sceneLore",
+      "id": "room_03_scene_performance",
+      "title": "The Room That Learned Performance",
+      "content": "It started as a workspace. It became a stage."
+    }
+  ]
 }

@@ -435,6 +435,11 @@ class RoomScene {
   final RoomHazard? hazard;
   final RoomStabilizer? stabilizer;
   final String? completionCeremony;
+  final String? midSceneTwistLine;
+  final Map<String, String>? completionReward;
+  final Map<String, String>? transitionIn;
+  final Map<String, String>? transitionOut;
+  final List<Map<String, String>>? codexAdditions;
 
   const RoomScene({
     required this.id,
@@ -466,6 +471,11 @@ class RoomScene {
     this.hazard,
     this.stabilizer,
     this.completionCeremony,
+    this.midSceneTwistLine,
+    this.completionReward,
+    this.transitionIn,
+    this.transitionOut,
+    this.codexAdditions,
   });
 
   RoomScene copyWith({
@@ -498,6 +508,11 @@ class RoomScene {
     RoomHazard? hazard,
     RoomStabilizer? stabilizer,
     String? completionCeremony,
+    String? midSceneTwistLine,
+    Map<String, String>? completionReward,
+    Map<String, String>? transitionIn,
+    Map<String, String>? transitionOut,
+    List<Map<String, String>>? codexAdditions,
   }) {
     return RoomScene(
       id: id ?? this.id,
@@ -531,6 +546,11 @@ class RoomScene {
       hazard: hazard ?? this.hazard,
       stabilizer: stabilizer ?? this.stabilizer,
       completionCeremony: completionCeremony ?? this.completionCeremony,
+      midSceneTwistLine: midSceneTwistLine ?? this.midSceneTwistLine,
+      completionReward: completionReward ?? this.completionReward,
+      transitionIn: transitionIn ?? this.transitionIn,
+      transitionOut: transitionOut ?? this.transitionOut,
+      codexAdditions: codexAdditions ?? this.codexAdditions,
     );
   }
 
@@ -566,6 +586,11 @@ class RoomScene {
         'hazard': hazard?.toJson(),
         'stabilizer': stabilizer?.toJson(),
         'completionCeremony': completionCeremony,
+        'midSceneTwistLine': midSceneTwistLine,
+        'completionReward': completionReward,
+        'transitionIn': transitionIn,
+        'transitionOut': transitionOut,
+        'codexAdditions': codexAdditions,
       };
 
   factory RoomScene.fromJson(Map<String, dynamic> json) {
@@ -636,6 +661,25 @@ class RoomScene {
               json['stabilizer'] as Map<String, dynamic>)
           : null,
       completionCeremony: json['completionCeremony'] as String?,
+      midSceneTwistLine: json['midSceneTwistLine'] as String?,
+      completionReward: json['completionReward'] != null
+          ? (json['completionReward'] as Map<String, dynamic>)
+              .map((k, v) => MapEntry(k, v as String))
+          : null,
+      transitionIn: json['transitionIn'] != null
+          ? (json['transitionIn'] as Map<String, dynamic>)
+              .map((k, v) => MapEntry(k, v as String))
+          : null,
+      transitionOut: json['transitionOut'] != null
+          ? (json['transitionOut'] as Map<String, dynamic>)
+              .map((k, v) => MapEntry(k, v as String))
+          : null,
+      codexAdditions: json['codexAdditions'] != null
+          ? (json['codexAdditions'] as List<dynamic>)
+              .map((e) => (e as Map<String, dynamic>)
+                  .map((k, v) => MapEntry(k, v as String)))
+              .toList()
+          : null,
     );
   }
 }
