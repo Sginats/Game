@@ -32,6 +32,40 @@ import 'widgets/room_status_panel.dart';
 import 'widgets/guide_card.dart';
 import 'widgets/room_overview_card.dart';
 
+/// Lightweight snapshot of HUD values that change every timer tick.
+///
+/// Passed into [ValueNotifier] so only the HUD strip rebuilds on each tick —
+/// the rest of [GameScreen] stays frozen until a structural change occurs.
+class _HudSnapshot {
+  final String coins;
+  final String perSecond;
+  final int combo;
+  final int eraOrder;
+  final int totalEras;
+
+  const _HudSnapshot({
+    required this.coins,
+    required this.perSecond,
+    required this.combo,
+    required this.eraOrder,
+    required this.totalEras,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _HudSnapshot &&
+          coins == other.coins &&
+          perSecond == other.perSecond &&
+          combo == other.combo &&
+          eraOrder == other.eraOrder &&
+          totalEras == other.totalEras;
+
+  @override
+  int get hashCode =>
+      coins.hashCode ^ perSecond.hashCode ^ combo ^ eraOrder ^ totalEras;
+}
+
 class GameScreen extends StatefulWidget {
   final GameController controller;
   final ConfigService config;
@@ -85,6 +119,13 @@ class _GameScreenState extends State<GameScreen>
   // Cached ambient-sync room ID — avoids calling syncAmbientForRoom every build
   String _lastAmbientRoomId = '';
 
+  // ─── Reactive notifiers ────────────────────────────────────────────────────
+  // These are updated every timer tick without triggering a full GameScreen
+  // rebuild. Widgets that only depend on these values subscribe with
+  // ValueListenableBuilder and rebuild in isolation.
+  late final ValueNotifier<_HudSnapshot> _hudNotifier;
+  late final ValueNotifier<GameEventState?> _activeEventNotifier;
+
   // Cached tech tree graph — rebuilt only when stateVersion changes
   TechTreeGraph? _cachedGraph;
   String _lastEraId = '';
@@ -104,50 +145,78 @@ class _GameScreenState extends State<GameScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _frameTickMs = math.max(widget.config.tickRateMs, 250);
+
+    // Initialise reactive notifiers with a first snapshot.
+    _hudNotifier = ValueNotifier<_HudSnapshot>(_buildHudSnapshot());
+    _activeEventNotifier = ValueNotifier<GameEventState?>(_controller.activeEvent);
+
     _tickTimer = Timer.periodic(
       Duration(milliseconds: _frameTickMs),
       (_) {
-        setState(() {
-          _controller.tick(_frameTickMs / 1000.0);
-          // Tick robot guide with current game state context
-          _robotGuide.tick(
-            _frameTickMs / 1000.0,
-            totalTaps: _controller.state.totalTaps,
-            tapCombo: _controller.state.tapCombo,
-            eventActive: _controller.activeEvent != null,
-            prestigeCount: _controller.state.prestigeCount,
-            coins: _controller.state.coins.toDouble(),
-            highestEraOrder: _highestEraOrder(),
-            trustTier: _controller.guideTier,
+        // ── Step 1: run simulation (pure logic, no widget rebuild) ──────────
+        _controller.tick(_frameTickMs / 1000.0);
+        _robotGuide.tick(
+          _frameTickMs / 1000.0,
+          totalTaps: _controller.state.totalTaps,
+          tapCombo: _controller.state.tapCombo,
+          eventActive: _controller.activeEvent != null,
+          prestigeCount: _controller.state.prestigeCount,
+          coins: _controller.state.coins.toDouble(),
+          highestEraOrder: _highestEraOrder(),
+          trustTier: _controller.guideTier,
+        );
+        _robotGuide.onRoomChanged(
+          _controller.currentRoomId,
+          trustTier: _controller.guideTier,
+        );
+
+        // ── Step 2: fast-path notifier updates (trigger tiny rebuilds only) ──
+        // Only assign if the value actually changed — ValueNotifier skips
+        // notifying listeners when the new value equals the old one via ==.
+        final newSnapshot = _buildHudSnapshot();
+        if (_hudNotifier.value != newSnapshot) {
+          _hudNotifier.value = newSnapshot;
+        }
+        // Compare by event ID so that: same event ticking → no rebuild;
+        // event start/end/switch → rebuild. Both null → equal (false) → no-op.
+        final newEvent = _controller.activeEvent;
+        if (_activeEventNotifier.value?.id != newEvent?.id) {
+          _activeEventNotifier.value = newEvent;
+        }
+
+        // ── Step 3: structural-change detection → full rebuild only if needed ─
+        bool needsRebuild = false;
+
+        final eraId = _currentEra(_controller);
+        if (eraId != _lastEraId) {
+          _lastEraId = eraId;
+          _syncEraWindow(eraId);
+          _robotGuide.onEraChanged(eraId);
+          _cachedGraph = null;
+          _cachedEraDef = null;
+          _selectedNodeId = null;
+          _lastStateVersion = _kInvalidVersion;
+          needsRebuild = true;
+        }
+
+        final roomId = _controller.currentRoomId;
+        if (roomId != _lastAmbientRoomId) {
+          _lastAmbientRoomId = roomId;
+          unawaited(
+            widget.audioService.syncAmbientForRoom(
+              _controller.currentRoom,
+              _controller.currentRoomState,
+            ),
           );
-          // Notify guide of room changes
-          _robotGuide.onRoomChanged(
-            _controller.currentRoomId,
-            trustTier: _controller.guideTier,
-          );
-          // Ensure current era content is loaded lazily
-          final eraId = _currentEra(_controller);
-          if (eraId != _lastEraId) {
-            _lastEraId = eraId;
-            _syncEraWindow(eraId);
-            _robotGuide.onEraChanged(eraId);
-            _cachedGraph = null; // Invalidate cache on era change
-            _cachedEraDef = null; // Invalidate cached era def
-            _selectedNodeId = null;
-            _lastStateVersion = _kInvalidVersion; // Force tree rebuild
-          }
-          // Sync ambient audio once per room change (not every build)
-          final roomId = _controller.currentRoomId;
-          if (roomId != _lastAmbientRoomId) {
-            _lastAmbientRoomId = roomId;
-            unawaited(
-              widget.audioService.syncAmbientForRoom(
-                _controller.currentRoom,
-                _controller.currentRoomState,
-              ),
-            );
-          }
-        });
+          needsRebuild = true;
+        }
+
+        if (needsRebuild) {
+          setState(() {});
+        }
+
+        // Feedback checks (toasts, audio cues, guide hooks) run every tick
+        // and may schedule their own setState calls via _showToast.
         _handleFeedback();
       },
     );
@@ -167,6 +236,22 @@ class _GameScreenState extends State<GameScreen>
       _robotGuide.onEraChanged(eraId);
       _handleUpdateServiceChanged();
     });
+  }
+
+  /// Build a [_HudSnapshot] from current controller state.
+  _HudSnapshot _buildHudSnapshot() {
+    final currentEra = _currentEra(_controller);
+    final eraDef = widget.config.eras.firstWhere(
+      (e) => e.id == currentEra,
+      orElse: () => widget.config.eras.first,
+    );
+    return _HudSnapshot(
+      coins: _controller.state.coins.toStringFormatted(),
+      perSecond: _controller.productionPerSecond.toStringFormatted(),
+      combo: _controller.state.tapCombo,
+      eraOrder: eraDef.order,
+      totalEras: widget.config.eras.length,
+    );
   }
 
   @override
@@ -194,6 +279,8 @@ class _GameScreenState extends State<GameScreen>
     WidgetsBinding.instance.removeObserver(this);
     _tickTimer?.cancel();
     _camera.dispose();
+    _hudNotifier.dispose();
+    _activeEventNotifier.dispose();
     unawaited(_controller.saveGame());
     super.dispose();
   }
@@ -257,7 +344,15 @@ class _GameScreenState extends State<GameScreen>
                     padding: const EdgeInsets.fromLTRB(10, 6, 10, 8),
                     child: Column(
                       children: [
-                        RepaintBoundary(child: _buildHud(accent)),
+                        // ValueListenableBuilder ensures only the HUD strip
+                        // rebuilds on each 250ms tick; the tree and panels
+                        // are unaffected by coin/rate/combo changes.
+                        ValueListenableBuilder<_HudSnapshot>(
+                          valueListenable: _hudNotifier,
+                          builder: (context, snapshot, child) => RepaintBoundary(
+                            child: _buildHud(snapshot),
+                          ),
+                        ),
                         const SizedBox(height: 6),
                         Expanded(
                           child: LayoutBuilder(
@@ -344,13 +439,7 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
-  Widget _buildHud(Color accent) {
-    final state = _controller.state;
-    final currentEra = _currentEra(_controller);
-    final currentEraDef = widget.config.eras.firstWhere(
-      (item) => item.id == currentEra,
-      orElse: () => widget.config.eras.first,
-    );
+  Widget _buildHud(_HudSnapshot snapshot) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: _glassBox(radius: 16),
@@ -362,8 +451,8 @@ class _GameScreenState extends State<GameScreen>
                 AnimatedSwitcher(
                   duration: const Duration(milliseconds: 180),
                   child: Text(
-                    state.coins.toStringFormatted(),
-                    key: ValueKey(state.coins.toStringFormatted()),
+                    snapshot.coins,
+                    key: ValueKey(snapshot.coins),
                     style: const TextStyle(
                       color: Colors.amberAccent,
                       fontSize: 22,
@@ -374,22 +463,17 @@ class _GameScreenState extends State<GameScreen>
                 const SizedBox(width: 12),
                 _hudChip(
                   Icons.trending_up,
-                  widget.strings.perSecond(
-                    _controller.productionPerSecond.toStringFormatted(),
-                  ),
+                  widget.strings.perSecond(snapshot.perSecond),
                 ),
                 const SizedBox(width: 8),
                 _hudChip(
                   Icons.local_fire_department,
-                  widget.strings.combo(state.tapCombo),
+                  widget.strings.combo(snapshot.combo),
                 ),
                 const SizedBox(width: 8),
                 _hudChip(
                   Icons.meeting_room_rounded,
-                  widget.strings.roomProgress(
-                    currentEraDef.order,
-                    widget.config.eras.length,
-                  ),
+                  widget.strings.roomProgress(snapshot.eraOrder, snapshot.totalEras),
                 ),
               ],
             ),
@@ -811,10 +895,21 @@ class _GameScreenState extends State<GameScreen>
           const SizedBox(height: 8),
           _buildRoomStatusPanel(),
           const SizedBox(height: 8),
-          if (_controller.activeEvent != null) ...[
-            _buildActiveEventCard(_controller.activeEvent!),
-            const SizedBox(height: 8),
-          ],
+          // Active event card rebuilds only when the event identity changes,
+          // not on every timer tick.
+          ValueListenableBuilder<GameEventState?>(
+            valueListenable: _activeEventNotifier,
+            builder: (context, event, _) {
+              if (event == null) return const SizedBox.shrink();
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RepaintBoundary(child: _buildActiveEventCard(event)),
+                  const SizedBox(height: 8),
+                ],
+              );
+            },
+          ),
           if (currentEra == 'era_1') ...[
             _buildFirstRoomChecklist(),
             const SizedBox(height: 8),
