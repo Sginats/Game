@@ -1,0 +1,1917 @@
+{
+  "roomUXProfiles": [
+    {
+      "roomId": "room_01",
+      "transition": {
+        "roomId": "room_01",
+        "enterEffect": "cableGrowth",
+        "exitEffect": "simpleFade",
+        "enterDurationMs": 800,
+        "exitDurationMs": 500,
+        "titleRevealStyle": "slide_up",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "This dusty corner holds a spark of something extraordinary.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "rustic",
+      "eventCardStyle": "worn",
+      "sideActivityEntryStyle": "workbench",
+      "landmarkAnimBehavior": "gentle_pulse",
+      "transformRevealBehavior": "glow_expand",
+      "completionCeremonyFormat": "standard",
+      "microLifeEffects": [
+        {
+          "id": "room_01_dust",
+          "type": "particle",
+          "description": "Dust motes drift in weak light",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_01_flicker",
+          "type": "statusLed",
+          "description": "A bare bulb flickers overhead, threatening to die",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_01_shadow",
+          "type": "shadow",
+          "description": "Shifting junk casts long, creeping shadows",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.4,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_01_fan",
+          "type": "fan",
+          "description": "A rusty ceiling fan wobbles in slow rotation",
+          "triggerCondition": "always",
+          "intensityMin": 0.05,
+          "intensityMax": 0.3,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_scrap_throne",
+        "breathingStyle": "gentle_pulse",
+        "lightingShiftStyle": "ambient",
+        "scarConditions": ["reckless_play", "overheated"]
+      }
+    },
+    {
+      "roomId": "room_02",
+      "transition": {
+        "roomId": "room_02",
+        "enterEffect": "signalDistortion",
+        "exitEffect": "simpleFade",
+        "enterDurationMs": 700,
+        "exitDurationMs": 450,
+        "titleRevealStyle": "typewriter",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "Careful with those wires. Some of them still carry current.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "technical",
+      "eventCardStyle": "wired",
+      "sideActivityEntryStyle": "circuit_panel",
+      "landmarkAnimBehavior": "flickering",
+      "transformRevealBehavior": "signal_burst",
+      "completionCeremonyFormat": "standard",
+      "microLifeEffects": [
+        {
+          "id": "room_02_led",
+          "type": "statusLed",
+          "description": "Circuit board LEDs blink in irregular patterns",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_02_static",
+          "type": "staticRain",
+          "description": "Faint static crackles along exposed wire bundles",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.5,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_02_monitor",
+          "type": "monitor",
+          "description": "Old CRT monitors emit a dim, greenish glow",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_02_spark",
+          "type": "particle",
+          "description": "Tiny sparks fly from loose wire connections",
+          "triggerCondition": "combo_high",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_cable_nexus",
+        "breathingStyle": "flickering",
+        "lightingShiftStyle": "reactive",
+        "scarConditions": ["short_circuit", "overloaded"]
+      }
+    },
+    {
+      "roomId": "room_03",
+      "transition": {
+        "roomId": "room_03",
+        "enterEffect": "environmentDissolve",
+        "exitEffect": "simpleFade",
+        "enterDurationMs": 900,
+        "exitDurationMs": 550,
+        "titleRevealStyle": "fade_in",
+        "subtitleStyle": "slide_up",
+        "guideLineOnEnter": "The steam hisses with pressure. Something is building below.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "industrial",
+      "eventCardStyle": "metallic",
+      "sideActivityEntryStyle": "valve_wheel",
+      "landmarkAnimBehavior": "breathing",
+      "transformRevealBehavior": "dissolve_rebuild",
+      "completionCeremonyFormat": "dramatic",
+      "microLifeEffects": [
+        {
+          "id": "room_03_shimmer",
+          "type": "thermalShimmer",
+          "description": "Heat distortion ripples above the vent grates",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.7,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_03_steam",
+          "type": "particle",
+          "description": "Jets of white steam burst from pressurized vents",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_03_weather",
+          "type": "machineWeather",
+          "description": "Pressure shifts create brief gusts of hot air",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_03_fan",
+          "type": "fan",
+          "description": "Industrial fans spin in the steam, scattering vapor trails",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_pressure_core",
+        "breathingStyle": "breathing",
+        "lightingShiftStyle": "pulsing",
+        "scarConditions": ["pressure_burst", "overheat"]
+      }
+    },
+    {
+      "roomId": "room_04",
+      "transition": {
+        "roomId": "room_04",
+        "enterEffect": "staticBloom",
+        "exitEffect": "signalDistortion",
+        "enterDurationMs": 750,
+        "exitDurationMs": 500,
+        "titleRevealStyle": "glitch",
+        "subtitleStyle": "typewriter",
+        "guideLineOnEnter": "The tower broadcasts endlessly. Someone — or something — is listening.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "sleek",
+      "eventCardStyle": "neon",
+      "sideActivityEntryStyle": "antenna_dial",
+      "landmarkAnimBehavior": "data_stream",
+      "transformRevealBehavior": "cascade_light",
+      "completionCeremonyFormat": "triumphant",
+      "microLifeEffects": [
+        {
+          "id": "room_04_fog",
+          "type": "signalFog",
+          "description": "Electromagnetic haze drifts around the antenna array",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_04_static",
+          "type": "staticRain",
+          "description": "Crackling static sparks cascade down the tower struts",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_04_led",
+          "type": "statusLed",
+          "description": "Signal strength indicators pulse on broadcast equipment",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_04_guide",
+          "type": "guideReaction",
+          "description": "The guide flickers in response to incoming signal bursts",
+          "triggerCondition": "trust_high",
+          "intensityMin": 0.1,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_broadcast_spire",
+        "breathingStyle": "data_stream",
+        "lightingShiftStyle": "dramatic",
+        "scarConditions": ["signal_overload", "interference"]
+      }
+    },
+    {
+      "roomId": "room_05",
+      "transition": {
+        "roomId": "room_05",
+        "enterEffect": "lensZoom",
+        "exitEffect": "simpleFade",
+        "enterDurationMs": 650,
+        "exitDurationMs": 400,
+        "titleRevealStyle": "scale_in",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "Every reading here is precise. The lab demands accuracy.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "clinical",
+      "eventCardStyle": "clean",
+      "sideActivityEntryStyle": "microscope_lens",
+      "landmarkAnimBehavior": "mechanical_rhythm",
+      "transformRevealBehavior": "data_compile",
+      "completionCeremonyFormat": "quiet",
+      "microLifeEffects": [
+        {
+          "id": "room_05_monitor",
+          "type": "monitor",
+          "description": "Sensor readouts scroll across wall-mounted displays",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_05_led",
+          "type": "statusLed",
+          "description": "Sensor calibration LEDs glow in precise sequences",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_05_idle",
+          "type": "idleAnimation",
+          "description": "Calibration arms perform slow, deliberate test sweeps",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.4,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_05_particle",
+          "type": "particle",
+          "description": "Tiny lens flares refract from sensor surfaces",
+          "triggerCondition": "combo_high",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_calibration_eye",
+        "breathingStyle": "mechanical_rhythm",
+        "lightingShiftStyle": "ambient",
+        "scarConditions": ["miscalibration", "sensor_burnout"]
+      }
+    },
+    {
+      "roomId": "room_06",
+      "transition": {
+        "roomId": "room_06",
+        "enterEffect": "geometryFold",
+        "exitEffect": "environmentDissolve",
+        "enterDurationMs": 850,
+        "exitDurationMs": 500,
+        "titleRevealStyle": "slide_up",
+        "subtitleStyle": "slide_up",
+        "guideLineOnEnter": "The line never stops. Every piece has its place.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "military",
+      "eventCardStyle": "riveted",
+      "sideActivityEntryStyle": "conveyor_switch",
+      "landmarkAnimBehavior": "mechanical_rhythm",
+      "transformRevealBehavior": "shatter_reform",
+      "completionCeremonyFormat": "triumphant",
+      "microLifeEffects": [
+        {
+          "id": "room_06_drone",
+          "type": "drone",
+          "description": "Assembly drones ferry components along invisible rails",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_06_weather",
+          "type": "machineWeather",
+          "description": "Rhythmic heat pulses from welding stations fill the air",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_06_fan",
+          "type": "fan",
+          "description": "Cooling units whir above overheating assembly stations",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_06_idle",
+          "type": "idleAnimation",
+          "description": "Conveyor segments glide forward in an endless loop",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_06_led",
+          "type": "statusLed",
+          "description": "Station indicators flash green-yellow-red as work progresses",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.65,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_central_conveyor",
+        "breathingStyle": "mechanical_rhythm",
+        "lightingShiftStyle": "pulsing",
+        "scarConditions": ["jam_event", "wear_damage"]
+      }
+    },
+    {
+      "roomId": "room_07",
+      "transition": {
+        "roomId": "room_07",
+        "enterEffect": "dataTunnel",
+        "exitEffect": "environmentDissolve",
+        "enterDurationMs": 950,
+        "exitDurationMs": 600,
+        "titleRevealStyle": "fade_in",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "These pipes go deeper than the blueprints show. Stay close.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "crystalline",
+      "eventCardStyle": "frosted",
+      "sideActivityEntryStyle": "pipe_valve",
+      "landmarkAnimBehavior": "energy_flow",
+      "transformRevealBehavior": "dissolve_rebuild",
+      "completionCeremonyFormat": "mysterious",
+      "microLifeEffects": [
+        {
+          "id": "room_07_shimmer",
+          "type": "thermalShimmer",
+          "description": "Cold air shimmers where coolant meets warm surfaces",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.55,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_07_fog",
+          "type": "signalFog",
+          "description": "Coolant mist pools in low passages of the labyrinth",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.7,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_07_breathing",
+          "type": "landmarkBreathing",
+          "description": "Pipes expand and contract with each coolant cycle",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_07_droplets",
+          "type": "particle",
+          "description": "Condensation droplets form and fall from frozen pipes",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.45,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_cryo_heart",
+        "breathingStyle": "energy_flow",
+        "lightingShiftStyle": "cascading",
+        "scarConditions": ["coolant_leak", "freeze_crack"]
+      }
+    },
+    {
+      "roomId": "room_08",
+      "transition": {
+        "roomId": "room_08",
+        "enterEffect": "memoryEcho",
+        "exitEffect": "dataTunnel",
+        "enterDurationMs": 800,
+        "exitDurationMs": 500,
+        "titleRevealStyle": "typewriter",
+        "subtitleStyle": "glitch",
+        "guideLineOnEnter": "Every byte here has a history. The vault remembers everything.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "vault",
+      "eventCardStyle": "encrypted",
+      "sideActivityEntryStyle": "terminal_access",
+      "landmarkAnimBehavior": "data_stream",
+      "transformRevealBehavior": "data_compile",
+      "completionCeremonyFormat": "quiet",
+      "microLifeEffects": [
+        {
+          "id": "room_08_monitor",
+          "type": "monitor",
+          "description": "Server rack displays cycle through archived data feeds",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_08_led",
+          "type": "statusLed",
+          "description": "Access indicators blink as data is read and written",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_08_stream",
+          "type": "particle",
+          "description": "Glowing data fragments drift between server columns",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.55,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_08_idle",
+          "type": "idleAnimation",
+          "description": "Sorting mechanisms quietly rearrange archived blocks",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.4,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_08_shadow",
+          "type": "shadow",
+          "description": "Tall server racks cast deep geometric shadows",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.45,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_archive_monolith",
+        "breathingStyle": "data_stream",
+        "lightingShiftStyle": "ambient",
+        "scarConditions": ["data_corruption", "access_breach"]
+      }
+    },
+    {
+      "roomId": "room_09",
+      "transition": {
+        "roomId": "room_09",
+        "enterEffect": "orbitRotation",
+        "exitEffect": "geometryFold",
+        "enterDurationMs": 1000,
+        "exitDurationMs": 600,
+        "titleRevealStyle": "scale_in",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "Gravity bends here. Even light takes the long way around.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "cosmic",
+      "eventCardStyle": "gravitational",
+      "sideActivityEntryStyle": "gravity_lever",
+      "landmarkAnimBehavior": "gravitational",
+      "transformRevealBehavior": "phase_shift",
+      "completionCeremonyFormat": "dramatic",
+      "microLifeEffects": [
+        {
+          "id": "room_09_debris",
+          "type": "particle",
+          "description": "Small debris orbits slowly around the gravity anchor",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_09_shadow",
+          "type": "shadow",
+          "description": "Shadows warp and stretch toward the gravitational center",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.65,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_09_breathing",
+          "type": "landmarkBreathing",
+          "description": "The gravity anchor pulses with deep, rhythmic force",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_09_weather",
+          "type": "machineWeather",
+          "description": "Gravitational fluctuations create invisible pressure waves",
+          "triggerCondition": "danger_active",
+          "intensityMin": 0.35,
+          "intensityMax": 0.9,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_singularity_anchor",
+        "breathingStyle": "gravitational",
+        "lightingShiftStyle": "dramatic",
+        "scarConditions": ["gravity_surge", "containment_slip"]
+      }
+    },
+    {
+      "roomId": "room_10",
+      "transition": {
+        "roomId": "room_10",
+        "enterEffect": "timeFracture",
+        "exitEffect": "staticBloom",
+        "enterDurationMs": 900,
+        "exitDurationMs": 550,
+        "titleRevealStyle": "glitch",
+        "subtitleStyle": "glitch",
+        "guideLineOnEnter": "The anomaly is contained. For now. Do not provoke it.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "organic",
+      "eventCardStyle": "hazardous",
+      "sideActivityEntryStyle": "containment_console",
+      "landmarkAnimBehavior": "energy_flow",
+      "transformRevealBehavior": "shatter_reform",
+      "completionCeremonyFormat": "mysterious",
+      "microLifeEffects": [
+        {
+          "id": "room_10_static",
+          "type": "staticRain",
+          "description": "Anomalous discharge arcs across the containment field",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_10_fog",
+          "type": "signalFog",
+          "description": "A faint haze bleeds from the containment barrier edges",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_10_guide",
+          "type": "guideReaction",
+          "description": "The guide recoils subtly when the anomaly flares",
+          "triggerCondition": "danger_active",
+          "intensityMin": 0.4,
+          "intensityMax": 0.9,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": true,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_10_shimmer",
+          "type": "thermalShimmer",
+          "description": "Energy leaks create shimmering distortions near the sphere",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.55,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_10_led",
+          "type": "statusLed",
+          "description": "Warning indicators cycle through red and amber states",
+          "triggerCondition": "always",
+          "intensityMin": 0.35,
+          "intensityMax": 0.75,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_containment_sphere",
+        "breathingStyle": "energy_flow",
+        "lightingShiftStyle": "reactive",
+        "scarConditions": ["breach_event", "overexposure"]
+      }
+    },
+    {
+      "roomId": "room_11",
+      "transition": {
+        "roomId": "room_11",
+        "enterEffect": "routeColorWash",
+        "exitEffect": "memoryEcho",
+        "enterDurationMs": 850,
+        "exitDurationMs": 500,
+        "titleRevealStyle": "flicker",
+        "subtitleStyle": "typewriter",
+        "guideLineOnEnter": "Thousands of connections fire at once. This is where thought begins.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "neural",
+      "eventCardStyle": "holographic",
+      "sideActivityEntryStyle": "synapse_bridge",
+      "landmarkAnimBehavior": "data_stream",
+      "transformRevealBehavior": "cascade_light",
+      "completionCeremonyFormat": "dramatic",
+      "microLifeEffects": [
+        {
+          "id": "room_11_fog",
+          "type": "signalFog",
+          "description": "Neural haze floats between branching synapse pathways",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_11_led",
+          "type": "statusLed",
+          "description": "Synaptic nodes fire in cascading sequences of light",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_11_breathing",
+          "type": "landmarkBreathing",
+          "description": "The synapse tree pulses with a slow, organic rhythm",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_11_particle",
+          "type": "particle",
+          "description": "Thought sparks leap between neural branches",
+          "triggerCondition": "combo_high",
+          "intensityMin": 0.35,
+          "intensityMax": 0.85,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_synapse_tree",
+        "breathingStyle": "data_stream",
+        "lightingShiftStyle": "cascading",
+        "scarConditions": ["neural_overload", "feedback_loop"]
+      }
+    },
+    {
+      "roomId": "room_12",
+      "transition": {
+        "roomId": "room_12",
+        "enterEffect": "simpleFade",
+        "exitEffect": "environmentDissolve",
+        "enterDurationMs": 700,
+        "exitDurationMs": 450,
+        "titleRevealStyle": "scale_in",
+        "subtitleStyle": "slide_up",
+        "guideLineOnEnter": "The heat here shapes everything. Even the air obeys the forge.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "molten",
+      "eventCardStyle": "molten",
+      "sideActivityEntryStyle": "forge_bellows",
+      "landmarkAnimBehavior": "energy_flow",
+      "transformRevealBehavior": "glow_expand",
+      "completionCeremonyFormat": "triumphant",
+      "microLifeEffects": [
+        {
+          "id": "room_12_shimmer",
+          "type": "thermalShimmer",
+          "description": "Intense heat distortion radiates from the forge mouth",
+          "triggerCondition": "always",
+          "intensityMin": 0.4,
+          "intensityMax": 0.9,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_12_embers",
+          "type": "particle",
+          "description": "Glowing embers drift upward from molten metal",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_12_weather",
+          "type": "machineWeather",
+          "description": "Waves of searing heat roll outward with each forge cycle",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.7,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_12_fan",
+          "type": "fan",
+          "description": "Massive bellows pump air into the forge core rhythmically",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.65,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_12_breathing",
+          "type": "landmarkBreathing",
+          "description": "The anvil heart glows brighter with each forging pulse",
+          "triggerCondition": "always",
+          "intensityMin": 0.35,
+          "intensityMax": 0.85,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_anvil_heart",
+        "breathingStyle": "energy_flow",
+        "lightingShiftStyle": "dramatic",
+        "scarConditions": ["meltdown", "slag_buildup"]
+      }
+    },
+    {
+      "roomId": "room_13",
+      "transition": {
+        "roomId": "room_13",
+        "enterEffect": "memoryEcho",
+        "exitEffect": "routeColorWash",
+        "enterDurationMs": 850,
+        "exitDurationMs": 550,
+        "titleRevealStyle": "fade_in",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "Every sound returns changed. The chamber listens and answers.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "spectral",
+      "eventCardStyle": "ghostly",
+      "sideActivityEntryStyle": "tuning_fork",
+      "landmarkAnimBehavior": "crystalline_shift",
+      "transformRevealBehavior": "signal_burst",
+      "completionCeremonyFormat": "bittersweet",
+      "microLifeEffects": [
+        {
+          "id": "room_13_fog",
+          "type": "signalFog",
+          "description": "Sound waves become visible as shimmering ripples in the air",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.65,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_13_guide",
+          "type": "guideReaction",
+          "description": "The guide hums along with the chamber's resonant frequency",
+          "triggerCondition": "trust_high",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_13_shadow",
+          "type": "shadow",
+          "description": "Echoed reflections cast overlapping phantom shadows",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_13_idle",
+          "type": "idleAnimation",
+          "description": "Resonating objects vibrate gently on every surface",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.45,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_resonance_bell",
+        "breathingStyle": "crystalline_shift",
+        "lightingShiftStyle": "pulsing",
+        "scarConditions": ["dissonance", "harmonic_crack"]
+      }
+    },
+    {
+      "roomId": "room_14",
+      "transition": {
+        "roomId": "room_14",
+        "enterEffect": "routeColorWash",
+        "exitEffect": "memoryEcho",
+        "enterDurationMs": 1100,
+        "exitDurationMs": 650,
+        "titleRevealStyle": "fade_in",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "Balance is not found. It is built, note by note, light by light.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "harmonic",
+      "eventCardStyle": "radiant",
+      "sideActivityEntryStyle": "choir_pedestal",
+      "landmarkAnimBehavior": "breathing",
+      "transformRevealBehavior": "cascade_light",
+      "completionCeremonyFormat": "transcendent",
+      "microLifeEffects": [
+        {
+          "id": "room_14_particle",
+          "type": "particle",
+          "description": "Golden light motes drift through stained-glass beams",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_14_breathing",
+          "type": "landmarkBreathing",
+          "description": "The altar breathes with a slow, harmonious rhythm",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_14_idle",
+          "type": "idleAnimation",
+          "description": "Suspended chimes sway and ring in perfect intervals",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.4,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_14_guide",
+          "type": "guideReaction",
+          "description": "The guide resonates with the cathedral's tonal field",
+          "triggerCondition": "trust_high",
+          "intensityMin": 0.2,
+          "intensityMax": 0.55,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_harmony_altar",
+        "breathingStyle": "breathing",
+        "lightingShiftStyle": "cascading",
+        "scarConditions": ["discord", "imbalance"]
+      }
+    },
+    {
+      "roomId": "room_15",
+      "transition": {
+        "roomId": "room_15",
+        "enterEffect": "geometryFold",
+        "exitEffect": "timeFracture",
+        "enterDurationMs": 800,
+        "exitDurationMs": 500,
+        "titleRevealStyle": "glitch",
+        "subtitleStyle": "glitch",
+        "guideLineOnEnter": "Inside this box, the rules are different. Expect the impossible.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "fractal",
+      "eventCardStyle": "glitched",
+      "sideActivityEntryStyle": "paradox_switch",
+      "landmarkAnimBehavior": "temporal_wave",
+      "transformRevealBehavior": "phase_shift",
+      "completionCeremonyFormat": "mysterious",
+      "microLifeEffects": [
+        {
+          "id": "room_15_static",
+          "type": "staticRain",
+          "description": "Reality glitches flicker at the edges of perception",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_15_shadow",
+          "type": "shadow",
+          "description": "Impossible shadows point in contradictory directions",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_15_fog",
+          "type": "signalFog",
+          "description": "A blurring haze obscures where one surface ends and another begins",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.55,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_15_particle",
+          "type": "particle",
+          "description": "Fragments of repeated geometry float and reassemble",
+          "triggerCondition": "combo_high",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_paradox_cube",
+        "breathingStyle": "temporal_wave",
+        "lightingShiftStyle": "reactive",
+        "scarConditions": ["reality_fracture", "paradox_loop"]
+      }
+    },
+    {
+      "roomId": "room_16",
+      "transition": {
+        "roomId": "room_16",
+        "enterEffect": "orbitRotation",
+        "exitEffect": "lensZoom",
+        "enterDurationMs": 1000,
+        "exitDurationMs": 600,
+        "titleRevealStyle": "slide_up",
+        "subtitleStyle": "typewriter",
+        "guideLineOnEnter": "You can see the whole system from here. Every orbit, every trajectory.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "orbital",
+      "eventCardStyle": "orbital",
+      "sideActivityEntryStyle": "navigation_helm",
+      "landmarkAnimBehavior": "orbit_spin",
+      "transformRevealBehavior": "time_warp",
+      "completionCeremonyFormat": "cosmic",
+      "microLifeEffects": [
+        {
+          "id": "room_16_drone",
+          "type": "drone",
+          "description": "Maintenance drones patrol the habitat exterior in slow arcs",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_16_particle",
+          "type": "particle",
+          "description": "Distant stars drift past viewport windows",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.4,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_16_monitor",
+          "type": "monitor",
+          "description": "Orbital tracking displays map satellite trajectories",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.55,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_16_idle",
+          "type": "idleAnimation",
+          "description": "Habitat rings rotate with imperceptible grace",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_16_weather",
+          "type": "machineWeather",
+          "description": "Atmospheric recyclers create gentle pressure currents",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.35,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_orbital_core",
+        "breathingStyle": "orbit_spin",
+        "lightingShiftStyle": "pulsing",
+        "scarConditions": ["orbit_decay", "hull_breach"]
+      }
+    },
+    {
+      "roomId": "room_17",
+      "transition": {
+        "roomId": "room_17",
+        "enterEffect": "environmentDissolve",
+        "exitEffect": "orbitRotation",
+        "enterDurationMs": 1100,
+        "exitDurationMs": 650,
+        "titleRevealStyle": "scale_in",
+        "subtitleStyle": "slide_up",
+        "guideLineOnEnter": "Worlds are born in this heat. Tread carefully among the new suns.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "planetary",
+      "eventCardStyle": "forged",
+      "sideActivityEntryStyle": "stellar_crucible",
+      "landmarkAnimBehavior": "energy_flow",
+      "transformRevealBehavior": "glow_expand",
+      "completionCeremonyFormat": "cosmic",
+      "microLifeEffects": [
+        {
+          "id": "room_17_shimmer",
+          "type": "thermalShimmer",
+          "description": "Planetary heat radiates from newborn world surfaces",
+          "triggerCondition": "always",
+          "intensityMin": 0.35,
+          "intensityMax": 0.85,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_17_dust",
+          "type": "particle",
+          "description": "Cosmic dust spirals into accretion disks around forge points",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_17_weather",
+          "type": "machineWeather",
+          "description": "Stellar winds sweep through the forge with scorching intensity",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.75,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_17_breathing",
+          "type": "landmarkBreathing",
+          "description": "The stellar anvil throbs with planetary-scale energy",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_17_fog",
+          "type": "signalFog",
+          "description": "Nebula mist curls around forming planetary bodies",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_stellar_anvil",
+        "breathingStyle": "energy_flow",
+        "lightingShiftStyle": "dramatic",
+        "scarConditions": ["solar_flare", "tectonic_stress"]
+      }
+    },
+    {
+      "roomId": "room_18",
+      "transition": {
+        "roomId": "room_18",
+        "enterEffect": "timeFracture",
+        "exitEffect": "memoryEcho",
+        "enterDurationMs": 950,
+        "exitDurationMs": 600,
+        "titleRevealStyle": "flicker",
+        "subtitleStyle": "typewriter",
+        "guideLineOnEnter": "Time moves differently near the engine. Trust the pendulum, not your eyes.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "temporal",
+      "eventCardStyle": "temporal",
+      "sideActivityEntryStyle": "clock_dial",
+      "landmarkAnimBehavior": "temporal_wave",
+      "transformRevealBehavior": "time_warp",
+      "completionCeremonyFormat": "dramatic",
+      "microLifeEffects": [
+        {
+          "id": "room_18_idle",
+          "type": "idleAnimation",
+          "description": "Clock gears rotate at mismatched speeds across the room",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.6,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_18_static",
+          "type": "staticRain",
+          "description": "Temporal discharge crackles where timelines overlap",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.7,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_18_shadow",
+          "type": "shadow",
+          "description": "Time-echoed shadows trail behind every moving object",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.55,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_18_particle",
+          "type": "particle",
+          "description": "Crystallized time fragments hover in frozen suspension",
+          "triggerCondition": "progression_late",
+          "intensityMin": 0.3,
+          "intensityMax": 0.8,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_chrono_pendulum",
+        "breathingStyle": "temporal_wave",
+        "lightingShiftStyle": "cascading",
+        "scarConditions": ["time_skip", "temporal_erosion"]
+      }
+    },
+    {
+      "roomId": "room_19",
+      "transition": {
+        "roomId": "room_19",
+        "enterEffect": "signalDistortion",
+        "exitEffect": "timeFracture",
+        "enterDurationMs": 1050,
+        "exitDurationMs": 650,
+        "titleRevealStyle": "typewriter",
+        "subtitleStyle": "glitch",
+        "guideLineOnEnter": "This is the foundation of everything. The kernel that holds reality together.",
+        "skippableAfterFirst": true
+      },
+      "roomLawBadgeStyle": "kernel",
+      "eventCardStyle": "crystalline",
+      "sideActivityEntryStyle": "kernel_interface",
+      "landmarkAnimBehavior": "crystalline_shift",
+      "transformRevealBehavior": "phase_shift",
+      "completionCeremonyFormat": "transcendent",
+      "microLifeEffects": [
+        {
+          "id": "room_19_fog",
+          "type": "signalFog",
+          "description": "Reality haze drifts from exposed kernel surfaces",
+          "triggerCondition": "always",
+          "intensityMin": 0.25,
+          "intensityMax": 0.7,
+          "reactsToCombo": false,
+          "reactsToDanger": true,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_19_static",
+          "type": "staticRain",
+          "description": "Kernel disruptions send cascading static through the chamber",
+          "triggerCondition": "danger_active",
+          "intensityMin": 0.35,
+          "intensityMax": 0.85,
+          "reactsToCombo": true,
+          "reactsToDanger": true,
+          "reactsToTrust": false,
+          "reactsToProgression": false
+        },
+        {
+          "id": "room_19_breathing",
+          "type": "landmarkBreathing",
+          "description": "The kernel seed beats with the heartbeat of reality itself",
+          "triggerCondition": "always",
+          "intensityMin": 0.3,
+          "intensityMax": 0.75,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_19_particle",
+          "type": "particle",
+          "description": "Kernel fragments orbit the seed in complex geometric patterns",
+          "triggerCondition": "always",
+          "intensityMin": 0.2,
+          "intensityMax": 0.65,
+          "reactsToCombo": true,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_19_guide",
+          "type": "guideReaction",
+          "description": "The guide grows quiet and reverent near the kernel seed",
+          "triggerCondition": "trust_high",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": false
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_kernel_seed",
+        "breathingStyle": "crystalline_shift",
+        "lightingShiftStyle": "reactive",
+        "scarConditions": ["kernel_panic", "reality_tear"]
+      }
+    },
+    {
+      "roomId": "room_20",
+      "transition": {
+        "roomId": "room_20",
+        "enterEffect": "staticBloom",
+        "exitEffect": "simpleFade",
+        "enterDurationMs": 1200,
+        "exitDurationMs": 700,
+        "titleRevealStyle": "fade_in",
+        "subtitleStyle": "fade_in",
+        "guideLineOnEnter": "There is nothing left to prove. Only stillness, and the infinite.",
+        "skippableAfterFirst": false
+      },
+      "roomLawBadgeStyle": "ethereal",
+      "eventCardStyle": "luminous",
+      "sideActivityEntryStyle": "void_meditation",
+      "landmarkAnimBehavior": "gentle_pulse",
+      "transformRevealBehavior": "dissolve_rebuild",
+      "completionCeremonyFormat": "transcendent",
+      "microLifeEffects": [
+        {
+          "id": "room_20_particle",
+          "type": "particle",
+          "description": "Points of light slowly dissolve into the surrounding void",
+          "triggerCondition": "always",
+          "intensityMin": 0.1,
+          "intensityMax": 0.4,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_20_shadow",
+          "type": "shadow",
+          "description": "The void itself has edges, soft and barely perceptible",
+          "triggerCondition": "always",
+          "intensityMin": 0.05,
+          "intensityMax": 0.3,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_20_breathing",
+          "type": "landmarkBreathing",
+          "description": "The void lotus opens and closes with infinite patience",
+          "triggerCondition": "always",
+          "intensityMin": 0.15,
+          "intensityMax": 0.5,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": true,
+          "reactsToProgression": true
+        },
+        {
+          "id": "room_20_idle",
+          "type": "idleAnimation",
+          "description": "A gentle rotation pervades everything, barely noticeable",
+          "triggerCondition": "always",
+          "intensityMin": 0.05,
+          "intensityMax": 0.25,
+          "reactsToCombo": false,
+          "reactsToDanger": false,
+          "reactsToTrust": false,
+          "reactsToProgression": true
+        }
+      ],
+      "landmarkReactivity": {
+        "landmarkId": "lm_void_lotus",
+        "breathingStyle": "gentle_pulse",
+        "lightingShiftStyle": "ambient",
+        "scarConditions": ["silence_breach", "entropy_spike"]
+      }
+    }
+  ],
+  "onboardingSteps": [
+    {
+      "id": "onboard_tap",
+      "title": "Tap the Core",
+      "description": "Tap the central node to generate resources and build momentum.",
+      "triggerCondition": "first_room_enter",
+      "relatedMechanic": "tapping"
+    },
+    {
+      "id": "onboard_upgrade",
+      "title": "Purchase an Upgrade",
+      "description": "Spend your earned coins on an upgrade node to increase production or unlock new abilities.",
+      "triggerCondition": "first_upgrade",
+      "relatedMechanic": "upgrades"
+    },
+    {
+      "id": "onboard_event",
+      "title": "Respond to an Event",
+      "description": "Events appear during gameplay with choices that affect your room. Read carefully and decide.",
+      "triggerCondition": "first_event",
+      "relatedMechanic": "events"
+    },
+    {
+      "id": "onboard_combo",
+      "title": "Build a Combo",
+      "description": "Tap rapidly to build a combo multiplier. Higher combos mean more coins per tap. Keep the rhythm going.",
+      "triggerCondition": "first_combo",
+      "relatedMechanic": "combo"
+    },
+    {
+      "id": "onboard_prestige",
+      "title": "Perform a Prestige",
+      "description": "Reset your progress in the current room to earn prestige bonuses that carry forward permanently.",
+      "triggerCondition": "first_prestige",
+      "relatedMechanic": "prestige"
+    },
+    {
+      "id": "onboard_side_activity",
+      "title": "Try a Side Activity",
+      "description": "Each room has optional side activities that reward rare items, companions, and secret knowledge.",
+      "triggerCondition": "first_side_activity",
+      "relatedMechanic": "side_activities"
+    },
+    {
+      "id": "onboard_route",
+      "title": "Choose a Route",
+      "description": "Routes define your play style. Each one modifies bonuses, events, and available upgrades differently.",
+      "triggerCondition": "first_route",
+      "relatedMechanic": "routes"
+    },
+    {
+      "id": "onboard_room_complete",
+      "title": "Complete a Room",
+      "description": "You have finished all objectives in this room. A new room awaits with fresh challenges and mechanics.",
+      "triggerCondition": "first_room_complete",
+      "relatedMechanic": "rooms"
+    },
+    {
+      "id": "onboard_archive",
+      "title": "Discover an Archive Entry",
+      "description": "Archives preserve knowledge about the AI's history. Collect entries to unlock deeper lore and hidden bonuses.",
+      "triggerCondition": "first_archive",
+      "relatedMechanic": "archive"
+    },
+    {
+      "id": "onboard_transformation",
+      "title": "Witness a Transformation",
+      "description": "As you progress, the room itself transforms. The environment evolves to reflect your achievements.",
+      "triggerCondition": "first_transformation",
+      "relatedMechanic": "transformation"
+    },
+    {
+      "id": "onboard_companion",
+      "title": "Meet a Companion",
+      "description": "Companions are entities that assist you. Each has unique traits, abilities, and room affinities.",
+      "triggerCondition": "first_companion",
+      "relatedMechanic": "companions"
+    },
+    {
+      "id": "onboard_secret",
+      "title": "Uncover a Secret",
+      "description": "Secrets are hidden throughout every room. Finding them reveals special rewards and forbidden knowledge.",
+      "triggerCondition": "first_secret",
+      "relatedMechanic": "secrets"
+    },
+    {
+      "id": "onboard_law",
+      "title": "Encounter a Room Law",
+      "description": "Room laws are unique rules that change how a room works. Adapt your strategy to work within or around them.",
+      "triggerCondition": "first_law_trigger",
+      "relatedMechanic": "room_laws"
+    },
+    {
+      "id": "onboard_hazard",
+      "title": "Survive a Hazard",
+      "description": "Hazards are dangerous conditions that threaten your progress. Manage them quickly or suffer consequences.",
+      "triggerCondition": "first_hazard",
+      "relatedMechanic": "hazards"
+    },
+    {
+      "id": "onboard_mastery",
+      "title": "Achieve Mastery",
+      "description": "Mastery goals challenge you to replay rooms under special conditions for exclusive rewards and recognition.",
+      "triggerCondition": "first_mastery",
+      "relatedMechanic": "mastery"
+    }
+  ],
+  "glossaryEntries": [
+    {
+      "id": "gloss_combo",
+      "term": "Combo",
+      "definition": "A multiplier that increases with rapid taps. Higher combos boost tap output. Decays after 2 seconds of inactivity.",
+      "category": "mechanics",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_tap_value",
+      "term": "Tap Value",
+      "definition": "The base amount of coins generated by a single tap. Increased by upgrades, combos, and route bonuses.",
+      "category": "mechanics",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_generator",
+      "term": "Generator",
+      "definition": "An automated production unit that generates coins over time. Each generator can be leveled up to increase its output.",
+      "category": "mechanics",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_upgrade",
+      "term": "Upgrade",
+      "definition": "A purchasable node on the technology tree that provides production increases, multipliers, or new mechanic unlocks.",
+      "category": "mechanics",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_prestige",
+      "term": "Prestige",
+      "definition": "A voluntary reset of room progress that grants permanent bonuses. Higher prestige levels yield greater rewards.",
+      "category": "progression",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_room",
+      "term": "Room",
+      "definition": "A themed environment with its own upgrade tree, mechanics, events, and secrets. Complete one room to unlock the next.",
+      "category": "rooms",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_room_law",
+      "term": "Room Law",
+      "definition": "A special rule unique to a specific room that modifies core mechanics. Room laws cannot be bypassed and must be adapted to.",
+      "category": "rooms",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_event",
+      "term": "Event",
+      "definition": "A timed occurrence that presents choices affecting production, resources, or room state. Events vary by room and route.",
+      "category": "systems",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_route",
+      "term": "Route",
+      "definition": "A play style archetype that modifies bonuses, event pools, and available upgrades. Choose one route per run.",
+      "category": "progression",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_companion",
+      "term": "Companion",
+      "definition": "An entity that accompanies you through rooms. Each companion has unique traits, abilities, and room affinities that provide passive bonuses.",
+      "category": "systems",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_side_activity",
+      "term": "Side Activity",
+      "definition": "An optional room-specific challenge that rewards rare items, companion drops, or secret unlocks upon completion.",
+      "category": "systems",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_archive",
+      "term": "Archive",
+      "definition": "A collection of discovered lore entries that reveal the AI's history. Completing archives unlocks bonus effects and narrative depth.",
+      "category": "lore",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_secret",
+      "term": "Secret",
+      "definition": "A hidden element within a room discovered through exploration, specific actions, or clue-following. Secrets grant unique rewards.",
+      "category": "lore",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_transformation",
+      "term": "Transformation",
+      "definition": "A visible environmental change triggered by reaching upgrade milestones. Each room has multiple transformation stages.",
+      "category": "progression",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_mastery",
+      "term": "Mastery",
+      "definition": "Post-completion challenges for a room. Mastery goals test specific skills and reward relic fragments or codex bonuses.",
+      "category": "progression",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_hazard",
+      "term": "Hazard",
+      "definition": "A dangerous condition that emerges during gameplay. Hazards reduce production or threaten progress if not managed promptly.",
+      "category": "mechanics",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_multiplier",
+      "term": "Multiplier",
+      "definition": "A factor applied to coin generation from taps, generators, or events. Multiple multipliers can stack together.",
+      "category": "mechanics",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_offline_progress",
+      "term": "Offline Progress",
+      "definition": "Coins accumulated while the game is closed. Calculated from production rate and elapsed time, capped at a configurable maximum.",
+      "category": "systems",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_coin",
+      "term": "Coin",
+      "definition": "The primary currency earned through tapping and generators. Spent on upgrades, events, and side activities.",
+      "category": "mechanics",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_era",
+      "term": "Era",
+      "definition": "A grouping of rooms sharing a technological theme. Each era introduces new mechanics and escalates complexity.",
+      "category": "progression",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_landmark",
+      "term": "Landmark",
+      "definition": "A central visual feature in each room that evolves as you progress. Landmarks react to gameplay and accumulate visual scars.",
+      "category": "rooms",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    },
+    {
+      "id": "gloss_trust",
+      "term": "Trust",
+      "definition": "A hidden relationship value between you and the guide. High trust unlocks special dialogue, reactions, and secret paths.",
+      "category": "lore",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_danger_level",
+      "term": "Danger Level",
+      "definition": "A measure of active threats in a room. Higher danger increases hazard frequency but may also boost rare event chances.",
+      "category": "systems",
+      "relatedRoomId": null,
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_heat",
+      "term": "Heat",
+      "definition": "A room mechanic that accumulates with aggressive actions. Excessive heat triggers hazards and can scar the room landmark.",
+      "category": "mechanics",
+      "relatedRoomId": "room_03",
+      "discoveredInGame": true
+    },
+    {
+      "id": "gloss_guide",
+      "term": "Guide",
+      "definition": "An AI companion that provides hints, reacts to your decisions, and evolves its personality based on your play style and trust level.",
+      "category": "lore",
+      "relatedRoomId": null,
+      "discoveredInGame": false
+    }
+  ]
+}
