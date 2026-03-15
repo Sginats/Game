@@ -30,6 +30,7 @@ import 'tech_tree/tech_tree_view.dart';
 import 'widgets/room_scene_backdrop.dart';
 import 'widgets/room_status_panel.dart';
 import 'widgets/guide_card.dart';
+import 'widgets/room_overview_card.dart';
 
 class GameScreen extends StatefulWidget {
   final GameController controller;
@@ -256,7 +257,7 @@ class _GameScreenState extends State<GameScreen>
                     padding: const EdgeInsets.fromLTRB(10, 6, 10, 8),
                     child: Column(
                       children: [
-                        _buildHud(accent),
+                        RepaintBoundary(child: _buildHud(accent)),
                         const SizedBox(height: 6),
                         Expanded(
                           child: LayoutBuilder(
@@ -289,7 +290,9 @@ class _GameScreenState extends State<GameScreen>
                                                 280,
                                                 constraints.maxWidth * 0.42,
                                               ),
-                                              child: _buildContextPanel(node),
+                                              child: RepaintBoundary(
+                                                child: _buildContextPanel(node),
+                                              ),
                                             ),
                                         ],
                                       ),
@@ -315,7 +318,9 @@ class _GameScreenState extends State<GameScreen>
                                     child: Column(
                                       children: [
                                         Expanded(
-                                          child: _buildContextPanel(node),
+                                          child: RepaintBoundary(
+                                            child: _buildContextPanel(node),
+                                          ),
                                         ),
                                         const SizedBox(height: 8),
                                         _buildSideControls(accent),
@@ -872,118 +877,12 @@ class _GameScreenState extends State<GameScreen>
   Widget _buildRoomOverviewCard() {
     final room = _controller.currentRoom;
     final roomState = _controller.currentRoomState;
-    if (room == null) {
-      return const SizedBox.shrink();
-    }
-
-    final nextStageIndex = roomState.currentTransformationStage + 1;
-    final nextStage = nextStageIndex < room.transformationStages.length
-        ? room.transformationStages[nextStageIndex]
-        : null;
-    final currentStageIndex = room.transformationStages.isEmpty
-        ? 0
-        : roomState.currentTransformationStage.clamp(
-            0,
-            room.transformationStages.length - 1,
-          );
-    final currentStage = room.transformationStages.isEmpty
-        ? null
-        : room.transformationStages[currentStageIndex];
-    final stageProgress = room.transformationStages.isEmpty
-        ? 0.0
-        : ((roomState.currentTransformationStage + 1) /
-                room.transformationStages.length)
-            .clamp(0.0, 1.0);
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: _glassBox(radius: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.strings.roomOverview,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            widget.strings.translateContent(room.guideIntroLine),
-            style: const TextStyle(color: Colors.white70, height: 1.35),
-          ),
-          const SizedBox(height: 10),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _hudChip(
-                Icons.psychology_alt_rounded,
-                '${widget.strings.guideToneLabel}: ${widget.strings.translateContent(room.guideTone)}',
-              ),
-              _hudChip(
-                Icons.graphic_eq_rounded,
-                '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}',
-              ),
-              _hudChip(
-                Icons.auto_awesome_motion_rounded,
-                '${widget.strings.secretsTrackedLabel}: ${room.secrets.length}',
-              ),
-              _hudChip(
-                Icons.bolt_rounded,
-                '${widget.strings.twistStatusLabel}: ${roomState.twistActivated ? widget.strings.transformationReady : widget.strings.transformationDormant}',
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            widget.strings.transformationTrack,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 6),
-          LinearProgressIndicator(
-            value: stageProgress,
-            minHeight: 6,
-            backgroundColor: Colors.white.withAlpha(12),
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.cyanAccent),
-            borderRadius: BorderRadius.circular(999),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            nextStage == null
-                ? widget.strings.translateContent(room.completionText)
-                : '${widget.strings.translateContent(nextStage.name)}\n${widget.strings.translateContent(nextStage.description)}',
-            style: const TextStyle(color: Colors.white60, fontSize: 12, height: 1.35),
-          ),
-          if (currentStage != null) ...[
-            const SizedBox(height: 10),
-            Text(
-              widget.strings.environmentChanges,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: currentStage.environmentChanges
-                  .map(
-                    (change) => _hudChip(
-                      Icons.blur_on_rounded,
-                      widget.strings.formatEnvironmentChange(change),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
-        ],
+    if (room == null) return const SizedBox.shrink();
+    return RepaintBoundary(
+      child: RoomOverviewCard(
+        room: room,
+        roomState: roomState,
+        strings: widget.strings,
       ),
     );
   }
@@ -992,10 +891,12 @@ class _GameScreenState extends State<GameScreen>
     final room = _controller.currentRoom;
     final roomState = _controller.currentRoomState;
     if (room == null) return const SizedBox.shrink();
-    return RoomStatusPanel(
-      room: room,
-      roomState: roomState,
-      upgradesPurchased: roomState.upgradesPurchased,
+    return RepaintBoundary(
+      child: RoomStatusPanel(
+        room: room,
+        roomState: roomState,
+        upgradesPurchased: roomState.upgradesPurchased,
+      ),
     );
   }
 
@@ -2187,112 +2088,127 @@ class _GameScreenState extends State<GameScreen>
     await showModalBottomSheet<void>(
       context: context,
       backgroundColor: const Color(0xFF121D28),
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _sheetTitle(widget.strings.roomMap),
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: ordered.map((room) {
-                      final era = widget.config.eras.firstWhere(
-                        (item) => item.order == room.order,
-                        orElse: () => widget.config.eras.first,
-                      );
-                      final unlocked = _controller.metaProgression.roomsCompleted
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.60,
+        maxChildSize: 0.92,
+        minChildSize: 0.36,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 8),
+              child: _sheetTitle(widget.strings.roomMap),
+            ),
+            Expanded(
+              // ListView.builder: only visible room rows are built.
+              child: ListView.builder(
+                controller: scrollController,
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                itemCount: ordered.length,
+                itemBuilder: (context, index) {
+                  final room = ordered[index];
+                  final era = widget.config.eras.firstWhere(
+                    (item) => item.order == room.order,
+                    orElse: () => widget.config.eras.first,
+                  );
+                  final unlocked =
+                      _controller.metaProgression.roomsCompleted
                               .contains(room.unlockRequirement) ||
                           room.unlockRequirement == null;
-                      final selected = _controller.currentRoomId == room.id;
-                      final roomState = _controller.state.roomStates[room.id] ??
+                  final selected =
+                      _controller.currentRoomId == room.id;
+                  final roomState =
+                      _controller.state.roomStates[room.id] ??
                           RoomSceneState(roomId: room.id);
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: selected
-                              ? Colors.cyanAccent.withAlpha(18)
-                              : Colors.white.withAlpha(6),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: selected
-                                ? Colors.cyanAccent.withAlpha(90)
-                                : Colors.white.withAlpha(14),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? Colors.cyanAccent.withAlpha(18)
+                          : Colors.white.withAlpha(6),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: selected
+                            ? Colors.cyanAccent.withAlpha(90)
+                            : Colors.white.withAlpha(14),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${widget.strings.roomProgress(room.order, ordered.length)} • ${widget.strings.localizedEraName(room.name)}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '${widget.strings.translateContent(room.subtitle)}\n${widget.strings.translateContent(room.guideTone)}',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white60,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
                                 children: [
-                                  Text(
-                                    '${widget.strings.roomProgress(room.order, ordered.length)} • ${widget.strings.localizedEraName(room.name)}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
+                                  _hudChip(
+                                    Icons.auto_awesome_motion_rounded,
+                                    widget.strings.roomUpgradeProgress(
+                                      roomState.upgradesPurchased,
+                                      room.transformationStages.isEmpty
+                                          ? 0
+                                          : room.transformationStages.last
+                                              .requiredUpgrades,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    '${widget.strings.translateContent(room.subtitle)}\n${widget.strings.translateContent(room.guideTone)}',
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      color: Colors.white60,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Wrap(
-                                    spacing: 6,
-                                    runSpacing: 6,
-                                    children: [
-                                      _hudChip(Icons.auto_awesome_motion_rounded,
-                                          widget.strings.roomUpgradeProgress(
-                                            roomState.upgradesPurchased,
-                                            room.transformationStages.isEmpty
-                                                ? 0
-                                                : room.transformationStages.last.requiredUpgrades,
-                                          )),
-                                      _hudChip(Icons.graphic_eq_rounded,
-                                          '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}'),
-                                    ],
+                                  _hudChip(
+                                    Icons.graphic_eq_rounded,
+                                    '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}',
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(width: 10),
-                            FilledButton.tonal(
-                              onPressed: unlocked
-                                  ? () {
-                                      Navigator.pop(context);
-                                      _switchEra(era.id);
-                                    }
-                                  : null,
-                              child: Text(
-                                unlocked
-                                    ? (selected
-                                        ? widget.strings.currentRoom
-                                        : widget.strings.enterRoomZero)
-                                    : widget.strings.locked,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                ),
+                        const SizedBox(width: 10),
+                        FilledButton.tonal(
+                          onPressed: unlocked
+                              ? () {
+                                  Navigator.pop(context);
+                                  _switchEra(era.id);
+                                }
+                              : null,
+                          child: Text(
+                            unlocked
+                                ? (selected
+                                    ? widget.strings.currentRoom
+                                    : widget.strings.enterRoomZero)
+                                : widget.strings.locked,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -2965,12 +2881,11 @@ class _GameScreenState extends State<GameScreen>
   Future<void> _showCodexSheet() async {
     final orderedEras = widget.config.eras.toList()
       ..sort((a, b) => a.order.compareTo(b.order));
-    // Do NOT pre-load all configured eras' content here — iterating every era
-    // and calling ensureEraContent() triggers a blocking synchronous JSON parse
-    // for each room not yet loaded, causing a visible hitch when opening the
-    // codex. Era content is lazy-loaded by _syncEraWindow as the player
-    // progresses through rooms, so only already-visited eras are available in
-    // the overview section; this is intentional.
+    // Era content is lazy-loaded by _syncEraWindow as the player visits rooms.
+    // Only visited eras are available in the codex overview — this is
+    // intentional: eagerly calling ensureEraContent() for every era would
+    // parse all room JSON files synchronously on the UI thread, causing a
+    // visible hitch when the sheet opens.
     final seenEvents = _controller.seenEventTemplates;
     const sections = [
       'overview',
