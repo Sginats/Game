@@ -1822,6 +1822,7 @@ class _GameScreenState extends State<GameScreen>
         );
       }
       _lastRoomStage = roomState.currentTransformationStage;
+      _robotGuide.onTransformationStageAdvanced(_controller.currentRoomId);
     }
     if (_lastRoomTwist != roomState.twistActivated) {
       if (roomState.twistActivated && room?.midSceneTwist != null) {

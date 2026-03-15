@@ -114,6 +114,25 @@ class RobotGuideService {
     }
   }
 
+  /// Called when the current room advances a transformation stage.
+  ///
+  /// Shows the room-specific `_transformation_*` line if not yet shown,
+  /// then falls back to the generic transformation tip.
+  void onTransformationStageAdvanced(String roomId) {
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[roomId] ?? const [];
+    for (final msg in roomLines) {
+      if (msg.id.contains('_transformation_')) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+          return;
+        }
+      }
+    }
+    // Fallback to generic transformation tip
+    onTransformation();
+  }
+
   /// Called on the player's very first tap to show an onboarding message.
   void onFirstTap() {
     final roomLines =

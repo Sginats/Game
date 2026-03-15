@@ -4,7 +4,10 @@ import '../../domain/models/room_scene.dart';
 
 /// A panel widget that shows the current room's status, including its law,
 /// transformation progress, landmark, hazard warning, and twist indicator.
-class RoomStatusPanel extends StatelessWidget {
+///
+/// Expandable sections let the player drill into details without cluttering the
+/// default view.
+class RoomStatusPanel extends StatefulWidget {
   final RoomScene room;
   final RoomSceneState roomState;
   final int upgradesPurchased;
@@ -17,7 +20,22 @@ class RoomStatusPanel extends StatelessWidget {
   });
 
   @override
+  State<RoomStatusPanel> createState() => _RoomStatusPanelState();
+}
+
+class _RoomStatusPanelState extends State<RoomStatusPanel> {
+  bool _lawExpanded = false;
+  bool _landmarkExpanded = false;
+
+  // Alpha for secondary/dim icon and chevron colors.
+  static const int _kSecondaryAlpha = 160;
+
+  @override
   Widget build(BuildContext context) {
+    final room = widget.room;
+    final roomState = widget.roomState;
+    final upgradesPurchased = widget.upgradesPurchased;
+
     final nextStageIndex = roomState.currentTransformationStage + 1;
     final nextStage = nextStageIndex < room.transformationStages.length
         ? room.transformationStages[nextStageIndex]
@@ -35,7 +53,7 @@ class RoomStatusPanel extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildRoomHeader(),
+            _buildRoomHeader(room),
             const SizedBox(height: 10),
             if (room.roomLaw != null) ...[
               _buildDivider(),
@@ -61,17 +79,17 @@ class RoomStatusPanel extends StatelessWidget {
             if (roomState.twistActivated && room.midSceneTwist != null) ...[
               const SizedBox(height: 8),
               _buildDivider(),
-              _buildTwistIndicator(room.midSceneTwist!.title),
+              _buildTwistIndicator(room.midSceneTwist!),
             ],
             _buildDivider(),
-            _buildMasteryGoalSummary(),
+            _buildMasteryGoalSummary(room, roomState),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildRoomHeader() {
+  Widget _buildRoomHeader(RoomScene room) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -99,35 +117,47 @@ class RoomStatusPanel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const Icon(
-              Icons.gavel_rounded,
-              color: Colors.cyanAccent,
-              size: 14,
-            ),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                'Room Law: ${law.name}',
-                style: const TextStyle(
-                  color: Colors.cyanAccent,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
+        GestureDetector(
+          onTap: () => setState(() => _lawExpanded = !_lawExpanded),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.gavel_rounded,
+                color: Colors.cyanAccent,
+                size: 14,
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  'Room Law: ${law.name}',
+                  style: const TextStyle(
+                    color: Colors.cyanAccent,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          law.description,
-          style: const TextStyle(
-            color: Colors.white60,
-            fontSize: 11,
-            height: 1.35,
+              Icon(
+                _lawExpanded
+                    ? Icons.expand_less_rounded
+                    : Icons.expand_more_rounded,
+                color: Colors.cyanAccent.withAlpha(_kSecondaryAlpha),
+                size: 16,
+              ),
+            ],
           ),
         ),
+        if (_lawExpanded) ...[
+          const SizedBox(height: 4),
+          Text(
+            law.description,
+            style: const TextStyle(
+              color: Colors.white60,
+              fontSize: 11,
+              height: 1.35,
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -190,39 +220,65 @@ class RoomStatusPanel extends StatelessWidget {
                 landmark.currentStage < landmark.evolutionStages.length
             ? landmark.evolutionStages[landmark.currentStage]
             : landmark.description;
+    final hasStages = landmark.evolutionStages.length > 1;
+    final stageLabel = hasStages
+        ? 'Stage ${landmark.currentStage + 1}/${landmark.evolutionStages.length}'
+        : '';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const Icon(
-              Icons.place_rounded,
-              color: Colors.purpleAccent,
-              size: 14,
-            ),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                landmark.name,
-                style: const TextStyle(
-                  color: Colors.purpleAccent,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
+        GestureDetector(
+          onTap: () =>
+              setState(() => _landmarkExpanded = !_landmarkExpanded),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.place_rounded,
+                color: Colors.purpleAccent,
+                size: 14,
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  landmark.name,
+                  style: const TextStyle(
+                    color: Colors.purpleAccent,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          stageDescription,
-          style: const TextStyle(
-            color: Colors.white60,
-            fontSize: 11,
-            height: 1.3,
+              if (hasStages)
+                Text(
+                  stageLabel,
+                  style: TextStyle(
+                    color: Colors.purpleAccent.withAlpha(_kSecondaryAlpha),
+                    fontSize: 10,
+                  ),
+                ),
+              const SizedBox(width: 4),
+              Icon(
+                _landmarkExpanded
+                    ? Icons.expand_less_rounded
+                    : Icons.expand_more_rounded,
+                color: Colors.purpleAccent.withAlpha(_kSecondaryAlpha),
+                size: 16,
+              ),
+            ],
           ),
         ),
+        if (_landmarkExpanded) ...[
+          const SizedBox(height: 4),
+          Text(
+            stageDescription,
+            style: const TextStyle(
+              color: Colors.white60,
+              fontSize: 11,
+              height: 1.3,
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -267,7 +323,7 @@ class RoomStatusPanel extends StatelessWidget {
     );
   }
 
-  Widget _buildTwistIndicator(String twistTitle) {
+  Widget _buildTwistIndicator(MidSceneTwist twist) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
@@ -284,13 +340,27 @@ class RoomStatusPanel extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Expanded(
-            child: Text(
-              'Twist Active: $twistTitle',
-              style: const TextStyle(
-                color: Colors.deepOrangeAccent,
-                fontWeight: FontWeight.w700,
-                fontSize: 11,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Twist Active: ${twist.title}',
+                  style: const TextStyle(
+                    color: Colors.deepOrangeAccent,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                  ),
+                ),
+                if (twist.effectDescription.isNotEmpty)
+                  Text(
+                    twist.effectDescription,
+                    style: const TextStyle(
+                      color: Colors.white54,
+                      fontSize: 10,
+                      height: 1.3,
+                    ),
+                  ),
+              ],
             ),
           ),
         ],
@@ -298,7 +368,7 @@ class RoomStatusPanel extends StatelessWidget {
     );
   }
 
-  Widget _buildMasteryGoalSummary() {
+  Widget _buildMasteryGoalSummary(RoomScene room, RoomSceneState roomState) {
     final secrets = roomState.secretsDiscovered.length;
     final totalSecrets = room.secrets.length;
     final eventsCompleted = roomState.eventsCompleted;

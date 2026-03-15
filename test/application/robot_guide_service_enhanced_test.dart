@@ -190,5 +190,305 @@ void main() {
       expect(intro.text.contains('Junk Corner'), isTrue);
     });
   });
-}
 
+  // ─── Wave 1: Rooms 2–5 ───────────────────────────────────────────────────
+
+  group('Wave 1 — Room 2 (Budget Setup)', () {
+    RobotGuideService _fresh() {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_02');
+      while (g.hasMessage) g.dismiss();
+      return g;
+    }
+
+    test('onRoomChanged room_02 shows room_02_intro first', () {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_02');
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_02_intro');
+      expect(g.currentMessage!.type, RobotGuideMessageType.roomIntro);
+    });
+
+    test('room_02 has all required message IDs', () {
+      final lines = RobotGuideDialogue.roomSpecificLines['room_02']!;
+      final ids = lines.map((m) => m.id).toSet();
+      expect(ids.contains('room_02_intro'), isTrue);
+      expect(ids.contains('room_02_first_law'), isTrue);
+      expect(ids.contains('room_02_room_goal'), isTrue);
+      expect(ids.contains('room_02_transformation_1'), isTrue);
+      expect(ids.contains('room_02_secret_hint'), isTrue);
+      expect(ids.contains('room_02_side_activity_hint'), isTrue);
+      expect(ids.contains('room_02_on_first_interaction'), isTrue);
+      expect(ids.contains('room_02_on_first_upgrade'), isTrue);
+      expect(ids.contains('room_02_on_first_event'), isTrue);
+    });
+
+    test('room_02 trigger messages do not auto-queue on room entry', () {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_02');
+      final queued = <String>[];
+      while (g.hasMessage) {
+        queued.add(g.currentMessage!.id);
+        g.dismiss();
+      }
+      expect(queued.any((id) => id.contains('_on_first_')), isFalse);
+    });
+
+    test('onFirstTap fires room_02_on_first_interaction', () {
+      final g = _fresh();
+      g.onFirstTap();
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_02_on_first_interaction');
+    });
+
+    test('onRoomLawExplained room_02 fires room_02_first_law', () {
+      final g = _fresh();
+      g.onRoomLawExplained('room_02');
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_02_first_law');
+    });
+
+    test('onTransformationStageAdvanced room_02 fires transformation_1', () {
+      final g = _fresh();
+      g.onTransformationStageAdvanced('room_02');
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_02_transformation_1');
+    });
+  });
+
+  group('Wave 1 — Room 3 (Creator Room)', () {
+    RobotGuideService _fresh() {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_03');
+      while (g.hasMessage) g.dismiss();
+      return g;
+    }
+
+    test('room_03 has all required message IDs', () {
+      final lines = RobotGuideDialogue.roomSpecificLines['room_03']!;
+      final ids = lines.map((m) => m.id).toSet();
+      expect(ids.contains('room_03_intro'), isTrue);
+      expect(ids.contains('room_03_first_law'), isTrue);
+      expect(ids.contains('room_03_room_goal'), isTrue);
+      expect(ids.contains('room_03_transformation_1'), isTrue);
+      expect(ids.contains('room_03_secret_hint'), isTrue);
+      expect(ids.contains('room_03_side_activity_hint'), isTrue);
+      expect(ids.contains('room_03_on_first_interaction'), isTrue);
+      expect(ids.contains('room_03_on_first_upgrade'), isTrue);
+      expect(ids.contains('room_03_on_first_event'), isTrue);
+    });
+
+    test('room_03_first_law mentions Momentum', () {
+      final lines = RobotGuideDialogue.roomSpecificLines['room_03']!;
+      final law = lines.firstWhere((m) => m.id == 'room_03_first_law');
+      expect(law.text.toLowerCase().contains('momentum'), isTrue);
+    });
+
+    test('onFirstEventAppeared fires room_03_on_first_event', () {
+      final g = _fresh();
+      g.onFirstEventAppeared();
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_03_on_first_event');
+    });
+  });
+
+  group('Wave 1 — Room 4 (Upgrade Cave)', () {
+    RobotGuideService _fresh() {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_04');
+      while (g.hasMessage) g.dismiss();
+      return g;
+    }
+
+    test('room_04 has all required message IDs', () {
+      final lines = RobotGuideDialogue.roomSpecificLines['room_04']!;
+      final ids = lines.map((m) => m.id).toSet();
+      expect(ids.contains('room_04_intro'), isTrue);
+      expect(ids.contains('room_04_first_law'), isTrue);
+      expect(ids.contains('room_04_room_goal'), isTrue);
+      expect(ids.contains('room_04_transformation_1'), isTrue);
+      expect(ids.contains('room_04_secret_hint'), isTrue);
+      expect(ids.contains('room_04_on_first_interaction'), isTrue);
+    });
+
+    test('room_04_first_law mentions Resonance', () {
+      final lines = RobotGuideDialogue.roomSpecificLines['room_04']!;
+      final law = lines.firstWhere((m) => m.id == 'room_04_first_law');
+      expect(law.text.toLowerCase().contains('resonance'), isTrue);
+    });
+
+    test('onFirstUpgradePurchased fires room_04_on_first_upgrade', () {
+      final g = _fresh();
+      g.onFirstUpgradePurchased();
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_04_on_first_upgrade');
+    });
+  });
+
+  group('Wave 1 — Room 5 (Smart Lab Bedroom)', () {
+    RobotGuideService _fresh() {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_05');
+      while (g.hasMessage) g.dismiss();
+      return g;
+    }
+
+    test('room_05 has all required message IDs', () {
+      final lines = RobotGuideDialogue.roomSpecificLines['room_05']!;
+      final ids = lines.map((m) => m.id).toSet();
+      expect(ids.contains('room_05_intro'), isTrue);
+      expect(ids.contains('room_05_first_law'), isTrue);
+      expect(ids.contains('room_05_room_goal'), isTrue);
+      expect(ids.contains('room_05_transformation_1'), isTrue);
+      expect(ids.contains('room_05_secret_hint'), isTrue);
+      expect(ids.contains('room_05_side_activity_hint'), isTrue);
+      expect(ids.contains('room_05_on_first_interaction'), isTrue);
+      expect(ids.contains('room_05_on_first_upgrade'), isTrue);
+      expect(ids.contains('room_05_on_first_event'), isTrue);
+    });
+
+    test('room_05_first_law mentions Dual Nature', () {
+      final lines = RobotGuideDialogue.roomSpecificLines['room_05']!;
+      final law = lines.firstWhere((m) => m.id == 'room_05_first_law');
+      expect(law.text.toLowerCase().contains('dual nature'), isTrue);
+    });
+
+    test('onSideActivityDiscovered fires room_05_side_activity_hint', () {
+      final g = _fresh();
+      g.onSideActivityDiscovered('sa_scan_05');
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_05_side_activity_hint');
+    });
+  });
+
+  // ─── Wave 2: Rooms 6–10 ──────────────────────────────────────────────────
+
+  group('Wave 2 — all rooms have required message IDs', () {
+    for (final roomId in ['room_06', 'room_07', 'room_08', 'room_09', 'room_10']) {
+      test('$roomId has all required message IDs', () {
+        final lines = RobotGuideDialogue.roomSpecificLines[roomId];
+        expect(lines, isNotNull, reason: 'Missing lines for $roomId');
+        final ids = lines!.map((m) => m.id).toSet();
+        expect(ids.contains('${roomId}_intro'), isTrue);
+        expect(ids.contains('${roomId}_first_law'), isTrue);
+        expect(ids.contains('${roomId}_room_goal'), isTrue);
+        expect(ids.contains('${roomId}_transformation_1'), isTrue);
+        expect(ids.contains('${roomId}_secret_hint'), isTrue);
+        expect(ids.contains('${roomId}_on_first_interaction'), isTrue);
+        expect(ids.contains('${roomId}_on_first_upgrade'), isTrue);
+        expect(ids.contains('${roomId}_on_first_event'), isTrue);
+      });
+    }
+  });
+
+  // ─── Wave 3: Rooms 11–15 ─────────────────────────────────────────────────
+
+  group('Wave 3 — all rooms have required message IDs', () {
+    for (final roomId in ['room_11', 'room_12', 'room_13', 'room_14', 'room_15']) {
+      test('$roomId has all required message IDs', () {
+        final lines = RobotGuideDialogue.roomSpecificLines[roomId];
+        expect(lines, isNotNull, reason: 'Missing lines for $roomId');
+        final ids = lines!.map((m) => m.id).toSet();
+        expect(ids.contains('${roomId}_intro'), isTrue);
+        expect(ids.contains('${roomId}_first_law'), isTrue);
+        expect(ids.contains('${roomId}_room_goal'), isTrue);
+        expect(ids.contains('${roomId}_transformation_1'), isTrue);
+        expect(ids.contains('${roomId}_secret_hint'), isTrue);
+        expect(ids.contains('${roomId}_on_first_interaction'), isTrue);
+        expect(ids.contains('${roomId}_on_first_upgrade'), isTrue);
+        expect(ids.contains('${roomId}_on_first_event'), isTrue);
+      });
+    }
+  });
+
+  // ─── Wave 4: Rooms 16–20 ─────────────────────────────────────────────────
+
+  group('Wave 4 — all rooms have required message IDs', () {
+    for (final roomId in ['room_16', 'room_17', 'room_18', 'room_19', 'room_20']) {
+      test('$roomId has all required message IDs', () {
+        final lines = RobotGuideDialogue.roomSpecificLines[roomId];
+        expect(lines, isNotNull, reason: 'Missing lines for $roomId');
+        final ids = lines!.map((m) => m.id).toSet();
+        expect(ids.contains('${roomId}_intro'), isTrue);
+        expect(ids.contains('${roomId}_first_law'), isTrue);
+        expect(ids.contains('${roomId}_room_goal'), isTrue);
+        expect(ids.contains('${roomId}_transformation_1'), isTrue);
+        expect(ids.contains('${roomId}_secret_hint'), isTrue);
+        expect(ids.contains('${roomId}_on_first_interaction'), isTrue);
+        expect(ids.contains('${roomId}_on_first_upgrade'), isTrue);
+        expect(ids.contains('${roomId}_on_first_event'), isTrue);
+      });
+    }
+  });
+
+  // ─── onTransformationStageAdvanced ───────────────────────────────────────
+
+  group('onTransformationStageAdvanced', () {
+    test('fires room-specific transformation_1 for room_02', () {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_02');
+      while (g.hasMessage) g.dismiss();
+      g.onTransformationStageAdvanced('room_02');
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_02_transformation_1');
+    });
+
+    test('fires room-specific transformation_1 for room_10', () {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_10');
+      while (g.hasMessage) g.dismiss();
+      g.onTransformationStageAdvanced('room_10');
+      expect(g.hasMessage, isTrue);
+      expect(g.currentMessage!.id, 'room_10_transformation_1');
+    });
+
+    test('does not repeat after already shown', () {
+      final g = RobotGuideService();
+      g.onRoomChanged('room_06');
+      while (g.hasMessage) g.dismiss();
+      g.onTransformationStageAdvanced('room_06');
+      expect(g.hasMessage, isTrue);
+      g.dismiss();
+      g.onTransformationStageAdvanced('room_06');
+      expect(g.hasMessage, isFalse);
+    });
+  });
+
+  // ─── All 20 rooms coverage ────────────────────────────────────────────────
+
+  group('Coverage: all 20 rooms defined in roomSpecificLines', () {
+    test('all room IDs from room_01 to room_20 have entries', () {
+      for (var i = 1; i <= 20; i++) {
+        final roomId = 'room_${i.toString().padLeft(2, '0')}';
+        final lines = RobotGuideDialogue.roomSpecificLines[roomId];
+        expect(lines, isNotNull, reason: 'Missing roomSpecificLines entry for $roomId');
+        expect(lines!.isNotEmpty, isTrue, reason: 'Empty lines for $roomId');
+      }
+    });
+
+    test('no room has duplicate message IDs', () {
+      for (final entry in RobotGuideDialogue.roomSpecificLines.entries) {
+        final ids = entry.value.map((m) => m.id).toList();
+        final unique = ids.toSet();
+        expect(ids.length, equals(unique.length),
+            reason: 'Duplicate IDs found in ${entry.key}: $ids');
+      }
+    });
+
+    test('all trigger messages have correct suffix patterns', () {
+      for (final entry in RobotGuideDialogue.roomSpecificLines.entries) {
+        for (final msg in entry.value) {
+          if (msg.id.contains('_on_first_')) {
+            expect(
+              msg.id.endsWith('_on_first_interaction') ||
+                  msg.id.endsWith('_on_first_upgrade') ||
+                  msg.id.endsWith('_on_first_event'),
+              isTrue,
+              reason: 'Unknown trigger suffix in ${msg.id}',
+            );
+          }
+        }
+      }
+    });
+  });
+}

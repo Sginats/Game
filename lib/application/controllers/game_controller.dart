@@ -2430,7 +2430,10 @@ class GameController {
     if (triggerTransformation) {
       advanceTransformationStage();
     }
-    // Transformation boost: when event chain > 3, also check for stage advance
+    // After a long event chain (>3), run a room-progression check to see
+    // whether upgrade thresholds or other conditions have been met.  This
+    // does NOT guarantee a transformation advance — it simply re-evaluates
+    // current progress, the same check that runs after every upgrade purchase.
     if (!triggerTransformation && _state.currentEventChain > 3) {
       _checkRoomProgression();
     }
