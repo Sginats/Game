@@ -26,6 +26,27 @@ class RoomIdentitySummary {
 }
 
 class RoomContentGenerator {
+  /// Pacing constants for room-to-room unlock requirements.
+  ///
+  /// Era N unlock = [_kUnlockBase] + N × [_kUnlockOrderScale]
+  ///              + unlockPressure × [_kUnlockPressureScale].
+  ///
+  /// Targets ≈1 hour of play per room (20-hour full game).
+  /// Era 2: ≈92, Era 5: ≈134, Era 10: ≈200, Era 20: ≈340.
+  static const int _kUnlockBase = 80;
+  static const int _kUnlockOrderScale = 10;
+  static const int _kUnlockPressureScale = 2;
+
+  /// Milestone-tier upgrade unlock-requirement scaling.
+  ///
+  /// Milestone tiers (tier % 5 == 0) require:
+  ///   startReq × [_kMilestoneStartScale]
+  ///   + tier   × [_kMilestoneTierScale]
+  ///   + order  × [_kMilestoneOrderScale].
+  static const int _kMilestoneStartScale = 2;
+  static const int _kMilestoneTierScale = 3;
+  static const int _kMilestoneOrderScale = 3;
+
   static const Map<String, _EraProfile> _profiles = {
     'era_1': _EraProfile(roomFlavor: 'repair', generatorCost: 0.82, generatorOutput: 0.92, unlockPressure: -6, branchBias: {'tap': 1.18, 'automation': 0.86, 'room': 1.02, 'ai': 0.88, 'special': 0.84, 'companion': 0.90, 'event': 0.92, 'guide': 1.08, 'anomaly': 0.80, 'transformation': 0.85}),
     'era_2': _EraProfile(roomFlavor: 'budget', generatorCost: 0.94, generatorOutput: 0.96, unlockPressure: -4, branchBias: {'tap': 1.08, 'automation': 0.96, 'room': 1.0, 'ai': 0.95, 'special': 0.92, 'companion': 0.94, 'event': 0.98, 'guide': 1.04, 'anomaly': 0.85, 'transformation': 0.88}),
@@ -227,8 +248,11 @@ class RoomContentGenerator {
     final baseCostSeed = seed?.baseCost.toDouble() ?? math.pow(12, order).toDouble();
     final productionSeed =
         seed?.baseProduction.toDouble() ?? math.pow(5, order - 1).toDouble();
-    final unlockLevel =
-        order == 1 ? null : 'gen_era_${order - 1}:${28 + (order * 4) + profile.unlockPressure}';
+    // Unlock level formula: base + per-room ramp + room-flavor pressure offset.
+    // See [_kUnlockBase], [_kUnlockOrderScale], [_kUnlockPressureScale].
+    final unlockLevel = order == 1
+        ? null
+        : 'gen_era_${order - 1}:${_kUnlockBase + (order * _kUnlockOrderScale) + (profile.unlockPressure * _kUnlockPressureScale)}';
     return GeneratorDefinition(
       id: 'gen_${era.id}',
       name: '${era.name} Core',
@@ -346,7 +370,9 @@ class RoomContentGenerator {
     }
     final previous = 'upg_${era.id}_${branch.id}_${tier - 1}:1';
     if (tier % 5 == 0) {
-      return '${generator.id}:${branch.startRequirement + (tier * 2) + (era.order * 2)}';
+      // Milestone tiers require deeper generator investment.
+      // See [_kMilestoneStartScale], [_kMilestoneTierScale], [_kMilestoneOrderScale].
+      return '${generator.id}:${(branch.startRequirement * _kMilestoneStartScale) + (tier * _kMilestoneTierScale) + (era.order * _kMilestoneOrderScale)}';
     }
     return previous;
   }

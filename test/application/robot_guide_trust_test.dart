@@ -7,22 +7,43 @@ void main() {
     final guide = RobotGuideService();
     guide.onRoomChanged('room_01', trustTier: 1);
     expect(guide.hasMessage, isTrue);
-    expect(guide.currentMessage!.id, 'room_01_hint');
+    // room_01_intro has priority 9 — highest among non-trigger messages
+    expect(guide.currentMessage!.id, 'room_01_intro');
     expect(guide.currentMessage!.type, RobotGuideMessageType.roomIntro);
   });
 
   test('robot guide does not show room lines below minTrustTier', () {
     final guide = RobotGuideService();
-    // room_05 hint requires trust tier 2
+    // room_05_secret_hint and room_05_hint require trust tier 2;
+    // but now room_05 also has tier-1 messages (intro, law, etc.)
+    // This test verifies that tier-2-gated lines do NOT show at tier 1.
     guide.onRoomChanged('room_05', trustTier: 1);
-    expect(guide.hasMessage, isFalse);
+    // Drain all tier-1 messages
+    final shown = <String>[];
+    while (guide.hasMessage) {
+      shown.add(guide.currentMessage!.id);
+      guide.dismiss();
+    }
+    // Secret hint (tier 2) and original hint (tier 2) must NOT appear at tier 1
+    expect(shown.contains('room_05_secret_hint'), isFalse);
+    expect(shown.contains('room_05_hint'), isFalse);
+    // But non-trigger tier-1 messages should have been shown
+    expect(shown.contains('room_05_intro'), isTrue);
   });
 
   test('robot guide shows room lines at sufficient trust tier', () {
     final guide = RobotGuideService();
     guide.onRoomChanged('room_05', trustTier: 2);
+    // Priority 9 message (room_05_intro) shows first now
     expect(guide.hasMessage, isTrue);
-    expect(guide.currentMessage!.id, 'room_05_hint');
+    expect(guide.currentMessage!.id, 'room_05_intro');
+    // Drain all; room_05_hint (tier 2) should be in the set shown
+    final shown = <String>[];
+    while (guide.hasMessage) {
+      shown.add(guide.currentMessage!.id);
+      guide.dismiss();
+    }
+    expect(shown.contains('room_05_hint'), isTrue);
   });
 
   test('robot guide does not repeat room messages', () {

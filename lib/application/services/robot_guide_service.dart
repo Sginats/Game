@@ -36,12 +36,17 @@ class RobotGuideService {
   }
 
   /// Called when the player enters a new room.
+  ///
+  /// Messages whose IDs contain `_on_first_` are trigger-only and are not
+  /// auto-queued on room entry — they fire through dedicated hooks such as
+  /// [onFirstTap], [onFirstUpgradePurchased], and [onFirstEventAppeared].
   void onRoomChanged(String roomId, {int trustTier = 1}) {
     if (roomId == _lastRoomId) return;
     _lastRoomId = roomId;
     final roomLines =
         RobotGuideDialogue.roomSpecificLines[roomId] ?? const [];
     for (final msg in roomLines) {
+      if (msg.id.contains('_on_first_')) continue;
       if (!_shownMessageIds.contains(msg.id) &&
           trustTier >= msg.minTrustTier) {
         _enqueue(msg);
@@ -105,6 +110,103 @@ class RobotGuideService {
       if (!_shownMessageIds.contains(msg.id)) {
         _enqueue(msg);
         return;
+      }
+    }
+  }
+
+  /// Called when the current room advances a transformation stage.
+  ///
+  /// Shows the room-specific `_transformation_*` line if not yet shown,
+  /// then falls back to the generic transformation tip.
+  void onTransformationStageAdvanced(String roomId) {
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[roomId] ?? const [];
+    for (final msg in roomLines) {
+      if (msg.id.contains('_transformation_')) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+          return;
+        }
+      }
+    }
+    // Fallback to generic transformation tip
+    onTransformation();
+  }
+
+  /// Called on the player's very first tap to show an onboarding message.
+  void onFirstTap() {
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[_lastRoomId] ?? const [];
+    for (final msg in roomLines) {
+      if (msg.id.endsWith('_on_first_interaction')) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+          return;
+        }
+      }
+    }
+  }
+
+  /// Called when the player purchases their first upgrade.
+  void onFirstUpgradePurchased() {
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[_lastRoomId] ?? const [];
+    for (final msg in roomLines) {
+      if (msg.id.endsWith('_on_first_upgrade')) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+          return;
+        }
+      }
+    }
+  }
+
+  /// Called when the first event appears in the current room.
+  void onFirstEventAppeared() {
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[_lastRoomId] ?? const [];
+    for (final msg in roomLines) {
+      if (msg.id.endsWith('_on_first_event')) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+          return;
+        }
+      }
+    }
+    // Fallback to generic event tip
+    final tips = RobotGuideDialogue.contextualTips['event_active'] ?? const [];
+    for (final msg in tips) {
+      if (!_shownMessageIds.contains(msg.id)) {
+        _enqueue(msg);
+        return;
+      }
+    }
+  }
+
+  /// Called to explain the room law for a given room.
+  void onRoomLawExplained(String roomId) {
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[roomId] ?? const [];
+    for (final msg in roomLines) {
+      if (msg.id.endsWith('_first_law') || msg.id.endsWith('_room_law')) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+          return;
+        }
+      }
+    }
+  }
+
+  /// Called when a side activity is first discovered.
+  void onSideActivityDiscovered(String activityId) {
+    final roomLines =
+        RobotGuideDialogue.roomSpecificLines[_lastRoomId] ?? const [];
+    for (final msg in roomLines) {
+      if (msg.id.endsWith('_side_activity_hint')) {
+        if (!_shownMessageIds.contains(msg.id)) {
+          _enqueue(msg);
+          return;
+        }
       }
     }
   }
@@ -178,6 +280,9 @@ class RobotGuideService {
 
   void _enqueue(RobotGuideMessage message) {
     if (_shownMessageIds.contains(message.id)) return;
+    // Prevent duplicate entries: skip if already in the queue or currently shown.
+    if (_currentMessage?.id == message.id) return;
+    if (_messageQueue.any((m) => m.id == message.id)) return;
     // Insert by priority (higher first)
     var inserted = false;
     for (var i = 0; i < _messageQueue.length; i++) {

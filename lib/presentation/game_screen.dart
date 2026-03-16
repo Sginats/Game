@@ -28,6 +28,61 @@ import 'tech_tree/tech_tree_builder.dart';
 import 'tech_tree/tech_tree_models.dart';
 import 'tech_tree/tech_tree_view.dart';
 import 'widgets/room_scene_backdrop.dart';
+import 'widgets/room_status_panel.dart';
+import 'widgets/guide_card.dart';
+import 'widgets/room_overview_card.dart';
+import 'widgets/event_result_banner.dart';
+
+/// Lightweight snapshot of HUD values that change every timer tick.
+///
+/// Passed into [ValueNotifier] so only the HUD strip rebuilds on each tick —
+/// the rest of [GameScreen] stays frozen until a structural change occurs.
+class _HudSnapshot {
+  final String coins;
+  final String perSecond;
+  final int combo;
+  final int eraOrder;
+  final int totalEras;
+
+  const _HudSnapshot({
+    required this.coins,
+    required this.perSecond,
+    required this.combo,
+    required this.eraOrder,
+    required this.totalEras,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _HudSnapshot &&
+          coins == other.coins &&
+          perSecond == other.perSecond &&
+          combo == other.combo &&
+          eraOrder == other.eraOrder &&
+          totalEras == other.totalEras;
+
+  @override
+  int get hashCode =>
+      coins.hashCode ^ perSecond.hashCode ^ combo ^ eraOrder ^ totalEras;
+}
+
+/// Resolved event result shown briefly in the event card area after the player
+/// resolves an event.  Cleared when the next event spawns or after [_kEventResultDisplayMs].
+class _EventResult {
+  final String title;
+  final EventResultRarity rarity;
+  final String? detail;
+
+  const _EventResult({
+    required this.title,
+    required this.rarity,
+    this.detail,
+  });
+}
+
+/// Duration (ms) to display the event result banner before fading it out.
+const int _kEventResultDisplayMs = 3500;
 
 class GameScreen extends StatefulWidget {
   final GameController controller;
@@ -79,11 +134,30 @@ class _GameScreenState extends State<GameScreen>
   int _lastGuideMemoryCount = 0;
   String? _lastPromptedUpdateVersion;
   String? _lastRestartPromptVersion;
+  // Cached ambient-sync room ID — avoids calling syncAmbientForRoom every build
+  String _lastAmbientRoomId = '';
 
-  // Cached tech tree graph — rebuilt only when state actually changes
+  // ─── Reactive notifiers ────────────────────────────────────────────────────
+  // These are updated every timer tick without triggering a full GameScreen
+  // rebuild. Widgets that only depend on these values subscribe with
+  // ValueListenableBuilder and rebuild in isolation.
+  late final ValueNotifier<_HudSnapshot> _hudNotifier;
+  late final ValueNotifier<GameEventState?> _activeEventNotifier;
+  // Shows the EventResultBanner after an event resolves.
+  late final ValueNotifier<_EventResult?> _eventResultNotifier;
+  // Auto-dismiss timer for the event result banner.
+  Timer? _eventResultTimer;
+
+  // Cached tech tree graph — rebuilt only when stateVersion changes
   TechTreeGraph? _cachedGraph;
   String _lastEraId = '';
-  int _lastStateHash = 0;
+  // Using _kInvalidVersion as the initial / "force rebuild" sentinel so the
+  // tree is always rebuilt on the first build and any time we explicitly
+  // invalidate the cache (era switch, purchase-mode change, node selection).
+  static const int _kInvalidVersion = -1;
+  int _lastStateVersion = _kInvalidVersion;
+  // Cached era definition — O(1) lookup after first build
+  Era? _cachedEraDef;
 
   GameController get _controller => widget.controller;
   LeaderboardService get _leaderboardService => widget.leaderboardService;
@@ -93,37 +167,84 @@ class _GameScreenState extends State<GameScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _frameTickMs = math.max(widget.config.tickRateMs, 250);
+
+    // Initialise reactive notifiers with a first snapshot.
+    _hudNotifier = ValueNotifier<_HudSnapshot>(_buildHudSnapshot());
+    _activeEventNotifier = ValueNotifier<GameEventState?>(_controller.activeEvent);
+    _eventResultNotifier = ValueNotifier<_EventResult?>(null);
+
     _tickTimer = Timer.periodic(
       Duration(milliseconds: _frameTickMs),
       (_) {
-        setState(() {
-          _controller.tick(_frameTickMs / 1000.0);
-          // Tick robot guide with current game state context
-          _robotGuide.tick(
-            _frameTickMs / 1000.0,
-            totalTaps: _controller.state.totalTaps,
-            tapCombo: _controller.state.tapCombo,
-            eventActive: _controller.activeEvent != null,
-            prestigeCount: _controller.state.prestigeCount,
-            coins: _controller.state.coins.toDouble(),
-            highestEraOrder: _highestEraOrder(),
-            trustTier: _controller.guideTier,
-          );
-          // Notify guide of room changes
-          _robotGuide.onRoomChanged(
-            _controller.currentRoomId,
-            trustTier: _controller.guideTier,
-          );
-          // Ensure current era content is loaded lazily
-          final eraId = _currentEra(_controller);
-          if (eraId != _lastEraId) {
-            _lastEraId = eraId;
-            _syncEraWindow(eraId);
-            _robotGuide.onEraChanged(eraId);
-            _cachedGraph = null; // Invalidate cache on era change
-            _selectedNodeId = null;
+        // ── Step 1: run simulation (pure logic, no widget rebuild) ──────────
+        _controller.tick(_frameTickMs / 1000.0);
+        _robotGuide.tick(
+          _frameTickMs / 1000.0,
+          totalTaps: _controller.state.totalTaps,
+          tapCombo: _controller.state.tapCombo,
+          eventActive: _controller.activeEvent != null,
+          prestigeCount: _controller.state.prestigeCount,
+          coins: _controller.state.coins.toDouble(),
+          highestEraOrder: _highestEraOrder(),
+          trustTier: _controller.guideTier,
+        );
+        _robotGuide.onRoomChanged(
+          _controller.currentRoomId,
+          trustTier: _controller.guideTier,
+        );
+
+        // ── Step 2: fast-path notifier updates (trigger tiny rebuilds only) ──
+        // Only assign if the value actually changed — ValueNotifier skips
+        // notifying listeners when the new value equals the old one via ==.
+        final newSnapshot = _buildHudSnapshot();
+        if (_hudNotifier.value != newSnapshot) {
+          _hudNotifier.value = newSnapshot;
+        }
+        // Compare by event ID so that: same event ticking → no rebuild;
+        // event start/end/switch → rebuild. Both null → equal (false) → no-op.
+        final newEvent = _controller.activeEvent;
+        if (_activeEventNotifier.value?.id != newEvent?.id) {
+          _activeEventNotifier.value = newEvent;
+          // Clear the result banner as soon as a new event spawns.
+          if (newEvent != null && _eventResultNotifier.value != null) {
+            _eventResultTimer?.cancel();
+            _eventResultNotifier.value = null;
           }
-        });
+        }
+
+        // ── Step 3: structural-change detection → full rebuild only if needed ─
+        bool needsRebuild = false;
+
+        final eraId = _currentEra(_controller);
+        if (eraId != _lastEraId) {
+          _lastEraId = eraId;
+          _syncEraWindow(eraId);
+          _robotGuide.onEraChanged(eraId);
+          _cachedGraph = null;
+          _cachedEraDef = null;
+          _selectedNodeId = null;
+          _lastStateVersion = _kInvalidVersion;
+          needsRebuild = true;
+        }
+
+        final roomId = _controller.currentRoomId;
+        if (roomId != _lastAmbientRoomId) {
+          _lastAmbientRoomId = roomId;
+          unawaited(
+            widget.audioService.syncAmbientForRoom(
+              _controller.currentRoom,
+              _controller.currentRoomState,
+            ),
+          );
+          needsRebuild = true;
+        }
+
+        if (needsRebuild) {
+          setState(() {});
+        }
+
+        // Feedback checks (toasts, audio cues, guide hooks) run every tick
+        // and may schedule their own setState calls via _showToast.
         _handleFeedback();
       },
     );
@@ -133,11 +254,32 @@ class _GameScreenState extends State<GameScreen>
       _syncEraWindow(_currentEra(_controller));
       _focusCurrentEra();
       widget.audioService.setRoomAudioProfile(_controller.currentRoomId);
+      // Warm-start the initial room's audio assets so there is no hitch
+      // on the first ambient start, guide ping, or event sound.
+      unawaited(
+        widget.audioService.preloadEssentials(roomId: _controller.currentRoomId),
+      );
       // Initialize robot guide with current era
       final eraId = _currentEra(_controller);
       _robotGuide.onEraChanged(eraId);
       _handleUpdateServiceChanged();
     });
+  }
+
+  /// Build a [_HudSnapshot] from current controller state.
+  _HudSnapshot _buildHudSnapshot() {
+    final currentEra = _currentEra(_controller);
+    final eraDef = widget.config.eras.firstWhere(
+      (e) => e.id == currentEra,
+      orElse: () => widget.config.eras.first,
+    );
+    return _HudSnapshot(
+      coins: _controller.state.coins.toStringFormatted(),
+      perSecond: _controller.productionPerSecond.toStringFormatted(),
+      combo: _controller.state.tapCombo,
+      eraOrder: eraDef.order,
+      totalEras: widget.config.eras.length,
+    );
   }
 
   @override
@@ -164,7 +306,11 @@ class _GameScreenState extends State<GameScreen>
     widget.updateService.removeListener(_handleUpdateServiceChanged);
     WidgetsBinding.instance.removeObserver(this);
     _tickTimer?.cancel();
+    _eventResultTimer?.cancel();
     _camera.dispose();
+    _hudNotifier.dispose();
+    _activeEventNotifier.dispose();
+    _eventResultNotifier.dispose();
     unawaited(_controller.saveGame());
     super.dispose();
   }
@@ -172,25 +318,25 @@ class _GameScreenState extends State<GameScreen>
   @override
   Widget build(BuildContext context) {
     final eraId = _currentEra(_controller);
-    _syncEraWindow(eraId);
     final currentRoom = _controller.currentRoom;
     final accent = _sceneAccent(currentRoom, eraId);
     final gradient = _sceneGradient(currentRoom, eraId);
-    final eraDef = widget.config.eras.firstWhere(
-      (item) => item.id == eraId,
-      orElse: () => widget.config.eras.first,
-    );
-    unawaited(
-      widget.audioService.syncAmbientForRoom(
-        _controller.currentRoom,
-        _controller.currentRoomState,
-      ),
-    );
 
-    // Cache the tech tree graph — only rebuild when state actually changes
-    final stateHash = _computeStateHash();
-    if (_cachedGraph == null || stateHash != _lastStateHash) {
-      _lastStateHash = stateHash;
+    // Cache the era definition — only search when the era changes.
+    if (_cachedEraDef == null || _cachedEraDef!.id != eraId) {
+      _cachedEraDef = widget.config.eras.firstWhere(
+        (item) => item.id == eraId,
+        orElse: () => widget.config.eras.first,
+      );
+    }
+    final eraDef = _cachedEraDef!;
+
+    // Cache the tech tree graph — rebuild only when stateVersion changes or
+    // purchase-mode / selection changes (both mutate _lastStateVersion via
+    // invalidation calls in the relevant handlers).
+    final stateVersion = _controller.stateVersion;
+    if (_cachedGraph == null || stateVersion != _lastStateVersion) {
+      _lastStateVersion = stateVersion;
       _cachedGraph = TechTreeBuilder.build(
         config: widget.config,
         controller: _controller,
@@ -228,7 +374,15 @@ class _GameScreenState extends State<GameScreen>
                     padding: const EdgeInsets.fromLTRB(10, 6, 10, 8),
                     child: Column(
                       children: [
-                        _buildHud(accent),
+                        // ValueListenableBuilder ensures only the HUD strip
+                        // rebuilds on each 250ms tick; the tree and panels
+                        // are unaffected by coin/rate/combo changes.
+                        ValueListenableBuilder<_HudSnapshot>(
+                          valueListenable: _hudNotifier,
+                          builder: (context, snapshot, child) => RepaintBoundary(
+                            child: _buildHud(snapshot),
+                          ),
+                        ),
                         const SizedBox(height: 6),
                         Expanded(
                           child: LayoutBuilder(
@@ -261,7 +415,9 @@ class _GameScreenState extends State<GameScreen>
                                                 280,
                                                 constraints.maxWidth * 0.42,
                                               ),
-                                              child: _buildContextPanel(node),
+                                              child: RepaintBoundary(
+                                                child: _buildContextPanel(node),
+                                              ),
                                             ),
                                         ],
                                       ),
@@ -287,7 +443,9 @@ class _GameScreenState extends State<GameScreen>
                                     child: Column(
                                       children: [
                                         Expanded(
-                                          child: _buildContextPanel(node),
+                                          child: RepaintBoundary(
+                                            child: _buildContextPanel(node),
+                                          ),
                                         ),
                                         const SizedBox(height: 8),
                                         _buildSideControls(accent),
@@ -311,13 +469,7 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
-  Widget _buildHud(Color accent) {
-    final state = _controller.state;
-    final currentEra = _currentEra(_controller);
-    final currentEraDef = widget.config.eras.firstWhere(
-      (item) => item.id == currentEra,
-      orElse: () => widget.config.eras.first,
-    );
+  Widget _buildHud(_HudSnapshot snapshot) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: _glassBox(radius: 16),
@@ -329,8 +481,8 @@ class _GameScreenState extends State<GameScreen>
                 AnimatedSwitcher(
                   duration: const Duration(milliseconds: 180),
                   child: Text(
-                    state.coins.toStringFormatted(),
-                    key: ValueKey(state.coins.toStringFormatted()),
+                    snapshot.coins,
+                    key: ValueKey(snapshot.coins),
                     style: const TextStyle(
                       color: Colors.amberAccent,
                       fontSize: 22,
@@ -341,22 +493,17 @@ class _GameScreenState extends State<GameScreen>
                 const SizedBox(width: 12),
                 _hudChip(
                   Icons.trending_up,
-                  widget.strings.perSecond(
-                    _controller.productionPerSecond.toStringFormatted(),
-                  ),
+                  widget.strings.perSecond(snapshot.perSecond),
                 ),
                 const SizedBox(width: 8),
                 _hudChip(
                   Icons.local_fire_department,
-                  widget.strings.combo(state.tapCombo),
+                  widget.strings.combo(snapshot.combo),
                 ),
                 const SizedBox(width: 8),
                 _hudChip(
                   Icons.meeting_room_rounded,
-                  widget.strings.roomProgress(
-                    currentEraDef.order,
-                    widget.config.eras.length,
-                  ),
+                  widget.strings.roomProgress(snapshot.eraOrder, snapshot.totalEras),
                 ),
               ],
             ),
@@ -417,27 +564,34 @@ class _GameScreenState extends State<GameScreen>
     return Stack(
       children: [
         Positioned.fill(
-          child: TechTreeView(
-            graph: graph,
-            selectedNodeId: _selectedNodeId,
-            hoveredNodeId: _hoveredNodeId,
-            transformationController: _camera,
-            backgroundLayer: currentRoom == null
-                ? null
-                : RoomSceneBackdrop(
-                    room: currentRoom,
-                    roomState: _controller.currentRoomState,
-                    reducedMotion: widget.settings.reducedMotion,
-                  ),
-            onNodeTap: (value) {
-              unawaited(widget.audioService.playNodeSelect());
-              setState(() => _selectedNodeId = value.id);
-              _focusNode(value.position);
-            },
-            onHoverChanged: (value) {
-              if (_hoveredNodeId == value) return;
-              setState(() => _hoveredNodeId = value);
-            },
+          child: RepaintBoundary(
+            child: TechTreeView(
+              graph: graph,
+              selectedNodeId: _selectedNodeId,
+              transformationController: _camera,
+              viewportSize: _viewportSize,
+              backgroundLayer: currentRoom == null
+                  ? null
+                  : RoomSceneBackdrop(
+                      room: currentRoom,
+                      roomState: _controller.currentRoomState,
+                      reducedMotion: widget.settings.reducedMotion,
+                    ),
+              onNodeTap: (value) {
+                unawaited(widget.audioService.playNodeSelect());
+                setState(() {
+                  _selectedNodeId = value.id;
+                  _lastStateVersion = _kInvalidVersion; // Rebuild tree to show selection
+                });
+                _focusNode(value.position);
+              },
+              onHoverChanged: (value) {
+                // Record without setState — TechTreeView handles hover visuals
+                // internally. Context panel picks up the new value on the next
+                // timer-driven rebuild (≤250 ms later), which is acceptable.
+                _hoveredNodeId = value;
+              },
+            ),
           ),
         ),
         Positioned(
@@ -575,7 +729,10 @@ class _GameScreenState extends State<GameScreen>
           final selected = mode == _purchaseMode;
           return InkWell(
             borderRadius: BorderRadius.circular(10),
-            onTap: () => setState(() => _purchaseMode = mode),
+            onTap: () => setState(() {
+              _purchaseMode = mode;
+              _lastStateVersion = _kInvalidVersion; // Force tree rebuild on mode change
+            }),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 160),
               padding: const EdgeInsets.symmetric(
@@ -766,10 +923,45 @@ class _GameScreenState extends State<GameScreen>
           const SizedBox(height: 8),
           _buildRoomOverviewCard(),
           const SizedBox(height: 8),
-          if (_controller.activeEvent != null) ...[
-            _buildActiveEventCard(_controller.activeEvent!),
-            const SizedBox(height: 8),
-          ],
+          _buildRoomStatusPanel(),
+          const SizedBox(height: 8),
+          // Active event card rebuilds only when the event identity changes,
+          // not on every timer tick.  When the event resolves, show the
+          // EventResultBanner briefly in its place.
+          ValueListenableBuilder<GameEventState?>(
+            valueListenable: _activeEventNotifier,
+            builder: (context, event, _) {
+              if (event != null) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    RepaintBoundary(child: _buildActiveEventCard(event)),
+                    const SizedBox(height: 8),
+                  ],
+                );
+              }
+              // No active event — show the result banner if one is pending.
+              return ValueListenableBuilder<_EventResult?>(
+                valueListenable: _eventResultNotifier,
+                builder: (context, result, _) {
+                  if (result == null) return const SizedBox.shrink();
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      RepaintBoundary(
+                        child: EventResultBanner(
+                          message: result.title,
+                          rarity: result.rarity,
+                          detail: result.detail,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
           if (currentEra == 'era_1') ...[
             _buildFirstRoomChecklist(),
             const SizedBox(height: 8),
@@ -815,153 +1007,16 @@ class _GameScreenState extends State<GameScreen>
   }
 
   Widget _buildGuideCard() {
-    final guideMessage = _robotGuide.currentMessage;
-    final recommendation = _controller.lastRecommendation;
-    final aiLine = _controller.lastAiLine;
-    final recentMemories =
-        _controller.codexState.guideMemories.reversed.take(2).toList();
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: _glassBox(radius: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.smart_toy_rounded, color: Colors.cyanAccent, size: 18),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  widget.strings.robotGuide,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              if (guideMessage != null)
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(8),
-                    borderRadius: BorderRadius.circular(999),
-                    border:
-                        Border.all(color: Colors.white.withAlpha(14)),
-                  ),
-                  child: Text(
-                    widget.strings
-                        .formatGuideMemoryType(guideMessage.type.name),
-                    style: const TextStyle(
-                      color: Colors.cyanAccent,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              if (guideMessage != null) const SizedBox(width: 6),
-              if (guideMessage != null)
-                IconButton(
-                  onPressed: () => setState(_robotGuide.dismiss),
-                  icon: const Icon(Icons.close_rounded, size: 18),
-                  splashRadius: 18,
-                  color: Colors.white54,
-                  tooltip: widget.strings.close,
-                ),
-            ],
-          ),
-          Text(
-            guideMessage == null
-                ? widget.strings.noGuideMessage
-                : widget.strings.translateContent(guideMessage.text),
-            style: const TextStyle(
-              color: Colors.white70,
-              fontSize: 12,
-              height: 1.35,
-            ),
-          ),
-          if (recommendation != null || aiLine != null) ...[
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white.withAlpha(7),
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: Colors.white.withAlpha(12)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.strings.recommendedNext,
-                    style: const TextStyle(
-                      color: Colors.cyanAccent,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  if (recommendation != null) ...[
-                    const SizedBox(height: 3),
-                    Text(
-                      widget.strings.formatRecommendation(recommendation),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                  if (aiLine != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      widget.strings.formatAiLine(aiLine),
-                      style: const TextStyle(
-                        color: Colors.white60,
-                        fontSize: 12,
-                        height: 1.35,
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: 8),
-                  FilledButton.tonalIcon(
-                    onPressed: _focusSuggestedNode,
-                    icon: const Icon(Icons.my_location_rounded, size: 16),
-                    label: Text(widget.strings.focusSuggestedNode),
-                  ),
-                ],
-              ),
-            ),
-          ],
-          if (recentMemories.isNotEmpty) ...[
-            const SizedBox(height: 10),
-            Text(
-              widget.strings.guideMemoryLog,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 6),
-            ...recentMemories.map(
-              (memory) => Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Text(
-                  '${widget.strings.translateContent(memory.title)}: ${widget.strings.translateContent(memory.content)}',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white54,
-                    fontSize: 11,
-                    height: 1.35,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ],
+    return RepaintBoundary(
+      child: GuideCard(
+        guideService: _robotGuide,
+        strings: widget.strings,
+        recommendation: _controller.lastRecommendation,
+        aiLine: _controller.lastAiLine,
+        recentMemories: _controller.codexState.guideMemories.reversed
+            .take(2)
+            .toList(growable: false),
+        onFocusSuggestedNode: _focusSuggestedNode,
       ),
     );
   }
@@ -969,118 +1024,25 @@ class _GameScreenState extends State<GameScreen>
   Widget _buildRoomOverviewCard() {
     final room = _controller.currentRoom;
     final roomState = _controller.currentRoomState;
-    if (room == null) {
-      return const SizedBox.shrink();
-    }
+    if (room == null) return const SizedBox.shrink();
+    return RepaintBoundary(
+      child: RoomOverviewCard(
+        room: room,
+        roomState: roomState,
+        strings: widget.strings,
+      ),
+    );
+  }
 
-    final nextStageIndex = roomState.currentTransformationStage + 1;
-    final nextStage = nextStageIndex < room.transformationStages.length
-        ? room.transformationStages[nextStageIndex]
-        : null;
-    final currentStageIndex = room.transformationStages.isEmpty
-        ? 0
-        : roomState.currentTransformationStage.clamp(
-            0,
-            room.transformationStages.length - 1,
-          );
-    final currentStage = room.transformationStages.isEmpty
-        ? null
-        : room.transformationStages[currentStageIndex];
-    final stageProgress = room.transformationStages.isEmpty
-        ? 0.0
-        : ((roomState.currentTransformationStage + 1) /
-                room.transformationStages.length)
-            .clamp(0.0, 1.0);
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: _glassBox(radius: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.strings.roomOverview,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            widget.strings.translateContent(room.guideIntroLine),
-            style: const TextStyle(color: Colors.white70, height: 1.35),
-          ),
-          const SizedBox(height: 10),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _hudChip(
-                Icons.psychology_alt_rounded,
-                '${widget.strings.guideToneLabel}: ${widget.strings.translateContent(room.guideTone)}',
-              ),
-              _hudChip(
-                Icons.graphic_eq_rounded,
-                '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}',
-              ),
-              _hudChip(
-                Icons.auto_awesome_motion_rounded,
-                '${widget.strings.secretsTrackedLabel}: ${room.secrets.length}',
-              ),
-              _hudChip(
-                Icons.bolt_rounded,
-                '${widget.strings.twistStatusLabel}: ${roomState.twistActivated ? widget.strings.transformationReady : widget.strings.transformationDormant}',
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            widget.strings.transformationTrack,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 6),
-          LinearProgressIndicator(
-            value: stageProgress,
-            minHeight: 6,
-            backgroundColor: Colors.white.withAlpha(12),
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.cyanAccent),
-            borderRadius: BorderRadius.circular(999),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            nextStage == null
-                ? widget.strings.translateContent(room.completionText)
-                : '${widget.strings.translateContent(nextStage.name)}\n${widget.strings.translateContent(nextStage.description)}',
-            style: const TextStyle(color: Colors.white60, fontSize: 12, height: 1.35),
-          ),
-          if (currentStage != null) ...[
-            const SizedBox(height: 10),
-            Text(
-              widget.strings.environmentChanges,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Wrap(
-              spacing: 6,
-              runSpacing: 6,
-              children: currentStage.environmentChanges
-                  .map(
-                    (change) => _hudChip(
-                      Icons.blur_on_rounded,
-                      widget.strings.formatEnvironmentChange(change),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
-        ],
+  Widget _buildRoomStatusPanel() {
+    final room = _controller.currentRoom;
+    final roomState = _controller.currentRoomState;
+    if (room == null) return const SizedBox.shrink();
+    return RepaintBoundary(
+      child: RoomStatusPanel(
+        room: room,
+        roomState: roomState,
+        upgradesPurchased: roomState.upgradesPurchased,
       ),
     );
   }
@@ -1232,6 +1194,7 @@ class _GameScreenState extends State<GameScreen>
           aggressiveChoice: event.risky && !event.clickOnly,
         );
         if (!ok) return;
+        _showEventResult(event);
         unawaited(
           widget.audioService.playEventResolve(
             roomId: _controller.currentRoomId,
@@ -1789,6 +1752,31 @@ class _GameScreenState extends State<GameScreen>
     }
   }
 
+  /// Show the [EventResultBanner] briefly in the event card area after the
+  /// player resolves an event.  The banner auto-dismisses after
+  /// [_kEventResultDisplayMs] ms.
+  void _showEventResult(GameEventState event) {
+    final rarity = switch (event.rarity) {
+      EventRarity.uncommon => EventResultRarity.uncommon,
+      EventRarity.rare => EventResultRarity.rare,
+      EventRarity.epic => EventResultRarity.epic,
+      EventRarity.legendary || EventRarity.corrupted => EventResultRarity.legendary,
+      _ => EventResultRarity.common,
+    };
+    _eventResultNotifier.value = _EventResult(
+      title: widget.strings.translateContent(event.title),
+      rarity: rarity,
+      detail: _controller.lastEventRewardSummary,
+    );
+    _eventResultTimer?.cancel();
+    _eventResultTimer = Timer(
+      const Duration(milliseconds: _kEventResultDisplayMs),
+      () {
+        if (mounted) _eventResultNotifier.value = null;
+      },
+    );
+  }
+
   void _handleFeedback() {
     final room = _controller.currentRoom;
     final roomState = _controller.currentRoomState;
@@ -1808,6 +1796,7 @@ class _GameScreenState extends State<GameScreen>
         );
       }
       _lastRoomStage = roomState.currentTransformationStage;
+      _robotGuide.onTransformationStageAdvanced(_controller.currentRoomId);
     }
     if (_lastRoomTwist != roomState.twistActivated) {
       if (roomState.twistActivated && room?.midSceneTwist != null) {
@@ -1884,6 +1873,19 @@ class _GameScreenState extends State<GameScreen>
       );
       unawaited(widget.audioService.playMilestone());
       _controller.lastUnlockedMilestones = [];
+    }
+    // Guide hook-ups for first-time milestones
+    if (_controller.firstTapJustHappened) {
+      _controller.firstTapJustHappened = false;
+      _robotGuide.onFirstTap();
+    }
+    if (_controller.firstUpgradeJustPurchased) {
+      _controller.firstUpgradeJustPurchased = false;
+      _robotGuide.onFirstUpgradePurchased();
+    }
+    if (_controller.firstEventJustSpawned) {
+      _controller.firstEventJustSpawned = false;
+      _robotGuide.onFirstEventAppeared();
     }
   }
 
@@ -2097,9 +2099,15 @@ class _GameScreenState extends State<GameScreen>
     unawaited(
       widget.audioService.playRoomTransition(roomId: _controller.currentRoomId),
     );
+    // Warm-start the new room's audio assets non-blocking after the transition.
+    unawaited(
+      widget.audioService.preloadEssentials(roomId: _controller.currentRoomId),
+    );
     _syncEraWindow(eraId);
     _selectedNodeId = null;
     _cachedGraph = null;
+    _cachedEraDef = null;
+    _lastStateVersion = _kInvalidVersion; // Force tree rebuild
     setState(() {});
     WidgetsBinding.instance.addPostFrameCallback((_) => _focusCurrentEra());
   }
@@ -2253,112 +2261,127 @@ class _GameScreenState extends State<GameScreen>
     await showModalBottomSheet<void>(
       context: context,
       backgroundColor: const Color(0xFF121D28),
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _sheetTitle(widget.strings.roomMap),
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: ordered.map((room) {
-                      final era = widget.config.eras.firstWhere(
-                        (item) => item.order == room.order,
-                        orElse: () => widget.config.eras.first,
-                      );
-                      final unlocked = _controller.metaProgression.roomsCompleted
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.60,
+        maxChildSize: 0.92,
+        minChildSize: 0.36,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 8),
+              child: _sheetTitle(widget.strings.roomMap),
+            ),
+            Expanded(
+              // ListView.builder: only visible room rows are built.
+              child: ListView.builder(
+                controller: scrollController,
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                itemCount: ordered.length,
+                itemBuilder: (context, index) {
+                  final room = ordered[index];
+                  final era = widget.config.eras.firstWhere(
+                    (item) => item.order == room.order,
+                    orElse: () => widget.config.eras.first,
+                  );
+                  final unlocked =
+                      _controller.metaProgression.roomsCompleted
                               .contains(room.unlockRequirement) ||
                           room.unlockRequirement == null;
-                      final selected = _controller.currentRoomId == room.id;
-                      final roomState = _controller.state.roomStates[room.id] ??
+                  final selected =
+                      _controller.currentRoomId == room.id;
+                  final roomState =
+                      _controller.state.roomStates[room.id] ??
                           RoomSceneState(roomId: room.id);
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: selected
-                              ? Colors.cyanAccent.withAlpha(18)
-                              : Colors.white.withAlpha(6),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: selected
-                                ? Colors.cyanAccent.withAlpha(90)
-                                : Colors.white.withAlpha(14),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? Colors.cyanAccent.withAlpha(18)
+                          : Colors.white.withAlpha(6),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: selected
+                            ? Colors.cyanAccent.withAlpha(90)
+                            : Colors.white.withAlpha(14),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${widget.strings.roomProgress(room.order, ordered.length)} • ${widget.strings.localizedEraName(room.name)}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '${widget.strings.translateContent(room.subtitle)}\n${widget.strings.translateContent(room.guideTone)}',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white60,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
                                 children: [
-                                  Text(
-                                    '${widget.strings.roomProgress(room.order, ordered.length)} • ${widget.strings.localizedEraName(room.name)}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
+                                  _hudChip(
+                                    Icons.auto_awesome_motion_rounded,
+                                    widget.strings.roomUpgradeProgress(
+                                      roomState.upgradesPurchased,
+                                      room.transformationStages.isEmpty
+                                          ? 0
+                                          : room.transformationStages.last
+                                              .requiredUpgrades,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    '${widget.strings.translateContent(room.subtitle)}\n${widget.strings.translateContent(room.guideTone)}',
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      color: Colors.white60,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Wrap(
-                                    spacing: 6,
-                                    runSpacing: 6,
-                                    children: [
-                                      _hudChip(Icons.auto_awesome_motion_rounded,
-                                          widget.strings.roomUpgradeProgress(
-                                            roomState.upgradesPurchased,
-                                            room.transformationStages.isEmpty
-                                                ? 0
-                                                : room.transformationStages.last.requiredUpgrades,
-                                          )),
-                                      _hudChip(Icons.graphic_eq_rounded,
-                                          '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}'),
-                                    ],
+                                  _hudChip(
+                                    Icons.graphic_eq_rounded,
+                                    '${widget.strings.ambientLayersLabel}: ${room.ambientAudioLayers.length}',
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(width: 10),
-                            FilledButton.tonal(
-                              onPressed: unlocked
-                                  ? () {
-                                      Navigator.pop(context);
-                                      _switchEra(era.id);
-                                    }
-                                  : null,
-                              child: Text(
-                                unlocked
-                                    ? (selected
-                                        ? widget.strings.currentRoom
-                                        : widget.strings.enterRoomZero)
-                                    : widget.strings.locked,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                ),
+                        const SizedBox(width: 10),
+                        FilledButton.tonal(
+                          onPressed: unlocked
+                              ? () {
+                                  Navigator.pop(context);
+                                  _switchEra(era.id);
+                                }
+                              : null,
+                          child: Text(
+                            unlocked
+                                ? (selected
+                                    ? widget.strings.currentRoom
+                                    : widget.strings.enterRoomZero)
+                                : widget.strings.locked,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -3031,9 +3054,11 @@ class _GameScreenState extends State<GameScreen>
   Future<void> _showCodexSheet() async {
     final orderedEras = widget.config.eras.toList()
       ..sort((a, b) => a.order.compareTo(b.order));
-    for (final era in orderedEras) {
-      widget.config.ensureEraContent(era.id);
-    }
+    // Era content is lazy-loaded by _syncEraWindow as the player visits rooms.
+    // Only visited eras are available in the codex overview — this is
+    // intentional: eagerly calling ensureEraContent() for every era would
+    // parse all room JSON files synchronously on the UI thread, causing a
+    // visible hitch when the sheet opens.
     final seenEvents = _controller.seenEventTemplates;
     const sections = [
       'overview',
@@ -3057,187 +3082,252 @@ class _GameScreenState extends State<GameScreen>
           maxChildSize: 0.94,
           minChildSize: 0.48,
           expand: false,
-          builder: (context, scrollController) => SingleChildScrollView(
-            controller: scrollController,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _sheetTitle(widget.strings.codex),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: sections
-                      .map(
-                        (item) => ChoiceChip(
-                          selected: section == item,
-                          onSelected: (_) => setModalState(() => section = item),
-                          label: Text(widget.strings.codexSectionLabel(item)),
+          builder: (context, scrollController) {
+            // Compute the flat item list once per section so the
+            // SliverList.builder has a known itemCount without rebuilding
+            // all widgets up-front.
+            final items = _codexSectionItems(
+              section,
+              orderedEras: orderedEras,
+              seenEvents: seenEvents,
+            );
+            return CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _sheetTitle(widget.strings.codex),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: sections
+                              .map(
+                                (item) => ChoiceChip(
+                                  selected: section == item,
+                                  onSelected: (_) =>
+                                      setModalState(() => section = item),
+                                  label: Text(
+                                      widget.strings.codexSectionLabel(item)),
+                                ),
+                              )
+                              .toList(),
                         ),
-                      )
-                      .toList(),
+                        // Static header for the selected section (stat lines,
+                        // summary text, etc.) — always a small fixed set of
+                        // widgets, never a long list.
+                        _buildCodexSectionHeader(
+                          section,
+                          orderedEras: orderedEras,
+                          seenEvents: seenEvents,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 14),
-                _buildCodexSection(
-                  section,
-                  orderedEras: orderedEras,
-                  seenEvents: seenEvents,
+                // Virtualized list — only the visible archive cards are built.
+                SliverList.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: _buildCodexItemWidget(items[index]),
+                  ),
                 ),
+                // Bottom padding inside scroll area.
+                const SliverToBoxAdapter(child: SizedBox(height: 20)),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildCodexSection(
+  /// Returns only the static header widgets for a codex section (stat lines,
+  /// summary text, etc.). These are a small, fixed set and are always built.
+  Widget _buildCodexSectionHeader(
+    String section, {
+    required List<Era> orderedEras,
+    required Set<String> seenEvents,
+  }) {
+    final codex = _controller.codexState;
+    return Padding(
+      padding: const EdgeInsets.only(top: 14, bottom: 4),
+      child: switch (section) {
+        'guide' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.guideAffinityLabel,
+                _controller.guideAffinity.toStringAsFixed(1),
+              ),
+              _statLine(
+                widget.strings.guideTierLabel,
+                widget.strings.formatGuideTier(_controller.guideTier),
+              ),
+            ],
+          ),
+        'route' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${widget.strings.playstyle}: ${widget.strings.formatPlaystyle(_controller.dominantPlaystyle)}\n${widget.strings.route}: ${_controller.state.chosenBranches.isEmpty ? widget.strings.hidden : _controller.state.chosenBranches.map(_branchLabel).join(' / ')}',
+                style: const TextStyle(color: Colors.white70, height: 1.35),
+              ),
+            ],
+          ),
+        'secrets' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.seenSecrets,
+                '${_controller.state.discoveredSecrets.length}',
+              ),
+            ],
+          ),
+        'collections' => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.codexCompletion,
+                '${codex.totalDiscovered}/${codex.totalAvailable}',
+              ),
+              _statLine(
+                widget.strings.metaProgressLabel,
+                '${_controller.metaProgression.relics.length} ${widget.strings.relicArchiveTitle} · ${_controller.metaProgression.memoryFragments.length} ${widget.strings.guideMemoryLog}',
+              ),
+            ],
+          ),
+        _ => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _statLine(
+                widget.strings.sceneArchive,
+                widget.strings.sceneArchiveProgress(
+                  _controller.completedSceneBadges.length,
+                  orderedEras.length,
+                ),
+              ),
+              _statLine(
+                widget.strings.eventCodex,
+                widget.strings.eventArchiveProgress(
+                  seenEvents.length,
+                  widget.config.progression.events.length,
+                ),
+              ),
+              _statLine(
+                widget.strings.codexCompletion,
+                '${codex.totalDiscovered}/${codex.totalAvailable}',
+              ),
+            ],
+          ),
+      },
+    );
+  }
+
+  /// Returns a flat list of [_CodexItemData] for [section]. Used by the
+  /// `SliverList.builder` in the codex sheet so items are virtualized and
+  /// only built when they scroll into view.
+  List<_CodexItemData> _codexSectionItems(
     String section, {
     required List<Era> orderedEras,
     required Set<String> seenEvents,
   }) {
     final codex = _controller.codexState;
     return switch (section) {
-      'guide' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.guideAffinityLabel,
-              _controller.guideAffinity.toStringAsFixed(1),
+      'guide' => codex.guideMemories.reversed
+          .map(
+            (memory) => _CodexItemData(
+              title: widget.strings.translateContent(memory.title),
+              subtitle: widget.strings.formatGuideMemoryType(memory.messageType),
+              body: widget.strings.translateContent(memory.content),
+              icon: Icons.smart_toy_rounded,
             ),
-            _statLine(
-              widget.strings.guideTierLabel,
-              widget.strings.formatGuideTier(_controller.guideTier),
+          )
+          .toList(growable: false),
+      'route' => codex.routeArchive
+          .map(
+            (entry) => _CodexItemData(
+              title: _routeArchiveTitle(entry),
+              subtitle:
+                  '${entry.completionPercentage.toStringAsFixed(0)}% · ${entry.roomsVisited.length}/${_controller.totalRooms}',
+              body:
+                  '${widget.strings.translateContent(entry.description)}\n${entry.branchesChosen.isEmpty ? widget.strings.hidden : entry.branchesChosen.map(_branchLabel).join(' / ')}',
+              icon: Icons.route_rounded,
             ),
-            const SizedBox(height: 10),
-            ...codex.guideMemories.reversed.map(
-              (memory) => _archiveCard(
-                title: widget.strings.translateContent(memory.title),
-                subtitle: widget.strings.formatGuideMemoryType(memory.messageType),
-                body: widget.strings.translateContent(memory.content),
-                icon: Icons.smart_toy_rounded,
-              ),
+          )
+          .toList(growable: false),
+      'secrets' => codex.secretArchive
+          .map(
+            (secret) => _CodexItemData(
+              title: widget.strings.translateContent(secret.title),
+              subtitle: secret.discovered
+                  ? widget.strings.discovered
+                  : widget.strings.hidden,
+              body: secret.discovered
+                  ? '${widget.strings.translateContent(secret.description)}\n${widget.strings.translateContent(secret.hint)}'
+                  : widget.strings.hiddenRouteHint,
+              icon: Icons.visibility_rounded,
             ),
-          ],
-        ),
-      'route' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${widget.strings.playstyle}: ${widget.strings.formatPlaystyle(_controller.dominantPlaystyle)}\n${widget.strings.route}: ${_controller.state.chosenBranches.isEmpty ? widget.strings.hidden : _controller.state.chosenBranches.map(_branchLabel).join(' / ')}',
-              style: const TextStyle(color: Colors.white70, height: 1.35),
+          )
+          .toList(growable: false),
+      'lore' => codex.sceneLore
+          .map(
+            (entry) => _CodexItemData(
+              title: widget.strings.translateContent(entry.title),
+              subtitle:
+                  '${widget.strings.currentRoom}: ${_roomLabel(entry.roomId)}',
+              body: widget.strings.translateContent(entry.content),
+              icon: Icons.menu_book_rounded,
             ),
-            const SizedBox(height: 12),
-            ...codex.routeArchive.map(
-              (entry) => _archiveCard(
-                title: _routeArchiveTitle(entry),
-                subtitle:
-                    '${entry.completionPercentage.toStringAsFixed(0)}% · ${entry.roomsVisited.length}/${_controller.totalRooms}',
-                body:
-                    '${widget.strings.translateContent(entry.description)}\n${entry.branchesChosen.isEmpty ? widget.strings.hidden : entry.branchesChosen.map(_branchLabel).join(' / ')}',
-                icon: Icons.route_rounded,
-              ),
+          )
+          .toList(growable: false),
+      'collections' => codex.entries
+          .map(
+            (entry) => _CodexItemData(
+              title: widget.strings.translateContent(entry.title),
+              subtitle:
+                  widget.strings.formatCodexEntryType(entry.type.name),
+              body: widget.strings.translateContent(entry.content),
+              icon: Icons.auto_stories_rounded,
             ),
-          ],
-        ),
-      'secrets' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.seenSecrets,
-              '${_controller.state.discoveredSecrets.length}',
-            ),
-            const SizedBox(height: 10),
-            ...codex.secretArchive.map(
-              (secret) => _archiveCard(
-                title: widget.strings.translateContent(secret.title),
-                subtitle: secret.discovered
-                    ? widget.strings.discovered
-                    : widget.strings.hidden,
-                body: secret.discovered
-                    ? '${widget.strings.translateContent(secret.description)}\n${widget.strings.translateContent(secret.hint)}'
-                    : widget.strings.hiddenRouteHint,
-                icon: Icons.visibility_rounded,
-              ),
-            ),
-          ],
-        ),
-      'lore' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ...codex.sceneLore.map(
-              (entry) => _archiveCard(
-                title: widget.strings.translateContent(entry.title),
-                subtitle: '${widget.strings.currentRoom}: ${_roomLabel(entry.roomId)}',
-                body: widget.strings.translateContent(entry.content),
-                icon: Icons.menu_book_rounded,
-              ),
-            ),
-          ],
-        ),
-      'collections' => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.codexCompletion,
-              '${codex.totalDiscovered}/${codex.totalAvailable}',
-            ),
-            _statLine(
-              widget.strings.metaProgressLabel,
-              '${_controller.metaProgression.relics.length} ${widget.strings.relicArchiveTitle} · ${_controller.metaProgression.memoryFragments.length} ${widget.strings.guideMemoryLog}',
-            ),
-            const SizedBox(height: 10),
-            ...codex.entries.map(
-              (entry) => _archiveCard(
-                title: widget.strings.translateContent(entry.title),
-                subtitle: widget.strings.formatCodexEntryType(entry.type.name),
-                body: widget.strings.translateContent(entry.content),
-                icon: Icons.auto_stories_rounded,
-              ),
-            ),
-          ],
-        ),
-      _ => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _statLine(
-              widget.strings.sceneArchive,
-              widget.strings.sceneArchiveProgress(
-                _controller.completedSceneBadges.length,
-                orderedEras.length,
-              ),
-            ),
-            _statLine(
-              widget.strings.eventCodex,
-              widget.strings.eventArchiveProgress(
-                seenEvents.length,
-                widget.config.progression.events.length,
-              ),
-            ),
-            _statLine(
-              widget.strings.codexCompletion,
-              '${codex.totalDiscovered}/${codex.totalAvailable}',
-            ),
-            const SizedBox(height: 12),
-            ...orderedEras.map((era) {
-              final bought = _roomUpgradeCount(era.id);
-              final total = _roomUpgradeTotal(era.id);
-              final completed = _controller.completedSceneBadges.contains(era.id);
-              return _archiveCard(
-                title: widget.strings.localizedEraName(era.name),
-                subtitle: completed
-                    ? widget.strings.sceneCompleted
-                    : widget.strings.notYetCompleted,
-                body:
-                    '${widget.strings.roomUpgradeProgress(bought, total)}\n${widget.strings.localizedEraDescription(era)}',
-                icon: Icons.meeting_room_rounded,
-                progress: total <= 0 ? 0 : (bought / total).clamp(0, 1),
-              );
-            }),
-          ],
-        ),
+          )
+          .toList(growable: false),
+      _ => orderedEras.map((era) {
+          final bought = _roomUpgradeCount(era.id);
+          final total = _roomUpgradeTotal(era.id);
+          final completed =
+              _controller.completedSceneBadges.contains(era.id);
+          return _CodexItemData(
+            title: widget.strings.localizedEraName(era.name),
+            subtitle: completed
+                ? widget.strings.sceneCompleted
+                : widget.strings.notYetCompleted,
+            body:
+                '${widget.strings.roomUpgradeProgress(bought, total)}\n${widget.strings.localizedEraDescription(era)}',
+            icon: Icons.meeting_room_rounded,
+            progress: total <= 0 ? 0 : (bought / total).clamp(0.0, 1.0),
+          );
+        }).toList(growable: false),
     };
   }
+
+  /// Builds the visual widget for a single [_CodexItemData]. Equivalent to
+  /// the old `_archiveCard` but receives a typed data object so item
+  /// construction is separated from item rendering.
+  Widget _buildCodexItemWidget(_CodexItemData item) {
+    return _archiveCard(
+      title: item.title,
+      subtitle: item.subtitle,
+      body: item.body,
+      icon: item.icon,
+      progress: item.progress,
+    );
+  }
+
 
   Widget _archiveCard({
     required String title,
@@ -4162,7 +4252,31 @@ class _GameScreenState extends State<GameScreen>
     );
   }
 
+  // Cached glass-box decorations to avoid per-build allocation.
+  static const BoxDecoration _kGlassBox22 = BoxDecoration(
+    color: Color(0xCC101A24),
+    borderRadius: BorderRadius.all(Radius.circular(22)),
+    border: Border.fromBorderSide(
+      BorderSide(color: Color(0x12FFFFFF)),
+    ),
+    boxShadow: [
+      BoxShadow(color: Color(0x44000000), blurRadius: 10, offset: Offset(0, 4)),
+    ],
+  );
+  static const BoxDecoration _kGlassBox16 = BoxDecoration(
+    color: Color(0xCC101A24),
+    borderRadius: BorderRadius.all(Radius.circular(16)),
+    border: Border.fromBorderSide(
+      BorderSide(color: Color(0x12FFFFFF)),
+    ),
+    boxShadow: [
+      BoxShadow(color: Color(0x44000000), blurRadius: 10, offset: Offset(0, 4)),
+    ],
+  );
+
   BoxDecoration _glassBox({double radius = 22}) {
+    if (radius == 22) return _kGlassBox22;
+    if (radius == 16) return _kGlassBox16;
     return BoxDecoration(
       color: const Color(0xCC101A24),
       borderRadius: BorderRadius.circular(radius),
@@ -4187,31 +4301,6 @@ class _GameScreenState extends State<GameScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
-  }
-
-  /// Compute a lightweight hash of state fields that affect the tech tree.
-  /// Used to avoid expensive TechTreeBuilder.build() calls every tick.
-  int _computeStateHash() {
-    final state = _controller.state;
-    // Combine key fields that affect tree rendering using integer-based hashing
-    var hash = state.coins.toStringFormatted().hashCode;
-    hash ^= state.generators.length.hashCode;
-    hash ^= state.upgrades.length.hashCode;
-    hash ^= state.unlockedEras.length.hashCode;
-    hash ^= state.discoveredSecrets.length.hashCode;
-    hash ^= state.unlockedMilestones.length.hashCode;
-    hash ^= state.chosenBranches.length.hashCode;
-    hash ^= state.currentEraId.hashCode;
-    hash ^= _selectedNodeId.hashCode;
-    hash ^= _purchaseMode.hashCode;
-    // Include total levels to detect purchases
-    for (final gen in state.generators.values) {
-      hash ^= gen.level.hashCode;
-    }
-    for (final upg in state.upgrades.values) {
-      hash ^= upg.level.hashCode;
-    }
-    return hash;
   }
 
   int _highestEraOrder() {
@@ -4354,3 +4443,24 @@ String _currentEra(GameController controller) {
 }
 
 enum _NodePurchaseState { canBuy, tooExpensive, locked, owned }
+
+
+/// Lightweight data holder for a single codex archive card.
+/// Separates data preparation from widget construction so the
+/// SliverList.builder can index into a pre-built list without
+/// constructing any widgets until an item scrolls into view.
+class _CodexItemData {
+  final String title;
+  final String subtitle;
+  final String body;
+  final IconData icon;
+  final double? progress;
+
+  const _CodexItemData({
+    required this.title,
+    required this.subtitle,
+    required this.body,
+    required this.icon,
+    this.progress,
+  });
+}

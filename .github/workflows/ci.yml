@@ -20,31 +20,38 @@ jobs:
           flutter-version: '3.29.3'
           channel: stable
       - run: flutter pub get
-      - name: Run Dart tests
+      - name: Run tests
         run: |
-          dart run test/core/math/game_number_test.dart
-          dart run test/domain/models/domain_models_test.dart
-          dart run test/domain/models/meta_codex_integration_test.dart
-          dart run test/domain/mechanics/cost_calculator_test.dart
-          dart run test/domain/mechanics/offline_progression_test.dart
-          dart run test/domain/systems/tap_system_test.dart
-          dart run test/domain/systems/generator_system_test.dart
-          dart run test/domain/systems/upgrade_system_test.dart
-          dart run test/application/game_controller_test.dart
-          dart run test/application/game_controller_room_test.dart
-          dart run test/application/robot_guide_service_test.dart
-          dart run test/application/robot_guide_trust_test.dart
-          dart run test/application/era_content_manager_test.dart
-          dart run test/application/room_scene_service_test.dart
-          dart run test/application/companion_service_test.dart
-          dart run test/application/route_service_test.dart
-          dart run test/application/side_activity_service_test.dart
-          dart run test/domain/models/companion_model_test.dart
-          dart run test/domain/models/route_faction_model_test.dart
-          dart run test/domain/models/side_activity_model_test.dart
-          dart run test/domain/models/room_scene_expansion_test.dart
-          dart run test/domain/models/post_core_systems_test.dart
-          dart run test/domain/models/ui_ux_systems_test.dart
+          flutter test test/core/math/game_number_test.dart
+          flutter test test/domain/models/domain_models_test.dart
+          flutter test test/domain/models/meta_codex_integration_test.dart
+          flutter test test/domain/mechanics/cost_calculator_test.dart
+          flutter test test/domain/mechanics/offline_progression_test.dart
+          flutter test test/domain/systems/tap_system_test.dart
+          flutter test test/domain/systems/generator_system_test.dart
+          flutter test test/domain/systems/upgrade_system_test.dart
+          flutter test test/application/game_controller_test.dart
+          flutter test test/application/game_controller_room_test.dart
+          flutter test test/application/robot_guide_service_test.dart
+          flutter test test/application/robot_guide_trust_test.dart
+          flutter test test/application/robot_guide_service_enhanced_test.dart
+          flutter test test/application/era_content_manager_test.dart
+          flutter test test/application/room_scene_service_test.dart
+          flutter test test/application/companion_service_test.dart
+          flutter test test/application/route_service_test.dart
+          flutter test test/application/side_activity_service_test.dart
+          flutter test test/domain/models/companion_model_test.dart
+          flutter test test/domain/models/route_faction_model_test.dart
+          flutter test test/domain/models/side_activity_model_test.dart
+          flutter test test/domain/models/room_scene_expansion_test.dart
+          flutter test test/domain/models/post_core_systems_test.dart
+          flutter test test/domain/models/ui_ux_systems_test.dart
+          flutter test test/presentation/game_screen_widget_test.dart
+          flutter test test/application/game_controller_perf_test.dart
+          flutter test test/presentation/tech_tree_viewport_test.dart
+          flutter test test/application/game_audio_service_preload_test.dart
+          flutter test test/presentation/room_overview_card_test.dart
+          flutter test test/presentation/game_screen_notifier_test.dart
 
   analyze:
     name: Analyze
