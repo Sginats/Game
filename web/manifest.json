@@ -1,12 +1,12 @@
 {
-    "name": "AI Evolution",
-    "short_name": "AI Evolution",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "AI Evolution - An idle/incremental mobile game",
-    "orientation": "portrait-primary",
-    "prefer_related_applications": false,
-    "icons": []
+  "name": "Room Zero — AI Evolution",
+  "short_name": "Room Zero",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#071018",
+  "theme_color": "#37BCD8",
+  "description": "A dark sci-fi incremental game about evolving an artificial intelligence.",
+  "orientation": "any",
+  "prefer_related_applications": false,
+  "icons": []
 }

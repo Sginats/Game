@@ -1,11 +1,11 @@
 name: ai_evolution
-description: AI Evolution - An idle/incremental mobile game where players evolve an artificial intelligence by unlocking technologies.
+description: Room Zero - A sci-fi incremental game about evolving an artificial intelligence.
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.10.0'
+  sdk: '>=3.7.0 <4.0.0'
+  flutter: '>=3.29.0'
 
 dependencies:
   flutter:
@@ -25,4 +25,6 @@ flutter:
 
   assets:
     - assets/config/
+    - assets/config/rooms/
     - assets/audio/
+    - assets/audio/rooms/

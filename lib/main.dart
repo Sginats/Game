@@ -73,10 +73,22 @@ class RoomZeroApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1B657A),
+          seedColor: const Color(0xFF37BCD8),
           brightness: Brightness.dark,
+        ).copyWith(
+          surface: const Color(0xFF101D29),
+          primary: const Color(0xFF37BCD8),
+          secondary: const Color(0xFF8DE8F2),
         ),
         scaffoldBackgroundColor: const Color(0xFF071018),
+        dividerColor: Colors.white12,
+        snackBarTheme: const SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: Color(0xFF37BCD8),
+          linearTrackColor: Color(0x332BB6D5),
+        ),
         useMaterial3: true,
       ),
       home: const GameLoader(),
@@ -260,6 +272,7 @@ class _GameLoaderState extends State<GameLoader> {
       if (currentRoom != null) {
         _audioService.setRoomAudioProfile(currentRoom.id);
       }
+      _updateService.dispose();
       _updateService = AppUpdateService(config: updateConfig);
       await _updateService.initialize(
         autoCheckEnabled: settings.autoCheckUpdates,
@@ -279,6 +292,19 @@ class _GameLoaderState extends State<GameLoader> {
     }
   }
 
+  Future<void> _retryLoadGame() async {
+    if (!mounted) return;
+    setState(() => _error = null);
+    await _loadGame();
+  }
+
+  @override
+  void dispose() {
+    _updateService.dispose();
+    unawaited(_audioService.stopAmbientLoop());
+    super.dispose();
+  }
+
   Future<void> _updateSettings(AppSettings settings) async {
     await _settingsService.save(settings);
     _audioService.setEnabled(settings.soundEnabled);
@@ -296,12 +322,83 @@ class _GameLoaderState extends State<GameLoader> {
 
     if (_error != null) {
       return Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Text(
-              _error!,
-              style: const TextStyle(color: Colors.redAccent),
+        body: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF102332), Color(0xFF05090E)],
+            ),
+          ),
+          child: SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 560),
+                  child: Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF132332),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: Colors.white12),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.warning_amber_rounded,
+                          color: Color(0xFFFFC46B),
+                          size: 36,
+                        ),
+                        const SizedBox(height: 14),
+                        const Text(
+                          'The game could not start',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Something went wrong while loading the game data. '
+                          'Retry the load; if it keeps failing, check the browser console or app logs.',
+                          style: TextStyle(color: Colors.white70, height: 1.45),
+                        ),
+                        const SizedBox(height: 16),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withAlpha(45),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: SelectableText(
+                            _error!,
+                            style: const TextStyle(
+                              color: Color(0xFFFFB8B8),
+                              fontSize: 12,
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: double.infinity,
+                          child: FilledButton.icon(
+                            onPressed: _retryLoadGame,
+                            icon: const Icon(Icons.refresh_rounded),
+                            label: const Text('Retry'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -387,143 +484,150 @@ class StartScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 620),
-              child: Padding(
-                padding: const EdgeInsets.all(28),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 110,
-                      height: 110,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF38BBD8), Color(0xFF0F5F74)],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.lightBlueAccent.withAlpha(60),
-                            blurRadius: 40,
-                            spreadRadius: 6,
-                          ),
-                        ],
-                      ),
-                      child: const Icon(Icons.account_tree_rounded,
-                          color: Colors.white, size: 50),
-                    ),
-                    const SizedBox(height: 28),
-                    const Text(
-                      'Room Zero',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    Text(
-                      strings.startIntro,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white70, height: 1.5),
-                    ),
-                    const SizedBox(height: 24),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(18),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(8),
-                        borderRadius: BorderRadius.circular(22),
-                        border: Border.all(color: Colors.white.withAlpha(14)),
-                      ),
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 620),
+                    child: Padding(
+                      padding: const EdgeInsets.all(28),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            strings.language,
-                            style: const TextStyle(
+                          Container(
+                            width: 110,
+                            height: 110,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF38BBD8), Color(0xFF0F5F74)],
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.lightBlueAccent.withAlpha(60),
+                                  blurRadius: 40,
+                                  spreadRadius: 6,
+                                ),
+                              ],
+                            ),
+                            child: const Icon(Icons.account_tree_rounded,
+                                color: Colors.white, size: 50),
+                          ),
+                          const SizedBox(height: 28),
+                          const Text(
+                            'Room Zero',
+                            style: TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
+                              fontSize: 40,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 14),
                           Text(
-                            strings.chooseStartLanguage,
-                            style: const TextStyle(
-                              color: Colors.white54,
-                              height: 1.4,
+                            strings.startIntro,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.white70, height: 1.5),
+                          ),
+                          const SizedBox(height: 24),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(18),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withAlpha(8),
+                              borderRadius: BorderRadius.circular(22),
+                              border: Border.all(color: Colors.white.withAlpha(14)),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  strings.language,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  strings.chooseStartLanguage,
+                                  style: const TextStyle(
+                                    color: Colors.white54,
+                                    height: 1.4,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                Wrap(
+                                  spacing: 10,
+                                  runSpacing: 10,
+                                  children: [
+                                    _LanguageChip(
+                                      label: strings.english,
+                                      selected:
+                                          settings.language == AppLanguage.english,
+                                      onTap: () => onLanguageChanged(
+                                        AppLanguage.english,
+                                      ),
+                                    ),
+                                    _LanguageChip(
+                                      label: strings.russian,
+                                      selected:
+                                          settings.language == AppLanguage.russian,
+                                      onTap: () => onLanguageChanged(
+                                        AppLanguage.russian,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 28),
                           Wrap(
                             spacing: 10,
                             runSpacing: 10,
+                            alignment: WrapAlignment.center,
                             children: [
-                              _LanguageChip(
-                                label: strings.english,
-                                selected:
-                                    settings.language == AppLanguage.english,
-                                onTap: () => onLanguageChanged(
-                                  AppLanguage.english,
-                                ),
+                              _StartChip(icon: Icons.ads_click, label: strings.comboTaps),
+                              _StartChip(
+                                icon: Icons.account_tree,
+                                label: strings.branchingTree,
                               ),
-                              _LanguageChip(
-                                label: strings.russian,
-                                selected:
-                                    settings.language == AppLanguage.russian,
-                                onTap: () => onLanguageChanged(
-                                  AppLanguage.russian,
-                                ),
+                              _StartChip(
+                                icon: Icons.bolt,
+                                label: strings.activeAbilities,
+                              ),
+                              _StartChip(
+                                icon: Icons.auto_awesome,
+                                label: strings.eventsAndMilestones,
                               ),
                             ],
+                          ),
+                          if (!settings.languageConfirmed) ...[
+                            const SizedBox(height: 16),
+                            Text(
+                              strings.languageRequired,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(color: Colors.white54),
+                            ),
+                          ],
+                          const SizedBox(height: 32),
+                          SizedBox(
+                            width: double.infinity,
+                            child: FilledButton(
+                              onPressed: settings.languageConfirmed ? onStart : null,
+                              style: FilledButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 18),
+                              ),
+                              child: Text(strings.enterRoomZero),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 28),
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        _StartChip(icon: Icons.ads_click, label: strings.comboTaps),
-                        _StartChip(
-                          icon: Icons.account_tree,
-                          label: strings.branchingTree,
-                        ),
-                        _StartChip(
-                          icon: Icons.bolt,
-                          label: strings.activeAbilities,
-                        ),
-                        _StartChip(
-                          icon: Icons.auto_awesome,
-                          label: strings.eventsAndMilestones,
-                        ),
-                      ],
-                    ),
-                    if (!settings.languageConfirmed) ...[
-                      const SizedBox(height: 16),
-                      Text(
-                        strings.languageRequired,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.white54),
-                      ),
-                    ],
-                    const SizedBox(height: 32),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        onPressed: settings.languageConfirmed ? onStart : null,
-                        style: FilledButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 18),
-                        ),
-                        child: Text(strings.enterRoomZero),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
